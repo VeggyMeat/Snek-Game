@@ -13,56 +13,10 @@ public class HeadController : MonoBehaviour
 
     public GameObject circle;
 
-    private SnakeBody? head;
+    private BodyController? head;
     internal double angle;
 
     internal Vector3 velocityVector;
-
-    public Vector3 HeadPos()
-    {
-        if (head is null)
-        {
-            throw new Exception();
-        }
-
-        return head.physicalBody.transform.position;
-    }
-
-    public void AddBody(double lerpSpeed)
-    {
-        if (head is null)
-        {
-            head = new SnakeBody(null, this, lerpSpeed);
-        }
-        else
-        {
-            head.AddBody(lerpSpeed);
-        }
-    }
-
-    public void InstantiateBody(GameObject body)
-    {
-        // incomplete will have paramaters of data passed through
-
-        if (head is null)
-        {
-            throw new AlreadyInstantiatedException(-1);
-        }
-
-        head.InstantiateBody(body);
-    }
-
-    public int Length()
-    {
-        if (head is null)
-        {
-            return 0;
-        }
-        else
-        {
-            return head.Length();
-        }
-    }
 
     void Start()
     {
@@ -70,8 +24,7 @@ public class HeadController : MonoBehaviour
 
         for (int i = 0; i < 1; i++)
         {
-            AddBody(baseLerpSpeed);
-            InstantiateBody(Instantiate(circle));
+            AddBody(circle);
         }
     }
 
@@ -88,8 +41,7 @@ public class HeadController : MonoBehaviour
             if (!pressed)
             {
                 pressed = true;
-                AddBody(baseLerpSpeed);
-                InstantiateBody(Instantiate(circle));
+                AddBody(circle);
             }
         }
         else
@@ -119,6 +71,46 @@ public class HeadController : MonoBehaviour
 
 
             velocityVector = new Vector3((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)), 0);
+        }
+    }
+
+    public Vector3 HeadPos()
+    {
+        if (head is null)
+        {
+            throw new Exception();
+        }
+
+        return head.selfTransform.position;
+    }
+
+    public void AddBody(GameObject obj)
+    {
+        if (head is null)
+        {
+            GameObject body = Instantiate(obj);
+
+            head = body.GetComponent<BodyController>();
+
+            head.prev = null;
+
+            head.snake = this;
+        }
+        else
+        {
+            head.AddBody(obj, this);
+        }
+    }
+
+    public int Length()
+    {
+        if (head is null)
+        {
+            return 0;
+        }
+        else
+        {
+            return head.Length();
         }
     }
 }
