@@ -1,8 +1,3 @@
-- Remove Snake / Body class
-
-Move Snake / Body features into the controller
-
-
 - Learn how to do collisions, so that projectiles can actually deal damage to things
 
 
@@ -26,3 +21,9 @@ Would have to go back through every body in the chain and keep resolving until g
 IDEA: go through each segment and compare ALL previous segments to next one and equalise.
 
 (maybe not as hard)
+
+
+
+- Remove Snake / Body class ( DONE )
+
+Move Snake / Body features into the controller
