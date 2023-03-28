@@ -9,7 +9,7 @@ public class SnakeBody
 {
     internal SnakeBody? next;
     internal SnakeBody? prev;
-    internal Snake snake;
+    internal HeadController snake;
     internal bool isInstantiated;
     internal GameObject physicalBody;
     internal int health;
@@ -17,7 +17,7 @@ public class SnakeBody
     internal int maxHealth;
     readonly double lerpSpeed;
 
-    public SnakeBody(SnakeBody? prev, Snake snake, double lerpSpeed)
+    public SnakeBody(SnakeBody? prev, HeadController snake, double lerpSpeed)
     {
         this.prev = prev;
         this.snake = snake;

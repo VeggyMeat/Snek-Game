@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class HeadController : MonoBehaviour
 {
-    Snake snake;
     public double turningRate = 2;
     public double velocity = 3;
     public double baseLerpSpeed = 5;
@@ -14,38 +13,112 @@ public class HeadController : MonoBehaviour
 
     public GameObject circle;
 
-    // Start is called before the first frame update
+    private SnakeBody? head;
+    internal double angle;
+
+    internal Vector3 velocityVector;
+
+    public Vector3 HeadPos()
+    {
+        if (head is null)
+        {
+            throw new Exception();
+        }
+
+        return head.physicalBody.transform.position;
+    }
+
+    public void AddBody(double lerpSpeed)
+    {
+        if (head is null)
+        {
+            head = new SnakeBody(null, this, lerpSpeed);
+        }
+        else
+        {
+            head.AddBody(lerpSpeed);
+        }
+    }
+
+    public void InstantiateBody(GameObject body)
+    {
+        // incomplete will have paramaters of data passed through
+
+        if (head is null)
+        {
+            throw new AlreadyInstantiatedException(-1);
+        }
+
+        head.InstantiateBody(body);
+    }
+
+    public int Length()
+    {
+        if (head is null)
+        {
+            return 0;
+        }
+        else
+        {
+            return head.Length();
+        }
+    }
+
     void Start()
     {
-        snake = new Snake(turningRate, velocity);
+        velocityVector = new Vector3((float)(velocity * Math.Sin(turningRate)), (float)(velocity * Math.Cos(turningRate)), 0);
+
         for (int i = 0; i < 1; i++)
         {
-            snake.AddBody(baseLerpSpeed);
-            snake.InstantiateBody(Instantiate(circle));
+            AddBody(baseLerpSpeed);
+            InstantiateBody(Instantiate(circle));
         }
     }
 
     private void Update()
     {
-        snake.Update();
-        transform.position = snake.HeadPos();
+        transform.position = HeadPos();
     }
 
     private void FixedUpdate()
     {
+        // temp way to add bodies
         if (Input.GetKey(KeyCode.Space)) 
         {
             if (!pressed)
             {
                 pressed = true;
-                snake.AddBody(baseLerpSpeed);
-                snake.InstantiateBody(Instantiate(circle));
+                AddBody(baseLerpSpeed);
+                InstantiateBody(Instantiate(circle));
             }
         }
         else
         {
             pressed = false;
         }
-        snake.FixedUpdate();
+
+        // incomplete
+
+        bool rightPress = Input.GetKey(KeyCode.RightArrow);
+        bool leftPress = Input.GetKey(KeyCode.LeftArrow);
+
+        if (rightPress && leftPress)
+        {
+
+        }
+        else if (rightPress)
+        {
+            angle += turningRate * Time.deltaTime;
+
+            velocityVector = new Vector3((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)), 0);
+        }
+
+        else if (leftPress)
+        {
+            angle -= turningRate * Time.deltaTime;
+
+
+            velocityVector = new Vector3((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)), 0);
+        }
     }
 }
