@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
-    public Transform selfTransform;
+    public GameObject self;
+
+    internal Transform selfTransform;
+    internal Rigidbody2D selfRigid;
 
     internal BodyController? next;
     internal BodyController? prev;
@@ -15,12 +18,17 @@ public class BodyController : MonoBehaviour
 
     void Start()
     {
+        selfTransform = self.GetComponent<Transform>();
+        selfRigid = self.GetComponent<Rigidbody2D>();
+
         selfTransform.position = new Vector3(0, 0, 0);
+
+        snake.totalMass += selfRigid.mass;
     }
 
     void Update()
     {
-        Move();
+
     }
 
     void FixedUpdate()
@@ -129,14 +137,21 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    internal void Move()
+    internal void Move(float totalMass=0, List<Transform> objects = null)
     {
+        totalMass += selfRigid.mass;
+
         if (IsHead())
         {
-            selfTransform.position += snake.velocityVector * Time.deltaTime;
+            selfTransform.position += snake.velocityVector * Time.deltaTime; // / snake.totalMass;
+
+            objects = new List<Transform>() { selfTransform };
         }
         else
         {
+            // old
+
+            /*
             float targetDistance = 1.0f;
 
             Vector3 diff = prev.selfTransform.position - selfTransform.position;
@@ -148,6 +163,35 @@ public class BodyController : MonoBehaviour
             Vector3 diffNormalized = diff.normalized;
 
             selfTransform.position -= diffNormalized * error;
+            */
+
+            // new
+
+            float targetDistance = 1.0f;
+
+            Vector3 diff = prev.selfTransform.position - selfTransform.position;
+
+            float distance = diff.magnitude;
+
+            float error = targetDistance - distance;
+
+            Vector3 diffNormalized = diff.normalized;
+
+            float weight = selfRigid.mass / totalMass;
+
+            selfTransform.position -= diffNormalized * error * (1 - weight);
+
+            foreach (Transform tf in objects)
+            {
+                tf.position += diffNormalized * error * weight;
+            }
+
+            objects.Add(selfTransform);
+        }
+
+        if (next is not null)
+        {
+            next.Move(totalMass, objects);
         }
     }
 }

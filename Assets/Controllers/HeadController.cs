@@ -9,14 +9,17 @@ public class HeadController : MonoBehaviour
     public double turningRate = 2;
     public double velocity = 3;
     public double baseLerpSpeed = 5;
-    private bool pressed = false;
 
     public GameObject circle;
 
     private BodyController? head;
-    internal double angle;
 
+    internal double angle;
     internal Vector3 velocityVector;
+
+    private bool pressed = false;
+
+    internal float totalMass = 0;
 
     void Start()
     {
@@ -30,6 +33,8 @@ public class HeadController : MonoBehaviour
 
     private void Update()
     {
+        head.Move();
+
         transform.position = HeadPos();
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3097929996081691773}
   - component: {fileID: 5752464475428649807}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc962fb7fc6e054b99d95f22e07c52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfTransform: {fileID: 2962869946878335719}
+  self: {fileID: 2962869946878335705}
