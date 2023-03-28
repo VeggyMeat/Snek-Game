@@ -33,6 +33,8 @@ public class SnakeBody
 
         physicalBody.transform.position = new Vector3(0, 0, 0);
 
+        physicalBody.GetComponent<BodyController>().selfBody = this;
+
         isInstantiated = true;
     }
 
@@ -102,7 +104,8 @@ public class SnakeBody
         }
     }
 
-    internal void ChangeHealth(int quantity)
+    // returns whether the body survives or not
+    internal bool ChangeHealth(int quantity)
     {
         health += quantity;
 
@@ -125,8 +128,12 @@ public class SnakeBody
 
                 health = 0;
                 DestroySelf();
+
+                return false;
             }
         }
+
+        return true;
     }
 
     internal void DestroySelf()
@@ -143,33 +150,25 @@ public class SnakeBody
         }
     }
 
-    internal void Update()
+    internal void Move()
     {
-        // incomplete
-
         if (IsHead())
         {
             physicalBody.transform.position += snake.velocityVector * Time.deltaTime;
         }
         else
         {
-            // LERP towards SNEK HED
-
-            //physicalBody.transform.position = Vector3.Lerp(physicalBody.transform.position, prev.physicalBody.transform.position, (float)(lerpSpeed * Time.deltaTime));
-
-            // OR CHATGPT
-
             float targetDistance = 1.0f;
-            Vector3 diff = prev.physicalBody.transform.position - physicalBody.transform.position;
-            float distance = diff.magnitude;
-            float error = targetDistance - distance;
-            Vector3 diffNormalized = diff.normalized;
-            physicalBody.transform.position -= diffNormalized * error;
-        }
 
-        if (next is not null)
-        {
-            next.Update();
+            Vector3 diff = prev.physicalBody.transform.position - physicalBody.transform.position;
+
+            float distance = diff.magnitude;
+
+            float error = targetDistance - distance;
+
+            Vector3 diffNormalized = diff.normalized;
+
+            physicalBody.transform.position -= diffNormalized * error;
         }
     }
 }

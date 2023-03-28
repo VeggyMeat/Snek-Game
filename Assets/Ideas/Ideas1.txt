@@ -1,0 +1,28 @@
+- Remove Snake / Body class
+
+Move Snake / Body features into the controller
+
+
+- Learn how to do collisions, so that projectiles can actually deal damage to things
+
+
+- Start thinking about enemies
+
+
+- Make Snake head more general, so that it doesnt have to be player, so enemies can be SNEKS
+
+ ---- Movement rework: ---- 
+Each body part has a mass
+some body parts give extra speed
+
+ -- EASY -- 
+scale the velocity of the head of the snake inversely proportional to the total mass of snek
+
+ -- HARD --
+make it physically realistic, head applies a force instead of speed. Then the chain tension force acts both ways on each section.
+
+Would have to go back through every body in the chain and keep resolving until gaps are small OR just accept that there will be gaps.
+
+IDEA: go through each segment and compare ALL previous segments to next one and equalise.
+
+(maybe not as hard)

@@ -7,13 +7,12 @@ using UnityEngine;
 public class HeadController : MonoBehaviour
 {
     Snake snake;
-    public double turningRate;
-    public double velocity;
-    public double baseLerpSpeed;
-    public bool pressed;
+    public double turningRate = 2;
+    public double velocity = 3;
+    public double baseLerpSpeed = 5;
+    private bool pressed = false;
 
     public GameObject circle;
-    public GameObject square;
 
     // Start is called before the first frame update
     void Start()

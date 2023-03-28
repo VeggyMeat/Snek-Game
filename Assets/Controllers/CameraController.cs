@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject snakeHead;
     public Transform cameraTransform;
-    public double followSpeed;
+    public double followSpeed = 5;
 
     // Start is called before the first frame update
     void Start()

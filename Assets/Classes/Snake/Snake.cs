@@ -105,9 +105,6 @@ public class Snake
 
     public void Update()
     {
-        if (head is not null)
-        {
-            head.Update();
-        }
+
     }
 }
