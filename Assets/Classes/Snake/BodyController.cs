@@ -16,14 +16,24 @@ public class BodyController : MonoBehaviour
     internal int defence;
     internal int maxHealth;
 
-    void Start()
+    // kinda like start, but called on creation, rather than before first update
+    internal void Setup(HeadController snake, BodyController? prev)
     {
+        this.snake = snake;
+
         selfTransform = self.GetComponent<Transform>();
         selfRigid = self.GetComponent<Rigidbody2D>();
 
         selfTransform.position = new Vector3(0, 0, 0);
 
         snake.totalMass += selfRigid.mass;
+
+        this.prev = prev;
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
@@ -59,9 +69,7 @@ public class BodyController : MonoBehaviour
 
             next = nextObj.GetComponent<BodyController>();
 
-            next.prev = this;
-
-            next.snake = snake;
+            next.Setup(snake, this);
         }
         else
         {
@@ -143,28 +151,12 @@ public class BodyController : MonoBehaviour
 
         if (IsHead())
         {
-            selfTransform.position += snake.velocityVector * Time.deltaTime; // / snake.totalMass;
+            selfTransform.position += snake.velocityVector * Time.deltaTime / selfRigid.mass;
 
             objects = new List<Transform>() { selfTransform };
         }
         else
         {
-            // old
-
-            /*
-            float targetDistance = 1.0f;
-
-            Vector3 diff = prev.selfTransform.position - selfTransform.position;
-
-            float distance = diff.magnitude;
-
-            float error = targetDistance - distance;
-
-            Vector3 diffNormalized = diff.normalized;
-
-            selfTransform.position -= diffNormalized * error;
-            */
-
             // new
 
             float targetDistance = 1.0f;
@@ -178,6 +170,8 @@ public class BodyController : MonoBehaviour
             Vector3 diffNormalized = diff.normalized;
 
             float weight = selfRigid.mass / totalMass;
+
+            UnityEngine.Debug.Log(weight);
 
             selfTransform.position -= diffNormalized * error * (1 - weight);
 

@@ -28,6 +28,8 @@ public class HeadController : MonoBehaviour
         for (int i = 0; i < 1; i++)
         {
             AddBody(circle);
+            head.selfRigid.mass = 0.5f;
+            totalMass = 0.5f;
         }
     }
 
@@ -97,9 +99,7 @@ public class HeadController : MonoBehaviour
 
             head = body.GetComponent<BodyController>();
 
-            head.prev = null;
-
-            head.snake = this;
+            head.Setup(this, null);
         }
         else
         {
