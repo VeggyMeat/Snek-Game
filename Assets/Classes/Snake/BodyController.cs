@@ -43,6 +43,7 @@ public class BodyController : MonoBehaviour
     void FixedUpdate()
     {
         lastMoved = selfRigid.position - lastPosition;
+        lastPosition = selfRigid.position;
     }
 
     internal bool IsHead()
@@ -156,8 +157,6 @@ public class BodyController : MonoBehaviour
         }
         else
         {
-            // new
-
             float targetDistance = 1.0f;
 
             Vector2 diff = prev.selfRigid.position - selfRigid.position;

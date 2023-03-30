@@ -23,7 +23,7 @@ public class BowMan : Archer
     public override void LaunchProjectile()
     {
         // pick a random angle
-        float angle = Random.Range(0, Mathf.PI);
+        float angle = Random.Range(0, 2 * Mathf.PI);
 
         // create the movement vector
         Vector2 movement = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * velocity;
