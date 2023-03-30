@@ -26,7 +26,7 @@ public class BowMan : Archer
         float angle = Random.Range(0, Mathf.PI);
 
         // create the movement vector
-        Vector3 movement = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * velocity;
+        Vector2 movement = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * velocity;
 
         // create the projectile
         GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.identity);

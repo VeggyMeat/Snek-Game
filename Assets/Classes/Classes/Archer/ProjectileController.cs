@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     public Rigidbody2D selfRigid;
-    public Vector3 movement;
+    public Vector2 movement;
     public float lifeSpan;
     private float timeAlive = 0f;
 
@@ -19,8 +19,6 @@ public class ProjectileController : MonoBehaviour
     void Update()
     {
         timeAlive += Time.deltaTime;
-        UnityEngine.Debug.Log(timeAlive);
-        UnityEngine.Debug.Log(lifeSpan);
         if (timeAlive >= lifeSpan)
         {
             Destroy(gameObject);

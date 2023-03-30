@@ -15,7 +15,7 @@ public class HeadController : MonoBehaviour
     private BodyController? head;
 
     internal double angle;
-    internal Vector3 velocityVector;
+    internal Vector2 velocityVector;
 
     private bool pressed = false;
 
@@ -23,7 +23,7 @@ public class HeadController : MonoBehaviour
 
     void Start()
     {
-        velocityVector = new Vector3((float)(velocity * Math.Sin(turningRate)), (float)(velocity * Math.Cos(turningRate)), 0);
+        velocityVector = new Vector2(0f, 0f);
 
         for (int i = 0; i < 1; i++)
         {
@@ -35,15 +35,8 @@ public class HeadController : MonoBehaviour
 
     private void Update()
     {
-        head.Move();
-
-        transform.position = HeadPos();
-    }
-
-    private void FixedUpdate()
-    {
         // temp way to add bodies
-        if (Input.GetKey(KeyCode.Space)) 
+        if (Input.GetKey(KeyCode.Space))
         {
             if (!pressed)
             {
@@ -55,7 +48,10 @@ public class HeadController : MonoBehaviour
         {
             pressed = false;
         }
+    }
 
+    private void FixedUpdate()
+    {
         // incomplete
 
         bool rightPress = Input.GetKey(KeyCode.RightArrow);
@@ -69,7 +65,7 @@ public class HeadController : MonoBehaviour
         {
             angle += turningRate * Time.deltaTime;
 
-            velocityVector = new Vector3((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)), 0);
+            velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
         }
 
         else if (leftPress)
@@ -77,11 +73,15 @@ public class HeadController : MonoBehaviour
             angle -= turningRate * Time.deltaTime;
 
 
-            velocityVector = new Vector3((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)), 0);
+            velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
         }
+
+        head.Move();
+
+        transform.position = HeadPos();
     }
 
-    public Vector3 HeadPos()
+    public Vector2 HeadPos()
     {
         if (head is null)
         {
