@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Archer : MonoBehaviour
 {
-    public GameObject projectile;
-    public float timeDelay;
-    public 
+    internal float timeDelay;
+    internal float velocity;
+    internal GameObject projectile;
+    internal float lifeSpan;
 
     void Start()
     {
@@ -20,6 +21,6 @@ public class Archer : MonoBehaviour
 
     public virtual void LaunchProjectile()
     {
-
+        throw new System.NotImplementedException();
     }
 }

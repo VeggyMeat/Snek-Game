@@ -155,9 +155,7 @@ MonoBehaviour:
   turningRate: 2
   velocity: 3
   baseLerpSpeed: 5
-  pressed: 0
-  circle: {fileID: 2962869946878335705, guid: 222d2ed0a78a06341b74d6fc6079f8c5, type: 3}
-  square: {fileID: 371831002159345190, guid: ebfa28cb2ceac584bb64b4c2788710f3, type: 3}
+  circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
 --- !u!4 &346601360
 Transform:
   m_ObjectHideFlags: 0

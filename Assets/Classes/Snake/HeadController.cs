@@ -28,8 +28,8 @@ public class HeadController : MonoBehaviour
         for (int i = 0; i < 1; i++)
         {
             AddBody(circle);
-            head.selfRigid.mass = 0.5f;
-            totalMass = 0.5f;
+            head.gameObject.AddComponent<BowMan>();
+            head.gameObject.GetComponent<BowMan>().Setup();
         }
     }
 
@@ -88,7 +88,7 @@ public class HeadController : MonoBehaviour
             throw new Exception();
         }
 
-        return head.selfTransform.position;
+        return head.transform.position;
     }
 
     public void AddBody(GameObject obj)

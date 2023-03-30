@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
-    public GameObject self;
-
-    internal Transform selfTransform;
     internal Rigidbody2D selfRigid;
 
     internal BodyController? next;
@@ -16,15 +13,16 @@ public class BodyController : MonoBehaviour
     internal int defence;
     internal int maxHealth;
 
+    internal Vector3 lastMoved;
+
     // kinda like start, but called on creation, rather than before first update
-    internal void Setup(HeadController snake, BodyController? prev)
+    public void Setup(HeadController snake, BodyController? prev)
     {
         this.snake = snake;
 
-        selfTransform = self.GetComponent<Transform>();
-        selfRigid = self.GetComponent<Rigidbody2D>();
+        selfRigid = gameObject.GetComponent<Rigidbody2D>();
 
-        selfTransform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 0, 0);
 
         snake.totalMass += selfRigid.mass;
 
@@ -151,9 +149,9 @@ public class BodyController : MonoBehaviour
 
         if (IsHead())
         {
-            selfTransform.position += snake.velocityVector * Time.deltaTime / selfRigid.mass;
+            transform.position += snake.velocityVector * Time.deltaTime / selfRigid.mass;
 
-            objects = new List<Transform>() { selfTransform };
+            objects = new List<Transform>() { transform };
         }
         else
         {
@@ -161,7 +159,7 @@ public class BodyController : MonoBehaviour
 
             float targetDistance = 1.0f;
 
-            Vector3 diff = prev.selfTransform.position - selfTransform.position;
+            Vector3 diff = prev.transform.position - transform.position;
 
             float distance = diff.magnitude;
 
@@ -171,16 +169,16 @@ public class BodyController : MonoBehaviour
 
             float weight = selfRigid.mass / totalMass;
 
-            UnityEngine.Debug.Log(weight);
+            transform.position -= diffNormalized * error * (1 - weight);
 
-            selfTransform.position -= diffNormalized * error * (1 - weight);
+            lastMoved = (weight - 1) * error * diffNormalized;
 
             foreach (Transform tf in objects)
             {
                 tf.position += diffNormalized * error * weight;
             }
 
-            objects.Add(selfTransform);
+            objects.Add(transform);
         }
 
         if (next is not null)
