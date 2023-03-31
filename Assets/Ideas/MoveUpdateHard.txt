@@ -1,6 +1,0 @@
-Move the move() update function back into headController
-
-Each instance calls the next one in the chain.
-
-Keep a counter of total mass encountered so far
-

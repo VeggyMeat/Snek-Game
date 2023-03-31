@@ -10,11 +10,11 @@ public class BowMan : Archer
     {
         timeDelay = 1f;
         velocity = 10f;
-        projectile = Resources.Load<GameObject>("BowManProjectile");
+        projectile = Resources.Load<GameObject>("Projectile1");
         lifeSpan = 5f;
+        projectileDamage = 25;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -31,14 +31,14 @@ public class BowMan : Archer
         // create the projectile
         GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.identity);
 
+        // gets the controller of the projectile and adds it to the list
         ProjectileController controller = projectile.GetComponent<ProjectileController>();
-
         controllerList.Add(controller);
-
+        
+        // gives the projectile its properties
         controller.movement = movement + gameObject.GetComponent<BodyController>().lastMoved;
-
         controller.transform.eulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg + 90);
-
         controller.lifeSpan = lifeSpan;
+        controller.damage = projectileDamage;
     }
 }

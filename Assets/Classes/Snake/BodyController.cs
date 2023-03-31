@@ -143,6 +143,8 @@ public class BodyController : MonoBehaviour
         {
             prev.next = next;
         }
+
+        Destroy(gameObject);
     }
 
     internal void Move(float totalMass=0, List<Rigidbody2D> objects = null, List<Vector2> positions = null)

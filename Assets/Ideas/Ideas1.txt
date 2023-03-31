@@ -6,7 +6,16 @@
 
 - Make Snake head more general, so that it doesnt have to be player, so enemies can be SNEKS
 
- ---- Movement rework: ---- 
+
+
+
+
+- Remove Snake / Body class ( DONE )
+
+Move Snake / Body features into the controller
+
+
+ ---- Movement rework: ----  ( DONE )
 Each body part has a mass
 some body parts give extra speed
 
@@ -21,9 +30,3 @@ Would have to go back through every body in the chain and keep resolving until g
 IDEA: go through each segment and compare ALL previous segments to next one and equalise.
 
 (maybe not as hard)
-
-
-
-- Remove Snake / Body class ( DONE )
-
-Move Snake / Body features into the controller

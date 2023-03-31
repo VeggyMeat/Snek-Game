@@ -8,6 +8,7 @@ public class Archer : MonoBehaviour
     internal float velocity;
     internal GameObject projectile;
     internal float lifeSpan;
+    internal int projectileDamage;
 
     void Start()
     {
