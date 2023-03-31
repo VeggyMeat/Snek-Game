@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -413,13 +413,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 7656828050263642448, guid: ab2899b3308a4724884d17e33d7ed676, type: 3}
+  - {fileID: 7656828050263642448, guid: 045feb5fb2c77da48a3917770dde42c4, type: 3}
   spawnClumps: 25
   spawnDelay: 10
   firstDelay: 5
-  insideHeight: 7
-  insideWidth: 11.5
-  outsideHeight: 10
-  outsideWidth: 14.5
+  insideHeight: 12
+  insideWidth: 20
+  outsideHeight: 15
+  outsideWidth: 23
 --- !u!4 &878517557
 Transform:
   m_ObjectHideFlags: 0
