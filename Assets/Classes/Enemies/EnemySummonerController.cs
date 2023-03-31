@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySummonerController : MonoBehaviour
 {
     public List<GameObject> enemyPrefabs;
+
     public int spawnClumps;
     public float spawnDelay;
     public float firstDelay;
@@ -15,12 +16,15 @@ public class EnemySummonerController : MonoBehaviour
     public float outsideWidth;
 
     internal Transform cameraTransform;
+    internal List<GameObject> enemies;
 
     // Start is called before the first frame update
     void Start()
     {
         cameraTransform = GameObject.Find("Main Camera").transform;
         InvokeRepeating("SpawnEnemies", firstDelay, spawnDelay);
+
+        enemies = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -48,7 +52,9 @@ public class EnemySummonerController : MonoBehaviour
                 spawnPosition = new Vector3(xSign1 * Random.Range(0, outsideWidth) + cameraTransform.position.x, xSign2 * Random.Range(insideHeight, outsideHeight) + cameraTransform.position.y, 0);
             }
 
-            Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
+
+            enemies.Add(enemy);
         }
     }
 }

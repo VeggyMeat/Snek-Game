@@ -8,10 +8,10 @@ public class BowMan : Archer
 
     public void Setup()
     {
-        timeDelay = 1f;
+        timeDelay = 0.25f;
         velocity = 10f;
         projectile = Resources.Load<GameObject>("Projectile1");
-        lifeSpan = 5f;
+        lifeSpan = 2.5f;
         projectileDamage = 25;
     }
 

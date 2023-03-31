@@ -49,7 +49,7 @@ public class EnemyControllerBasic : MonoBehaviour
         {
             // lost health trigger
 
-            if (health < 0)
+            if (health <= 0)
             {
                 // death trigger
 
