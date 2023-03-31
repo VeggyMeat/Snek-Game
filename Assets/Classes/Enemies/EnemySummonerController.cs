@@ -37,7 +37,16 @@ public class EnemySummonerController : MonoBehaviour
             int xSign1 = Random.Range(0, 2) * 2 - 1;
             int xSign2 = Random.Range(0, 2) * 2 - 1;
 
-            Vector3 spawnPosition = new Vector3(xSign1 * Random.Range(insideWidth, outsideWidth) + cameraTransform.position.x, xSign2 * Random.Range(insideHeight, outsideHeight) + cameraTransform.position.y, 0);
+            Vector3 spawnPosition;
+
+            if (Random.Range(0, 2) == 0)
+            {
+                spawnPosition = new Vector3(xSign1 * Random.Range(insideWidth, outsideWidth) + cameraTransform.position.x, xSign2 * Random.Range(0, outsideHeight) + cameraTransform.position.y, 0);
+            }
+            else
+            {
+                spawnPosition = new Vector3(xSign1 * Random.Range(0, outsideWidth) + cameraTransform.position.x, xSign2 * Random.Range(insideHeight, outsideHeight) + cameraTransform.position.y, 0);
+            }
 
             Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
         }
