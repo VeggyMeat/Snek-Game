@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,8 @@ public class BodyController : MonoBehaviour
     internal BodyController? prev;
     internal HeadController snake;
     internal int health;
-    internal int defence;
-    internal int maxHealth;
+    internal int defence = 0;
+    internal int maxHealth = 100;
 
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;
@@ -19,6 +20,8 @@ public class BodyController : MonoBehaviour
     // kinda like start, but called on creation, rather than before first update
     public void Setup(HeadController snake, BodyController? prev)
     {
+        health = maxHealth;
+
         this.snake = snake;
 
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
@@ -102,10 +105,10 @@ public class BodyController : MonoBehaviour
     // returns whether the body survives or not
     internal bool ChangeHealth(int quantity)
     {
-        health += quantity;
-
         if (quantity > 0)
         {
+            health += quantity;
+
             // increase health trigger
 
             if (health > maxHealth)
@@ -115,9 +118,18 @@ public class BodyController : MonoBehaviour
         }
         else if (quantity < 0)
         {
+            quantity = Math.Abs(quantity) - defence;
+
+            if (quantity < 0)
+            {
+                return true;
+            }
+
+            health -= quantity;
+            
             // lost health trigger
 
-            if (health < 0)
+            if (health <= 0)
             {
                 // death trigger
 

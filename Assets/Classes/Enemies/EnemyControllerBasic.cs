@@ -7,6 +7,7 @@ public class EnemyControllerBasic : MonoBehaviour
     public float speed = 2f;
     public float angularVelocity = 30f;
     public int maxHealth = 100;
+    public int contactDamage = 5;
     
     internal int health;
     internal Rigidbody2D selfRigid;
@@ -60,5 +61,20 @@ public class EnemyControllerBasic : MonoBehaviour
         }
 
         return true;
+    }
+
+    // checks for collision against player
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            // get the player controller
+            BodyController body = collision.gameObject.GetComponent<BodyController>();
+
+            // apply damage to the player
+            body.ChangeHealth(-contactDamage);
+
+            Destroy(gameObject);
+        }
     }
 }
