@@ -12,7 +12,7 @@ public class HeadController : MonoBehaviour
 
     public GameObject circle;
 
-    private BodyController? head;
+    internal BodyController? head;
 
     internal double angle;
     internal Vector2 velocityVector;

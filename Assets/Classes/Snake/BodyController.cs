@@ -155,6 +155,10 @@ public class BodyController : MonoBehaviour
         {
             prev.next = next;
         }
+        else
+        {
+            snake.head = next;
+        }
 
         Destroy(gameObject);
     }
