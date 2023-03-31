@@ -42,7 +42,7 @@ public class BodyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        lastMoved = selfRigid.position - lastPosition;
+        lastMoved = (selfRigid.position - lastPosition) / Time.deltaTime;
         lastPosition = selfRigid.position;
     }
 
