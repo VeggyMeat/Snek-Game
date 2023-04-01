@@ -68,8 +68,6 @@ public class BowMan : Archer
     {
         base.LevelUp();
 
-        Debug.Log(level);
-
         // on level 2
         if (level == 2)
         {
