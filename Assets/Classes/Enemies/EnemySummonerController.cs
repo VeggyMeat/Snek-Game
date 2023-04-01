@@ -26,7 +26,7 @@ public class EnemySummonerController : MonoBehaviour
         cameraTransform = GameObject.Find("Main Camera").transform;
 
         // triggers the SpawnEnemies function every spawnDelay seconds
-        InvokeRepeating("SpawnEnemies", firstDelay, spawnDelay);
+        InvokeRepeating(nameof(SpawnEnemies), firstDelay, spawnDelay);
 
         // creates a list to store the enemies summoned
         enemies = new List<GameObject>();

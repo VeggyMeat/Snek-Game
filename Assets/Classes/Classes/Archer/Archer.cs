@@ -12,6 +12,8 @@ public class Archer : MonoBehaviour
     internal int projectileDamage;
     internal int enemiesKilled;
     internal int xp;
+    internal List<int> levelUps;
+    internal int level = 1;
 
     void Start()
     {
@@ -19,8 +21,8 @@ public class Archer : MonoBehaviour
         enemiesKilled = 0;
         xp = 0;
 
-        // runs the LaunchProjectile function every timeDelay seconds
-        InvokeRepeating("LaunchProjectile", timeDelay, timeDelay);
+        // starts firing the projectiles
+        StartRepeatingProjectile();
     }
 
     void Update()
@@ -28,17 +30,46 @@ public class Archer : MonoBehaviour
         
     }
 
+    internal void ResetRepeatingProjectile()
+    {
+        // stops the current repeat
+        CancelInvoke();
+
+        // starts a new one
+        StartRepeatingProjectile();
+    }
+
+    // runs the LaunchProjectile function every timeDelay seconds
+    internal void StartRepeatingProjectile()
+    {
+        InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
+    }
+
     // creates a base case incase not implemented
-    public virtual void LaunchProjectile()
+    internal virtual void LaunchProjectile()
     {
         throw new System.NotImplementedException();
     }
 
     // called when an enemy is killed by a created projectile
-    public virtual void EnemyKilled(GameObject enemy)
+    internal virtual void EnemyKilled(GameObject enemy)
     {
         // increases the enemy killed count, and the xp count
         enemiesKilled++;
         xp += enemy.GetComponent<EnemyControllerBasic>().XPDrop;
+
+        if (levelUps.Count > 0 )
+        {
+            if (xp >= levelUps[0])
+            {
+                levelUps.RemoveAt(0);
+                LevelUp();
+            }
+        }
+    }
+
+    internal virtual void LevelUp()
+    {
+        level++;
     }
 }

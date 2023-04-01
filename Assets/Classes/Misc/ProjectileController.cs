@@ -18,16 +18,14 @@ public class ProjectileController : MonoBehaviour
         // gets the rigid body and sets the velocity of the projectile
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
         selfRigid.velocity = movement;
+
+        // kills the projectile in lifeSpan seconds
+        Invoke(nameof(Die), lifeSpan);
     }
 
     void Update()
     {
-        // checks if the projectile has been alive longer than its lifespan, destroying it if it has
-        timeAlive += Time.deltaTime;
-        if (timeAlive >= lifeSpan)
-        {
-            Die();
-        }
+
     }
 
     // called when the projectile dies

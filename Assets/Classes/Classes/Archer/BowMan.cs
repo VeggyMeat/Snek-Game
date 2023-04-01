@@ -6,8 +6,9 @@ public class BowMan : Archer
 {
     List<ProjectileController> controllerList = new List<ProjectileController>();
     internal int projectileCount;
+    internal int enemyDeathVolleyCount;
 
-    public void Setup()
+    internal void Setup()
     {
         // sets up starting variables
         timeDelay = 0.25f;
@@ -16,6 +17,8 @@ public class BowMan : Archer
         lifeSpan = 2.5f;
         projectileDamage = 25;
         projectileCount = 3;
+        enemyDeathVolleyCount = 3;
+        levelUps = new List<int> { 100, 500 };
     }
 
     void Update()
@@ -24,7 +27,7 @@ public class BowMan : Archer
     }
 
     // called regularly by archer
-    public override void LaunchProjectile()
+    internal override void LaunchProjectile()
     {
         for (int i = 0; i < projectileCount; i++)
         {
@@ -48,5 +51,40 @@ public class BowMan : Archer
             controller.damage = projectileDamage;
             controller.archer = this;
         }
+    }
+
+    // on killing an enemy, shoots a volley round of projectiles
+    internal override void EnemyKilled(GameObject enemy)
+    {
+        base.EnemyKilled(enemy);
+
+        for (int i = 0; i < enemyDeathVolleyCount; i++) 
+        {
+            LaunchProjectile();
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        Debug.Log(level);
+
+        // on level 2
+        if (level == 2)
+        {
+            // increases projectileCount, decreases time inbetween
+            projectileCount = 5;
+            timeDelay = 0.2f;
+        }
+        // on level 3
+        else if (level == 3) 
+        {
+            // doubles the damage of projectiles, increases death volley
+            projectileDamage = 50;
+            enemyDeathVolleyCount = 5;
+        }
+
+        ResetRepeatingProjectile();
     }
 }
