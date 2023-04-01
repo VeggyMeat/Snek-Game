@@ -9,7 +9,7 @@ public class EnemyControllerBasic : MonoBehaviour
     public int maxHealth = 100;
     public int contactDamage = 5;
     public int XPDrop = 10;
-    public int despawnRadius = 50;
+    public int despawnRadius = 30;
     
     internal int health;
     internal Rigidbody2D selfRigid;
@@ -104,7 +104,11 @@ public class EnemyControllerBasic : MonoBehaviour
             // apply damage to the player
             body.ChangeHealth(-contactDamage);
 
-            Die();
+            // take damage from the body
+            ChangeHealth(body.contactDamage);
+
+            // get hit away from the player
+            selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.contactForce);
         }
     }
 }

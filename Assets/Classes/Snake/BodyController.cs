@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
+    public int defence = 0;
+    public int maxHealth = 100;
+    public int contactDamage = 25;
+    public int contactForce = 2000;
+
     internal Rigidbody2D selfRigid;
 
     internal BodyController? next;
     internal BodyController? prev;
     internal HeadController snake;
     internal int health;
-    internal int defence = 0;
-    internal int maxHealth = 100;
 
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;

@@ -14,12 +14,14 @@ public class Archer : MonoBehaviour
     internal int xp;
     internal List<int> levelUps;
     internal int level = 1;
+    internal BodyController body;
 
-    void Start()
+    internal virtual void Setup()
     {
         // sets up starting variables
         enemiesKilled = 0;
         xp = 0;
+        body = GetComponent<BodyController>();
 
         // starts firing the projectiles
         StartRepeatingProjectile();
@@ -42,7 +44,7 @@ public class Archer : MonoBehaviour
     // runs the LaunchProjectile function every timeDelay seconds
     internal void StartRepeatingProjectile()
     {
-        InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
+        // InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
     }
 
     // creates a base case incase not implemented

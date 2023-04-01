@@ -156,4 +156,4 @@ MonoBehaviour:
   maxHealth: 25
   contactDamage: 5
   XPDrop: 5
-  despawnRadius: 50
+  despawnRadius: 30

@@ -8,17 +8,24 @@ public class BowMan : Archer
     internal int projectileCount;
     internal int enemyDeathVolleyCount;
 
-    internal void Setup()
+    internal override void Setup()
     {
-        // sets up starting variables
+        // calls the archer's setup
+        base.Setup();
+
+        // sets up starting variables for the archer
         timeDelay = 0.25f;
         velocity = 10f;
         projectile = Resources.Load<GameObject>("Projectile1");
         lifeSpan = 2.5f;
-        projectileDamage = 25;
+        projectileDamage = 20;
         projectileCount = 3;
-        enemyDeathVolleyCount = 3;
-        levelUps = new List<int> { 100, 500 };
+        enemyDeathVolleyCount = 1;
+        levelUps = new List<int> { 500, 2500 };
+
+        // also sets up starting variables for the body
+        // body.contactDamage = 20;
+        // body.contactForce = 2000;
     }
 
     void Update()
@@ -79,8 +86,8 @@ public class BowMan : Archer
         else if (level == 3) 
         {
             // doubles the damage of projectiles, increases death volley
-            projectileDamage = 50;
-            enemyDeathVolleyCount = 5;
+            projectileDamage = 40;
+            enemyDeathVolleyCount = 3;
         }
 
         ResetRepeatingProjectile();

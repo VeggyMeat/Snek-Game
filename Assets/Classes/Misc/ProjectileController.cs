@@ -11,8 +11,6 @@ public class ProjectileController : MonoBehaviour
     internal float lifeSpan;
     internal int damage;
 
-    private float timeAlive = 0f;
-
     void Start()
     {
         // gets the rigid body and sets the velocity of the projectile
