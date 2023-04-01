@@ -10,9 +10,6 @@ public class BowMan : Archer
 
     internal override void Setup()
     {
-        // calls the archer's setup
-        base.Setup();
-
         // sets up starting variables for the archer
         timeDelay = 0.25f;
         velocity = 10f;
@@ -23,9 +20,15 @@ public class BowMan : Archer
         enemyDeathVolleyCount = 1;
         levelUps = new List<int> { 500, 2500 };
 
+        // calls the archer's setup
+        base.Setup();
+
         // also sets up starting variables for the body
         // body.contactDamage = 20;
         // body.contactForce = 2000;
+
+        // sets the body's colour to a dark green
+        GetComponent<SpriteRenderer>().color = new Color(0.233f, 0.541f, 0.249f);
     }
 
     void Update()
@@ -73,6 +76,8 @@ public class BowMan : Archer
 
     internal override void LevelUp()
     {
+        Debug.Log("LEVEL UP");
+
         base.LevelUp();
 
         // on level 2

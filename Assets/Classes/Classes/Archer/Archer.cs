@@ -3,25 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Archer : MonoBehaviour
+public class Archer : Class
 {
     internal float timeDelay;
     internal float velocity;
     internal GameObject projectile;
     internal float lifeSpan;
     internal int projectileDamage;
-    internal int enemiesKilled;
-    internal int xp;
-    internal List<int> levelUps;
-    internal int level = 1;
-    internal BodyController body;
 
-    internal virtual void Setup()
+    internal override void Setup()
     {
-        // sets up starting variables
-        enemiesKilled = 0;
-        xp = 0;
-        body = GetComponent<BodyController>();
+        base.Setup();
 
         // starts firing the projectiles
         StartRepeatingProjectile();
@@ -44,7 +36,7 @@ public class Archer : MonoBehaviour
     // runs the LaunchProjectile function every timeDelay seconds
     internal void StartRepeatingProjectile()
     {
-        // InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
+        InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
     }
 
     // creates a base case incase not implemented
@@ -54,24 +46,13 @@ public class Archer : MonoBehaviour
     }
 
     // called when an enemy is killed by a created projectile
-    internal virtual void EnemyKilled(GameObject enemy)
+    internal override void EnemyKilled(GameObject enemy)
     {
-        // increases the enemy killed count, and the xp count
-        enemiesKilled++;
-        xp += enemy.GetComponent<EnemyControllerBasic>().XPDrop;
-
-        if (levelUps.Count > 0 )
-        {
-            if (xp >= levelUps[0])
-            {
-                levelUps.RemoveAt(0);
-                LevelUp();
-            }
-        }
+        base.EnemyKilled(enemy);
     }
 
-    internal virtual void LevelUp()
+    internal override void LevelUp()
     {
-        level++;
+        base.LevelUp();
     }
 }
