@@ -17,22 +17,27 @@ public class EnemySummonerController : MonoBehaviour
 
     internal Transform cameraTransform;
     internal List<GameObject> enemies;
+    internal int enemiesDead = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        // gets the camera object
         cameraTransform = GameObject.Find("Main Camera").transform;
+
+        // triggers the SpawnEnemies function every spawnDelay seconds
         InvokeRepeating("SpawnEnemies", firstDelay, spawnDelay);
 
+        // creates a list to store the enemies summoned
         enemies = new List<GameObject>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
-
+    
+    // spawns a number of enemies in random locations
     void SpawnEnemies()
     {
         for (int i = 0; i < spawnClumps; i++)
@@ -41,6 +46,7 @@ public class EnemySummonerController : MonoBehaviour
             int xSign1 = Random.Range(0, 2) * 2 - 1;
             int xSign2 = Random.Range(0, 2) * 2 - 1;
 
+            // creates a random position within the ranges defined
             Vector3 spawnPosition;
 
             if (Random.Range(0, 2) == 0)
@@ -52,8 +58,13 @@ public class EnemySummonerController : MonoBehaviour
                 spawnPosition = new Vector3(xSign1 * Random.Range(0, outsideWidth) + cameraTransform.position.x, xSign2 * Random.Range(insideHeight, outsideHeight) + cameraTransform.position.y, 0);
             }
 
+            // spawns an enemy at that random position
             GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
 
+            // sets the enemy's summoner to this
+            enemy.GetComponent<EnemyControllerBasic>().summoner = this;
+
+            // adds the enemy to the list of enemies to keep track
             enemies.Add(enemy);
         }
     }

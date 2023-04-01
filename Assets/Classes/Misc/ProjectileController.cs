@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    internal Archer archer;
     internal Rigidbody2D selfRigid;
+
     internal Vector2 movement;
     internal float lifeSpan;
     internal int damage;
@@ -13,17 +15,25 @@ public class ProjectileController : MonoBehaviour
 
     void Start()
     {
+        // gets the rigid body and sets the velocity of the projectile
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
         selfRigid.velocity = movement;
     }
 
     void Update()
     {
+        // checks if the projectile has been alive longer than its lifespan, destroying it if it has
         timeAlive += Time.deltaTime;
         if (timeAlive >= lifeSpan)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    // called when the projectile dies
+    public virtual void Die()
+    {
+        Destroy(gameObject);
     }
 
     // triggers when the projectile collides with something
@@ -36,7 +46,11 @@ public class ProjectileController : MonoBehaviour
             EnemyControllerBasic body = collision.gameObject.GetComponent<EnemyControllerBasic>();
 
             // apply damage to the enemy
-            body.ChangeHealth(-damage);
+            if (body.ChangeHealth(-damage))
+            {
+                // enemy has been killed
+                archer.EnemyKilled(collision.gameObject);
+            }
 
             // destroy the projectile
             Destroy(gameObject);

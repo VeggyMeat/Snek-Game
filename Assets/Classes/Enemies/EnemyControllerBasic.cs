@@ -8,26 +8,40 @@ public class EnemyControllerBasic : MonoBehaviour
     public float angularVelocity = 30f;
     public int maxHealth = 100;
     public int contactDamage = 5;
+    public int XPDrop = 10;
+    public int despawnRadius = 50;
     
     internal int health;
     internal Rigidbody2D selfRigid;
+    internal EnemySummonerController summoner;
 
     private Transform player;
 
     void Start()
     {
+        // sets up the rigid body and the player location
         selfRigid = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").GetComponent<Transform>();
 
+        // sets the spinning of the enemy
         selfRigid.angularVelocity = angularVelocity;
 
+        // sets the health to the max health
         health = maxHealth;
     }
 
     void FixedUpdate()
     {
+        // gets the Vector of the difference between the player and the enemy
         Vector2 difference = (Vector2)player.position - selfRigid.position;
 
+        // if its too far away, despawns
+        if (difference.magnitude > despawnRadius)
+        {
+            Despawn();
+        }
+
+        // moves directly towards the player
         selfRigid.MovePosition(speed * difference.normalized * Time.deltaTime + selfRigid.position);
     }
 
@@ -47,20 +61,36 @@ public class EnemyControllerBasic : MonoBehaviour
         }
         else if (quantity < 0)
         {
-            // lost health trigger
+            // lost health trigger (not implemented)
 
             if (health <= 0)
             {
-                // death trigger
 
                 health = 0;
-                Destroy(gameObject);
+                Die();
 
                 return false;
             }
         }
 
         return true;
+    }
+
+    // gets called when the enemy is due to die
+    internal virtual void Die()
+    {
+        // increases the count of dead enemies for the summoner
+        summoner.enemiesDead++;
+
+        // deletes this object
+        Destroy(gameObject);
+    }
+
+    // gets called when the enemy is despawned because of distance
+    internal virtual void Despawn()
+    {
+        // deletes this object
+        Destroy(gameObject);
     }
 
     // checks for collision against player
@@ -74,7 +104,7 @@ public class EnemyControllerBasic : MonoBehaviour
             // apply damage to the player
             body.ChangeHealth(-contactDamage);
 
-            Destroy(gameObject);
+            Die();
         }
     }
 }

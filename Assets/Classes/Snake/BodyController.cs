@@ -20,17 +20,15 @@ public class BodyController : MonoBehaviour
     // kinda like start, but called on creation, rather than before first update
     public void Setup(HeadController snake, BodyController? prev)
     {
+        // sets up the starting variables for the body
         health = maxHealth;
-
         this.snake = snake;
-
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
-
         selfRigid.position = new Vector2(0, 0);
-
-        snake.totalMass += selfRigid.mass;
-
         this.prev = prev;
+
+        // updates the total mass of the snake (unused right now)
+        snake.totalMass += selfRigid.mass;
     }
 
     void Start()
@@ -45,41 +43,35 @@ public class BodyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // updates the last moved vector for projectiles shot
         lastMoved = (selfRigid.position - lastPosition) / Time.deltaTime;
         lastPosition = selfRigid.position;
     }
 
+    // returns whether the body is the head of the snake
     internal bool IsHead()
     {
         return prev is null;
     }
 
-    internal int Place()
-    {
-        if (prev is null)
-        {
-            return 1;
-        }
-
-        return prev.Place();
-    }
-
+    // adds a new body to the snake
     internal void AddBody(GameObject obj, HeadController snake)
     {
         if (next is null)
         {
+            // creates the new body and sets it up
             GameObject nextObj = Instantiate(obj);
-
             next = nextObj.GetComponent<BodyController>();
-
             next.Setup(snake, this);
         }
         else
         {
+            // makes the next body add a new body behind it
             next.AddBody(obj, snake);
         }
     }
 
+    // returns the position of the body in the snake
     internal int Position()
     {
         if (prev is null)
@@ -90,6 +82,7 @@ public class BodyController : MonoBehaviour
         return prev.Position() + 1;
     }
 
+    // used to calculate the total length of the snake, returns the length of body parts from it
     internal int Length()
     {
         if (next is null)
@@ -145,8 +138,7 @@ public class BodyController : MonoBehaviour
 
     internal void DestroySelf()
     {
-        // todo: needs to delete the physical object
-
+        // removes itself from the linkedList
         if (next is not null)
         {
             next.prev = prev;
@@ -157,52 +149,73 @@ public class BodyController : MonoBehaviour
         }
         else
         {
+            // if it is the head, makes sure the snake's head is updated on the snake script
             snake.head = next;
         }
 
+        // destroys this body
         Destroy(gameObject);
     }
 
-    internal void Move(float totalMass=0, List<Rigidbody2D> objects = null, List<Vector2> positions = null)
+    // moves the body
+    internal void Move(float totalMass=0, List<Rigidbody2D> objects = null, List<Vector2> positions = null, float prevRadius = 0f)
     {
+        // updates the total mass seen so far
         totalMass += selfRigid.mass;
 
+        // gets the radius of the current circle
+        float radius = transform.localScale.x / 2;
+
+        // if it is the head, create the lists to pass on to the next instance, and move the head based on the angle facing and speed
         if (IsHead())
         {
             objects = new List<Rigidbody2D>() { selfRigid };
 
             positions = new List<Vector2>() { snake.velocityVector * Time.deltaTime / selfRigid.mass + selfRigid.position };
         }
+        // if not the head
         else
         {
-            float targetDistance = 1.0f;
+            // calculates the distance the objects should be apart
+            float targetDistance = radius + prevRadius;
 
+            // calculates the current distance apart as a vector
             Vector2 diff = prev.selfRigid.position - selfRigid.position;
 
+            // gets the magnitude of that
             float distance = diff.magnitude;
 
+            // figures out the error between actual distance and desired distance
             float error = targetDistance - distance;
 
+            // normalizes the difference vector
             Vector2 diffNormalized = diff.normalized;
 
+            // calculates the weighting in which side should be shifted more
             float weight = selfRigid.mass / totalMass;
 
+            // updates the position changes of each of the objects in the list, to be moved
             for (int i = 0; i < positions.Count; i++)
             {
+                // changes the position based off of the weight, error and the Vector between the two objects
                 positions[i] += diffNormalized * error * weight;
             }
 
+            // adds this objects position to the list, updated based on the inverse weighting, error and the Vector between the two objects
             positions.Add(selfRigid.position - (1 - weight) * error * diffNormalized);
 
+            // adds this object to the list
             objects.Add(selfRigid);
         }
 
         if (next is not null)
         {
-            next.Move(totalMass, objects, positions);
+            // makes the next body move, passing on the lists
+            next.Move(totalMass, objects, positions, radius);
         }
         else
         {
+            // actually updates the positions based on the list of where they should be
             for (int i = 0; i < objects.Count; i++)
             {
                 objects[i].MovePosition(positions[i]);
