@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turningRate: 2
-  velocity: 3
+  velocity: 15
   baseLerpSpeed: 5
   circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
 --- !u!4 &346601360

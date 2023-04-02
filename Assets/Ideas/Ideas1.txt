@@ -1,11 +1,16 @@
-- Learn how to do collisions, so that projectiles can actually deal damage to things
-
-
-- Start thinking about enemies
-
-
 - Make Snake head more general, so that it doesnt have to be player, so enemies can be SNEKS
 
+
+- Make a pickup controller, that can be inherited from, to add pickup-able items off of the ground
+
+
+- Make an xp system for the snake rather than just the bodies
+
+
+- Remove XP system from bodies
+
+
+- Make a scene that will be triggered on level up, allowing the player to pick an item / body to add / upgrade
 
 
 
@@ -30,3 +35,9 @@ Would have to go back through every body in the chain and keep resolving until g
 IDEA: go through each segment and compare ALL previous segments to next one and equalise.
 
 (maybe not as hard)
+
+
+- Learn how to do collisions, so that projectiles can actually deal damage to things ( DONE )
+
+
+- Start thinking about enemies ( DONE )

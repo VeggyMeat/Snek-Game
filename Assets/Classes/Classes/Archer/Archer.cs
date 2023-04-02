@@ -51,8 +51,8 @@ public class Archer : Class
         base.EnemyKilled(enemy);
     }
 
-    internal override void LevelUp()
+    internal virtual void LevelUp()
     {
-        base.LevelUp();
+
     }
 }

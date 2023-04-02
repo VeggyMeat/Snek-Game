@@ -66,6 +66,8 @@ public class BodyController : MonoBehaviour
             GameObject nextObj = Instantiate(obj);
             next = nextObj.GetComponent<BodyController>();
             next.Setup(snake, this);
+            next.gameObject.AddComponent<BowMan>();
+            next.gameObject.GetComponent<BowMan>().Setup();
         }
         else
         {

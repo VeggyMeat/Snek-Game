@@ -18,7 +18,6 @@ public class BowMan : Archer
         projectileDamage = 20;
         projectileCount = 3;
         enemyDeathVolleyCount = 1;
-        levelUps = new List<int> { 500, 2500 };
 
         // calls the archer's setup
         base.Setup();

@@ -6,29 +6,34 @@ using UnityEngine;
 
 public class HeadController : MonoBehaviour
 {
+    // movement related
     public double turningRate = 2;
     public double velocity = 3;
     public double baseLerpSpeed = 5;
 
     public GameObject circle;
 
+    // xp related
+    public int BaseXPLevelRequirement = 50;
+    public int XPIncreaseLevel = 25;
+
     internal BodyController? head;
 
     internal double angle;
     internal Vector2 velocityVector;
-
-    private bool pressed = false;
-
     internal float totalMass = 0;
+    internal int XP = 0;
+
+    private int XPLevelUp;
+    private bool pressed = false;
 
     void Start()
     {
+        XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
 
         // temporary code adding a BowMan body to the snake
         AddBody(circle);
-        head.gameObject.AddComponent<BowMan>();
-        head.gameObject.GetComponent<BowMan>().Setup();
     }
 
     private void Update()
@@ -82,8 +87,30 @@ public class HeadController : MonoBehaviour
         transform.position = HeadPos();
     }
 
+    internal void IncreaseXP(int amount)
+    {
+        XP += amount;
+
+        if (XP >= XPLevelUp)
+        {
+            LevelUp();
+        }
+    }
+
+    internal void LevelUp()
+    {
+        if (XP < XPLevelUp)
+        {
+            XP = XPLevelUp;
+        }
+
+        XPLevelUp += XPIncreaseLevel;
+
+        // bring to the level up scene
+    }
+
     // returns the position of the head if it exists
-    public Vector2 HeadPos()
+    internal Vector2 HeadPos()
     {
         if (head is null)
         {
@@ -94,7 +121,7 @@ public class HeadController : MonoBehaviour
     }
 
     // adds a new body to the snake
-    public void AddBody(GameObject obj)
+    internal void AddBody(GameObject obj)
     {
         if (head is null)
         {
@@ -102,6 +129,8 @@ public class HeadController : MonoBehaviour
             GameObject body = Instantiate(obj);
             head = body.GetComponent<BodyController>();
             head.Setup(this, null);
+            head.gameObject.AddComponent<BowMan>();
+            head.gameObject.GetComponent<BowMan>().Setup();
         }
         else
         {
@@ -111,7 +140,7 @@ public class HeadController : MonoBehaviour
     }
 
     // returns the total number of bodies in the snake
-    public int Length()
+    internal int Length()
     {
         if (head is null)
         {
