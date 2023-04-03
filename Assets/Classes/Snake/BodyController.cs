@@ -185,7 +185,7 @@ public class BodyController : MonoBehaviour
             float targetDistance = radius + prevRadius;
 
             // calculates the current distance apart as a vector
-            Vector2 diff = prev.selfRigid.position - selfRigid.position;
+            Vector2 diff = positions[positions.Count - 1] - selfRigid.position;
 
             // gets the magnitude of that
             float distance = diff.magnitude;
@@ -198,6 +198,8 @@ public class BodyController : MonoBehaviour
 
             // calculates the weighting in which side should be shifted more
             float weight = selfRigid.mass / totalMass;
+
+            Debug.Log(weight);
 
             // updates the position changes of each of the objects in the list, to be moved
             for (int i = 0; i < positions.Count; i++)
