@@ -9,6 +9,7 @@ public class BodyController : MonoBehaviour
     public int maxHealth = 100;
     public int contactDamage = 25;
     public int contactForce = 2000;
+    public double velocityContribution = 5;
 
     internal Rigidbody2D selfRigid;
 
@@ -32,6 +33,7 @@ public class BodyController : MonoBehaviour
 
         // updates the total mass of the snake (unused right now)
         snake.totalMass += selfRigid.mass;
+        snake.velocity += velocityContribution;
     }
 
     void Start()
@@ -198,8 +200,6 @@ public class BodyController : MonoBehaviour
 
             // calculates the weighting in which side should be shifted more
             float weight = selfRigid.mass / totalMass;
-
-            Debug.Log(weight);
 
             // updates the position changes of each of the objects in the list, to be moved
             for (int i = 0; i < positions.Count; i++)
