@@ -15,13 +15,19 @@ public class EnemySummonerController : MonoBehaviour
     public float outsideHeight;
     public float outsideWidth;
 
+    public GameObject triggerController;
+
     internal Transform cameraTransform;
     internal List<GameObject> enemies;
     internal int enemiesDead = 0;
 
+    private TriggerController triggerControllerScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        triggerControllerScript = triggerController.GetComponent<TriggerController>();
+
         // gets the camera object
         cameraTransform = GameObject.Find("Main Camera").transform;
 
@@ -62,7 +68,9 @@ public class EnemySummonerController : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
 
             // sets the enemy's summoner to this
-            enemy.GetComponent<EnemyControllerBasic>().summoner = this;
+            EnemyControllerBasic newEnemy = enemy.GetComponent<EnemyControllerBasic>();
+            newEnemy.summoner = this;
+            newEnemy.triggerController = triggerControllerScript;
 
             // adds the enemy to the list of enemies to keep track
             enemies.Add(enemy);

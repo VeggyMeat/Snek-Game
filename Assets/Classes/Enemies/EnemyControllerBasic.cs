@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class EnemyControllerBasic : MonoBehaviour
     internal int health;
     internal Rigidbody2D selfRigid;
     internal EnemySummonerController summoner;
+    internal TriggerController triggerController;
 
     private Transform player;
 
@@ -21,7 +23,7 @@ public class EnemyControllerBasic : MonoBehaviour
     {
         // sets up the rigid body and the player location
         selfRigid = GetComponent<Rigidbody2D>();
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("Player").GetComponent<Transform>(); 
 
         // sets the spinning of the enemy
         selfRigid.angularVelocity = angularVelocity;
@@ -82,6 +84,9 @@ public class EnemyControllerBasic : MonoBehaviour
         // increases the count of dead enemies for the summoner
         summoner.enemiesDead++;
 
+        // makes a trigger to the trigger controller that this has died
+        triggerController.enemyDied(gameObject);
+
         // deletes this object
         Destroy(gameObject);
     }
@@ -93,9 +98,9 @@ public class EnemyControllerBasic : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // checks for collision against player
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // checks for collision against player
         if (collision.gameObject.tag == "Player")
         {
             // get the player controller
@@ -110,5 +115,6 @@ public class EnemyControllerBasic : MonoBehaviour
             // get hit away from the player
             selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.contactForce);
         }
+
     }
 }

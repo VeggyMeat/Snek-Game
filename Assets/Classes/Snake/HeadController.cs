@@ -11,12 +11,13 @@ public class HeadController : MonoBehaviour
     public double baseLerpSpeed = 5;
 
     public GameObject circle;
+    public GameObject triggerController;
 
     // xp related
     public int BaseXPLevelRequirement = 50;
     public int XPIncreaseLevel = 25;
 
-    internal BodyController? head;
+    internal BodyController head;
 
     internal double angle;
     internal Vector2 velocityVector;
@@ -24,11 +25,16 @@ public class HeadController : MonoBehaviour
     internal int XP = 0;
     internal double velocity = 0;
 
+    private TriggerController triggerControllerScript;
+
     private int XPLevelUp;
     private bool pressed = false;
 
     void Start()
     {
+        // grabs the trigger controller script
+        triggerControllerScript = triggerController.GetComponent<TriggerController>();
+
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
 
@@ -128,9 +134,27 @@ public class HeadController : MonoBehaviour
             // creates the body and sets it up and places it as the head of the snake
             GameObject body = Instantiate(obj);
             head = body.GetComponent<BodyController>();
-            head.Setup(this, null);
-            head.gameObject.AddComponent<BowMan>();
-            head.gameObject.GetComponent<BowMan>().Setup();
+            head.Setup(this, null, triggerControllerScript);
+
+            // randomly choses one of two options
+            int choice = UnityEngine.Random.Range(0, 2);
+            
+            if (choice == 0)
+            {
+                // makes the body a bowman (TEMPORARY)
+                head.gameObject.AddComponent<BowMan>();
+                BowMan newObject = head.gameObject.GetComponent<BowMan>();
+                newObject.Setup();
+                
+            }
+            else
+            {
+                // makes the body a necro (TEMPORARY)
+                head.gameObject.AddComponent<Necro>();
+                Necro newObject = head.gameObject.GetComponent<Necro>();
+                newObject.controller = triggerControllerScript;
+                newObject.Setup();
+            }
         }
         else
         {

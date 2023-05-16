@@ -13,16 +13,18 @@ public class BodyController : MonoBehaviour
 
     internal Rigidbody2D selfRigid;
 
-    internal BodyController? next;
-    internal BodyController? prev;
+    internal BodyController next;
+    internal BodyController prev;
     internal HeadController snake;
     internal int health;
 
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;
 
+    private TriggerController triggerController;
+
     // kinda like start, but called on creation, rather than before first update
-    public void Setup(HeadController snake, BodyController? prev)
+    public void Setup(HeadController snake, BodyController prev, TriggerController controller)
     {
         // sets up the starting variables for the body
         health = maxHealth;
@@ -30,6 +32,7 @@ public class BodyController : MonoBehaviour
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
         selfRigid.position = new Vector2(0, 0);
         this.prev = prev;
+        triggerController = controller;
 
         // updates the total mass of the snake (unused right now)
         snake.totalMass += selfRigid.mass;
@@ -64,12 +67,31 @@ public class BodyController : MonoBehaviour
     {
         if (next is null)
         {
-            // creates the new body and sets it up
-            GameObject nextObj = Instantiate(obj);
-            next = nextObj.GetComponent<BodyController>();
-            next.Setup(snake, this);
-            next.gameObject.AddComponent<BowMan>();
-            next.gameObject.GetComponent<BowMan>().Setup();
+            // creates the body and sets it up and places it as the head of the snake
+            GameObject body = Instantiate(obj);
+            next = body.GetComponent<BodyController>();
+            next.Setup(snake, this, triggerController);
+
+            // randomly choses one of two options
+            int choice = UnityEngine.Random.Range(0, 2);
+
+            if (choice == 0)
+            {
+                // makes the body a bowman (TEMPORARY)
+                next.gameObject.AddComponent<BowMan>();
+                BowMan newObject = next.gameObject.GetComponent<BowMan>();
+                newObject.Setup();
+
+            }
+            else
+            {
+                // makes the body a necro (TEMPORARY)
+                next.gameObject.AddComponent<Necro>();
+                Necro newObject = next.gameObject.GetComponent<Necro>();
+                newObject.controller = triggerController;
+                newObject.Setup();
+            }
+
         }
         else
         {

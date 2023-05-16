@@ -30,4 +30,16 @@ public class Class : MonoBehaviour
 
         body.snake.IncreaseXP(enemy.GetComponent<EnemyControllerBasic>().XPDrop);
     }
+
+    // called when an enemy dies, and this object is in the trigger list in TriggerController
+    internal virtual void EnemyKilledTrigger(GameObject enemy)
+    {
+        
+    }
+
+    // called when a player body dies, and this object is in the trigger list in TriggerController
+    internal virtual void BodyDiedTrigger(GameObject body)
+    {
+        
+    }
 }

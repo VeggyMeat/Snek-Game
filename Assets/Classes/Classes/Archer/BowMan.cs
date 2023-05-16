@@ -13,11 +13,12 @@ public class BowMan : Archer
         // sets up starting variables for the archer
         timeDelay = 0.25f;
         velocity = 10f;
-        projectile = Resources.Load<GameObject>("Projectile1");
         lifeSpan = 2.5f;
         projectileDamage = 20;
         projectileCount = 3;
         enemyDeathVolleyCount = 1;
+
+        projectile = Resources.Load<GameObject>("Projectile1");
 
         // calls the archer's setup
         base.Setup();
@@ -73,6 +74,7 @@ public class BowMan : Archer
         }
     }
 
+    // more editable variables to balance classes
     internal override void LevelUp()
     {
         Debug.Log("LEVEL UP");

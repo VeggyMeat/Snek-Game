@@ -41,12 +41,16 @@ public class ProjectileController : MonoBehaviour
             // get the enemy controller
             EnemyControllerBasic body = collision.gameObject.GetComponent<EnemyControllerBasic>();
 
+            Debug.Log("hit enemy");
+
             // apply damage to the enemy
             if (body.ChangeHealth(-damage))
             {
                 // enemy has been killed
                 archer.EnemyKilled(collision.gameObject);
             }
+
+            // Debug.Log("")
 
             // destroy the projectile
             Destroy(gameObject);
