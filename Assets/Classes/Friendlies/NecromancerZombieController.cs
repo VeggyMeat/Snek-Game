@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NecromancerZombieController : MonoBehaviour
@@ -56,24 +57,36 @@ public class NecromancerZombieController : MonoBehaviour
 
             // shoots a raycast infront of the zombie
 
-            hit = Physics2D.Raycast(transform.position, transform.rotation.eulerAngles, 10f, LayerMask.GetMask("Enemy"));
+            hit = Physics2D.Raycast(transform.position, transform.rotation.eulerAngles, 50f);
 
             if (hit)
             {
                 // grabs the enemy gameobject that was hit
                 target = hit.collider.gameObject;
 
-                // grabs the enemy's transform
-                targetPos = target.transform;
+                if (target.tag == "Enemy")
+                {
+                    // grabs the enemy's transform
+                    targetPos = target.transform;
 
-                // stops the zombie from rotating
-                selfRigid.angularVelocity = 0f;
+                    // stops the zombie from rotating
+                    selfRigid.angularVelocity = 0f;
+                }
             }
         }
         else
         {
+            if (target.IsDestroyed())
+            {
+                // if the target is dead, forget about it
+                target = null;
+                targetPos = null;
+                selfRigid.angularVelocity = angularVelocity;
+                return;
+            }
+
             // gets the Vector of the difference between the player and the enemy
-            Vector2 difference = (Vector2)targetPos.position - selfRigid.position;
+            Vector2 difference = (Vector2) targetPos.position - selfRigid.position;
 
             // if its too far away, despawns
             if (difference.magnitude > despawnRadius)
@@ -122,6 +135,9 @@ public class NecromancerZombieController : MonoBehaviour
     {
         // deletes this object
         Destroy(gameObject);
+
+        // removes this object from the parent's list
+        parent.ZombieDeath(gameObject);
     }
 
 

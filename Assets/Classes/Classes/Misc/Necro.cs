@@ -53,7 +53,9 @@ public class Necro : Class
 
     internal void SummonZombie(Transform position)
     {
-        GameObject summonedZombie = Instantiate(zombie);
+        GameObject summonedZombie = Instantiate(zombie, new Vector3(position.position.x, position.position.y, 0f), Quaternion.identity);
+
+        // summoned zombie
         
         NecromancerZombieController controller = summonedZombie.GetComponent<NecromancerZombieController>();
         
@@ -61,9 +63,7 @@ public class Necro : Class
 
         controller.Setup(zombieSpeed, zombieHealth, zombieContactDamage, zombieDespawnRadius, zombieAngularVelocity, this, zombieTimeAlive);
 
-        controller.transform.position.Set(position.position.x, position.position.y, 0);
-
-        Debug.Log("spawned");
+        Debug.Log(controller.transform.position.x + controller.transform.position.y.ToString() + 0);
     }
 
     internal void ZombieDeath(GameObject zombie)

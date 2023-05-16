@@ -35,11 +35,10 @@ public class HeadController : MonoBehaviour
         // grabs the trigger controller script
         triggerControllerScript = triggerController.GetComponent<TriggerController>();
 
+        UnityEngine.Debug.Log(triggerControllerScript);
+
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
-
-        // temporary code adding a BowMan body to the snake
-        AddBody(circle);
     }
 
     private void Update()
@@ -86,11 +85,15 @@ public class HeadController : MonoBehaviour
             velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
         }
 
-        // moves the whole snake
-        head.Move();
+        if (head) 
+        {
 
-        // updates the voids position
-        transform.position = HeadPos();
+            // moves the whole snake
+            head.Move();
+
+            // updates the voids position
+            transform.position = HeadPos();
+        }
     }
 
     internal void IncreaseXP(int amount)
