@@ -12,12 +12,14 @@ public class NecromancerZombieController : MonoBehaviour
     internal int despawnRadius;
     internal float angularVelocity;
     internal int timeAlive;
+    internal float radius = 1f;
 
     internal float health;
     internal Rigidbody2D selfRigid;
     internal Necro parent;
 
     private GameObject target = null;
+    private EnemyControllerBasic targetScript = null;
     private Transform targetPos = null;
 
     // Called just after creation, by whatever created the object
@@ -56,32 +58,47 @@ public class NecromancerZombieController : MonoBehaviour
             RaycastHit2D hit;
 
             // shoots a raycast infront of the zombie
+            hit = Physics2D.Raycast(transform.position + transform.up.normalized * radius, transform.up);
 
-            hit = Physics2D.Raycast(transform.position, transform.rotation.eulerAngles, 50f);
+            // draws the ray
+            // Debug.DrawRay(transform.position + transform.up.normalized * radius, transform.up * 100f, Color.red, 0.5f, false);
 
             if (hit)
             {
                 // grabs the enemy gameobject that was hit
                 target = hit.collider.gameObject;
-
+                
+                // if it hits an enemy, targets it
                 if (target.tag == "Enemy")
                 {
                     // grabs the enemy's transform
                     targetPos = target.transform;
 
+                    // grabs the enemy's script
+                    targetScript = target.GetComponent<EnemyControllerBasic>();
+
                     // stops the zombie from rotating
                     selfRigid.angularVelocity = 0f;
+
+                    // stops the zombie from moving
+                    selfRigid.velocity = Vector3.zero;
+                }
+                else
+                {
+                    target = null;
                 }
             }
         }
         else
         {
-            if (target.IsDestroyed())
+            if (targetScript.dead)
             {
                 // if the target is dead, forget about it
                 target = null;
                 targetPos = null;
+                targetScript = null;
                 selfRigid.angularVelocity = angularVelocity;
+                selfRigid.velocity = Vector3.zero;
                 return;
             }
 
@@ -131,7 +148,7 @@ public class NecromancerZombieController : MonoBehaviour
     }
 
     // gets called when the enemy is due to die
-    internal virtual void Die()
+    internal void Die()
     {
         // deletes this object
         Destroy(gameObject);
@@ -144,19 +161,25 @@ public class NecromancerZombieController : MonoBehaviour
     // checks for collision against enemies
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             // get the enemy controller
-            BodyController body = collision.gameObject.GetComponent<BodyController>();
-
-            // apply damage to the enemy
-            body.ChangeHealth(-contactDamage);
+            EnemyControllerBasic body = collision.gameObject.GetComponent<EnemyControllerBasic>();
 
             // take damage from the body
             ChangeHealth(body.contactDamage);
 
-            // get hit away from the enemy
-            selfRigid.AddForce((selfRigid.position - (Vector2)targetPos.position).normalized * body.contactForce);
+            // apply damage to the enemy
+            if (body.ChangeHealth(-contactDamage))
+            {
+                // killed an enemy
+            }
+
+            if (!body.dead)
+            {
+                // get hit away from the enemy
+                selfRigid.AddForce((selfRigid.position - (Vector2)body.transform.position).normalized * body.contactForce);
+            }
         }
     }
 }

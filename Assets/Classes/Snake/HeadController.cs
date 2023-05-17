@@ -35,8 +35,6 @@ public class HeadController : MonoBehaviour
         // grabs the trigger controller script
         triggerControllerScript = triggerController.GetComponent<TriggerController>();
 
-        UnityEngine.Debug.Log(triggerControllerScript);
-
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
     }

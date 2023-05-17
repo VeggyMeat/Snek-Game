@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Necro : Class
 {
+    // potential issue on death, triggerController will still call, a death function will need to be added, called by the body
+
     // not implemented
     internal float timeDelay = 0;
 
@@ -14,7 +16,7 @@ public class Necro : Class
     internal int zombieHealth = 50;
     internal int zombieContactDamage = 20;
     internal int zombieDespawnRadius = 50;
-    internal float zombieAngularVelocity = 60f;
+    internal float zombieAngularVelocity = 120f;
     internal int zombieTimeAlive = 15;
 
     internal TriggerController controller;
@@ -25,6 +27,7 @@ public class Necro : Class
 
     internal override void Setup()
     {
+        // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
 
         base.Setup();
@@ -45,25 +48,25 @@ public class Necro : Class
     {
         base.EnemyKilledTrigger(enemy);
 
+        // if there is capacity for another zombie spawn it
         if (summonedZombies.Count < maxSummoned)
         {
             SummonZombie(enemy.transform);
         }
     }
 
+    // spawns a new friendly zombie at a certain position
     internal void SummonZombie(Transform position)
     {
-        GameObject summonedZombie = Instantiate(zombie, new Vector3(position.position.x, position.position.y, 0f), Quaternion.identity);
-
-        // summoned zombie
+        // spawns a zombie at the position
+        GameObject summonedZombie = Instantiate(zombie, new Vector3(position.position.x, position.position.y, 0f), Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
         
+        // sets up the zombie
         NecromancerZombieController controller = summonedZombie.GetComponent<NecromancerZombieController>();
-        
-        summonedZombies.Add(controller);
-
         controller.Setup(zombieSpeed, zombieHealth, zombieContactDamage, zombieDespawnRadius, zombieAngularVelocity, this, zombieTimeAlive);
 
-        Debug.Log(controller.transform.position.x + controller.transform.position.y.ToString() + 0);
+        // adds the zombie to the list of controlled zombies
+        summonedZombies.Add(controller);
     }
 
     internal void ZombieDeath(GameObject zombie)

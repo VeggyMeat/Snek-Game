@@ -11,8 +11,10 @@ public class EnemyControllerBasic : MonoBehaviour
     public int contactDamage = 5;
     public int XPDrop = 10;
     public int despawnRadius = 30;
+    public int contactForce = 2000;
     
     internal int health;
+    internal bool dead = false;
     internal Rigidbody2D selfRigid;
     internal EnemySummonerController summoner;
     internal TriggerController triggerController;
@@ -81,6 +83,9 @@ public class EnemyControllerBasic : MonoBehaviour
     // gets called when the enemy is due to die
     internal virtual void Die()
     {
+        // declares to other objects that this is dead
+        dead = true;
+
         // increases the count of dead enemies for the summoner
         summoner.enemiesDead++;
 
@@ -94,6 +99,9 @@ public class EnemyControllerBasic : MonoBehaviour
     // gets called when the enemy is despawned because of distance
     internal virtual void Despawn()
     {
+        // declares to other objects that this is dead
+        dead = true;
+
         // deletes this object
         Destroy(gameObject);
     }
