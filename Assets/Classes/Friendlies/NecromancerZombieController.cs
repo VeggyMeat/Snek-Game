@@ -79,9 +79,6 @@ public class NecromancerZombieController : MonoBehaviour
 
                     // stops the zombie from rotating
                     selfRigid.angularVelocity = 0f;
-
-                    // stops the zombie from moving
-                    selfRigid.velocity = Vector3.zero;
                 }
                 else
                 {
