@@ -44,7 +44,7 @@ public class Necro : Class
         zombie = Resources.Load<GameObject>("Zombie1");
 
         // sets the body's colour to a dark gray
-        GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.25f, 0.25f);
+        spriteRenderer.color = new Color(0.25f, 0.25f, 0.25f);
 
         base.Setup();
     }
@@ -83,5 +83,23 @@ public class Necro : Class
     internal void ZombieDeath(GameObject zombie)
     {
         summonedZombies.Remove(zombie.GetComponent<NecromancerZombieController>());
+    }
+
+    // called when the body is revived from the dead
+    internal override void Revived()
+    {
+        base.Revived();
+
+        // adds this back to the list for enemy death triggers
+        triggerController.addEnemyDeathTrigger(this);
+    }
+
+    // called when the body dies
+    internal override void OnDeath()
+    {
+        base.OnDeath();
+
+        // removes this from the list of enemy death triggers
+        triggerController.removeEnemyDeathTrigger(this);
     }
 }

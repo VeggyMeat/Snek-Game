@@ -12,22 +12,28 @@ public class BodyController : MonoBehaviour
     internal int contactForce;
     internal float velocityContribution;
 
-    // the rigidbody
+    internal float timeDead = 30f;
+
     internal Rigidbody2D selfRigid;
+    internal SpriteRenderer spriteRenderer;
 
     internal BodyController next;
     internal BodyController prev;
     internal HeadController snake;
+
     internal int health;
+
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;
 
     internal TriggerController triggerController;
 
+    internal bool isDead = false;
+
     // sets up variables
     internal virtual void Setup()
     {
-        // updates the total mass of the snake (unused right now)
+        // updates the total mass of the snake (partially unused right now)
         snake.totalMass += selfRigid.mass;
         snake.velocity += velocityContribution;
         health = maxHealth;
@@ -45,17 +51,10 @@ public class BodyController : MonoBehaviour
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
         selfRigid.position = new Vector2(0, 0);
 
+        // grabs the spriteRenderer
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
         Setup();
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
@@ -153,23 +152,23 @@ public class BodyController : MonoBehaviour
         }
         else if (quantity < 0)
         {
-            quantity = Math.Abs(quantity) - defence;
+            // reduce the damage taken by the defence
+            quantity += defence;
 
-            if (quantity < 0)
+            // if the body ignores damage from defence, return it survived
+            if (quantity > 0)
             {
                 return true;
             }
 
-            health -= quantity;
-            
+            health += quantity;
+
             // lost health trigger
 
             if (health <= 0)
             {
-                // death trigger
-
                 health = 0;
-                DestroySelf();
+                OnDeath();
 
                 return false;
             }
@@ -178,6 +177,49 @@ public class BodyController : MonoBehaviour
         return true;
     }
 
+    internal virtual void OnDeath()
+    {
+        isDead = true;
+
+        // reverts the original additions from the body
+        snake.totalMass -= selfRigid.mass;
+        snake.velocity -= velocityContribution;
+
+        // changes the tag so enemies wont interact with it
+        gameObject.tag = "Dead";
+
+        // makes the body slightly transparent to indicate death
+        Color oldColor = spriteRenderer.color;
+        GetComponent<SpriteRenderer>().color = new Color(oldColor.r, oldColor.g, oldColor.b, 0.4f);
+
+        // makes the body revive in timeDead seconds
+        Invoke(nameof(Revived), timeDead);
+
+        // body died trigger called
+        triggerController.bodyDied(gameObject);
+    }
+
+    internal virtual void Revived()
+    {
+        isDead = false;
+
+        // updates the total mass of the snake (partially unused right now)
+        snake.totalMass += selfRigid.mass;
+        snake.velocity += velocityContribution;
+        health = maxHealth;
+
+        // changes the tag back so that enemies can deal damage
+        gameObject.tag = "Player";
+
+        // returns the body back to normal color
+        Color oldColor = spriteRenderer.color;
+        GetComponent<SpriteRenderer>().color = new Color(oldColor.r, oldColor.g, oldColor.b, 1f);
+
+        // stops it from being revived again if its a premature revive (not implemented yet)
+        CancelInvoke(nameof(Revived));
+    }
+
+    // currently un-used, would be used if body needs to be removed
     internal void DestroySelf()
     {
         // removes itself from the linkedList
@@ -195,15 +237,22 @@ public class BodyController : MonoBehaviour
             snake.head = next;
         }
 
+        // reverts the original additions from the body
+        snake.totalMass -= selfRigid.mass;
+        snake.velocity -= velocityContribution;
+
         // destroys this body
         Destroy(gameObject);
     }
 
     // moves the body
-    internal void Move(float totalMass=0, List<Rigidbody2D> objects = null, List<Vector2> positions = null, float prevRadius = 0f)
+    internal void Move(float totalMass=0.1f, List<Rigidbody2D> objects = null, List<Vector2> positions = null, float prevRadius = 0f)
     {
         // updates the total mass seen so far
-        totalMass += selfRigid.mass;
+        if (!isDead)
+        {
+            totalMass += selfRigid.mass;
+        }
 
         // gets the radius of the current circle
         float radius = transform.localScale.x / 2;
@@ -213,7 +262,7 @@ public class BodyController : MonoBehaviour
         {
             objects = new List<Rigidbody2D>() { selfRigid };
 
-            positions = new List<Vector2>() { snake.velocityVector * Time.deltaTime / selfRigid.mass + selfRigid.position };
+            positions = new List<Vector2>() { snake.velocityVector * Time.deltaTime / totalMass + selfRigid.position };
         }
         // if not the head
         else

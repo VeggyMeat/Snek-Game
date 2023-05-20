@@ -12,12 +12,18 @@ public class Frontline : Class
     internal int damage;
     internal int force;
 
-    // need to implement a better health system between body and classes at some point
+    internal bool regularAttack;
 
     // called when class body instantiated
     internal override void Setup()
     {
         base.Setup();
+
+        if (regularAttack )
+        {
+            // starts the repeating scan of enemies to attack
+            StartRepeatingScan();
+        }
     }
 
     // when called, finds an enemy within range of hte body
@@ -46,13 +52,17 @@ public class Frontline : Class
         InvokeRepeating(nameof(ScanRange), attackDelay, attackDelay);
     }
 
+    // cancels the repeating invoke
+    internal void StopRepeatingScan()
+    {
+        CancelInvoke(nameof(ScanRange));
+    }
+
     // stops and restarts it, incase of a change in speed
     internal void ResetRepeatingScan()
     {
-        // stops the previous invoke
-        CancelInvoke();
+        StopRepeatingScan();
 
-        // starts a new one
         StartRepeatingScan();
     }
 
@@ -62,5 +72,27 @@ public class Frontline : Class
         throw new System.NotImplementedException();
     }
 
+    // called when the body is revived from the dead
+    internal override void Revived()
+    {
+        base.Revived();
 
+        if (regularAttack)
+        {
+            // starts the repeating scan of enemies to attack
+            StartRepeatingScan();
+        }
+    }
+
+    // called when the body dies
+    internal override void OnDeath()
+    {
+        base.OnDeath();
+
+        if (regularAttack)
+        {
+            // stops attacking
+            StopRepeatingScan();
+        }
+    }
 }

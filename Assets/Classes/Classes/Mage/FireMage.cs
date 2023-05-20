@@ -40,7 +40,7 @@ public class FireMage : Mage
         base.Setup();
 
         // sets the body's colour to a dark green
-        GetComponent<SpriteRenderer>().color = new Color(0.75f, 0.1f, 0.1f);
+        spriteRenderer.color = new Color(0.75f, 0.1f, 0.1f);
     }
 
     internal override void Attack()

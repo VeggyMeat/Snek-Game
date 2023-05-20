@@ -19,24 +19,47 @@ public class Archer : Class
         StartRepeatingProjectile();
     }
 
-    internal void ResetRepeatingProjectile()
-    {
-        // stops the current repeat
-        CancelInvoke();
-
-        // starts a new one
-        StartRepeatingProjectile();
-    }
-
     // runs the LaunchProjectile function every timeDelay seconds
     internal void StartRepeatingProjectile()
     {
         InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
     }
 
+    // stops the repeating projectile from happening
+    internal void StopRepeatingProjectile()
+    {
+        CancelInvoke(nameof(LaunchProjectile));
+    }
+
+    // stops the projectile from firing, then starts immediatly after
+    internal void ResetRepeatingProjectile()
+    {
+        StopRepeatingProjectile();
+
+        StartRepeatingProjectile();
+    }
+
     // creates a base case incase not implemented
     internal virtual void LaunchProjectile()
     {
         throw new System.NotImplementedException();
+    }
+
+    // called when the body is revived from the dead
+    internal override void Revived()
+    {
+        base.Revived();
+
+        // starts projectiles again
+        StartRepeatingProjectile();
+    }
+
+    // called when the body dies
+    internal override void OnDeath()
+    {
+        base.OnDeath();
+
+        // stops projectiles from being fired
+        StopRepeatingProjectile();
     }
 }

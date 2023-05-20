@@ -35,12 +35,17 @@ public class BowMan : Archer
         // body.contactForce = 2000;
 
         // sets the body's colour to a dark green
-        GetComponent<SpriteRenderer>().color = new Color(0.233f, 0.541f, 0.249f);
+        spriteRenderer.color = new Color(0.233f, 0.541f, 0.249f);
     }
 
     // called regularly by archer
     internal override void LaunchProjectile()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         for (int i = 0; i < projectileCount; i++)
         {
             // pick a random angle

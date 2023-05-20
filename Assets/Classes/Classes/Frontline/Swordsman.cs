@@ -19,6 +19,7 @@ public class Swordsman : Frontline
         scanRadius = 5f;
         damage = 50;
         force = 50000;
+        regularAttack = true;
 
         // sets up starting variables for the body
         defence = 5;
@@ -30,9 +31,7 @@ public class Swordsman : Frontline
         base.Setup();
 
         // sets the body's colour to a yellow
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f);
-
-        StartRepeatingScan();
+        spriteRenderer.color = new Color(1f, 1f, 0f);
     }
 
     internal override void Attack(Vector3 position)
