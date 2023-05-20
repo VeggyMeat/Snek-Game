@@ -27,21 +27,26 @@ public class Necro : Class
 
     internal override void Setup()
     {
-        base.Setup();
+        // sets up starting variables for the body
+        defence = 0;
+        maxHealth = 105;
+        contactDamage = 10;
+        contactForce = 2000;
+        velocityContribution = 7.5f;
 
         // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
 
-        // grabs the controller from the snake head
-        controller = body.snake.triggerControllerScript;
+        // adds this to the enemy death trigger list
+        triggerController.addEnemyDeathTrigger(this);
 
-        // gets the controller, and adds this to the enemy death trigger list
-        controller.addEnemyDeathTrigger(this);
-
+        // gets the zombie asset ready
         zombie = Resources.Load<GameObject>("Zombie1");
 
         // sets the body's colour to a dark gray
         GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.25f, 0.25f);
+
+        base.Setup();
     }
 
     // Update is called once per frame

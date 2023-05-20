@@ -26,6 +26,13 @@ public class FireMage : Mage
         orbVariation = Mathf.PI / 64;
         regularAttack = true;
 
+        // sets up starting variables for the body
+        defence = 0;
+        maxHealth = 75;
+        contactDamage = 5;
+        contactForce = 1500;
+        velocityContribution = 10f;
+
         // grabs the orb thats shot
         orb = Resources.Load<GameObject>("Orb1");
 
@@ -54,7 +61,7 @@ public class FireMage : Mage
 
             // gets the controller of the projectile and adds it to the list
             MagicOrbController controller = newOrb.GetComponent<MagicOrbController>();
-            controller.Setup(movement + body.lastMoved, lifeSpan, orbDamage, this);
+            controller.Setup(movement + lastMoved, lifeSpan, orbDamage, this);
         }
     }
 }

@@ -17,6 +17,13 @@ public class BowMan : Archer
         projectileCount = 3;
         enemyDeathVolleyCount = 1;
 
+        // sets up starting variables for the body
+        defence = 0;
+        maxHealth = 100;
+        contactDamage = 10;
+        contactForce = 2000;
+        velocityContribution = 7.5f;
+
         // grabs the projectile from resources
         projectile = Resources.Load<GameObject>("Projectile1");
 
@@ -47,7 +54,7 @@ public class BowMan : Archer
 
             // gets the controller of the projectile and adds it to the list
             ProjectileController controller = projectile.GetComponent<ProjectileController>();
-            controller.Setup(movement + body.lastMoved, lifeSpan, projectileDamage, this);
+            controller.Setup(movement + lastMoved, lifeSpan, projectileDamage, this);
         }
     }
 

@@ -23,7 +23,7 @@ public class HeadController : MonoBehaviour
     internal Vector2 velocityVector;
     internal float totalMass = 0;
     internal int XP = 0;
-    internal double velocity = 0;
+    internal float velocity = 0;
 
     internal TriggerController triggerControllerScript;
 
@@ -134,35 +134,33 @@ public class HeadController : MonoBehaviour
         {
             // creates the body and sets it up and places it as the head of the snake
             GameObject body = Instantiate(obj);
-            head = body.GetComponent<BodyController>();
-            head.Setup(this, null, triggerControllerScript);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(3, 4);
-            
+            int choice = UnityEngine.Random.Range(0, 4);
+
             if (choice == 0)
             {
                 // makes the body a bowman (TEMPORARY)
-                head.gameObject.AddComponent<BowMan>(); 
+                body.AddComponent<BowMan>();
             }
             else if (choice == 1)
             {
                 // makes the body a necro (TEMPORARY)
-                head.gameObject.AddComponent<Necro>();
+                body.AddComponent<Necro>();
             }
             else if (choice == 2)
             {
                 // makes the body a swordsman (TEMPORARY)
-                head.gameObject.AddComponent<Swordsman>();
+                body.AddComponent<Swordsman>();
             }
             else if (choice == 3)
             {
                 // make the body a fire mage (TEMPORARY)
-                head.gameObject.AddComponent<FireMage>();
+                body.AddComponent<FireMage>();
             }
-            // sets up the new body class
-            Class @class = head.GetComponent<Class>();
-            @class.Setup();
+
+            head = body.GetComponent<BodyController>();
+            head.BodySetup(this, null, triggerControllerScript);
         }
         else
         {

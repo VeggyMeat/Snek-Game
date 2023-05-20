@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2962869946878335704}
   - component: {fileID: 4769302529932389134}
   - component: {fileID: 3097929996081691773}
-  - component: {fileID: 5752464475428649807}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -124,20 +123,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5752464475428649807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2962869946878335705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffc962fb7fc6e054b99d95f22e07c52f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defence: 0
-  maxHealth: 100
-  contactDamage: 25
-  contactForce: 2000
-  velocityContribution: 5

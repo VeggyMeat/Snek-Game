@@ -11,6 +11,7 @@ public class Swordsman : Frontline
 
     internal override void Setup()
     {
+        // gets the AOEEffect ready to be spawned
         AOEEffect = Resources.Load<GameObject>("AOEEffect");
 
         // sets up the variables for the swordman
@@ -18,6 +19,13 @@ public class Swordsman : Frontline
         scanRadius = 5f;
         damage = 50;
         force = 50000;
+
+        // sets up starting variables for the body
+        defence = 5;
+        maxHealth = 200;
+        contactDamage = 25;
+        contactForce = 3500;
+        velocityContribution = 5f;
 
         base.Setup();
 

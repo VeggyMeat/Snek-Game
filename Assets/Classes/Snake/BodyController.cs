@@ -5,38 +5,47 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
-    public int defence = 0;
-    public int maxHealth = 100;
-    public int contactDamage = 25;
-    public int contactForce = 2000;
-    public double velocityContribution = 5;
+    // all defined by the classes that inherit the body controller
+    internal int defence;
+    internal int maxHealth;
+    internal int contactDamage;
+    internal int contactForce;
+    internal float velocityContribution;
 
+    // the rigidbody
     internal Rigidbody2D selfRigid;
 
     internal BodyController next;
     internal BodyController prev;
     internal HeadController snake;
     internal int health;
-
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;
 
-    private TriggerController triggerController;
+    internal TriggerController triggerController;
 
-    // kinda like start, but called on creation, rather than before first update
-    public void Setup(HeadController snake, BodyController prev, TriggerController controller)
+    // sets up variables
+    internal virtual void Setup()
     {
-        // sets up the starting variables for the body
-        health = maxHealth;
-        this.snake = snake;
-        selfRigid = gameObject.GetComponent<Rigidbody2D>();
-        selfRigid.position = new Vector2(0, 0);
-        this.prev = prev;
-        triggerController = controller;
-
         // updates the total mass of the snake (unused right now)
         snake.totalMass += selfRigid.mass;
         snake.velocity += velocityContribution;
+        health = maxHealth;
+    }
+
+    // function called when a new body is created
+    internal void BodySetup(HeadController snake, BodyController prev, TriggerController controller)
+    {
+        // sets up the starting variables for the body
+        this.snake = snake;
+        this.prev = prev;
+        triggerController = controller;
+
+        // sets the position and grabs the rigid body
+        selfRigid = gameObject.GetComponent<Rigidbody2D>();
+        selfRigid.position = new Vector2(0, 0);
+
+        Setup();
     }
 
     void Start()
@@ -69,37 +78,33 @@ public class BodyController : MonoBehaviour
         {
             // creates the body and sets it up and places it as the head of the snake
             GameObject body = Instantiate(obj);
-            next = body.GetComponent<BodyController>();
-            next.Setup(snake, this, triggerController);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(3, 4);
+            int choice = UnityEngine.Random.Range(0, 4);
 
             if (choice == 0)
             {
                 // makes the body a bowman (TEMPORARY)
-                next.gameObject.AddComponent<BowMan>();
+                body.AddComponent<BowMan>();
             }
             else if (choice == 1)
             {
                 // makes the body a necro (TEMPORARY)
-                next.gameObject.AddComponent<Necro>();
+                body.AddComponent<Necro>();
             }
             else if (choice == 2)
             {
                 // makes the body a swordsman (TEMPORARY)
-                next.gameObject.AddComponent<Swordsman>();
+                body.AddComponent<Swordsman>();
             }
             else if (choice == 3)
             {
                 // make the body a fire mage (TEMPORARY)
-                next.gameObject.AddComponent<FireMage>();
+                body.AddComponent<FireMage>();
             }
 
-            // sets up the new body class
-            Class @class = next.GetComponent<Class>();
-            @class.Setup();
-
+            next = body.GetComponent<BodyController>();
+            next.BodySetup(snake, this, triggerController);
         }
         else
         {
