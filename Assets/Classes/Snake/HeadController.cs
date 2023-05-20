@@ -138,7 +138,7 @@ public class HeadController : MonoBehaviour
             head.Setup(this, null, triggerControllerScript);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(0, 3);
+            int choice = UnityEngine.Random.Range(3, 4);
             
             if (choice == 0)
             {
@@ -155,7 +155,11 @@ public class HeadController : MonoBehaviour
                 // makes the body a swordsman (TEMPORARY)
                 head.gameObject.AddComponent<Swordsman>();
             }
-
+            else if (choice == 3)
+            {
+                // make the body a fire mage (TEMPORARY)
+                head.gameObject.AddComponent<FireMage>();
+            }
             // sets up the new body class
             Class @class = head.GetComponent<Class>();
             @class.Setup();

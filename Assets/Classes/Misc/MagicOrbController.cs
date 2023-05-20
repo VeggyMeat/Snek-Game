@@ -3,22 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class MagicOrbController : MonoBehaviour
 {
-    internal Archer archer;
+    internal Mage mage;
     internal Rigidbody2D selfRigid;
 
-    private Vector2 movement;
-    private float lifeSpan;
-    private int damage;
+    internal Vector2 movement;
+    internal float lifeSpan;
+    internal int damage;
 
-    internal void Setup(Vector2 movement, float lifeSpan, int damage, Archer archer)
+    internal void Setup(Vector2 movement, float lifeSpan, int damage, Mage mage)
     {
         // sets the variables given by the archer
         this.movement = movement;
         this.lifeSpan = lifeSpan;
         this.damage = damage;
-        this.archer = archer;
+        this.mage = mage;
 
         // gets the rigid body and sets the velocity of the projectile
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
@@ -47,7 +47,7 @@ public class ProjectileController : MonoBehaviour
             if (body.ChangeHealth(-damage))
             {
                 // enemy has been killed
-                archer.EnemyKilled(collision.gameObject);
+                mage.EnemyKilled(collision.gameObject);
             }
 
             // destroy the projectile

@@ -41,8 +41,6 @@ public class Swordsman : Frontline
 
         foreach (Collider2D enemy in enemiesInCircle)
         {
-            Debug.Log(enemy.tag);
-
             // gets the game object and the script
             GameObject enemyObj = enemy.gameObject;
             EnemyControllerBasic enemyController = enemyObj.GetComponent<EnemyControllerBasic>();

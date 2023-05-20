@@ -73,7 +73,7 @@ public class BodyController : MonoBehaviour
             next.Setup(snake, this, triggerController);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(0, 3);
+            int choice = UnityEngine.Random.Range(3, 4);
 
             if (choice == 0)
             {
@@ -89,6 +89,11 @@ public class BodyController : MonoBehaviour
             {
                 // makes the body a swordsman (TEMPORARY)
                 next.gameObject.AddComponent<Swordsman>();
+            }
+            else if (choice == 3)
+            {
+                // make the body a fire mage (TEMPORARY)
+                next.gameObject.AddComponent<FireMage>();
             }
 
             // sets up the new body class
