@@ -25,7 +25,7 @@ public class BowMan : Archer
         velocityContribution = 7.5f;
 
         // grabs the projectile from resources
-        projectile = Resources.Load<GameObject>("Projectile1");
+        projectile = Resources.Load<GameObject>("GameObjects/Projectile1");
 
         // calls the archer's setup
         base.Setup();

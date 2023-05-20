@@ -41,7 +41,7 @@ public class Necro : Class
         triggerController.addEnemyDeathTrigger(this);
 
         // gets the zombie asset ready
-        zombie = Resources.Load<GameObject>("Zombie1");
+        zombie = Resources.Load<GameObject>("GameObjects/Zombie1");
 
         // sets the body's colour to a dark gray
         spriteRenderer.color = new Color(0.25f, 0.25f, 0.25f);

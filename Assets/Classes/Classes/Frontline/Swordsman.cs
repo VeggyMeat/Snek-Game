@@ -12,7 +12,7 @@ public class Swordsman : Frontline
     internal override void Setup()
     {
         // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>("AOEEffect");
+        AOEEffect = Resources.Load<GameObject>("GameObjects/AOEEffect");
 
         // sets up the variables for the swordman
         attackDelay = 1f;

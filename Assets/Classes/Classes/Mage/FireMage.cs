@@ -34,7 +34,7 @@ public class FireMage : Mage
         velocityContribution = 10f;
 
         // grabs the orb thats shot
-        orb = Resources.Load<GameObject>("Orb1");
+        orb = Resources.Load<GameObject>("GameObjects/Orb1");
 
         // calls the base setup
         base.Setup();
