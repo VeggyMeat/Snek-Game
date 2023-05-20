@@ -72,25 +72,28 @@ public class BodyController : MonoBehaviour
             next = body.GetComponent<BodyController>();
             next.Setup(snake, this, triggerController);
 
-            // randomly choses one of two options
-            int choice = UnityEngine.Random.Range(0, 2);
+            // randomly choses one of the options
+            int choice = UnityEngine.Random.Range(0, 3);
 
             if (choice == 0)
             {
                 // makes the body a bowman (TEMPORARY)
                 next.gameObject.AddComponent<BowMan>();
-                BowMan newObject = next.gameObject.GetComponent<BowMan>();
-                newObject.Setup();
-
             }
-            else
+            else if (choice == 1)
             {
                 // makes the body a necro (TEMPORARY)
                 next.gameObject.AddComponent<Necro>();
-                Necro newObject = next.gameObject.GetComponent<Necro>();
-                newObject.controller = triggerController;
-                newObject.Setup();
             }
+            else if (choice == 2)
+            {
+                // makes the body a swordsman (TEMPORARY)
+                next.gameObject.AddComponent<Swordsman>();
+            }
+
+            // sets up the new body class
+            Class @class = next.GetComponent<Class>();
+            @class.Setup();
 
         }
         else

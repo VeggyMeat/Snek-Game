@@ -19,11 +19,6 @@ public class Archer : Class
         StartRepeatingProjectile();
     }
 
-    void Update()
-    {
-        
-    }
-
     internal void ResetRepeatingProjectile()
     {
         // stops the current repeat
@@ -43,16 +38,5 @@ public class Archer : Class
     internal virtual void LaunchProjectile()
     {
         throw new System.NotImplementedException();
-    }
-
-    // called when an enemy is killed by a created projectile
-    internal override void EnemyKilled(GameObject enemy)
-    {
-        base.EnemyKilled(enemy);
-    }
-
-    internal virtual void LevelUp()
-    {
-
     }
 }

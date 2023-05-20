@@ -8,18 +8,12 @@ public class Class : MonoBehaviour
     internal int level = 1;
     internal BodyController body;
 
-    // Start is called before the first frame update
+    // Called when the class is created
     internal virtual void Setup()
     {
         // sets up starting variables
         enemiesKilled = 0;
         body = GetComponent<BodyController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // called when an enemy is killed by the class object
@@ -41,5 +35,11 @@ public class Class : MonoBehaviour
     internal virtual void BodyDiedTrigger(GameObject body)
     {
         
+    }
+
+    // called when the class levels up, overrided by above classes
+    internal virtual void LevelUp()
+    {
+
     }
 }

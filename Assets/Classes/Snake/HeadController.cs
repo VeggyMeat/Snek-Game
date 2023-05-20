@@ -25,7 +25,7 @@ public class HeadController : MonoBehaviour
     internal int XP = 0;
     internal double velocity = 0;
 
-    private TriggerController triggerControllerScript;
+    internal TriggerController triggerControllerScript;
 
     private int XPLevelUp;
     private bool pressed = false;
@@ -137,25 +137,28 @@ public class HeadController : MonoBehaviour
             head = body.GetComponent<BodyController>();
             head.Setup(this, null, triggerControllerScript);
 
-            // randomly choses one of two options
-            int choice = UnityEngine.Random.Range(0, 2);
+            // randomly choses one of the options
+            int choice = UnityEngine.Random.Range(0, 3);
             
             if (choice == 0)
             {
                 // makes the body a bowman (TEMPORARY)
-                head.gameObject.AddComponent<BowMan>();
-                BowMan newObject = head.gameObject.GetComponent<BowMan>();
-                newObject.Setup();
-                
+                head.gameObject.AddComponent<BowMan>(); 
             }
-            else
+            else if (choice == 1)
             {
                 // makes the body a necro (TEMPORARY)
                 head.gameObject.AddComponent<Necro>();
-                Necro newObject = head.gameObject.GetComponent<Necro>();
-                newObject.controller = triggerControllerScript;
-                newObject.Setup();
             }
+            else if (choice == 2)
+            {
+                // makes the body a swordsman (TEMPORARY)
+                head.gameObject.AddComponent<Swordsman>();
+            }
+
+            // sets up the new body class
+            Class @class = head.GetComponent<Class>();
+            @class.Setup();
         }
         else
         {

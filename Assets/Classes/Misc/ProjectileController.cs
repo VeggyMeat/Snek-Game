@@ -49,8 +49,6 @@ public class ProjectileController : MonoBehaviour
                 archer.EnemyKilled(collision.gameObject);
             }
 
-            // Debug.Log("")
-
             // destroy the projectile
             Destroy(gameObject);
         }

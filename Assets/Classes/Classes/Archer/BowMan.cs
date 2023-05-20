@@ -18,6 +18,7 @@ public class BowMan : Archer
         projectileCount = 3;
         enemyDeathVolleyCount = 1;
 
+        // grabs the projectile from resources
         projectile = Resources.Load<GameObject>("Projectile1");
 
         // calls the archer's setup
@@ -29,11 +30,6 @@ public class BowMan : Archer
 
         // sets the body's colour to a dark green
         GetComponent<SpriteRenderer>().color = new Color(0.233f, 0.541f, 0.249f);
-    }
-
-    void Update()
-    {
-
     }
 
     // called regularly by archer
@@ -77,8 +73,6 @@ public class BowMan : Archer
     // more editable variables to balance classes
     internal override void LevelUp()
     {
-        Debug.Log("LEVEL UP");
-
         base.LevelUp();
 
         // on level 2
