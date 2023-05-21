@@ -19,7 +19,7 @@ public class NecromancerZombieController : MonoBehaviour
     internal Necro parent;
 
     private GameObject target = null;
-    private EnemyControllerBasic targetScript = null;
+    private EnemyController targetScript = null;
     private Transform targetPos = null;
 
     // Called just after creation, by whatever created the object
@@ -75,7 +75,7 @@ public class NecromancerZombieController : MonoBehaviour
                     targetPos = target.transform;
 
                     // grabs the enemy's script
-                    targetScript = target.GetComponent<EnemyControllerBasic>();
+                    targetScript = target.GetComponent<EnemyController>();
 
                     // stops the zombie from rotating
                     selfRigid.angularVelocity = 0f;
@@ -161,7 +161,7 @@ public class NecromancerZombieController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             // get the enemy controller
-            EnemyControllerBasic body = collision.gameObject.GetComponent<EnemyControllerBasic>();
+            EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             // take damage from the body
             ChangeHealth(body.contactDamage);

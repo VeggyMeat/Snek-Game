@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6522874447685472593}
   - component: {fileID: 7600894926815001832}
   - component: {fileID: 5957739162493333102}
-  - component: {fileID: 6591221200156592249}
+  - component: {fileID: 6899034353064253162}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -139,7 +139,7 @@ PolygonCollider2D:
       - {x: 0.25, y: -0.43359375}
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
---- !u!114 &6591221200156592249
+--- !u!114 &6899034353064253162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,12 +148,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7656828050263642448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e25b7eb36b38f42872c95dd995959d, type: 3}
+  m_Script: {fileID: 11500000, guid: 641b23d45d98f4042923e168f2ed4bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  angularVelocity: 90
-  maxHealth: 25
+  speed: 2
+  angularVelocity: 30
+  maxHealth: 100
   contactDamage: 5
-  XPDrop: 5
+  XPDrop: 10
   despawnRadius: 30
+  contactForce: 2000

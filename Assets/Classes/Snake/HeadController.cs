@@ -8,7 +8,6 @@ public class HeadController : MonoBehaviour
 {
     // movement related
     public double turningRate = 2;
-    public double baseLerpSpeed = 5;
 
     public GameObject circle;
     public GameObject triggerController;
@@ -22,11 +21,11 @@ public class HeadController : MonoBehaviour
     internal double angle;
     internal Vector2 velocityVector;
     internal float totalMass = 0;
-    internal int XP = 0;
     internal float velocity = 0;
 
     internal TriggerController triggerControllerScript;
 
+    private int XP = 0;
     private int XPLevelUp;
     private bool pressed = false;
 

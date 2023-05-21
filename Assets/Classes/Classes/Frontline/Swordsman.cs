@@ -46,7 +46,7 @@ public class Swordsman : Frontline
         {
             // gets the game object and the script
             GameObject enemyObj = enemy.gameObject;
-            EnemyControllerBasic enemyController = enemyObj.GetComponent<EnemyControllerBasic>();
+            EnemyController enemyController = enemyObj.GetComponent<EnemyController>();
 
             // if the enemy is not dead
             if (!enemyController.dead)

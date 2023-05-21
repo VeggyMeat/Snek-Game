@@ -68,7 +68,7 @@ public class EnemySummonerController : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], spawnPosition, Quaternion.identity);
 
             // sets the enemy's summoner to this
-            EnemyControllerBasic newEnemy = enemy.GetComponent<EnemyControllerBasic>();
+            EnemyController newEnemy = enemy.GetComponent<EnemyController>();
             newEnemy.summoner = this;
             newEnemy.triggerController = triggerControllerScript;
 

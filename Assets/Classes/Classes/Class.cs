@@ -23,7 +23,7 @@ public class Class : BodyController
         // increases the enemy killed count, and the xp count
         enemiesKilled++;
 
-        snake.IncreaseXP(enemy.GetComponent<EnemyControllerBasic>().XPDrop);
+        snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
     }
 
     // called when an enemy dies, and this object is in the trigger list in TriggerController

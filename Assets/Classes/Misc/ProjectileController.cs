@@ -41,7 +41,7 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             // get the enemy controller
-            EnemyControllerBasic body = collision.gameObject.GetComponent<EnemyControllerBasic>();
+            EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             // apply damage to the enemy
             if (body.ChangeHealth(-damage))

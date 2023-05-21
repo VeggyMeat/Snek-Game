@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControllerBasic : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public float speed = 2f;
     public float angularVelocity = 30f;
