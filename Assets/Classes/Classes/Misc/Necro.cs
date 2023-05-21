@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Necro : Class
@@ -7,32 +8,35 @@ public class Necro : Class
     // potential issue on death, triggerController will still call, a death function will need to be added, called by the body
 
     // not implemented
-    internal float timeDelay = 0;
+    public float timeDelay;
 
-    internal int maxSummoned = 10;
-    internal int lifeSpan = 30;
+    public int maxSummoned;
+    public int lifeSpan;
 
-    internal float zombieSpeed = 3f;
-    internal int zombieHealth = 50;
-    internal int zombieContactDamage = 20;
-    internal int zombieDespawnRadius = 50;
-    internal float zombieAngularVelocity = 120f;
-    internal int zombieTimeAlive = 15;
+    public float zombieSpeed;
+    public int zombieHealth;
+    public int zombieContactDamage;
+    public int zombieDespawnRadius;
+    public float zombieAngularVelocity;
+    public int zombieTimeAlive;
+
+    public string zombiePath;
+
+    internal string jsonPath = "Assets/Resources/jsons/Classes/Misc/Necro.json";
 
     internal TriggerController controller;
+    internal List<NecromancerZombieController> summonedZombies;
 
     private GameObject zombie;
 
-    internal List<NecromancerZombieController> summonedZombies;
-
     internal override void Setup()
     {
-        // sets up starting variables for the body
-        defence = 0;
-        maxHealth = 105;
-        contactDamage = 10;
-        contactForce = 2000;
-        velocityContribution = 7.5f;
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        JsonUtility.FromJsonOverwrite(text, this);
 
         // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
@@ -41,7 +45,7 @@ public class Necro : Class
         triggerController.addEnemyDeathTrigger(this);
 
         // gets the zombie asset ready
-        zombie = Resources.Load<GameObject>("GameObjects/Zombie1");
+        zombie = Resources.Load<GameObject>(zombiePath);
 
         // sets the body's colour to a dark gray
         spriteRenderer.color = new Color(0.25f, 0.25f, 0.25f);

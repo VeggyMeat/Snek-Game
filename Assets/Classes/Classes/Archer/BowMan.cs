@@ -1,41 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class BowMan : Archer
 {
-    internal int projectileCount;
-    internal int enemyDeathVolleyCount;
+    public int projectileCount;
+    public int enemyDeathVolleyCount;
+
+    internal string jsonPath = "Assets/Resources/jsons/Classes/Archer/BowMan.json";
+    
+    public string projectilePath;
 
     internal override void Setup()
     {
-        // sets up starting variables for the archer
-        timeDelay = 0.25f;
-        velocity = 10f;
-        lifeSpan = 2.5f;
-        projectileDamage = 20;
-        projectileCount = 3;
-        enemyDeathVolleyCount = 1;
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
 
-        // sets up starting variables for the body
-        defence = 0;
-        maxHealth = 100;
-        contactDamage = 10;
-        contactForce = 2000;
-        velocityContribution = 7.5f;
+        JsonUtility.FromJsonOverwrite(text, this);
 
         // grabs the projectile from resources
-        projectile = Resources.Load<GameObject>("GameObjects/Projectile1");
+        projectile = Resources.Load<GameObject>(projectilePath);
 
         // calls the archer's setup
         base.Setup();
-
-        // also sets up starting variables for the body
-        // body.contactDamage = 20;
-        // body.contactForce = 2000;
-
-        // sets the body's colour to a dark green
-        spriteRenderer.color = new Color(0.233f, 0.541f, 0.249f);
     }
 
     // called regularly by archer
@@ -72,28 +62,5 @@ public class BowMan : Archer
         {
             LaunchProjectile();
         }
-    }
-
-    // more editable variables to balance classes
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        // on level 2
-        if (level == 2)
-        {
-            // increases projectileCount, decreases time inbetween
-            projectileCount = 5;
-            timeDelay = 0.2f;
-        }
-        // on level 3
-        else if (level == 3) 
-        {
-            // doubles the damage of projectiles, increases death volley
-            projectileDamage = 40;
-            enemyDeathVolleyCount = 3;
-        }
-
-        ResetRepeatingProjectile();
     }
 }

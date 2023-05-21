@@ -6,13 +6,13 @@ using UnityEngine;
 // a class just for the sake of being inherited from
 public class Frontline : Class
 {
-    internal float attackDelay;
-    internal float scanRadius;
+    public float attackDelay;
+    public float scanRadius;
 
-    internal int damage;
-    internal int force;
+    public int damage;
+    public int force;
 
-    internal bool regularAttack;
+    public bool regularAttack;
 
     // called when class body instantiated
     internal override void Setup()

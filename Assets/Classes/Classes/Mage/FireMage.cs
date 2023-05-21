@@ -1,46 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class FireMage : Mage
 {
-    internal float velocity;
+    public float velocity;
+    public float lifeSpan;
+    public int orbDamage;
+    public int orbNumber;
+    public float rotation;
+    public float orbVariation;
+
+    public string orbPath;
+
     internal GameObject orb;
-    internal float lifeSpan;
-    internal int orbDamage;
-    internal int orbNumber;
-    internal float rotation;
-    internal float orbVariation;
 
     private float angleFacing;
 
+    internal string jsonPath = "Assets/Resources/jsons/Classes/Mage/FireMage.json";
+
     internal override void Setup()
     {
-        // sets up the base variables
-        velocity = 15f;
-        lifeSpan = 1f;
-        orbDamage = 10;
-        orbNumber = 3;
-        rotation = Mathf.PI / 20;
-        timeDelay = 0.1f;
-        orbVariation = Mathf.PI / 64;
-        regularAttack = true;
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
 
-        // sets up starting variables for the body
-        defence = 0;
-        maxHealth = 75;
-        contactDamage = 5;
-        contactForce = 1500;
-        velocityContribution = 10f;
+        JsonUtility.FromJsonOverwrite(text, this);
 
         // grabs the orb thats shot
-        orb = Resources.Load<GameObject>("GameObjects/Orb1");
+        orb = Resources.Load<GameObject>(orbPath);
 
         // calls the base setup
         base.Setup();
-
-        // sets the body's colour to a dark green
-        spriteRenderer.color = new Color(0.75f, 0.1f, 0.1f);
     }
 
     internal override void Attack()

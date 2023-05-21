@@ -1,0 +1,18 @@
+{
+  "attackDelay": 1,
+  "scanRadius": 5,
+  "damage": 50,
+  "force": 50000,
+  "regularAttack": true,
+
+  "r": 1,
+  "g": 1,
+  "b": 0,
+
+  "defence": 5,
+  "maxHealth": 200,
+  "contactDamage": 25,
+  "contactForce": 3500,
+  "velocityContribution": 5,
+  "AOEEffectPath": "GameObjects/AOEEffect"
+}

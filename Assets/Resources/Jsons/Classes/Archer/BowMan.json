@@ -1,0 +1,19 @@
+{
+  "timeDelay": 0.25,
+  "velocity": 10,
+  "lifeSpan": 2.5,
+  "projectileDamage": 20,
+  "projectileCount": 3,
+  "enemyDeathVolleyCount": 0,
+
+  "r": 0.233,
+  "g": 0.541,
+  "b": 0.249,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 10,
+  "contactForce": 2000,
+  "velocityContribution": 7.5,
+  "projectilePath": "GameObjects/Projectile1"
+}

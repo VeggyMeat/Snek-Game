@@ -1,0 +1,22 @@
+{
+  "timeDelay": 0,
+  "maxSummoned": 10,
+  "lifeSpan": 30,
+  "zombieSpeed": 3,
+  "zombieHealth": 50,
+  "zombieContactDamage": 20,
+  "zombieDespawnRadius": 50,
+  "zombieAngularVelocity": 120,
+  "zombieTimeAlive": 15,
+  "zombiePath": "GameObjects/Zombie1",
+
+  "defence": 0,
+  "maxHealth": 105,
+  "contactDamage": 10,
+  "contactForce": 2000,
+  "velocityContribution": 7.5,
+
+  "r": 0.25,
+  "g": 0.25,
+  "b": 0.25
+}

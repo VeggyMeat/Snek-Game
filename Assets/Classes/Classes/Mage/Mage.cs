@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mage : Class
 {
-    internal float timeDelay;
-    internal bool regularAttack;
+    public float timeDelay;
+    public bool regularAttack;
 
     internal override void Setup()
     {

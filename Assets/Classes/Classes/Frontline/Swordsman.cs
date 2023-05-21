@@ -1,37 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
 
 public class Swordsman : Frontline
 {
-    private float attackRadius = 4f;
+    public float attackRadius = 4f;
+    public float AOEEffectTime = 0.5f;
+
+    public string AOEEffectPath;
+
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Swordsman.json";
+
     private GameObject AOEEffect;
-    private float AOEEffectTime = 0.5f;
 
     internal override void Setup()
     {
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        JsonUtility.FromJsonOverwrite(text, this);
+
         // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>("GameObjects/AOEEffect");
-
-        // sets up the variables for the swordman
-        attackDelay = 1f;
-        scanRadius = 5f;
-        damage = 50;
-        force = 50000;
-        regularAttack = true;
-
-        // sets up starting variables for the body
-        defence = 5;
-        maxHealth = 200;
-        contactDamage = 25;
-        contactForce = 3500;
-        velocityContribution = 5f;
+        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
 
         base.Setup();
-
-        // sets the body's colour to a yellow
-        spriteRenderer.color = new Color(1f, 1f, 0f);
     }
 
     internal override void Attack(Vector3 position)

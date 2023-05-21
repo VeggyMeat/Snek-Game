@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Archer : Class
 {
-    internal float timeDelay;
-    internal float velocity;
-    internal GameObject projectile;
-    internal float lifeSpan;
-    internal int projectileDamage;
+    public float timeDelay;
+    public float velocity;
+    public GameObject projectile;
+    public float lifeSpan;
+    public int projectileDamage;
 
     internal override void Setup()
     {

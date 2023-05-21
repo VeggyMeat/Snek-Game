@@ -6,11 +6,17 @@ using UnityEngine;
 public class BodyController : MonoBehaviour
 {
     // all defined by the classes that inherit the body controller
-    internal int defence;
-    internal int maxHealth;
-    internal int contactDamage;
-    internal int contactForce;
-    internal float velocityContribution;
+    public int defence;
+    public int maxHealth;
+    public int contactDamage;
+    public int contactForce;
+    public float velocityContribution;
+
+    internal Color color;
+
+    public float r;
+    public float g;
+    public float b;
 
     internal float timeDead = 30f;
 
@@ -37,6 +43,10 @@ public class BodyController : MonoBehaviour
         snake.totalMass += selfRigid.mass;
         snake.velocity += velocityContribution;
         health = maxHealth;
+
+        // sets the color of the object
+        color = new Color(r, g, b);
+        spriteRenderer.color = color;
     }
 
     // function called when a new body is created
