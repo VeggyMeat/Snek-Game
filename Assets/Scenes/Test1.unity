@@ -304,6 +304,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 7656828050263642448, guid: ab2899b3308a4724884d17e33d7ed676, type: 3}
   - {fileID: 7656828050263642448, guid: 045feb5fb2c77da48a3917770dde42c4, type: 3}
+  - {fileID: 7656828050263642448, guid: e1a3faf95e1a0b24681eb7fba07a80fe, type: 3}
   spawnClumps: 25
   spawnDelay: 10
   firstDelay: 5

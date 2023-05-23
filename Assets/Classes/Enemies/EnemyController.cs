@@ -1,28 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
-{
-    public float speed = 2f;
-    public float angularVelocity = 30f;
-    public int maxHealth = 100;
-    public int contactDamage = 5;
-    public int XPDrop = 10;
-    public int despawnRadius = 30;
-    public int contactForce = 2000;
-    
+{   
+    public float speed;
+    public float angularVelocity;
+    public int maxHealth;
+    public int contactDamage;
+    public int XPDrop;
+    public int despawnRadius;
+    public int contactForce;
+    public bool walkTowards;
+
     internal int health;
     internal bool dead = false;
     internal Rigidbody2D selfRigid;
     internal EnemySummonerController summoner;
     internal TriggerController triggerController;
 
+    internal EnemyPassiveHandler passiveHandler;
+
     private Transform player;
 
-    void Start()
+    internal virtual void Setup()
     {
+        // gets a new passive handler
+        passiveHandler = gameObject.AddComponent<EnemyPassiveHandler>();
+        passiveHandler.Setup(this);
+
         // sets up the rigid body and the player location
         selfRigid = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").GetComponent<Transform>(); 
@@ -36,22 +45,31 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // gets the Vector of the difference between the player and the enemy
-        Vector2 difference = (Vector2)player.position - selfRigid.position;
-
-        // if its too far away, despawns
-        if (difference.magnitude > despawnRadius)
+        if (walkTowards)
         {
-            Despawn();
-        }
+            // gets the Vector of the difference between the player and the enemy
+            Vector2 difference = (Vector2)player.position - selfRigid.position;
 
-        // moves directly towards the player
-        selfRigid.MovePosition(speed * difference.normalized * Time.deltaTime + selfRigid.position);
+            // if its too far away, despawns
+            if (difference.magnitude > despawnRadius)
+            {
+                Despawn();
+            }
+
+            // moves directly towards the player
+            selfRigid.MovePosition((1 + passiveHandler.passiveValues["SpeedBuff"] / 100) * speed * difference.normalized * Time.deltaTime + selfRigid.position);
+        }
     }
 
     // returns whether the body survives or not
     internal bool ChangeHealth(int quantity)
     {
+        // if invulnerable just ignores damage
+        if (passiveHandler.passiveValues["Invulnerability"] > 0)
+        {
+            return true;
+        }
+
         health += quantity;
 
         if (quantity > 0)

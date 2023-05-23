@@ -71,6 +71,7 @@ public class EnemySummonerController : MonoBehaviour
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();
             newEnemy.summoner = this;
             newEnemy.triggerController = triggerControllerScript;
+            newEnemy.Setup();
 
             // adds the enemy to the list of enemies to keep track
             enemies.Add(enemy);

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6522874447685472593}
   - component: {fileID: 7600894926815001832}
   - component: {fileID: 5957739162493333102}
-  - component: {fileID: 6899034353064253162}
+  - component: {fileID: 6694844088167252298}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: BasicEnemyMedium
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7656828050263642448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.25
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -139,7 +139,7 @@ PolygonCollider2D:
       - {x: 0.25, y: -0.43359375}
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
---- !u!114 &6899034353064253162
+--- !u!114 &6694844088167252298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,7 +154,8 @@ MonoBehaviour:
   speed: 2
   angularVelocity: 30
   maxHealth: 100
-  contactDamage: 5
+  contactDamage: 10
   XPDrop: 10
   despawnRadius: 30
   contactForce: 2000
+  walkTowards: 1
