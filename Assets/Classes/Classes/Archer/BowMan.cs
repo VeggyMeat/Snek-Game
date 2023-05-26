@@ -47,7 +47,7 @@ public class BowMan : Archer
             // create the projectile
             GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
 
-            // gets the controller of the projectile and adds it to the list
+            // gets the controller of the projectile
             ProjectileController controller = projectile.GetComponent<ProjectileController>();
             controller.Setup(movement + lastMoved, lifeSpan, projectileDamage, this);
         }

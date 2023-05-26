@@ -57,6 +57,7 @@ public class Samurai : Frontline
 
         foreach (RaycastHit2D hit in objectsInLine)
         {
+            // gets the hit object's gameObject
             GameObject hitObject = hit.collider.gameObject;
 
             if (hitObject.tag == "Enemy")

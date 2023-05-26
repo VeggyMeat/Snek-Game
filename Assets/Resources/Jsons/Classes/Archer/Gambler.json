@@ -1,0 +1,20 @@
+{
+  "timeDelay": 0.25,
+  "velocity": 5,
+  "lifeSpan": 3.5,
+  "minRadius": 0.1,
+  "maxRadius": 0.5,
+  "minDamage": 25,
+  "maxDamage": 100,
+
+  "r": 0.4,
+  "g": 0.6,
+  "b": 0.4,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 10,
+  "contactForce": 2000,
+  "velocityContribution": 7.5,
+  "projectilePath": "GameObjects/Projectile2"
+}

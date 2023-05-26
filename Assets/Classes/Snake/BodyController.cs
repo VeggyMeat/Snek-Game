@@ -89,7 +89,7 @@ public class BodyController : MonoBehaviour
             GameObject body = Instantiate(obj);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(4, 5);
+            int choice = UnityEngine.Random.Range(5, 6);
 
             if (choice == 0)
             {
@@ -114,6 +114,10 @@ public class BodyController : MonoBehaviour
             else if (choice == 4)
             {
                 body.AddComponent<Samurai>();
+            }
+            else if (choice == 5)
+            {
+                body.AddComponent<Gambler>();
             }
 
             next = body.GetComponent<BodyController>();
