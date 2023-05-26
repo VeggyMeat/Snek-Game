@@ -10,6 +10,8 @@ public class Frontline : Class
     public float scanRadius;
 
     public int damage;
+
+    // currently unused
     public int force;
 
     public bool regularAttack;

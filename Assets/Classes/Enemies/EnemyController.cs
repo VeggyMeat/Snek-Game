@@ -101,6 +101,14 @@ public class EnemyController : MonoBehaviour
     // gets called when the enemy is due to die
     internal virtual void Die()
     {
+        if (passiveHandler.passiveValues["ExtraLives"] > 0)
+        {
+            // if the enemy has extra lives, it just loses one
+            passiveHandler.passiveValues["ExtraLives"]--;
+            health = maxHealth;
+            return;
+        }
+
         // declares to other objects that this is dead
         dead = true;
 
@@ -132,8 +140,8 @@ public class EnemyController : MonoBehaviour
             // get the player controller
             BodyController body = collision.gameObject.GetComponent<BodyController>();
 
-            // apply damage to the player
-            body.ChangeHealth(-contactDamage);
+            // apply damage to the player affected by the passive effects
+            body.ChangeHealth(-contactDamage * (1 + passiveHandler.passiveValues["DamageBuff"] / 100));
 
             // take damage from the body
             ChangeHealth(body.contactDamage);

@@ -7,6 +7,7 @@ public class FlagController : MonoBehaviour
 {
     private int range;
     private int speedBuff;
+    private HashSet<EnemyController> enemiesEffected = new HashSet<EnemyController>();
 
     public void Setup(float timeDelay, int range, int speedBuff, int lifeSpan)
     {
@@ -21,8 +22,6 @@ public class FlagController : MonoBehaviour
 
         // kills itself after lifeSpan seconds
         Invoke(nameof(OnDestroy), lifeSpan);
-
-        Debug.Log(lifeSpan);
     }
 
     void AddEffects()
@@ -35,15 +34,18 @@ public class FlagController : MonoBehaviour
 
         foreach (Collider2D enemy in enemiesInCircle)
         {
-            Debug.Log("added effects");
-
             // gets the enemy controller
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
 
             // if the enemy is still alive gives it a buff
             if (!enemyController.dead)
             {
-                enemyController.passiveHandler.AddPassive("SpeedBuff", speedBuff);
+                // if its not already effected, add the effect
+                if (!enemiesEffected.Contains(enemyController))
+                {
+                    enemiesEffected.Add(enemyController);
+                    enemyController.passiveHandler.AddPassive("SpeedBuff", speedBuff);
+                }
             }
         }
     }

@@ -135,7 +135,7 @@ public class HeadController : MonoBehaviour
             GameObject body = Instantiate(obj);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(0, 4);
+            int choice = UnityEngine.Random.Range(4, 5);
 
             if (choice == 0)
             {
@@ -156,6 +156,10 @@ public class HeadController : MonoBehaviour
             {
                 // make the body a fire mage (TEMPORARY)
                 body.AddComponent<FireMage>();
+            }
+            else if (choice == 4)
+            {
+                body.AddComponent<Samurai>();
             }
 
             head = body.GetComponent<BodyController>();

@@ -18,7 +18,6 @@ public class FlagBearerController : EnemyController
 
     internal override void Die()
     {
-        Debug.Log("died");
         // creates the new flag
         GameObject summonedFlag = Instantiate(flag, transform.position, Quaternion.identity);
         summonedFlag.GetComponent<FlagController>().Setup(flagTimeDelay, flagRange, speedBuff, flagLifeSpan);

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Swordsman : Frontline
 {
-    public float attackRadius = 4f;
-    public float AOEEffectTime = 0.5f;
+    public float attackRadius;
+    public float AOEEffectTime;
 
     public string AOEEffectPath;
 
@@ -15,7 +15,7 @@ public class Swordsman : Frontline
 
     private GameObject AOEEffect;
 
-    internal override void Setup()
+    internal override void Setup()  
     {
         // loads in all the variables from the json
         StreamReader reader = new StreamReader(jsonPath);

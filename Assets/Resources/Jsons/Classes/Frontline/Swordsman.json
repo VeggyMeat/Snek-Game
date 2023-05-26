@@ -12,7 +12,10 @@
   "defence": 5,
   "maxHealth": 200,
   "contactDamage": 25,
-  "contactForce": 3500,
+  "contactForce": 4000,
   "velocityContribution": 5,
-  "AOEEffectPath": "GameObjects/AOEEffect"
+  "AOEEffectPath": "GameObjects/AOEEffect",
+
+  "attackRadius": 4,
+  "AOEEffectTime": 0.5
 }

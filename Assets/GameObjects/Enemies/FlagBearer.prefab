@@ -159,7 +159,7 @@ MonoBehaviour:
   despawnRadius: 30
   contactForce: 2000
   walkTowards: 1
-  speedBuff: 100
+  speedBuff: 50
   flag: {fileID: 2372656106988086244, guid: 13930f6b38164254e98f76085a40583f, type: 3}
   flagTimeDelay: 0.5
   flagRange: 5
