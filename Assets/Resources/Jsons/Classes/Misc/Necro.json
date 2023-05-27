@@ -2,13 +2,9 @@
   "timeDelay": 0,
   "maxSummoned": 10,
   "lifeSpan": 30,
-  "zombieSpeed": 3,
-  "zombieHealth": 50,
-  "zombieContactDamage": 20,
-  "zombieDespawnRadius": 50,
-  "zombieAngularVelocity": 120,
-  "zombieTimeAlive": 15,
+
   "zombiePath": "GameObjects/Zombie1",
+  "zombieJson": "Assets/Resources/jsons/Misc/NecroZombie.json",
 
   "defence": 0,
   "maxHealth": 105,

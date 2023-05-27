@@ -1,0 +1,8 @@
+{
+  "speed": 3,
+  "maxHealth": 50,
+  "contactDamage": 20,
+  "despawnRadius": 50,
+  "angularVelocity": 120,
+  "timeAlive": 30
+}

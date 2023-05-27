@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class NecromancerZombieController : MonoBehaviour
 {
-    internal float speed;
-    internal float maxHealth;
-    internal int contactDamage;
-    internal int despawnRadius;
-    internal float angularVelocity;
-    internal int timeAlive;
+    public float speed;
+    public float maxHealth;
+    public int contactDamage;
+    public int despawnRadius;
+    public float angularVelocity;
+    public int timeAlive;
+
+    // need to remove this
     internal float radius = 1f;
 
     internal float health;
@@ -23,15 +26,17 @@ public class NecromancerZombieController : MonoBehaviour
     private Transform targetPos = null;
 
     // Called just after creation, by whatever created the object
-    internal void Setup(float speed, float maxHealth, int contactDamage, int despawnRadius, float angularVelocity, Necro parent, int timeAlive)
+    internal void Setup(string jsonPath, Necro necro)
     {
-        this.speed = speed;
-        this.maxHealth = maxHealth;
-        this.contactDamage = contactDamage;
-        this.despawnRadius = despawnRadius;
-        this.angularVelocity = angularVelocity;
-        this.parent = parent;
-        this.timeAlive = timeAlive;
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        JsonUtility.FromJsonOverwrite(text, this);
+
+        // sets the parent variable up
+        parent = necro;
     }
 
     void Start()

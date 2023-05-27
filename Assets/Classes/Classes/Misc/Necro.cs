@@ -11,32 +11,23 @@ public class Necro : Class
     public float timeDelay;
 
     public int maxSummoned;
-    public int lifeSpan;
-
-    public float zombieSpeed;
-    public int zombieHealth;
-    public int zombieContactDamage;
-    public int zombieDespawnRadius;
-    public float zombieAngularVelocity;
-    public int zombieTimeAlive;
 
     public string zombiePath;
+    public string zombieJson;
 
-    internal string jsonPath = "Assets/Resources/jsons/Classes/Misc/Necro.json";
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Necro.json";
 
     internal TriggerController controller;
+
+    // currently unused (mostly) should be replaced or utilised in the future
     internal List<NecromancerZombieController> summonedZombies;
 
     private GameObject zombie;
 
     internal override void Setup()
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        // sets up the json data into the class
+        JsonSetup(jsonPath);
 
         // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
@@ -53,12 +44,6 @@ public class Necro : Class
         base.Setup();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     internal override void EnemyKilledTrigger(GameObject enemy)
     {
         base.EnemyKilledTrigger(enemy);
@@ -71,14 +56,14 @@ public class Necro : Class
     }
 
     // spawns a new friendly zombie at a certain position
-    internal void SummonZombie(Transform position)
+    private void SummonZombie(Transform position)
     {
         // spawns a zombie at the position
         GameObject summonedZombie = Instantiate(zombie, new Vector3(position.position.x, position.position.y, 0f), Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
         
         // sets up the zombie
         NecromancerZombieController controller = summonedZombie.GetComponent<NecromancerZombieController>();
-        controller.Setup(zombieSpeed, zombieHealth, zombieContactDamage, zombieDespawnRadius, zombieAngularVelocity, this, zombieTimeAlive);
+        controller.Setup(zombieJson, this);
 
         // adds the zombie to the list of controlled zombies
         summonedZombies.Add(controller);

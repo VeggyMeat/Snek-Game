@@ -135,7 +135,7 @@ public class HeadController : MonoBehaviour
             GameObject body = Instantiate(obj);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(0, 6);
+            int choice = UnityEngine.Random.Range(6, 7);
 
             if (choice == 0)
             {
@@ -164,6 +164,10 @@ public class HeadController : MonoBehaviour
             else if (choice == 5)
             {
                 body.AddComponent<Gambler>();
+            }
+            else if (choice == 6)
+            {
+                body.AddComponent<Engineer>();
             }
 
             head = body.GetComponent<BodyController>();
