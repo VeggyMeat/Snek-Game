@@ -8,9 +8,10 @@ public class BowMan : Archer
     public int projectileCount;
     public int enemyDeathVolleyCount;
 
-    internal string jsonPath = "Assets/Resources/jsons/Classes/Archer/BowMan.json";
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Archer/BowMan.json";
     
     public string projectilePath;
+    public string projectileJson;
 
     internal override void Setup()
     {
@@ -41,15 +42,12 @@ public class BowMan : Archer
             // pick a random angle
             float angle = Random.Range(0, 2 * Mathf.PI);
 
-            // create the movement vector
-            Vector2 movement = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * velocity;
-
             // create the projectile
             GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
 
-            // gets the controller of the projectile
+            // gets the controller of the projectile and sets it up
             ProjectileController controller = projectile.GetComponent<ProjectileController>();
-            controller.Setup(movement + lastMoved, lifeSpan, projectileDamage, this);
+            controller.Setup(projectileJson, this);
         }
     }
 

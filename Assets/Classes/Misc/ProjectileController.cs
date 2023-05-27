@@ -1,28 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    internal Archer archer;
-    internal Rigidbody2D selfRigid;
+    public Class owner;
 
-    private Vector2 movement;
-    private float lifeSpan;
-    private int damage;
+    private Rigidbody2D selfRigid;
 
-    internal void Setup(Vector2 movement, float lifeSpan, int damage, Archer archer)
+    public float velocity;
+    public float lifeSpan;
+    public int damage;
+
+    internal virtual void Setup(string jsonPath, Class owner)
     {
-        // sets the variables given by the archer
-        this.movement = movement;
-        this.lifeSpan = lifeSpan;
-        this.damage = damage;
-        this.archer = archer;
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
 
-        // gets the rigid body and sets the velocity of the projectile
+        JsonUtility.FromJsonOverwrite(text, this);
+
+        // sets the owner
+        this.owner = owner;
+
+        // gets the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
-        selfRigid.velocity = movement;
+
+        SetMovement(true);
 
         // kills the projectile in lifeSpan seconds
         Invoke(nameof(Die), lifeSpan);
@@ -35,7 +42,7 @@ public class ProjectileController : MonoBehaviour
     }
 
     // triggers when the projectile collides with something
-    private void OnTriggerEnter2D(Collider2D collision)
+    internal virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
@@ -44,14 +51,38 @@ public class ProjectileController : MonoBehaviour
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             // apply damage to the enemy
-            if (body.ChangeHealth(-damage))
+            if (!body.ChangeHealth(-damage))
             {
                 // enemy has been killed
-                archer.EnemyKilled(collision.gameObject);
+                owner.EnemyKilled(collision.gameObject);
             }
 
-            // destroy the projectile
-            Destroy(gameObject);
+            // calls the function to do something after the projectile has hit something
+            ProjectilePostHit();
+        }
+    }
+
+    // called after the projectile has hit something
+    internal virtual void ProjectilePostHit()
+    {
+        // destroy the projectile
+        Die();
+    }
+
+    // sets the movement vector based on the place facing, and the velocity
+    internal void SetMovement(bool addParentVelocity = false)
+    {
+        // sets the movement of the projectile
+        float angle = transform.rotation.eulerAngles.z;
+
+        if (addParentVelocity)
+        {
+            // adds the parent velocity to it
+            selfRigid.velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity) + owner.lastMoved;
+        }
+        else
+        {
+            selfRigid.velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity);
         }
     }
 }

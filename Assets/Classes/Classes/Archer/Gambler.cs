@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Gambler : Archer
 {
-    internal string jsonPath = "Assets/Resources/jsons/Classes/Archer/Gambler.json";
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Archer/Gambler.json";
 
     public string projectilePath;
+    public string projectileJson;
 
     public float minRadius;
     public float maxRadius;
@@ -43,18 +44,20 @@ public class Gambler : Archer
         float radius = Random.Range(minRadius, maxRadius);
         float damage = Map(minRadius, maxRadius, minDamage, maxDamage, radius);
 
-        // create the movement vector
-        Vector2 movement = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * velocity;
-
         // create the projectile
         GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
 
-        // sets up the projectile controller
-        ProjectileController controller = projectile.GetComponent<ProjectileController>();
-        controller.Setup(movement + lastMoved, lifeSpan, (int)damage, this);
-        
+        // grabs the projectile controller
+        BouncingProjectileController controller = projectile.GetComponent<BouncingProjectileController>();
+
+        // sets the damage of the projectile
+        controller.damage = (int)damage;
+
         // sets the size of the projectile
         projectile.transform.localScale = new Vector3(radius, radius, 1);
+
+        // sets up the projectile controller
+        controller.Setup(projectileJson, this);
     }
 
     // maps one set of values to another

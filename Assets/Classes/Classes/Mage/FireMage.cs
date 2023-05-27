@@ -13,6 +13,7 @@ public class FireMage : Mage
     public float orbVariation;
 
     public string orbPath;
+    public string orbJson;
 
     internal GameObject orb;
 
@@ -46,15 +47,12 @@ public class FireMage : Mage
             // pick a random angle variation
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
-            // create the movement vector
-            Vector2 movement = new Vector2(Mathf.Cos(angleFacing), Mathf.Sin(angleFacing)) * velocity;
-
             // create the orb
-            GameObject newOrb = Instantiate(orb, transform.position, Quaternion.identity);
+            GameObject newOrb = Instantiate(orb, transform.position, Quaternion.Euler(0, 0, angleFacing));
 
-            // gets the controller of the projectile and adds it to the list
-            MagicOrbController controller = newOrb.GetComponent<MagicOrbController>();
-            controller.Setup(movement + lastMoved, lifeSpan, orbDamage, this);
+            // gets the controller of the projectile and sets it up
+            ProjectileController controller = newOrb.GetComponent<ProjectileController>();
+            controller.Setup(orbJson, this);
         }
     }
 }

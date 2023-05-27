@@ -1,7 +1,5 @@
 {
   "timeDelay": 0.25,
-  "velocity": 5,
-  "lifeSpan": 3.5,
   "minRadius": 0.1,
   "maxRadius": 0.5,
   "minDamage": 25,
@@ -16,5 +14,6 @@
   "contactDamage": 10,
   "contactForce": 2000,
   "velocityContribution": 7.5,
-  "projectilePath": "GameObjects/Projectile2"
+  "projectilePath": "GameObjects/Projectile2",
+  "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json"
 }

@@ -1,7 +1,4 @@
 {
-  "velocity": 15,
-  "lifeSpan": 1,
-  "orbDamage": 10,
   "orbNumber": 1,
   "rotation": 0.157,
   "timeDelay": 0.03,
@@ -13,7 +10,9 @@
   "contactDamage": 5,
   "contactForce": 1500,
   "velocityContribution": 10,
+
   "orbPath": "GameObjects/Orb1",
+  "orbJson": "Assets/Resources/Jsons/Projectiles/FireMageProjectile.json",
 
   "r": 0.75,
   "g": 0.1,
