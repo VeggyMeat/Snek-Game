@@ -1,0 +1,20 @@
+{
+  "orbNumber": 2,
+  "timeDelay": 0.75,
+  "regularAttack": true,
+  "damageMult": 3,
+  "speedMult": 3,
+
+  "defence": 0,
+  "maxHealth": 50,
+  "contactDamage": 5,
+  "contactForce": 1000,
+  "velocityContribution": 7.5,
+
+  "orbPath": "GameObjects/Orb2",
+  "orbJson": "Assets/Resources/Jsons/Projectiles/SpectreProjectile.json",
+
+  "r": 0.75,
+  "g": 0.75,
+  "b": 0.8
+}

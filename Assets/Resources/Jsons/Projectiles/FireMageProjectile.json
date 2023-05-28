@@ -1,5 +1,5 @@
 {
   "velocity": 15,
   "lifeSpan": 1,
-  "orbDamage": 10
+  "damage": 10
 }
