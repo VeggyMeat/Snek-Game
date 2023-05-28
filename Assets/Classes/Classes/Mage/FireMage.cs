@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class FireMage : Mage
 {
-    public float velocity;
-    public float lifeSpan;
-    public int orbDamage;
     public int orbNumber;
     public float rotation;
     public float orbVariation;
@@ -19,16 +16,12 @@ public class FireMage : Mage
 
     private float angleFacing;
 
-    internal string jsonPath = "Assets/Resources/jsons/Classes/Mage/FireMage.json";
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/FireMage.json";
 
     internal override void Setup()
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        // sets up the json data into the class
+        JsonSetup(jsonPath);
 
         // grabs the orb thats shot
         orb = Resources.Load<GameObject>(orbPath);

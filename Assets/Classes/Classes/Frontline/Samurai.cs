@@ -18,12 +18,8 @@ public class Samurai : Frontline
     // Start is called before the first frame update
     internal override void Setup()
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        // sets up the json data into the class
+        JsonSetup(jsonPath);
 
         base.Setup();
     }

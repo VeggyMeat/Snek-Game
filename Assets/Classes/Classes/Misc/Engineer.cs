@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Engineer : Class
 {
-    internal string jsonPath = "Assets/Resources/jsons/Classes/Misc/Engineer.json";
+    internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Engineer.json";
 
     public float spawnDelay;
 
@@ -25,7 +25,7 @@ public class Engineer : Class
         // gets the turret asset ready
         turret = Resources.Load<GameObject>(turretPath);
 
-        InvokeRepeating(nameof(SummonTurret), spawnDelay, spawnDelay);
+        StartTurretRepeating();
     }
 
     private void SummonTurret()
@@ -38,5 +38,33 @@ public class Engineer : Class
 
         // sets up the turret
         controller.Setup(turretJson, this);
+    }
+
+    // starts the invoke to spawn turrets
+    internal void StartTurretRepeating()
+    {
+        InvokeRepeating(nameof(SummonTurret), spawnDelay, spawnDelay);
+    }
+
+    // stops the invoke to spawn turrets
+    internal void CancelTurretRepeating()
+    {
+        CancelInvoke(nameof(SummonTurret));
+    }
+
+    // when it dies, stop it from spawning turrets
+    internal override void OnDeath()
+    {
+        base.OnDeath();
+
+        CancelTurretRepeating();
+    }
+
+    // when its revived, start it spawning turrets again
+    internal override void Revived()
+    {
+        base.Revived();
+
+        StartTurretRepeating();
     }
 }

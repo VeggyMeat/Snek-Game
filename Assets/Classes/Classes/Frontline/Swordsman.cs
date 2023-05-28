@@ -17,12 +17,8 @@ public class Swordsman : Frontline
 
     internal override void Setup()  
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        // sets up the json data into the class
+        JsonSetup(jsonPath);
 
         // gets the AOEEffect ready to be spawned
         AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
