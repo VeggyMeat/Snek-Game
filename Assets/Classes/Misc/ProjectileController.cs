@@ -73,16 +73,16 @@ public class ProjectileController : MonoBehaviour
     internal void SetMovement(bool addParentVelocity = false)
     {
         // sets the movement of the projectile
-        float angle = transform.rotation.eulerAngles.z;
+        float angle = transform.rotation.eulerAngles.z + 90;
 
         if (addParentVelocity)
         {
             // adds the parent velocity to it
-            selfRigid.velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity) + owner.lastMoved;
+            selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity) + owner.lastMoved;
         }
         else
         {
-            selfRigid.velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity);
+            selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity);
         }
     }
 }

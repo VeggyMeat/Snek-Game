@@ -89,7 +89,7 @@ public class BodyController : MonoBehaviour
             GameObject body = Instantiate(obj);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(3, 8);
+            int choice = UnityEngine.Random.Range(0, 1);
 
             if (choice == 0)
             {

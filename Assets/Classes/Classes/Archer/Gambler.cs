@@ -33,27 +33,18 @@ public class Gambler : Archer
     // called regularly by archer
     internal override void LaunchProjectile()
     {
-        // pick a random angle
-        float angle = Random.Range(0, 2 * Mathf.PI);
-
         // picks a random size
         float radius = Random.Range(minRadius, maxRadius);
         float damage = Map(minRadius, maxRadius, minDamage, maxDamage, radius);
 
-        // create the projectile
-        GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
-
-        // grabs the projectile controller
-        BouncingProjectileController controller = projectile.GetComponent<BouncingProjectileController>();
+        // creates and sets up a new projectile
+        ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this);
 
         // sets the damage of the projectile
         controller.damage = (int)damage;
 
         // sets the size of the projectile
-        projectile.transform.localScale = new Vector3(radius, radius, 1);
-
-        // sets up the projectile controller
-        controller.Setup(projectileJson, this);
+        controller.transform.localScale = new Vector3(radius, radius, 1);
     }
 
     // maps one set of values to another

@@ -32,17 +32,8 @@ public class Spectre : Mage
     {
         for (int i = 0; i < orbNumber; i++)
         {
-            // pick a random angle
-            float angle = Random.Range(0, 2 * Mathf.PI);
-
-            // create the projectile
-            GameObject projectile = Instantiate(orbTemplate, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
-
-            // grabs the projectile controller
-            ProjectileController controller = projectile.GetComponent<ProjectileController>();
-
-            // sets up the projectile controller
-            controller.Setup(orbJson, this);
+            // creates and sets up a new projectile
+            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbJson, this);
 
             // if dead, increases the damage by the miltiplier
             if (isDead)

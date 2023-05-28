@@ -35,15 +35,8 @@ public class BowMan : Archer
 
         for (int i = 0; i < projectileCount; i++)
         {
-            // pick a random angle
-            float angle = Random.Range(0, 2 * Mathf.PI);
-
-            // create the projectile
-            GameObject projectile = Instantiate(base.projectile, transform.position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg + 90));
-
-            // gets the controller of the projectile and sets it up
-            ProjectileController controller = projectile.GetComponent<ProjectileController>();
-            controller.Setup(projectileJson, this);
+            // creates and sets up a new projectile
+            Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this);
         }
     }
 

@@ -40,12 +40,8 @@ public class FireMage : Mage
             // pick a random angle variation
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
-            // create the orb
-            GameObject newOrb = Instantiate(orb, transform.position, Quaternion.Euler(0, 0, angleFacing));
-
-            // gets the controller of the projectile and sets it up
-            ProjectileController controller = newOrb.GetComponent<ProjectileController>();
-            controller.Setup(orbJson, this);
+            // creates and sets up a new projectile
+            Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this);
         }
     }
 }
