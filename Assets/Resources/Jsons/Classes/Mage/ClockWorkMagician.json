@@ -1,0 +1,22 @@
+{
+  "orbNumber": 1,
+  "timeDelay": 2.5,
+  "regularAttack": true,
+
+  "buffDelay": 5,
+  "attackSpeedBuff": 1.2,
+  "damageBuff": 1.25,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 5,
+  "contactForce": 2000,
+  "velocityContribution": 8,
+
+  "orbPath": "GameObjects/Orb1",
+  "orbJson": "Assets/Resources/Jsons/Projectiles/ClockworkMagicianProjectile.json",
+
+  "r": 0.75,
+  "g": 0.2,
+  "b": 0.4
+}

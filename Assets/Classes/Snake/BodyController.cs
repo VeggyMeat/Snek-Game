@@ -89,7 +89,7 @@ public class BodyController : MonoBehaviour
             GameObject body = Instantiate(obj);
 
             // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(0, 1);
+            int choice = UnityEngine.Random.Range(8, 9);
 
             if (choice == 0)
             {
@@ -126,6 +126,10 @@ public class BodyController : MonoBehaviour
             else if (choice == 7)
             {
                 body.AddComponent<Spectre>();
+            }
+            else if (choice == 8)
+            {
+                body.AddComponent<ClockworkMagician>();
             }
 
             next = body.GetComponent<BodyController>();

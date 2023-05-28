@@ -32,6 +32,7 @@ public class FireMage : Mage
 
     internal override void Attack()
     {
+        // rotates the mage slightly
         angleFacing += rotation;
         angleFacing %= Mathf.PI * 2;
 
