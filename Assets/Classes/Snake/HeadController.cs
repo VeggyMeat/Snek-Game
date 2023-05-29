@@ -198,4 +198,9 @@ public class HeadController : MonoBehaviour
             return head.Length();
         }
     }
+
+    public float GetXPPercentage()
+    {
+        return (float)XP / XPLevelUp;
+    }
 }
