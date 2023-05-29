@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 public class HeadController : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class HeadController : MonoBehaviour
     // xp related
     public int BaseXPLevelRequirement = 50;
     public int XPIncreaseLevel = 25;
+
+    public List<string> bodies;
 
     internal BodyController head;
 
@@ -29,6 +33,10 @@ public class HeadController : MonoBehaviour
     private int XPLevelUp;
     private bool pressed = false;
 
+    public GameObject shopManagerObj;
+
+    private ShopManager shopManager;
+
     void Start()
     {
         // grabs the trigger controller script
@@ -36,6 +44,10 @@ public class HeadController : MonoBehaviour
 
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
+
+        // sets up the shop manager
+        shopManager = shopManagerObj.GetComponent<ShopManager>();
+        shopManager.Setup(this);
     }
 
     private void Update()
@@ -46,7 +58,9 @@ public class HeadController : MonoBehaviour
             if (!pressed)
             {
                 pressed = true;
-                AddBody(circle);
+
+                // adds a random body
+                AddBody(bodies[UnityEngine.Random.Range(0, bodies.Count)]);
             }
         }
         else
@@ -105,14 +119,12 @@ public class HeadController : MonoBehaviour
 
     internal void LevelUp()
     {
-        if (XP < XPLevelUp)
-        {
-            XP = XPLevelUp;
-        }
+        XP = 0;
 
         XPLevelUp += XPIncreaseLevel;
 
         // bring to the level up scene
+        shopManager.MakeShop();
     }
 
     // returns the position of the head if it exists
@@ -127,64 +139,50 @@ public class HeadController : MonoBehaviour
     }
 
     // adds a new body to the snake
-    internal void AddBody(GameObject obj)
+    internal void AddBody(string bodyClass)
     {
+        // creates the body and sets it up and places it as the head of the snake
+        GameObject body = Instantiate(circle);
+
+        switch(bodyClass)
+        {
+            case "BowMan":
+                body.AddComponent<BowMan>();
+                break;
+            case "Gambler":
+                body.AddComponent<Gambler>();
+                break;
+            case "Samurai":
+                body.AddComponent<Samurai>();
+                break;
+            case "Swordsman":
+                body.AddComponent<Swordsman>();
+                break;
+            case "ClockworkMagician":
+                body.AddComponent<ClockworkMagician>();
+                break;
+            case "FireMage":
+                body.AddComponent<FireMage>();
+                break;
+            case "Spectre":
+                body.AddComponent<Spectre>();
+                break;
+            case "Necro":
+                body.AddComponent<Necro>();
+                break;
+            case "Engineer":
+                body.AddComponent<Engineer>();
+                break;
+        }
         if (head is null)
         {
-            // creates the body and sets it up and places it as the head of the snake
-            GameObject body = Instantiate(obj);
-
-            // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(8, 9);
-
-            if (choice == 0)
-            {
-                // makes the body a bowman (TEMPORARY)
-                body.AddComponent<BowMan>();
-            }
-            else if (choice == 1)
-            {
-                // makes the body a necro (TEMPORARY)
-                body.AddComponent<Necro>();
-            }
-            else if (choice == 2)
-            {
-                // makes the body a swordsman (TEMPORARY)
-                body.AddComponent<Swordsman>();
-            }
-            else if (choice == 3)
-            {
-                // make the body a fire mage (TEMPORARY)
-                body.AddComponent<FireMage>();
-            }
-            else if (choice == 4)
-            {
-                body.AddComponent<Samurai>();
-            }
-            else if (choice == 5)
-            {
-                body.AddComponent<Gambler>();
-            }
-            else if (choice == 6)
-            {
-                body.AddComponent<Engineer>();
-            }
-            else if (choice == 7)
-            {
-                body.AddComponent<Spectre>();
-            }
-            else if (choice == 8)
-            {
-                body.AddComponent<ClockworkMagician>();
-            }
-
             head = body.GetComponent<BodyController>();
             head.BodySetup(this, null, triggerControllerScript);
         }
         else
         {
             // makes the head add a new body behind it
-            head.AddBody(obj, this);
+            head.AddBody(body, this);
         }
     }
 

@@ -172,9 +172,10 @@ public class NecromancerZombieController : MonoBehaviour
             ChangeHealth(body.contactDamage);
 
             // apply damage to the enemy
-            if (body.ChangeHealth(-contactDamage))
+            if (!body.ChangeHealth(-contactDamage))
             {
                 // killed an enemy
+                parent.EnemyKilled(collision.gameObject);
             }
 
             if (!body.dead)

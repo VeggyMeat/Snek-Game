@@ -48,7 +48,7 @@ public class Swordsman : Frontline
             if (!enemyController.dead)
             {
                 // apply damage to the enemy
-                if (enemyController.ChangeHealth(-damage))
+                if (!enemyController.ChangeHealth(-damage))
                 {
                     // enemy has been killed
                     EnemyKilled(enemyObj);

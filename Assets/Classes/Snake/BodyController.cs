@@ -81,64 +81,18 @@ public class BodyController : MonoBehaviour
     }
 
     // adds a new body to the snake
-    internal void AddBody(GameObject obj, HeadController snake)
+    internal void AddBody(GameObject body, HeadController snake)
     {
         if (next is null)
         {
-            // creates the body and sets it up and places it as the head of the snake
-            GameObject body = Instantiate(obj);
-
-            // randomly choses one of the options
-            int choice = UnityEngine.Random.Range(8, 9);
-
-            if (choice == 0)
-            {
-                // makes the body a bowman (TEMPORARY)
-                body.AddComponent<BowMan>();
-            }
-            else if (choice == 1)
-            {
-                // makes the body a necro (TEMPORARY)
-                body.AddComponent<Necro>();
-            }
-            else if (choice == 2)
-            {
-                // makes the body a swordsman (TEMPORARY)
-                body.AddComponent<Swordsman>();
-            }
-            else if (choice == 3)
-            {
-                // make the body a fire mage (TEMPORARY)
-                body.AddComponent<FireMage>();
-            }
-            else if (choice == 4)
-            {
-                body.AddComponent<Samurai>();
-            }
-            else if (choice == 5)
-            {
-                body.AddComponent<Gambler>();
-            }
-            else if (choice == 6)
-            {
-                body.AddComponent<Engineer>();
-            }
-            else if (choice == 7)
-            {
-                body.AddComponent<Spectre>();
-            }
-            else if (choice == 8)
-            {
-                body.AddComponent<ClockworkMagician>();
-            }
-
+            // sets up the body
             next = body.GetComponent<BodyController>();
             next.BodySetup(snake, this, triggerController);
         }
         else
         {
             // makes the next body add a new body behind it
-            next.AddBody(obj, snake);
+            next.AddBody(body, snake);
         }
     }
 
