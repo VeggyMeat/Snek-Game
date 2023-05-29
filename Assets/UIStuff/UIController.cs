@@ -23,7 +23,6 @@ public class UIController : MonoBehaviour
    {
         // dealing with the XP bar
         float percentageFull = headController.GetXPPercentage();
-        Debug.Log(percentageFull);
         // percentageFull %= 1;
         int full = (int)(percentageFull * xpBarLength);
         xpText.text = $"[{new string('#', full) + new string('-', xpBarLength - full)}]";

@@ -17,8 +17,6 @@ public class Necro : Class
 
     internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Necro.json";
 
-    internal TriggerController controller;
-
     // currently unused (mostly) should be replaced or utilised in the future
     internal List<NecromancerZombieController> summonedZombies;
 
@@ -33,7 +31,7 @@ public class Necro : Class
         summonedZombies = new List<NecromancerZombieController>();
 
         // adds this to the enemy death trigger list
-        triggerController.addEnemyDeathTrigger(this);
+        TriggerController.addEnemyDeathTrigger(this);
 
         // gets the zombie asset ready
         zombie = Resources.Load<GameObject>(zombiePath);
@@ -80,7 +78,7 @@ public class Necro : Class
         base.Revived();
 
         // adds this back to the list for enemy death triggers
-        triggerController.addEnemyDeathTrigger(this);
+        TriggerController.addEnemyDeathTrigger(this);
     }
 
     // called when the body dies
@@ -89,6 +87,6 @@ public class Necro : Class
         base.OnDeath();
 
         // removes this from the list of enemy death triggers
-        triggerController.removeEnemyDeathTrigger(this);
+        TriggerController.removeEnemyDeathTrigger(this);
     }
 }

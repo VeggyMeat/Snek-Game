@@ -2,48 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerController : MonoBehaviour
+public static class TriggerController
 {
     // triggers that are needed:
     // - on the death of an enemy, gives location and copy of enemy
     // - on the death of a body, gives location and copy of player
 
-    private List<Class> enemyDeathTriggered;
-    private List<Class> bodyDeathTriggered;
-    
-    void Start()
-    {
-        enemyDeathTriggered = new List<Class>();
-        bodyDeathTriggered = new List<Class>();
-    }
-
-    void Update()
-    {
-        
-    }
-
-    internal void addEnemyDeathTrigger(Class body)
+    private static List<Class> enemyDeathTriggered = new List<Class>();
+    private static List<Class> bodyDeathTriggered = new List<Class>();
+    internal static void addEnemyDeathTrigger(Class body)
     {
         enemyDeathTriggered.Add(body);
     }
 
-    internal void addBodyDeathTrigger(Class body)
+    internal static void addBodyDeathTrigger(Class body)
     {
         bodyDeathTriggered.Add(body);
     }
 
-    internal void removeEnemyDeathTrigger(Class body)
+    internal static void removeEnemyDeathTrigger(Class body)
     {
         enemyDeathTriggered.Remove(body);
     }
 
-    internal void removeBodyDeathTrigger(Class body)
+    internal static void removeBodyDeathTrigger(Class body)
     {
         bodyDeathTriggered.Remove(body);
     }
 
     // possibly quite slow for thousands of enemies
-    internal void enemyDied(GameObject enemy)
+    internal static void enemyDied(GameObject enemy)
     {
         foreach (Class body in enemyDeathTriggered)
         {
@@ -51,7 +39,7 @@ public class TriggerController : MonoBehaviour
         }
     }
 
-    internal void bodyDied(GameObject body)
+    internal static void bodyDied(GameObject body)
     {
         foreach (Class player in bodyDeathTriggered)
         {

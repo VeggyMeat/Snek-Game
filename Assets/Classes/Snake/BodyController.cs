@@ -32,8 +32,6 @@ public class BodyController : MonoBehaviour
     internal Vector2 lastMoved;
     internal Vector2 lastPosition;
 
-    internal TriggerController triggerController;
-
     internal bool isDead = false;
 
     // sets up variables
@@ -50,12 +48,11 @@ public class BodyController : MonoBehaviour
     }
 
     // function called when a new body is created
-    internal void BodySetup(HeadController snake, BodyController prev, TriggerController controller)
+    internal void BodySetup(HeadController snake, BodyController prev)
     {
         // sets up the starting variables for the body
         this.snake = snake;
         this.prev = prev;
-        triggerController = controller;
 
         // sets the position and grabs the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
@@ -87,7 +84,7 @@ public class BodyController : MonoBehaviour
         {
             // sets up the body
             next = body.GetComponent<BodyController>();
-            next.BodySetup(snake, this, triggerController);
+            next.BodySetup(snake, this);
         }
         else
         {
@@ -180,7 +177,7 @@ public class BodyController : MonoBehaviour
         Invoke(nameof(Revived), timeDead);
 
         // body died trigger called
-        triggerController.bodyDied(gameObject);
+        TriggerController.bodyDied(gameObject);
     }
 
     internal virtual void Revived()

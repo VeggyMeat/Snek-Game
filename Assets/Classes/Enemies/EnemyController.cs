@@ -20,7 +20,6 @@ public class EnemyController : MonoBehaviour
     internal bool dead = false;
     internal Rigidbody2D selfRigid;
     internal EnemySummonerController summoner;
-    internal TriggerController triggerController;
 
     internal EnemyPassiveHandler passiveHandler;
 
@@ -116,7 +115,7 @@ public class EnemyController : MonoBehaviour
         summoner.enemiesDead++;
 
         // makes a trigger to the trigger controller that this has died
-        triggerController.enemyDied(gameObject);
+        TriggerController.enemyDied(gameObject);
 
         // deletes this object
         Destroy(gameObject);

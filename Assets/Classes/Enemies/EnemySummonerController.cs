@@ -21,13 +21,9 @@ public class EnemySummonerController : MonoBehaviour
     internal List<GameObject> enemies;
     internal int enemiesDead = 0;
 
-    private TriggerController triggerControllerScript;
-
     // Start is called before the first frame update
     void Start()
     {
-        triggerControllerScript = triggerController.GetComponent<TriggerController>();
-
         // gets the camera object
         cameraTransform = GameObject.Find("Main Camera").transform;
 
@@ -70,7 +66,6 @@ public class EnemySummonerController : MonoBehaviour
             // sets the enemy's summoner to this
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();
             newEnemy.summoner = this;
-            newEnemy.triggerController = triggerControllerScript;
             newEnemy.Setup();
 
             // adds the enemy to the list of enemies to keep track

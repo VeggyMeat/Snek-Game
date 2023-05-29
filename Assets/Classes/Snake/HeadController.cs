@@ -27,8 +27,6 @@ public class HeadController : MonoBehaviour
     internal float totalMass = 0;
     internal float velocity = 0;
 
-    internal TriggerController triggerControllerScript;
-
     private int XP = 0;
     private int XPLevelUp;
     private bool pressed = false;
@@ -39,9 +37,6 @@ public class HeadController : MonoBehaviour
 
     void Start()
     {
-        // grabs the trigger controller script
-        triggerControllerScript = triggerController.GetComponent<TriggerController>();
-
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
 
@@ -177,7 +172,7 @@ public class HeadController : MonoBehaviour
         if (head is null)
         {
             head = body.GetComponent<BodyController>();
-            head.BodySetup(this, null, triggerControllerScript);
+            head.BodySetup(this, null);
         }
         else
         {
