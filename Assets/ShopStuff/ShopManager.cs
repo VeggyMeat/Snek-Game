@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using TMPro.Examples;
 using Unity.Mathematics;
@@ -13,122 +14,139 @@ using Random = UnityEngine.Random;
 
 public class ShopManager : MonoBehaviour
 {
-    public Canvas canvasPrefab;
-
-    public Vector2[] buttonPositions;
-    public Vector2 buttonSize;
-
-    internal ShopState state;
-
-    public GameObject buttonPrefab;
-
-    private UnityAction[] actions;
+    private List<TextMeshProUGUI> buttonTexts = new List<TextMeshProUGUI>();
 
     private HeadController head;
 
-    private string[] options;
+    private List<string> options;
 
-    private GameObject canvas;
-
-    private List<string> bodies;
+    private static List<string> bodies;
 
     private int stacks;
 
-    private bool active;
+    private static bool timeActive = true;
+    private static bool shopActive = true;
 
     internal void Setup(HeadController head)
     {
+        // sets the headcontroller and gets the list of bodies
         this.head = head;
-
         bodies = head.bodies;
-    }
 
-    internal void MakeShop(bool self = false)
-    {
-        if (!self)
+        // gets the text attatched to those buttons
+        for (int i = 0; i < 3; i++)
         {
-            // adds to the number of stacks
-            stacks++;
+            Transform child = transform.GetChild(i);
+            buttonTexts.Add(child.GetChild(0).GetComponent<TextMeshProUGUI>());
         }
 
-        if (active)
+        // hides the shop
+        HideShop();
+    }
+
+    public void AddBodyShop()
+    {
+        // adds to the buffer of multiple level ups at once
+        stacks++;
+
+        // if a loop is currently running, it will handle it
+        if (stacks > 1)
         {
-            // will do the overflow later
             return;
         }
 
-        active = true;
+        // shows the shop and pauses time
+        ShowShop();
+        PauseTime();
 
-        // stops time
-        Time.timeScale = 0;
+        // creates the shop for bodies
+        MakeBodyShop();
+    }
 
-        // creates the canvas
-        canvas = Instantiate(canvasPrefab.gameObject, Vector3.zero, Quaternion.identity);
+    private void MakeBodyShop()
+    {
+        // makes a new set of options
+        options = MakeOptions();
+        UpdateButtonsText(options);
+    }
 
-        // sets up the functions that are called when buttons are pressed
-        actions = new UnityAction[3] {FuncOne, FuncTwo, FuncThree};
-
-        // gets the options displayed
-        options = new string[] { bodies[Random.Range(0, bodies.Count)], bodies[Random.Range(0, bodies.Count)], bodies[Random.Range(0, bodies.Count)] };
-
-        // creates each button
-        int i = 0;
-        foreach (Vector2 buttonPos in buttonPositions)
+    public void PauseTime()
+    {
+        if (timeActive)
         {
-            // increments the counter
-            i++;
-
-            // creates the button
-            GameObject button = Instantiate(buttonPrefab, buttonPos, Quaternion.identity);
-
-            // sets the canvas as the button's parent
-            button.transform.SetParent(canvas.transform, false);
-
-            // sets the size of the button
-            button.GetComponent<RectTransform>().sizeDelta = buttonSize;
-
-            // gets the button component
-            Button buttonBit = button.GetComponent<Button>();
-
-            // sets the text
-            buttonBit.GetComponentInChildren<TextMeshProUGUI>().text = options[i - 1];
-
-            // adds the listener function to it
-            buttonBit.onClick.AddListener(actions[i - 1]);
+            timeActive = false;
+            Time.timeScale = 0;
         }
     }
 
-    private void FuncOne()
+    public void ResumeTime()
     {
-        ButtonPressed(0);
+        if (!timeActive)
+        {
+            timeActive = true;
+            Time.timeScale = 1;
+        }
     }
 
-    private void FuncTwo() 
+    private void ShowShop()
     {
-        ButtonPressed(1);
+        if (!shopActive)
+        {
+            // shows the canvas
+            gameObject.SetActive(true);
+            shopActive = true;
+
+            // pauses time
+            PauseTime();
+        }
     }
 
-    private void FuncThree()
+    private void HideShop()
     {
-        ButtonPressed(2);
+        if (shopActive)
+        {
+            // resumes time
+            ResumeTime();
+
+            // hides the canvas
+            gameObject.SetActive(false);
+            shopActive = false;
+        }
     }
 
-    private void ButtonPressed(int num)
+    internal void UpdateButtonsText(List<string> names)
     {
-        Destroy(canvas);
+        // goes through each button and sets its text equal to the item
+        int i = 0;
+        foreach (TextMeshProUGUI text in buttonTexts)
+        {
+            text.text = names[i];
+            i++;
+        }
+    }
 
-        head.AddBody(options[num]);
+    internal List<string> MakeOptions()
+    {
+        // creates the options displayed
+        return new List<string> { bodies[Random.Range(0, bodies.Count)], bodies[Random.Range(0, bodies.Count)], bodies[Random.Range(0, bodies.Count)] };
+    }
 
-        // restarts time
-        Time.timeScale = 1;
+    public void ButtonPressed(int num)
+    {
+        // adds the body to the snake
+        head.AddBody(options[num]);  
 
         stacks--;
-
-        active = false;
         
+        // if there are still stacks in the buffer, go again
         if (stacks > 0)
         {
-            MakeShop(true);
+            MakeBodyShop();
+            return;
         }
+
+        // resume time and hides the shop
+        ResumeTime();
+        HideShop();
     }
 }

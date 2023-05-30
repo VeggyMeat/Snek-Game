@@ -12,7 +12,6 @@ public class HeadController : MonoBehaviour
     public double turningRate = 2;
 
     public GameObject circle;
-    public GameObject triggerController;
 
     // xp related
     public int BaseXPLevelRequirement = 50;
@@ -31,9 +30,7 @@ public class HeadController : MonoBehaviour
     private int XPLevelUp;
     private bool pressed = false;
 
-    public GameObject shopManagerObj;
-
-    private ShopManager shopManager;
+    public ShopManager shopManager;
 
     void Start()
     {
@@ -41,7 +38,6 @@ public class HeadController : MonoBehaviour
         velocityVector = new Vector2(0f, 0f);
 
         // sets up the shop manager
-        shopManager = shopManagerObj.GetComponent<ShopManager>();
         shopManager.Setup(this);
     }
 
@@ -119,7 +115,7 @@ public class HeadController : MonoBehaviour
         XPLevelUp += XPIncreaseLevel;
 
         // bring to the level up scene
-        shopManager.MakeShop();
+        shopManager.AddBodyShop();
     }
 
     // returns the position of the head if it exists
