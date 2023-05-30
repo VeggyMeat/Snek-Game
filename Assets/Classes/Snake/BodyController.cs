@@ -34,6 +34,8 @@ public class BodyController : MonoBehaviour
 
     internal bool isDead = false;
 
+    private Queue<Vector2> positionFollow = new Queue<Vector2>();
+
     // sets up variables
     internal virtual void Setup()
     {
@@ -114,6 +116,16 @@ public class BodyController : MonoBehaviour
         {
             return 1 + next.Length();
         }
+    }
+
+    internal Vector2 TailPos()
+    {
+        if (next is null)
+        {
+            return transform.position;
+        }
+
+        return next.TailPos();
     }
 
     // returns whether the body survives or not
@@ -226,70 +238,44 @@ public class BodyController : MonoBehaviour
     }
 
     // moves the body
-    internal void Move(float totalMass=0.1f, List<Rigidbody2D> objects = null, List<Vector2> positions = null, float prevRadius = 0f)
+    internal void Move(Vector2 place = new Vector2())
     {
-        // updates the total mass seen so far
-        if (!isDead)
+        // if head
+        if (prev is null)
         {
-            totalMass += selfRigid.mass;
-        }
+            Debug.Log(Length());
+            // get the vector its moved in the last frame
+            Vector2 movement = snake.velocityVector * Time.deltaTime / snake.Length();
 
-        // gets the radius of the current circle
-        float radius = transform.localScale.x / 2;
-
-        // if it is the head, create the lists to pass on to the next instance, and move the head based on the angle facing and speed
-        if (IsHead())
-        {
-            objects = new List<Rigidbody2D>() { selfRigid };
-
-            positions = new List<Vector2>() { snake.velocityVector * Time.deltaTime / totalMass + selfRigid.position };
-        }
-        // if not the head
-        else
-        {
-            // calculates the distance the objects should be apart
-            float targetDistance = radius + prevRadius;
-
-            // calculates the current distance apart as a vector
-            Vector2 diff = positions[positions.Count - 1] - selfRigid.position;
-
-            // gets the magnitude of that
-            float distance = diff.magnitude;
-
-            // figures out the error between actual distance and desired distance
-            float error = targetDistance - distance;
-
-            // normalizes the difference vector
-            Vector2 diffNormalized = diff.normalized;
-
-            // calculates the weighting in which side should be shifted more
-            float weight = selfRigid.mass / totalMass;
-
-            // updates the position changes of each of the objects in the list, to be moved
-            for (int i = 0; i < positions.Count; i++)
+            // add it to the list for the next snake to follow
+            if (next is not null)
             {
-                // changes the position based off of the weight, error and the Vector between the two objects
-                positions[i] += diffNormalized * error * weight;
+                positionFollow.Enqueue(movement + selfRigid.position);
             }
 
-            // adds this objects position to the list, updated based on the inverse weighting, error and the Vector between the two objects
-            positions.Add(selfRigid.position - (1 - weight) * error * diffNormalized);
+            selfRigid.MovePosition(movement + selfRigid.position);
 
-            // adds this object to the list
-            objects.Add(selfRigid);
+            if (next is not null)
+            {
+                if (positionFollow.Count > snake.frameDelay)
+                {
+                    next.Move(positionFollow.Dequeue());
+                }
+            }
         }
-
-        if (next is not null)
-        {
-            // makes the next body move, passing on the lists
-            next.Move(totalMass, objects, positions, radius);
-        }
+        // if not
         else
         {
-            // actually updates the positions based on the list of where they should be
-            for (int i = 0; i < objects.Count; i++)
+            selfRigid.MovePosition(place);
+
+            if (next is not null)
             {
-                objects[i].MovePosition(positions[i]);
+                positionFollow.Enqueue(place);
+
+                if (positionFollow.Count > snake.frameDelay)
+                {
+                    next.Move(positionFollow.Dequeue());
+                }
             }
         }
     }
