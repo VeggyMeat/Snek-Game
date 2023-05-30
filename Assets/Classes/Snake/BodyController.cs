@@ -56,7 +56,6 @@ public class BodyController : MonoBehaviour
 
         // sets the position and grabs the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
-        selfRigid.position = new Vector2(0, 0);
 
         // grabs the spriteRenderer
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();

@@ -6,13 +6,13 @@ public class CameraController : MonoBehaviour
 {
 
     public GameObject snakeHead;
-    public Transform cameraTransform;
+    public static Transform cameraTransform;
     public double followSpeed = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cameraTransform = transform;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     {
         // canera LERP
 
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, -1), (float)(followSpeed * Time.deltaTime));
+        transform.position = Vector3.Lerp(cameraTransform.position, new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, -1), (float)(followSpeed * Time.deltaTime));
 
         // camera TRACK
 

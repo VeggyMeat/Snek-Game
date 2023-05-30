@@ -28,7 +28,6 @@ public class HeadController : MonoBehaviour
 
     private int XP = 0;
     private int XPLevelUp;
-    private bool pressed = false;
 
     public ShopManager shopManager;
 
@@ -39,25 +38,9 @@ public class HeadController : MonoBehaviour
 
         // sets up the shop manager
         shopManager.Setup(this);
-    }
 
-    private void Update()
-    {
-        // temp way to add a body when space bar is pressed
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (!pressed)
-            {
-                pressed = true;
-
-                // adds a random body
-                AddBody(bodies[UnityEngine.Random.Range(0, bodies.Count)]);
-            }
-        }
-        else
-        {
-            pressed = false;
-        }
+        // adds a body initially
+        shopManager.AddBodyShop();
     }
 
     private void FixedUpdate()
@@ -82,7 +65,6 @@ public class HeadController : MonoBehaviour
         else if (leftPress)
         {
             angle -= turningRate * Time.deltaTime;
-
 
             velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
         }
@@ -133,7 +115,7 @@ public class HeadController : MonoBehaviour
     internal void AddBody(string bodyClass)
     {
         // creates the body and sets it up and places it as the head of the snake
-        GameObject body = Instantiate(circle);
+        GameObject body = Instantiate(circle, transform.position + new Vector3 (0, 0, 2), Quaternion.identity);
 
         switch(bodyClass)
         {
