@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6522874447685472593}
   - component: {fileID: 7600894926815001832}
   - component: {fileID: 5957739162493333102}
-  - component: {fileID: -7316518154701334501}
+  - component: {fileID: 6694844088167252298}
   m_Layer: 0
-  m_Name: FlagBearer
+  m_Name: BasicEnemyLarge
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 0.8584906, g: 0.38470095, b: 0.38470095, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -139,7 +139,7 @@ PolygonCollider2D:
       - {x: 0.25, y: -0.43359375}
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
---- !u!114 &-7316518154701334501
+--- !u!114 &6694844088167252298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,20 +148,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7656828050263642448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d07aed1d93db4419d18017e05243a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 641b23d45d98f4042923e168f2ed4bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  angularVelocity: 45
-  maxHealth: 50
-  contactDamage: 5
-  XPDrop: 15
+  speed: 1.5
+  angularVelocity: 20
+  maxHealth: 200
+  contactDamage: 25
+  XPDrop: 20
   despawnRadius: 30
-  contactForce: 2000
+  contactForce: 3500
   walkTowards: 1
-  enemyType: Special
-  speedBuff: 50
-  flag: {fileID: 2372656106988086244, guid: 13930f6b38164254e98f76085a40583f, type: 3}
-  flagTimeDelay: 0.5
-  flagRange: 5
-  flagLifeSpan: 5
+  enemyType: Large

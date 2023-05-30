@@ -849,18 +849,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef333769025ad4e4e8d62fb3c353b40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
+  unsortedEnemyPrefabs:
   - {fileID: 7656828050263642448, guid: ab2899b3308a4724884d17e33d7ed676, type: 3}
   - {fileID: 7656828050263642448, guid: 045feb5fb2c77da48a3917770dde42c4, type: 3}
   - {fileID: 7656828050263642448, guid: e1a3faf95e1a0b24681eb7fba07a80fe, type: 3}
+  - {fileID: 7656828050263642448, guid: 0c9229eae5669cd4ab5801fc5e96f72a, type: 3}
   spawnClumps: 25
   spawnDelay: 10
   firstDelay: 5
-  insideHeight: 12
-  insideWidth: 20
-  outsideHeight: 15
-  outsideWidth: 23
-  triggerController: {fileID: 0}
+  radius: 20
 --- !u!4 &878517557
 Transform:
   m_ObjectHideFlags: 0

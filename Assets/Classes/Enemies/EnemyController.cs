@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public int despawnRadius;
     public int contactForce;
     public bool walkTowards;
+    public string enemyType;
 
     internal int health;
     internal bool dead = false;
@@ -126,6 +127,9 @@ public class EnemyController : MonoBehaviour
     {
         // declares to other objects that this is dead
         dead = true;
+
+        // tells the enemy controller that this has despawned
+        summoner.EnemyDespawned(this);
 
         // deletes this object
         Destroy(gameObject);

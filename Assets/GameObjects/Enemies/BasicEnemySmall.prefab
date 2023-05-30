@@ -159,3 +159,4 @@ MonoBehaviour:
   despawnRadius: 30
   contactForce: 2000
   walkTowards: 1
+  enemyType: Small
