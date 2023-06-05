@@ -160,6 +160,9 @@ public class HeadController : MonoBehaviour
             case "Bomb":
                 body.AddComponent<Bomb>();
                 break;
+            case "SorcererProdigy":
+                body.AddComponent<SorcererProdigy>();
+                break;
         }
         if (head is null)
         {

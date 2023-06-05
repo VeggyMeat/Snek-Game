@@ -437,6 +437,7 @@ MonoBehaviour:
   - Necro
   - Engineer
   - Bomb
+  - SorcererProdigy
   shopManager: {fileID: 1830078721}
 --- !u!4 &346601360
 Transform:

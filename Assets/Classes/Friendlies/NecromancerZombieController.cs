@@ -65,9 +65,6 @@ public class NecromancerZombieController : MonoBehaviour
             // shoots a raycast infront of the zombie
             hit = Physics2D.Raycast(transform.position + transform.up.normalized * radius, transform.up);
 
-            // draws the ray
-            // Debug.DrawRay(transform.position + transform.up.normalized * radius, transform.up * 100f, Color.red, 0.5f, false);
-
             if (hit)
             {
                 // grabs the enemy gameobject that was hit

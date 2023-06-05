@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClockworkMagician : Mage
 {
+    // wont have levels
+
     public float buffDelay;
     public float attackSpeedBuff;
     public float damageBuff;

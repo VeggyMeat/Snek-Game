@@ -48,7 +48,8 @@ public class Samurai : Frontline
         // gets all the objects within the range
         RaycastHit2D[] objectsInLine = Physics2D.LinecastAll(point1, point2);
 
-        // draws a line showing the attack
+        // TODO draws a line showing the attack
+        // temp solution (only works in scene view)
         Debug.DrawLine(point1, point2, Color.white, 0.5f, false);
 
         foreach (RaycastHit2D hit in objectsInLine)

@@ -1,0 +1,17 @@
+{
+  "timeDelay": 0.75,
+  "regularAttack": true,
+
+  "damage": 50,
+  "beamThickness": 1,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 5,
+  "contactForce": 2000,
+  "velocityContribution": 8,
+
+  "r": 0.4,
+  "g": 0.25,
+  "b": 0.9
+}

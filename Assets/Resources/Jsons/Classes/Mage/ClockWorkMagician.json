@@ -1,11 +1,11 @@
 {
-  "orbNumber": 1,
   "timeDelay": 2.5,
   "regularAttack": true,
 
   "buffDelay": 120,
   "attackSpeedBuff": 1.2,
   "damageBuff": 1.25,
+  "orbNumber": 1,
 
   "defence": 0,
   "maxHealth": 100,
