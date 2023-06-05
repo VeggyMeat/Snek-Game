@@ -436,6 +436,7 @@ MonoBehaviour:
   - Spectre
   - Necro
   - Engineer
+  - Bomb
   shopManager: {fileID: 1830078721}
 --- !u!4 &346601360
 Transform:

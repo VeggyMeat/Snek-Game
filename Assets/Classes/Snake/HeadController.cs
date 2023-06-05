@@ -157,6 +157,9 @@ public class HeadController : MonoBehaviour
             case "Engineer":
                 body.AddComponent<Engineer>();
                 break;
+            case "Bomb":
+                body.AddComponent<Bomb>();
+                break;
         }
         if (head is null)
         {

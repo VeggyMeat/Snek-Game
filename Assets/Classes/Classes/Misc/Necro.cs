@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class Necro : Class
 {
-    // potential issue on death, triggerController will still call, a death function will need to be added, called by the body
-
-    // not implemented
-    public float timeDelay;
-
     public int maxSummoned;
 
     public string zombiePath;
@@ -35,9 +30,6 @@ public class Necro : Class
 
         // gets the zombie asset ready
         zombie = Resources.Load<GameObject>(zombiePath);
-
-        // sets the body's colour to a dark gray
-        spriteRenderer.color = new Color(0.25f, 0.25f, 0.25f);
 
         base.Setup();
     }

@@ -1,0 +1,15 @@
+{
+  "timeDelay": 30,
+  "radius": 30,
+  "XPChance": 0.1,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 10,
+  "contactForce": 3000,
+  "velocityContribution": 5,
+
+  "r": 0.7,
+  "g": 0.25,
+  "b": 0.25
+}

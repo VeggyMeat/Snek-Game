@@ -243,7 +243,6 @@ public class BodyController : MonoBehaviour
         // if head
         if (prev is null)
         {
-            Debug.Log(Length());
             // get the vector its moved in the last frame
             Vector2 movement = snake.velocityVector * Time.deltaTime / snake.Length();
 
