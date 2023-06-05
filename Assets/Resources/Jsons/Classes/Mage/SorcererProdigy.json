@@ -3,7 +3,7 @@
   "regularAttack": true,
 
   "damage": 50,
-  "beamThickness": 1,
+  "beamThickness": 0.5,
 
   "defence": 0,
   "maxHealth": 100,
