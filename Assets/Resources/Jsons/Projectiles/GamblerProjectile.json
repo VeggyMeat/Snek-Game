@@ -1,5 +1,12 @@
 {
   "velocity": 5,
   "lifeSpan": 3.5,
-  "maxBounces": 3
+  "maxBounces": 3,
+
+  "r": 0.667,
+  "g": 0.659,
+  "b": 0.831,
+
+  "scaleX": 0.5,
+  "scaleY": 0.5
 }

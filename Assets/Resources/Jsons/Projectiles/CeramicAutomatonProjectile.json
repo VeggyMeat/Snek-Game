@@ -1,5 +1,12 @@
 {
-  "velocity": 25,
+  "velocity": 45,
   "lifeSpan": 1.5,
-  "damage": 75
+  "damage": 75,
+
+  "r": 0.6,
+  "g": 0.7,
+  "b": 0.6,
+
+  "scaleX": 0.2,
+  "scaleY": 0.4
 }

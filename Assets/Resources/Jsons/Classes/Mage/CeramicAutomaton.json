@@ -5,7 +5,7 @@
   "maxShield": 1,
   "shieldRegenDelay": 10,
 
-  "boltPath": "GameObjects/Orb1",
+  "boltPath": "GameObjects/CapsuleProjectile",
   "boltJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
 
   "defence": 0,

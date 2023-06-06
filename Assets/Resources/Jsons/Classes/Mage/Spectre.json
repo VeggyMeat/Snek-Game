@@ -11,7 +11,7 @@
   "contactForce": 1000,
   "velocityContribution": 7.5,
 
-  "orbPath": "GameObjects/Orb2",
+  "orbPath": "GameObjects/CircleProjectile",
   "orbJson": "Assets/Resources/Jsons/Projectiles/SpectreProjectile.json",
 
   "r": 0.75,

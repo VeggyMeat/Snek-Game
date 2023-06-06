@@ -11,7 +11,7 @@
   "contactForce": 1500,
   "velocityContribution": 10,
 
-  "orbPath": "GameObjects/Orb1",
+  "orbPath": "GameObjects/CircleProjectile",
   "orbJson": "Assets/Resources/Jsons/Projectiles/FireMageProjectile.json",
 
   "r": 0.75,

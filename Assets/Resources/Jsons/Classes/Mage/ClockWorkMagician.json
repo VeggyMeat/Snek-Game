@@ -13,7 +13,7 @@
   "contactForce": 2000,
   "velocityContribution": 8,
 
-  "orbPath": "GameObjects/Orb1",
+  "orbPath": "GameObjects/CircleProjectile",
   "orbJson": "Assets/Resources/Jsons/Projectiles/ClockworkMagicianProjectile.json",
 
   "r": 0.75,

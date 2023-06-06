@@ -13,6 +13,6 @@
   "contactForce": 2000,
   "velocityContribution": 7.5,
 
-  "projectilePath": "GameObjects/Projectile1",
+  "projectilePath": "GameObjects/CapsuleProjectile",
   "projectileJson": "Assets/Resources/Jsons/Projectiles/BowManProjectile.json"
 }

@@ -15,6 +15,6 @@
   "contactForce": 2000,
   "velocityContribution": 7.5,
 
-  "projectilePath": "GameObjects/Projectile2",
+  "projectilePath": "GameObjects/CircleProjectile",
   "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json"
 }

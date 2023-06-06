@@ -14,6 +14,13 @@ public class ProjectileController : MonoBehaviour
     public float lifeSpan;
     public int damage;
 
+    public float r;
+    public float g;
+    public float b;
+
+    public float scaleX;
+    public float scaleY;
+
     internal virtual void Setup(string jsonPath, Class owner)
     {
         // loads in all the variables from the json
@@ -22,6 +29,9 @@ public class ProjectileController : MonoBehaviour
         reader.Close();
 
         JsonUtility.FromJsonOverwrite(text, this);
+
+        // sets the scale
+        transform.localScale = new Vector3(scaleX, scaleY, 1);
 
         // sets the owner
         this.owner = owner;
@@ -33,6 +43,9 @@ public class ProjectileController : MonoBehaviour
 
         // kills the projectile in lifeSpan seconds
         Invoke(nameof(Die), lifeSpan);
+
+        // sets the color of the object
+        GetComponent<SpriteRenderer>().color = new Color(r, g, b);
     }
 
     // called when the projectile dies
