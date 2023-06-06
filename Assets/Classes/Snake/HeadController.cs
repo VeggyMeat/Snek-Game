@@ -166,6 +166,9 @@ public class HeadController : MonoBehaviour
             case "CeramicAutomaton":
                 body.AddComponent<CeramicAutomaton>();
                 break;
+            case "Sniper":
+                body.AddComponent<Sniper>();
+                break;
         }
         if (head is null)
         {

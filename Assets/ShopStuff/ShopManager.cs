@@ -44,6 +44,18 @@ public class ShopManager : MonoBehaviour
         HideShop();
     }
 
+    private void Update()
+    {
+        if (shopActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // refresh shop options
+                MakeBodyShop();
+            }
+        }
+    }
+
     public void AddBodyShop()
     {
         // adds to the buffer of multiple level ups at once

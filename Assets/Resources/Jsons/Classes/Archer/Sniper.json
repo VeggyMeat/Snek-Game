@@ -1,0 +1,16 @@
+{
+  "timeDelay": 2,
+
+  "scanRadius": 20,
+  "damage": 100,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 10,
+  "contactForce": 2000,
+  "velocityContribution": 7.5,
+
+  "r": 0.2,
+  "g": 0.2,
+  "b": 0.5
+}
