@@ -129,7 +129,7 @@ public class BodyController : MonoBehaviour
     }
 
     // returns whether the body survives or not
-    internal bool ChangeHealth(int quantity)
+    internal virtual bool ChangeHealth(int quantity)
     {
         if (quantity > 0)
         {

@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eadac6df96969245882ee574dde63e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turningRate: 4
+  turningRate: 3
   frameDelay: 7
   circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
   BaseXPLevelRequirement: 50
@@ -438,6 +438,7 @@ MonoBehaviour:
   - Engineer
   - Bomb
   - SorcererProdigy
+  - CeramicAutomaton
   shopManager: {fileID: 1830078721}
 --- !u!4 &346601360
 Transform:

@@ -163,6 +163,9 @@ public class HeadController : MonoBehaviour
             case "SorcererProdigy":
                 body.AddComponent<SorcererProdigy>();
                 break;
+            case "CeramicAutomaton":
+                body.AddComponent<CeramicAutomaton>();
+                break;
         }
         if (head is null)
         {
