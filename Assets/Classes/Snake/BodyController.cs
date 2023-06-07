@@ -133,9 +133,10 @@ public class BodyController : MonoBehaviour
     {
         if (quantity > 0)
         {
-            health += quantity;
+            // increase health trigger (ASSUMES NO HEALING WILL MAKE YOU TAKE DAMAGE)
+            quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn(quantity);
 
-            // increase health trigger
+            health += quantity;
 
             if (health > maxHealth)
             {
@@ -153,9 +154,10 @@ public class BodyController : MonoBehaviour
                 return true;
             }
 
-            health += quantity;
+            // lost health trigger (ASSUMES IT WILL NOT MAKE BODY HEAL)
+            quantity = TriggerManager.BodyLostHealthTrigger.CallTriggerReturn(quantity);
 
-            // lost health trigger
+            health += quantity;
 
             if (health <= 0)
             {
@@ -188,7 +190,7 @@ public class BodyController : MonoBehaviour
         Invoke(nameof(Revived), timeDead);
 
         // body died trigger called
-        TriggerController.bodyDied(gameObject);
+        TriggerManager.BodyDeadTrigger.CallTrigger(gameObject);
     }
 
     internal virtual void Revived()

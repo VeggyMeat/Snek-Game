@@ -26,7 +26,7 @@ public class Necro : Class
         summonedZombies = new List<NecromancerZombieController>();
 
         // adds this to the enemy death trigger list
-        TriggerController.addEnemyDeathTrigger(this);
+        TriggerManager.EnemyDeadTrigger.AddTrigger(EnemyKilledTrigger);
 
         // gets the zombie asset ready
         zombie = Resources.Load<GameObject>(zombiePath);
@@ -34,15 +34,15 @@ public class Necro : Class
         base.Setup();
     }
 
-    internal override void EnemyKilledTrigger(GameObject enemy)
+    internal GameObject EnemyKilledTrigger(GameObject enemy)
     {
-        base.EnemyKilledTrigger(enemy);
-
         // if there is capacity for another zombie spawn it
         if (summonedZombies.Count < maxSummoned)
         {
             SummonZombie(enemy.transform);
         }
+
+        return enemy;
     }
 
     // spawns a new friendly zombie at a certain position
@@ -70,7 +70,7 @@ public class Necro : Class
         base.Revived();
 
         // adds this back to the list for enemy death triggers
-        TriggerController.addEnemyDeathTrigger(this);
+        TriggerManager.EnemyDeadTrigger.AddTrigger(EnemyKilledTrigger);
     }
 
     // called when the body dies
@@ -79,6 +79,6 @@ public class Necro : Class
         base.OnDeath();
 
         // removes this from the list of enemy death triggers
-        TriggerController.removeEnemyDeathTrigger(this);
+        TriggerManager.EnemyDeadTrigger.RemoveTrigger(EnemyKilledTrigger);
     }
 }

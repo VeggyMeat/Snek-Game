@@ -41,6 +41,9 @@ public class EnemyController : MonoBehaviour
 
         // sets the health to the max health
         health = maxHealth;
+
+        // calls the enemy spawn trigger
+        TriggerManager.EnemySpawnTrigger.CallTrigger(gameObject);
     }
 
     void FixedUpdate()
@@ -116,7 +119,7 @@ public class EnemyController : MonoBehaviour
         summoner.enemiesDead++;
 
         // makes a trigger to the trigger controller that this has died
-        TriggerController.enemyDied(gameObject);
+        TriggerManager.EnemyDeadTrigger.CallTrigger(gameObject);
 
         // deletes this object
         Destroy(gameObject);

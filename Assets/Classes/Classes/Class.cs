@@ -27,18 +27,6 @@ public class Class : BodyController
         snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
     }
 
-    // called when an enemy dies, and this object is in the trigger list in TriggerController
-    internal virtual void EnemyKilledTrigger(GameObject enemy)
-    {
-        
-    }
-
-    // called when a player body dies, and this object is in the trigger list in TriggerController
-    internal virtual void BodyDiedTrigger(GameObject body)
-    {
-        
-    }
-
     // called when the class levels up, overrided by above classes
     internal virtual void LevelUp()
     {

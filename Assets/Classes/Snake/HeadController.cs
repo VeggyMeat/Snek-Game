@@ -29,6 +29,7 @@ public class HeadController : MonoBehaviour
     internal float velocity = 0;
 
     private int XP = 0;
+    private int Level = 0;
     private int XPLevelUp;
 
     public ShopManager shopManager;
@@ -97,6 +98,10 @@ public class HeadController : MonoBehaviour
         XP = 0;
 
         XPLevelUp += XPIncreaseLevel;
+        Level++;
+
+        // level up trigger
+        TriggerManager.BodyLevelUpTrigger.CallTrigger(Level);
 
         // bring to the level up scene
         shopManager.AddBodyShop();
@@ -128,6 +133,7 @@ public class HeadController : MonoBehaviour
     {
         // creates the body and sets it up and places it as the head of the snake
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
+
         switch(bodyClass)
         {
             case "BowMan":
