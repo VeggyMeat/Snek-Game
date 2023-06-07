@@ -9,6 +9,7 @@ public class SorcererProdigy : Mage
 {
     public int damage;
     public float beamThickness;
+    public float beamLength;
 
     internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/SorcererProdigy.json";
 
@@ -27,9 +28,12 @@ public class SorcererProdigy : Mage
         Vector2 angleVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         // gets objects hit by the 3 rays
-        List<RaycastHit2D> objectsHit = Physics2D.RaycastAll((Vector2)transform.position + Vector2.Perpendicular(angleVector) * beamThickness / 2, angleVector).ToList();
+        List<RaycastHit2D> objectsHit = Physics2D.RaycastAll((Vector2)transform.position + (Vector2.Perpendicular(angleVector) * beamThickness / 2), angleVector).ToList();
         objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position + Vector2.Perpendicular(angleVector) * -beamThickness / 2, angleVector));
         objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position, angleVector));
+
+        // gets objects hit by the box instead
+        // RaycastHit2D[] objectsHit = Physics2D.BoxCastAll((Vector2)transform.position + angleVector * beamLength / 2, new Vector2(beamThickness, beamLength), angle, angleVector);
 
         foreach (RaycastHit2D hit in objectsHit)
         {

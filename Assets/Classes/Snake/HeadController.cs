@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -127,7 +128,6 @@ public class HeadController : MonoBehaviour
     {
         // creates the body and sets it up and places it as the head of the snake
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
-
         switch(bodyClass)
         {
             case "BowMan":

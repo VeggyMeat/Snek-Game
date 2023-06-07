@@ -55,7 +55,7 @@ public class Sniper : Archer
                     if (!enemy.dead)
                     {
                         // deals damage to the enemy
-                        if (enemy.ChangeHealth(-damage))
+                        if (!enemy.ChangeHealth(-damage))
                         {
                             EnemyKilled(obj);
                         }

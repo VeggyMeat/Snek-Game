@@ -4,6 +4,7 @@
 
   "damage": 50,
   "beamThickness": 0.5,
+  "beamLength": 100,
 
   "defence": 0,
   "maxHealth": 100,
