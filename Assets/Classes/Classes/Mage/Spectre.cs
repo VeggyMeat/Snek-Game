@@ -33,7 +33,7 @@ public class Spectre : Mage
         for (int i = 0; i < orbNumber; i++)
         {
             // creates and sets up a new projectile
-            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbJson, this);
+            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbJson, this, DamageMultiplier);
 
             // if dead, increases the damage by the miltiplier
             if (isDead)

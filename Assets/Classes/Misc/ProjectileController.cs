@@ -21,7 +21,7 @@ public class ProjectileController : MonoBehaviour
     public float scaleX;
     public float scaleY;
 
-    internal virtual void Setup(string jsonPath, Class owner)
+    internal virtual void Setup(string jsonPath, Class owner, float damageMultiplier)
     {
         // loads in all the variables from the json
         StreamReader reader = new StreamReader(jsonPath);
@@ -35,6 +35,9 @@ public class ProjectileController : MonoBehaviour
 
         // sets the owner
         this.owner = owner;
+
+        // scales the damage based on the multiplier
+        damage = (int)(damage * damageMultiplier);
 
         // gets the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();

@@ -11,7 +11,7 @@ public class BulletController : MonoBehaviour
     public float lifeSpan;
     public int damage;
 
-    internal void Setup(string jsonPath, TurretController parent)
+    internal void Setup(string jsonPath, TurretController parent, float DamageMultiplier)
     {
         // sets the engineer as the owner
         this.parent = parent;
@@ -28,6 +28,9 @@ public class BulletController : MonoBehaviour
 
         float angle = transform.rotation.eulerAngles.z;
         GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity);
+
+        // updates the damage based upon the damage multiplier of the parent's parent (the engineer)
+        damage = (int)(damage * DamageMultiplier);
     }
 
     // triggers when the projectile collides with something

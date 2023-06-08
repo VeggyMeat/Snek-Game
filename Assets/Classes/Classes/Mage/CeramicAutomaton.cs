@@ -45,12 +45,10 @@ public class CeramicAutomaton : Mage
 
     internal override void Attack()
     {
-        Debug.Log("attacked");
-
         // gets a random angle
         float angle = Random.Range(0, Mathf.PI * 2);
 
         // creates and sets up a new projectile
-        Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this);
+        Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this, DamageMultiplier);
     }
 }

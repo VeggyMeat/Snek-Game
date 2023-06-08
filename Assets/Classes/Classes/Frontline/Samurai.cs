@@ -63,7 +63,7 @@ public class Samurai : Frontline
                 EnemyController enemyController = hitObject.GetComponent<EnemyController>();
                 if (!enemyController.dead)
                 {
-                    if (!enemyController.ChangeHealth(-hitDamage))
+                    if (!enemyController.ChangeHealth(-(int)(hitDamage * DamageMultiplier)))
                     {
                         // enemy has been killed
                         EnemyKilled(hitObject);

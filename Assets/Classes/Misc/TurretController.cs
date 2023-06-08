@@ -55,7 +55,7 @@ public class TurretController : MonoBehaviour
         BulletController controller = bullet.GetComponent<BulletController>();
 
         // sets up the bullet
-        controller.Setup(bulletJson, this);
+        controller.Setup(bulletJson, this, parent.DamageMultiplier);
     }
 
     // called when a bullet kills an enemy

@@ -8,7 +8,7 @@ public class ClockworkMagician : Mage
 
     public float buffDelay;
     public float attackSpeedBuff;
-    public float damageBuff;
+    public float localDamageBuff;
 
     private float damageMult = 1;
     private int internalLevel = 0;
@@ -51,7 +51,7 @@ public class ClockworkMagician : Mage
 
         // gives it the stat buffs at a base level
         timeDelay /= attackSpeedBuff;
-        damageMult *= attackSpeedBuff;
+        damageMult *= localDamageBuff;
         
         // resets the projectile shot timer
         StopRepeatingAttack();
@@ -65,10 +65,10 @@ public class ClockworkMagician : Mage
         for (int  i = 0; i < orbNumber; i++)
         {
             // spawns the new projectile
-            ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbJson, this);
+            ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbJson, this, 1f);
             
             // updates its damage
-            projectile.damage = (int)(projectile.damage * damageMult);
+            projectile.damage = (int)(projectile.damage * damageMult * DamageMultiplier);
         }
     }
 

@@ -49,7 +49,7 @@ public class SorcererProdigy : Mage
                 if (!enemy.dead)
                 {
                     // if the enemy dies trigger it
-                    if (!enemy.ChangeHealth(-damage))
+                    if (!enemy.ChangeHealth(-(int)(damage * DamageMultiplier)))
                     {
                         EnemyKilled(objectHit);
                     }

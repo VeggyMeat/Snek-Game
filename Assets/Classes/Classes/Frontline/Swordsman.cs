@@ -48,21 +48,14 @@ public class Swordsman : Frontline
             if (!enemyController.dead)
             {
                 // apply damage to the enemy
-                if (!enemyController.ChangeHealth(-damage))
+                if (!enemyController.ChangeHealth(-(int)(damage * DamageMultiplier)))
                 {
                     // enemy has been killed
                     EnemyKilled(enemyObj);
                 }
                 else
                 {
-                    // broken 
-
-                    // gets the difference between the attack location and the affected enemy
-                    // Vector3 dif = enemyObj.transform.position - position;
-                    // dif.Normalize();
-
-                    // applies a force in the direction from the attack position, based on the force parameter
-                    // enemyController.selfRigid.AddForce(dif * force);
+                    // add a knockback thing
                 }
             }
         }

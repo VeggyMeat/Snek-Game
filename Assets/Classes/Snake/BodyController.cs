@@ -6,11 +6,69 @@ using UnityEngine;
 public class BodyController : MonoBehaviour
 {
     // all defined by the classes that inherit the body controller
+
+    // unbuffed versions, just to inherit from jsons (has to be public because of that, very dangerous)
     public int defence;
     public int maxHealth;
+    public float velocityContribution;
+
+    public int Defence
+    { 
+        get
+        {
+            return (int) defenceBuff.Value;
+        }
+        set
+        {
+            defence = value;
+            defenceBuff.updateOriginalValue(value);
+        }
+    }
+
+    public int MaxHealth
+    {
+        get
+        {
+            return (int) healthBuff.Value;
+        }
+        set
+        {
+            maxHealth = value;
+            healthBuff.updateOriginalValue(value);
+            HealthChangeCheck();
+        }
+    }
+
+    public float VelocityContribution
+    {
+        get
+        {
+            return speedBuff.Value;
+        }
+        set
+        {
+            float oldValue = VelocityContribution;
+            velocityContribution = value;
+            speedBuff.updateOriginalValue(value);
+            UpdateVelocityContribution(oldValue);
+        }
+    }
+
+    public float DamageMultiplier
+    {
+        get
+        {
+            return damageBuff.Value;
+        }
+    }
+
     public int contactDamage;
     public int contactForce;
-    public float velocityContribution;
+
+    internal Buff healthBuff;
+    internal Buff speedBuff;
+    internal Buff damageBuff;
+    internal Buff defenceBuff;
 
     internal Color color;
 
@@ -39,14 +97,19 @@ public class BodyController : MonoBehaviour
     // sets up variables
     internal virtual void Setup()
     {
-        // updates the total mass of the snake (partially unused right now)
-        snake.totalMass += selfRigid.mass;
+        // updates the total mass of the snake
         snake.velocity += velocityContribution;
         health = maxHealth;
 
         // sets the color of the object
         color = new Color(r, g, b);
         spriteRenderer.color = color;
+
+        // sets up the buffs
+        healthBuff = new Buff(HealthBuffUpdate, maxHealth);
+        speedBuff = new Buff(SpeedBuffUpdate, velocityContribution);
+        damageBuff = new Buff(null, 1f);
+        defenceBuff = new Buff(null, defence);
     }
 
     // function called when a new body is created
@@ -94,7 +157,7 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    // returns the position of the body in the snake
+    // returns the position of the body in the snake (un-used)
     internal int Position()
     {
         if (prev is null)
@@ -128,6 +191,25 @@ public class BodyController : MonoBehaviour
         return next.TailPos();
     }
 
+    // checks if body is dead or has too much HP (returns whether the body is still alive)
+    private bool HealthChangeCheck()
+    {
+        // if the health is bigger than MaxHealth, reduce it down to MaxHealth
+        if (health > MaxHealth)
+        {
+            health = MaxHealth;
+        }
+
+        // if its less than 0, kill the body
+        else if (health <= 0)
+        {
+            OnDeath();
+            return false;
+        }
+
+        return true;
+    }
+
     // returns whether the body survives or not
     internal virtual bool ChangeHealth(int quantity)
     {
@@ -137,16 +219,11 @@ public class BodyController : MonoBehaviour
             quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn(quantity);
 
             health += quantity;
-
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
         }
         else if (quantity < 0)
         {
             // reduce the damage taken by the defence
-            quantity += defence;
+            quantity += Defence;
 
             // if the body ignores damage from defence, return it survived
             if (quantity > 0)
@@ -158,17 +235,9 @@ public class BodyController : MonoBehaviour
             quantity = TriggerManager.BodyLostHealthTrigger.CallTriggerReturn(quantity);
 
             health += quantity;
-
-            if (health <= 0)
-            {
-                health = 0;
-                OnDeath();
-
-                return false;
-            }
         }
 
-        return true;
+        return HealthChangeCheck();
     }
 
     internal virtual void OnDeath()
@@ -176,8 +245,7 @@ public class BodyController : MonoBehaviour
         isDead = true;
 
         // reverts the original additions from the body
-        snake.totalMass -= selfRigid.mass;
-        snake.velocity -= velocityContribution;
+        snake.velocity -= VelocityContribution;
 
         // changes the tag so enemies wont interact with it
         gameObject.tag = "Dead";
@@ -197,10 +265,9 @@ public class BodyController : MonoBehaviour
     {
         isDead = false;
 
-        // updates the total mass of the snake (partially unused right now)
-        snake.totalMass += selfRigid.mass;
-        snake.velocity += velocityContribution;
-        health = maxHealth;
+        // updates the total mass of the snake
+        snake.velocity += VelocityContribution;
+        health = MaxHealth;
 
         // changes the tag back so that enemies can deal damage
         gameObject.tag = "Player";
@@ -232,8 +299,7 @@ public class BodyController : MonoBehaviour
         }
 
         // reverts the original additions from the body
-        snake.totalMass -= selfRigid.mass;
-        snake.velocity -= velocityContribution;
+        snake.velocity -= VelocityContribution;
 
         // destroys this body
         Destroy(gameObject);
@@ -243,21 +309,24 @@ public class BodyController : MonoBehaviour
     internal void Move(Vector2 place = new Vector2())
     {
         // if head
-        if (prev is null)
+        if (IsHead())
         {
             // get the vector its moved in the last frame
             Vector2 movement = snake.velocityVector * Time.deltaTime / snake.Length();
 
-            // add it to the list for the next snake to follow
+            // add it to the list for the next snake to follow, if there is one
             if (next is not null)
             {
                 positionFollow.Enqueue(movement + selfRigid.position);
             }
 
+            // move the body to the new position
             selfRigid.MovePosition(movement + selfRigid.position);
 
+            // if there is a body following it
             if (next is not null)
             {
+                // if it is ready to move, move it, and remove the spot from the queue
                 if (positionFollow.Count > snake.frameDelay)
                 {
                     next.Move(positionFollow.Dequeue());
@@ -267,17 +336,64 @@ public class BodyController : MonoBehaviour
         // if not
         else
         {
+            // moves the body to the new place
             selfRigid.MovePosition(place);
 
+            // if there is a body following it
             if (next is not null)
             {
+                // add the new position to the end of the queue
                 positionFollow.Enqueue(place);
 
+                // if it is ready to move, move it, and remove the spot from the queue
                 if (positionFollow.Count > snake.frameDelay)
                 {
                     next.Move(positionFollow.Dequeue());
                 }
             }
         }
+    }
+
+    private void UpdateVelocityContribution(float prev)
+    {
+        snake.velocity -= prev;
+        snake.velocity += VelocityContribution;
+    }
+
+    // functions that get called by the respective buffs
+    private void HealthBuffUpdate(float amount, bool multiplicative)
+    {
+        // if its a multiplying one, multiply the health by that much
+        if (multiplicative)
+        {
+            health = (int)(health * amount);
+        }
+        // if its an additive one, increase (/decrease) the health by the amount
+        else
+        {
+            health += (int)amount;
+        }
+
+        // call a health change check to see if body has died
+        HealthChangeCheck();
+    }
+
+    private void SpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        float prev;
+
+        // if its multiplicative, the previous value was the divided amount
+        if (multiplicative)
+        {
+            prev = speedBuff.Value / amount;
+        }
+        // if additive then it is minus the amount
+        else
+        {
+            prev = speedBuff.Value - amount;
+        }
+
+        // call an update to the velocity contribution
+        UpdateVelocityContribution(prev);
     }
 }

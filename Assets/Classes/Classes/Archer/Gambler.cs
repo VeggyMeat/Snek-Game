@@ -38,10 +38,10 @@ public class Gambler : Archer
         float damage = Map(minRadius, maxRadius, minDamage, maxDamage, radius);
 
         // creates and sets up a new projectile
-        ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this);
+        ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this, 1f);
 
         // sets the damage of the projectile
-        controller.damage = (int)damage;
+        controller.damage = (int)(damage * DamageMultiplier);
 
         // sets the size of the projectile
         controller.transform.localScale = new Vector3(radius, radius, 1);

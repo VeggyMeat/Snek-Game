@@ -42,7 +42,7 @@ public class FireMage : Mage
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
             // creates and sets up a new projectile
-            Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this);
+            Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this, DamageMultiplier);
         }
     }
 }

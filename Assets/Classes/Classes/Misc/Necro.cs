@@ -55,6 +55,9 @@ public class Necro : Class
         NecromancerZombieController controller = summonedZombie.GetComponent<NecromancerZombieController>();
         controller.Setup(zombieJson, this);
 
+        // resets the damage to add in the DamageMultiplier
+        controller.contactDamage = (int)(controller.contactDamage * DamageMultiplier);
+
         // adds the zombie to the list of controlled zombies
         summonedZombies.Add(controller);
     }

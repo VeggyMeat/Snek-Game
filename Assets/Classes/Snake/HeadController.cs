@@ -25,7 +25,6 @@ public class HeadController : MonoBehaviour
 
     internal double angle;
     internal Vector2 velocityVector;
-    internal float totalMass = 0;
     internal float velocity = 0;
 
     private int XP = 0;
@@ -43,6 +42,8 @@ public class HeadController : MonoBehaviour
         shopManager.Setup(this);
 
         // adds a body initially
+        shopManager.AddBodyShop();
+        shopManager.AddBodyShop();
         shopManager.AddBodyShop();
     }
 
