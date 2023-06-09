@@ -7,6 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SorcererProdigy : Mage
 {
+    // todo: make it so this cant be buffed (oh god why)
+
     public int damage;
     public float beamThickness;
     public float beamLength;

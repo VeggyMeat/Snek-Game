@@ -19,6 +19,8 @@ public class Frontline : Class
     // called when class body instantiated
     internal override void Setup()
     {
+        className = "Frontline";
+
         base.Setup();
 
         if (regularAttack )
@@ -51,7 +53,7 @@ public class Frontline : Class
     // calls the ScanRange function every attackDelay seconds
     internal void StartRepeatingScan()
     {
-        InvokeRepeating(nameof(ScanRange), attackDelay, attackDelay);
+        InvokeRepeating(nameof(ScanRange), attackDelay / attackSpeedBuff.Value, attackDelay / attackSpeedBuff.Value);
     }
 
     // cancels the repeating invoke
@@ -95,6 +97,19 @@ public class Frontline : Class
         {
             // stops attacking
             StopRepeatingScan();
+        }
+    }
+
+    // called when the attack speed buff changes
+    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        // calls the base function
+        base.AttackSpeedBuffUpdate(amount, multiplicative);
+
+        if (regularAttack)
+        {
+            // resets the repeating scan
+            ResetRepeatingScan();
         }
     }
 }

@@ -13,6 +13,8 @@ public class Bomb : Class
 
     internal override void Setup()
     {
+        className = "misc";
+
         // sets up the json data into the class
         JsonSetup(jsonPath);
 
@@ -25,7 +27,7 @@ public class Bomb : Class
     // starts repeatedly calling the attack function
     internal void StartAttacking()
     {
-        InvokeRepeating(nameof(Attack), timeDelay, timeDelay);
+        InvokeRepeating(nameof(Attack), timeDelay / attackSpeedBuff.Value, timeDelay / attackSpeedBuff.Value);
     }
 
     // stops repeatedly calling the attack function
@@ -81,5 +83,16 @@ public class Bomb : Class
                 enemyController.Die();
             }
         }
+    }
+
+    // called when the attack speed buff changes
+    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        // calls the base function
+        base.AttackSpeedBuffUpdate(amount, multiplicative);
+
+        // resets the repeating attack
+        StopAttacking();
+        StartAttacking();
     }
 }

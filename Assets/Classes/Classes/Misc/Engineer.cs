@@ -17,6 +17,8 @@ public class Engineer : Class
 
     internal override void Setup()
     {
+        className = "misc";
+
         // sets up the json data into the class
         JsonSetup(jsonPath);
 
@@ -43,7 +45,7 @@ public class Engineer : Class
     // starts the invoke to spawn turrets
     internal void StartTurretRepeating()
     {
-        InvokeRepeating(nameof(SummonTurret), spawnDelay, spawnDelay);
+        InvokeRepeating(nameof(SummonTurret), spawnDelay / attackSpeedBuff.Value, spawnDelay / attackSpeedBuff.Value);
     }
 
     // stops the invoke to spawn turrets
@@ -65,6 +67,17 @@ public class Engineer : Class
     {
         base.Revived();
 
+        StartTurretRepeating();
+    }
+
+    // called when the attack speed buff changes
+    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        // calls the base function
+        base.AttackSpeedBuffUpdate(amount, multiplicative);
+
+        // resets the repeating spawn
+        CancelTurretRepeating();
         StartTurretRepeating();
     }
 }

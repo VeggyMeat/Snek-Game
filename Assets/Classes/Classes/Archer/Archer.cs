@@ -10,6 +10,8 @@ public class Archer : Class
 
     internal override void Setup()
     {
+        className = "Archer";
+
         base.Setup();
 
         // starts firing the projectiles
@@ -19,7 +21,7 @@ public class Archer : Class
     // runs the LaunchProjectile function every timeDelay seconds
     internal void StartRepeatingProjectile()
     {
-        InvokeRepeating(nameof(LaunchProjectile), timeDelay, timeDelay);
+        InvokeRepeating(nameof(LaunchProjectile), timeDelay / attackSpeedBuff.Value, timeDelay / attackSpeedBuff.Value);
     }
 
     // stops the repeating projectile from happening
@@ -58,5 +60,15 @@ public class Archer : Class
 
         // stops projectiles from being fired
         StopRepeatingProjectile();
+    }
+
+    // called when the attack speed buff changes
+    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        // calls the base function
+        base.AttackSpeedBuffUpdate(amount, multiplicative);
+
+        // resets the repeating projectile
+        ResetRepeatingProjectile();
     }
 }

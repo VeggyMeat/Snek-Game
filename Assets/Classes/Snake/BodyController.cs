@@ -62,6 +62,8 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    internal string className;
+
     public int contactDamage;
     public int contactForce;
 
@@ -69,6 +71,7 @@ public class BodyController : MonoBehaviour
     internal Buff speedBuff;
     internal Buff damageBuff;
     internal Buff defenceBuff;
+    internal Buff attackSpeedBuff;
 
     internal Color color;
 
@@ -110,6 +113,10 @@ public class BodyController : MonoBehaviour
         speedBuff = new Buff(SpeedBuffUpdate, velocityContribution);
         damageBuff = new Buff(null, 1f);
         defenceBuff = new Buff(null, defence);
+        attackSpeedBuff = new Buff(AttackSpeedBuffUpdate, 1f);
+
+        // calls the trigger saying a new body was added
+        TriggerManager.BodySpawnTrigger.CallTrigger(this);
     }
 
     // function called when a new body is created
@@ -361,7 +368,7 @@ public class BodyController : MonoBehaviour
     }
 
     // functions that get called by the respective buffs
-    private void HealthBuffUpdate(float amount, bool multiplicative)
+    internal virtual void HealthBuffUpdate(float amount, bool multiplicative)
     {
         // if its a multiplying one, multiply the health by that much
         if (multiplicative)
@@ -378,7 +385,7 @@ public class BodyController : MonoBehaviour
         HealthChangeCheck();
     }
 
-    private void SpeedBuffUpdate(float amount, bool multiplicative)
+    internal virtual void SpeedBuffUpdate(float amount, bool multiplicative)
     {
         float prev;
 
@@ -395,5 +402,10 @@ public class BodyController : MonoBehaviour
 
         // call an update to the velocity contribution
         UpdateVelocityContribution(prev);
+    }
+
+    internal virtual void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+
     }
 }

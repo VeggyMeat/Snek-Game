@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
-public class HeadController : MonoBehaviour
+public class HeadController: MonoBehaviour
 {
     // movement related
     public double turningRate = 2;
@@ -35,6 +35,9 @@ public class HeadController : MonoBehaviour
 
     void Start()
     {
+        // sets up the item manager
+        ItemManager.Setup(this);
+
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
 

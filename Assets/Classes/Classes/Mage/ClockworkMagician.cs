@@ -7,7 +7,7 @@ public class ClockworkMagician : Mage
     // wont have levels
 
     public float buffDelay;
-    public float attackSpeedBuff;
+    public float localAttackSpeedBuff;
     public float localDamageBuff;
 
     private float damageMult = 1;
@@ -50,7 +50,7 @@ public class ClockworkMagician : Mage
         }
 
         // gives it the stat buffs at a base level
-        timeDelay /= attackSpeedBuff;
+        timeDelay /= localAttackSpeedBuff;
         damageMult *= localDamageBuff;
         
         // resets the projectile shot timer

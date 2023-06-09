@@ -19,6 +19,8 @@ public class Necro : Class
 
     internal override void Setup()
     {
+        className = "misc";
+
         // sets up the json data into the class
         JsonSetup(jsonPath);
 
