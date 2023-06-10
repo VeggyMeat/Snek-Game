@@ -109,11 +109,20 @@ public class BodyController : MonoBehaviour
         spriteRenderer.color = color;
 
         // sets up the buffs
-        healthBuff = new Buff(HealthBuffUpdate, maxHealth);
-        speedBuff = new Buff(SpeedBuffUpdate, velocityContribution);
-        damageBuff = new Buff(null, 1f);
-        defenceBuff = new Buff(null, defence);
-        attackSpeedBuff = new Buff(AttackSpeedBuffUpdate, 1f);
+        healthBuff = gameObject.AddComponent<Buff>();
+        healthBuff.Setup(HealthBuffUpdate, maxHealth);
+
+        speedBuff = gameObject.AddComponent<Buff>();
+        speedBuff.Setup(SpeedBuffUpdate, velocityContribution);
+
+        damageBuff = gameObject.AddComponent<Buff>();
+        damageBuff.Setup(null, 1f);
+
+        defenceBuff = gameObject.AddComponent<Buff>();
+        defenceBuff.Setup(null, defence);
+
+        attackSpeedBuff = gameObject.AddComponent<Buff>();
+        attackSpeedBuff.Setup(AttackSpeedBuffUpdate, 1f);
 
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);

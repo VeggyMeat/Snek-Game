@@ -24,6 +24,7 @@ public class EnemySummonerController : MonoBehaviour
     private List<Dictionary<string, int>> enemyData = new List<Dictionary<string, int>>();
 
     private int round = 0;
+    private int extra = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -60,13 +61,19 @@ public class EnemySummonerController : MonoBehaviour
 
     private void RoundSpawn()
     {
+        if (round > enemyData.Count)
+        {
+            extra++;
+            round %= enemyData.Count;
+        }
+
         Dictionary<string, int> roundData = enemyData[round];
 
         // for each type of enemy
         foreach(KeyValuePair<string, int> pair in roundData)
         {
             // spawn a random enemy of that size, that many times
-            SpawnEnemies(enemyPrefabs[pair.Key][Random.Range(0, enemyPrefabs[pair.Key].Count)], pair.Value);
+            SpawnEnemies(enemyPrefabs[pair.Key][Random.Range(0, enemyPrefabs[pair.Key].Count)], pair.Value * extra);
         }
         round++;
     }

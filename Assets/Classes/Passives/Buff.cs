@@ -5,7 +5,7 @@ using UnityEngine;
 
 # nullable enable
 
-public class Buff
+public class Buff: MonoBehaviour
 {
     private float multiplier = 1f;
     private float adder = 0f;
@@ -17,7 +17,7 @@ public class Buff
 
     public Action<float, bool>? update;
 
-    public Buff(Action<float, bool>? update, float originalValue)
+    public void Setup (Action<float, bool>? update, float originalValue)
     {
         this.update = update;
         this.originalValue = originalValue;
@@ -35,9 +35,14 @@ public class Buff
         updateValue(originalValue);
     }
 
-    public IEnumerator AddBuff(float amount, bool multiplicative, float duration)
+    public void AddBuff(float amount, bool multiplicative, float? duration)
     {
+        // starts the coroutine with the respective buffs
+        StartCoroutine(InternalAddBuff(amount, multiplicative, duration));
+    }
 
+    private IEnumerator InternalAddBuff(float amount, bool multiplicative, float? duration)
+    {
         // adds the buff
         if (multiplicative)
         {
@@ -56,11 +61,18 @@ public class Buff
             update(amount, multiplicative);
         }
 
-        // waits
-        yield return new WaitForSeconds(duration);
+        if (duration is not null)
+        {
+            // waits
+            yield return new WaitForSeconds((float)duration);
+        }
+        else
+        {
+            yield return null;
+        }
 
         // if the effect is not permanent
-        if (duration != 0)
+        if (duration is not null)
         {
             // removes the buff
             if (multiplicative)

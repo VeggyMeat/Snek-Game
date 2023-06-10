@@ -179,6 +179,9 @@ public class HeadController: MonoBehaviour
             case "Sniper":
                 body.AddComponent<Sniper>();
                 break;
+            case "Blacksmith":
+                body.AddComponent<Blacksmith>();
+                break;
         }
         if (head is null)
         {
