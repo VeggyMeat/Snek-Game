@@ -10,19 +10,21 @@ public class Necro : Class
     public string zombiePath;
     public string zombieJson;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Necro.json";
-
     // currently unused (mostly) should be replaced or utilised in the future
     internal List<NecromancerZombieController> summonedZombies;
 
     private GameObject zombie;
 
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Misc/Necro.json";
+
+        base.ClassSetup();
+    }
+
     internal override void Setup()
     {
-        className = "misc";
-
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        body.classNames.Add("misc");
 
         // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
@@ -58,7 +60,7 @@ public class Necro : Class
         controller.Setup(zombieJson, this);
 
         // resets the damage to add in the DamageMultiplier
-        controller.contactDamage = (int)(controller.contactDamage * DamageMultiplier);
+        controller.contactDamage = (int)(controller.contactDamage * body.DamageMultiplier);
 
         // adds the zombie to the list of controlled zombies
         summonedZombies.Add(controller);

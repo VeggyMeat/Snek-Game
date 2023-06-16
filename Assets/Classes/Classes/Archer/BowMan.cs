@@ -7,17 +7,19 @@ public class BowMan : Archer
 {
     public int projectileCount;
     public int enemyDeathVolleyCount;
-
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Archer/BowMan.json";
     
     public string projectilePath;
     public string projectileJson;
 
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Archer/BowMan.json";
+
+        base.ClassSetup();
+    }
+
     internal override void Setup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // grabs the projectile from resources
         projectile = Resources.Load<GameObject>(projectilePath);
 
@@ -28,7 +30,7 @@ public class BowMan : Archer
     // called regularly by archer
     internal override void LaunchProjectile()
     {
-        if (isDead)
+        if (body.isDead)
         {
             return;
         }
@@ -36,7 +38,7 @@ public class BowMan : Archer
         for (int i = 0; i < projectileCount; i++)
         {
             // creates and sets up a new projectile
-            Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this, DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this, body.DamageMultiplier);
         }
     }
 

@@ -9,7 +9,7 @@ public class Mage : Class
 
     internal override void Setup()
     {
-        className = "Mage";
+        body.classNames.Add("Mage");
 
         base.Setup();
 
@@ -31,7 +31,7 @@ public class Mage : Class
     // runs the Attack function every timeDelay seconds
     internal void StartRepeatingAttack()
     {
-        InvokeRepeating(nameof(Attack), timeDelay / attackSpeedBuff.Value, timeDelay / attackSpeedBuff.Value);
+        InvokeRepeating(nameof(Attack), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
     }
 
     // stops the repeating attack from happening
@@ -71,10 +71,10 @@ public class Mage : Class
     }
 
     // called when the attack speed buff changes
-    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function
-        base.AttackSpeedBuffUpdate(amount, multiplicative);
+        base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
         // resets the repeating attack
         ResetRepeatingAttack();

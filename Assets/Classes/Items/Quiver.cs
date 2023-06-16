@@ -26,7 +26,7 @@ public class Quiver : Item
     private BodyController AddArcherBuff(BodyController body)
     {
         // if its an archer
-        if (body.className == "Archer")
+        if (body.classNames.Contains("Archer"))
         {
             // add the buff
             body.attackSpeedBuff.AddBuff(attackSpeedModifier, true, 0f);

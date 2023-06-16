@@ -9,7 +9,7 @@ public class Enchanter : Class
 
     internal override void Setup()
     {
-        className = "Enchnatment";
+        body.classNames.Add("Enchnatment");
 
         base.Setup();
 
@@ -25,30 +25,30 @@ public class Enchanter : Class
     internal virtual void BuffAllBodies()
     {
         // gets the head
-        BodyController body = snake.head;
+        BodyController bodyBuffed = body.snake.head;
 
-        while (body is not null)
+        while (bodyBuffed is not null)
         {
             // adds the buff to the body
-            AddBuff(body.gameObject);
+            AddBuff(bodyBuffed.gameObject);
 
             // gets the next body
-            body = body.next;
+            bodyBuffed = bodyBuffed.next;
         }
     }
 
     internal virtual void UnbuffAllBodies()
     {
         // gets the head
-        BodyController body = snake.head;
+        BodyController bodyBuffed = body.snake.head;
 
-        while (body is not null)
+        while (bodyBuffed is not null)
         {
             // remove the buff from the body
-            RemoveBuff(body.gameObject);
+            RemoveBuff(bodyBuffed.gameObject);
 
             // gets the next body
-            body = body.next;
+            bodyBuffed = bodyBuffed.next;
         }
     }
 
@@ -87,10 +87,10 @@ public class Enchanter : Class
     }
 
     // called when a new body is added, if the buffAllBodies is true
-    internal BodyController NewBodyTrigger(BodyController body)
+    internal BodyController NewBodyTrigger(BodyController newBody)
     {
-        AddBuff(body.gameObject);
+        AddBuff(newBody.gameObject);
 
-        return body;
+        return newBody;
     }
 }

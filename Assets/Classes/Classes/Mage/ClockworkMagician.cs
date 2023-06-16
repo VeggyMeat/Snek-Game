@@ -20,13 +20,15 @@ public class ClockworkMagician : Mage
 
     internal GameObject orbTemplate;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/ClockworkMagician.json";
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Mage/ClockworkMagician.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // grabs the orb thats shot
         orbTemplate = Resources.Load<GameObject>(orbPath);
 
@@ -68,7 +70,7 @@ public class ClockworkMagician : Mage
             ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbJson, this, 1f);
             
             // updates its damage
-            projectile.damage = (int)(projectile.damage * damageMult * DamageMultiplier);
+            projectile.damage = (int)(projectile.damage * damageMult * body.DamageMultiplier);
         }
     }
 

@@ -10,37 +10,41 @@ public class CeramicAutomaton : Mage
     public string boltJson;
     public string boltPath;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/CeramicAutomaton.json";
-
     private int shield;
     private GameObject boltTemplate;
 
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Mage/CeramicAutomaton.json";
+
+        base.ClassSetup();
+    }
+
     internal override void Setup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // sets the shield number to the maxShield number
         shield = maxShield;
 
         // grabs the projectile template from the path
         boltTemplate = Resources.Load<GameObject>(boltPath);
 
+        // adds ChangeHealthTrigger to the BodyLostHealthTrigger
+        TriggerManager.BodyLostHealthTrigger.AddTrigger(ChangeHealthTrigger);
+
         base.Setup();
     }
 
     // Called when the body takes damage
-    internal override bool ChangeHealth(int quantity)
+    internal int ChangeHealthTrigger(int quantity)
     {
         // if there is a shield left, it ignores damage
         if (shield > 0)
         {
             shield--;
-            return true;
+            return 0;
         }
 
-        // otherwise it takes damage normally
-        return base.ChangeHealth(quantity);
+        return quantity;
     }
 
     internal override void Attack()
@@ -49,6 +53,6 @@ public class CeramicAutomaton : Mage
         float angle = Random.Range(0, Mathf.PI * 2);
 
         // creates and sets up a new projectile
-        Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this, DamageMultiplier);
+        Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this, body.DamageMultiplier);
     }
 }

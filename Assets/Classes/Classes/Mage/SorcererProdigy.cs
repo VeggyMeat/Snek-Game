@@ -13,14 +13,11 @@ public class SorcererProdigy : Mage
     public float beamThickness;
     public float beamLength;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/SorcererProdigy.json";
-
-    internal override void Setup()
+    internal override void ClassSetup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        jsonPath = "Assets/Resources/Jsons/Classes/Mage/SorcererProdigy.json";
 
-        base.Setup();
+        base.ClassSetup();
     }
 
     internal override void Attack()
@@ -33,6 +30,8 @@ public class SorcererProdigy : Mage
         List<RaycastHit2D> objectsHit = Physics2D.RaycastAll((Vector2)transform.position + (Vector2.Perpendicular(angleVector) * beamThickness / 2), angleVector).ToList();
         objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position + Vector2.Perpendicular(angleVector) * -beamThickness / 2, angleVector));
         objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position, angleVector));
+
+        // TODO: CHANGE TO BOX, AND DRAW BOX ON SCREEN
 
         // gets objects hit by the box instead
         // RaycastHit2D[] objectsHit = Physics2D.BoxCastAll((Vector2)transform.position + angleVector * beamLength / 2, new Vector2(beamThickness, beamLength), angle, angleVector);
@@ -51,7 +50,7 @@ public class SorcererProdigy : Mage
                 if (!enemy.dead)
                 {
                     // if the enemy dies trigger it
-                    if (!enemy.ChangeHealth(-(int)(damage * DamageMultiplier)))
+                    if (!enemy.ChangeHealth(-(int)(damage * body.DamageMultiplier)))
                     {
                         EnemyKilled(objectHit);
                     }

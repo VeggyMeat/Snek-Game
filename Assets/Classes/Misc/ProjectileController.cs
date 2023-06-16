@@ -94,7 +94,7 @@ public class ProjectileController : MonoBehaviour
         if (addParentVelocity)
         {
             // adds the parent velocity to it
-            selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity) + owner.lastMoved;
+            selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity) + owner.body.lastMoved;
         }
         else
         {

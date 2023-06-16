@@ -3,18 +3,14 @@ using UnityEngine;
 
 public class Sniper : Archer
 {
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Archer/Sniper.json";
-
     public float scanRadius;
     public int damage;
 
-    internal override void Setup()
+    internal override void ClassSetup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        jsonPath = "Assets/Resources/Jsons/Classes/Archer/Sniper.json";
 
-        // calls the archer's setup
-        base.Setup();
+        base.ClassSetup();
     }
 
     // called regularly by archer
@@ -55,7 +51,7 @@ public class Sniper : Archer
                     if (!enemy.dead)
                     {
                         // deals damage to the enemy
-                        if (!enemy.ChangeHealth(-(int)(damage * DamageMultiplier)))
+                        if (!enemy.ChangeHealth(-(int)(damage * body.DamageMultiplier)))
                         {
                             EnemyKilled(obj);
                         }

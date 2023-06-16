@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class Blacksmith : Enchanter
 {
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Blacksmith.json";
-
     public int defenceIncrease;
 
-    internal override void Setup()
+    internal override void ClassSetup()
     {
-        // sets up the json
-        JsonSetup(jsonPath);
+        jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Blacksmith.json";
 
-        base.Setup();
+        base.ClassSetup();
     }
 
     internal override void AddBuff(GameObject player)

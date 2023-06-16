@@ -13,15 +13,11 @@ public class Samurai : Frontline
 
     public float attackLength;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Samurai.json";
-
-    // Start is called before the first frame update
-    internal override void Setup()
+    internal override void ClassSetup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Samurai.json";
 
-        base.Setup();
+        base.ClassSetup();
     }
 
     internal override void Attack(Vector3 position)
@@ -63,7 +59,7 @@ public class Samurai : Frontline
                 EnemyController enemyController = hitObject.GetComponent<EnemyController>();
                 if (!enemyController.dead)
                 {
-                    if (!enemyController.ChangeHealth(-(int)(hitDamage * DamageMultiplier)))
+                    if (!enemyController.ChangeHealth(-(int)(hitDamage * body.DamageMultiplier)))
                     {
                         // enemy has been killed
                         EnemyKilled(hitObject);

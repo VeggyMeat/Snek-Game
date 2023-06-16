@@ -9,14 +9,16 @@ public class Bomb : Class
     public int timeDelay;
     public int radius;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Bomb.json";
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Misc/Bomb.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()
     {
-        className = "misc";
-
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        body.classNames.Add("misc");
 
         // starts attacking
         StartAttacking();
@@ -27,7 +29,7 @@ public class Bomb : Class
     // starts repeatedly calling the attack function
     internal void StartAttacking()
     {
-        InvokeRepeating(nameof(Attack), timeDelay / attackSpeedBuff.Value, timeDelay / attackSpeedBuff.Value);
+        InvokeRepeating(nameof(Attack), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
     }
 
     // stops repeatedly calling the attack function
@@ -58,7 +60,7 @@ public class Bomb : Class
         // randomly gives xp or not based on XPChance
         if (Random.Range(0f, 1f) < XPChance)
         {
-            snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
+            body.snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
         }
     }
 
@@ -86,10 +88,10 @@ public class Bomb : Class
     }
 
     // called when the attack speed buff changes
-    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function
-        base.AttackSpeedBuffUpdate(amount, multiplicative);
+        base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
         // resets the repeating attack
         StopAttacking();

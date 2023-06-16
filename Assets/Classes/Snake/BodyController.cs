@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class BodyController : MonoBehaviour
@@ -62,7 +63,7 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    internal string className;
+    internal List<string> classNames = new List<string>();
 
     public int contactDamage;
     public int contactForce;
@@ -95,11 +96,20 @@ public class BodyController : MonoBehaviour
 
     internal bool isDead = false;
 
+    internal List<Class> classes = new List<Class>();
+
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
     // sets up variables
     internal virtual void Setup()
     {
+        // sets up the classes bit on the body
+        foreach(Class c in classes)
+        {
+            c.body = this;
+            c.ClassSetup();
+        }
+
         // updates the total mass of the snake
         snake.velocity += velocityContribution;
         health = maxHealth;
@@ -126,6 +136,12 @@ public class BodyController : MonoBehaviour
 
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
+
+        foreach (Class c in classes)
+        {
+            c.body = this;
+            c.Setup();
+        }
     }
 
     // function called when a new body is created
@@ -275,6 +291,12 @@ public class BodyController : MonoBehaviour
 
         // body died trigger called
         TriggerManager.BodyDeadTrigger.CallTrigger(gameObject);
+
+        // calls the OnDeath for all classes attatched
+        foreach (Class c in classes)
+        {
+            c.OnDeath();
+        }
     }
 
     internal virtual void Revived()
@@ -294,6 +316,12 @@ public class BodyController : MonoBehaviour
 
         // stops it from being revived again if its a premature revive (not implemented yet)
         CancelInvoke(nameof(Revived));
+
+        // calls the Revived for all classes attatched
+        foreach (Class c in classes)
+        {
+            c.Revived();
+        }
     }
 
     // currently un-used, would be used if body needs to be removed
@@ -392,6 +420,11 @@ public class BodyController : MonoBehaviour
 
         // call a health change check to see if body has died
         HealthChangeCheck();
+
+        foreach(Class c in classes)
+        {
+            c.OnHealthBuffUpdate(amount, multiplicative);
+        }
     }
 
     internal virtual void SpeedBuffUpdate(float amount, bool multiplicative)
@@ -416,5 +449,15 @@ public class BodyController : MonoBehaviour
     internal virtual void AttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
 
+    }
+
+    internal void JsonSetup(string json)
+    {
+        // loads in all the variables from the json
+        StreamReader reader = new StreamReader(json);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        JsonUtility.FromJsonOverwrite(text, this);
     }
 }

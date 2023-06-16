@@ -11,15 +11,17 @@ public class Swordsman : Frontline
 
     public string AOEEffectPath;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Swordsman.json";
-
     private GameObject AOEEffect;
+
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Swordsman.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()  
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // gets the AOEEffect ready to be spawned
         AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
 
@@ -48,7 +50,7 @@ public class Swordsman : Frontline
             if (!enemyController.dead)
             {
                 // apply damage to the enemy
-                if (!enemyController.ChangeHealth(-(int)(damage * DamageMultiplier)))
+                if (!enemyController.ChangeHealth(-(int)(damage * body.DamageMultiplier)))
                 {
                     // enemy has been killed
                     EnemyKilled(enemyObj);

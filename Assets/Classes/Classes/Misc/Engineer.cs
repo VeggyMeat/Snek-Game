@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Engineer : Class
 {
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Misc/Engineer.json";
-
     public float spawnDelay;
 
     public string turretPath;
@@ -15,12 +13,16 @@ public class Engineer : Class
 
     private GameObject turret;
 
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Misc/Engineer.json";
+
+        base.ClassSetup();
+    }
+
     internal override void Setup()
     {
-        className = "misc";
-
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
+        body.classNames.Add("misc");
 
         base.Setup();
 
@@ -45,7 +47,7 @@ public class Engineer : Class
     // starts the invoke to spawn turrets
     internal void StartTurretRepeating()
     {
-        InvokeRepeating(nameof(SummonTurret), spawnDelay / attackSpeedBuff.Value, spawnDelay / attackSpeedBuff.Value);
+        InvokeRepeating(nameof(SummonTurret), spawnDelay / body.attackSpeedBuff.Value, spawnDelay / body.attackSpeedBuff.Value);
     }
 
     // stops the invoke to spawn turrets
@@ -71,10 +73,10 @@ public class Engineer : Class
     }
 
     // called when the attack speed buff changes
-    internal override void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function
-        base.AttackSpeedBuffUpdate(amount, multiplicative);
+        base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
         // resets the repeating spawn
         CancelTurretRepeating();

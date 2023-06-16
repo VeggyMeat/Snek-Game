@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Class : BodyController
+public class Class: MonoBehaviour
 {
     internal int enemiesKilled;
     internal int level = 1;
+    internal BodyController body;
+    internal string jsonPath;
 
-    // Called when the class is created
-    internal override void Setup()
+    // Called by ClassSetup, overwritten by all inheriting classes
+    internal virtual void Setup()
     {
         // sets up starting variables
         enemiesKilled = 0;
+    }
 
-        // calls the setup for the body
-        base.Setup();
+    // Called when the class is created
+    internal virtual void ClassSetup()
+    {
+        JsonSetup(jsonPath);
+
+        body.JsonSetup(jsonPath);
     }
 
     // called when an enemy is killed by the class object
@@ -24,7 +31,7 @@ public class Class : BodyController
         // increases the enemy killed count, and the xp count
         enemiesKilled++;
 
-        snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
+        body.snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
     }
 
     // called when the class levels up, overrided by above classes
@@ -41,5 +48,30 @@ public class Class : BodyController
         reader.Close();
 
         JsonUtility.FromJsonOverwrite(text, this);
+    }
+
+    internal virtual void Revived()
+    {
+
+    }
+
+    internal virtual void OnDeath()
+    {
+
+    }
+
+    internal virtual void OnHealthBuffUpdate(float amount, bool multiplicative)
+    {
+
+    }
+
+    internal virtual void OnSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+
+    }
+
+    internal virtual void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+
     }
 }

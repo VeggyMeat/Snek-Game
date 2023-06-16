@@ -137,50 +137,51 @@ public class HeadController: MonoBehaviour
     {
         // creates the body and sets it up and places it as the head of the snake
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
+        BodyController bodyContr = body.AddComponent<BodyController>();
 
         switch(bodyClass)
         {
             case "BowMan":
-                body.AddComponent<BowMan>();
+                bodyContr.classes.Add(body.AddComponent<BowMan>());
                 break;
             case "Gambler":
-                body.AddComponent<Gambler>();
+                bodyContr.classes.Add(body.AddComponent<Gambler>());
                 break;
             case "Samurai":
-                body.AddComponent<Samurai>();
+                bodyContr.classes.Add(body.AddComponent<Samurai>());
                 break;
             case "Swordsman":
-                body.AddComponent<Swordsman>();
+                bodyContr.classes.Add(body.AddComponent<Swordsman>());
                 break;
             case "ClockworkMagician":
-                body.AddComponent<ClockworkMagician>();
+                bodyContr.classes.Add(body.AddComponent<ClockworkMagician>());
                 break;
             case "FireMage":
-                body.AddComponent<FireMage>();
+                bodyContr.classes.Add(body.AddComponent<FireMage>());
                 break;
             case "Spectre":
-                body.AddComponent<Spectre>();
+                bodyContr.classes.Add(body.AddComponent<Spectre>());
                 break;
             case "Necro":
-                body.AddComponent<Necro>();
+                bodyContr.classes.Add(body.AddComponent<Necro>());
                 break;
             case "Engineer":
-                body.AddComponent<Engineer>();
+                bodyContr.classes.Add(body.AddComponent<Engineer>());
                 break;
             case "Bomb":
-                body.AddComponent<Bomb>();
+                bodyContr.classes.Add(body.AddComponent<Bomb>());
                 break;
             case "SorcererProdigy":
-                body.AddComponent<SorcererProdigy>();
+                bodyContr.classes.Add(body.AddComponent<SorcererProdigy>());
                 break;
             case "CeramicAutomaton":
-                body.AddComponent<CeramicAutomaton>();
+                bodyContr.classes.Add(body.AddComponent<CeramicAutomaton>());
                 break;
             case "Sniper":
-                body.AddComponent<Sniper>();
+                bodyContr.classes.Add(body.AddComponent<Sniper>());
                 break;
             case "Blacksmith":
-                body.AddComponent<Blacksmith>();
+                bodyContr.classes.Add(body.AddComponent<Blacksmith>());
                 break;
         }
         if (head is null)

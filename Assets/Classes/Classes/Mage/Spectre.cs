@@ -14,13 +14,15 @@ public class Spectre : Mage
 
     internal GameObject orbTemplate;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/Spectre.json";
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Mage/Spectre.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()
     {
-        // sets up te json data into the class
-        JsonSetup(jsonPath);
-
         // grabs the orb thats shot
         orbTemplate = Resources.Load<GameObject>(orbPath);
 
@@ -33,10 +35,10 @@ public class Spectre : Mage
         for (int i = 0; i < orbNumber; i++)
         {
             // creates and sets up a new projectile
-            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbJson, this, DamageMultiplier);
+            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbJson, this, body.DamageMultiplier);
 
             // if dead, increases the damage by the miltiplier
-            if (isDead)
+            if (body.isDead)
             {
                 controller.damage = (int)(controller.damage * damageMult);
             }

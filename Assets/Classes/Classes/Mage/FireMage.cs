@@ -16,13 +16,15 @@ public class FireMage : Mage
 
     private float angleFacing;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Mage/FireMage.json";
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Mage/FireMage.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // grabs the orb thats shot
         orb = Resources.Load<GameObject>(orbPath);
 
@@ -42,7 +44,7 @@ public class FireMage : Mage
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
             // creates and sets up a new projectile
-            Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this, DamageMultiplier);
+            Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this, body.DamageMultiplier);
         }
     }
 }

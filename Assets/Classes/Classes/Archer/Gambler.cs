@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Gambler : Archer
 {
-    internal string jsonPath = "Assets/Resources/Jsons/Classes/Archer/Gambler.json";
-
     public string projectilePath;
     public string projectileJson;
 
@@ -16,13 +14,15 @@ public class Gambler : Archer
     public float minDamage;
     public float maxDamage;
 
-    // projectile damage unused
+    internal override void ClassSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Classes/Archer/Gambler.json";
+
+        base.ClassSetup();
+    }
 
     internal override void Setup()
     {
-        // sets up the json data into the class
-        JsonSetup(jsonPath);
-
         // grabs the projectile from resources
         projectile = Resources.Load<GameObject>(projectilePath);
 
@@ -41,7 +41,7 @@ public class Gambler : Archer
         ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this, 1f);
 
         // sets the damage of the projectile
-        controller.damage = (int)(damage * DamageMultiplier);
+        controller.damage = (int)(damage * body.DamageMultiplier);
 
         // sets the size of the projectile
         controller.transform.localScale = new Vector3(radius, radius, 1);
