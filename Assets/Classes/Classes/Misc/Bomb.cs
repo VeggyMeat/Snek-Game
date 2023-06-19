@@ -20,10 +20,10 @@ public class Bomb : Class
     {
         body.classNames.Add("misc");
 
+        base.Setup();
+
         // starts attacking
         StartAttacking();
-
-        base.Setup();
     }
 
     // starts repeatedly calling the attack function

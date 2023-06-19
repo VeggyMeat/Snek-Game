@@ -61,7 +61,7 @@ public class EnemySummonerController : MonoBehaviour
 
     private void RoundSpawn()
     {
-        if (round > enemyData.Count)
+        if (round >= enemyData.Count)
         {
             extra++;
             round %= enemyData.Count;

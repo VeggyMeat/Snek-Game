@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using TMPro.Examples;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
