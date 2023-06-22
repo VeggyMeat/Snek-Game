@@ -44,7 +44,6 @@ public class Archer : Class
         throw new System.NotImplementedException();
     }
 
-    // called when the body is revived from the dead
     internal override void Revived()
     {
         base.Revived();
@@ -53,7 +52,6 @@ public class Archer : Class
         StartRepeatingProjectile();
     }
 
-    // called when the body dies
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -62,7 +60,6 @@ public class Archer : Class
         StopRepeatingProjectile();
     }
 
-    // called when the attack speed buff changes
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function

@@ -8,5 +8,5 @@
   "orbPath": "GameObjects/CircleProjectile",
   "orbJson": "Assets/Resources/Jsons/Projectiles/FireMageProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Mage"
+  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/FireMageBody.json"
 }

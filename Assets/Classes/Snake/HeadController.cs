@@ -102,6 +102,9 @@ public class HeadController: MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Called when the snake levels up, sends a signal to set up the selection screen
+    /// </summary>
     private void LevelUp()
     {
         XP = 0;
