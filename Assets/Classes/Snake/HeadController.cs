@@ -33,6 +33,13 @@ public class HeadController: MonoBehaviour
 
     public ShopManager shopManager;
 
+    private List<string> currentBodies = new List<string>();
+
+    public List<string> CurrentBodies
+    {
+        get { return currentBodies; }
+    }
+
     void Start()
     {
         // sets up the item manager
@@ -41,13 +48,7 @@ public class HeadController: MonoBehaviour
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0f, 0f);
 
-        // sets up the shop manager
-        shopManager.Setup(this);
-
-        // adds a body initially
-        shopManager.AddBodyShop();
-        shopManager.AddBodyShop();
-        shopManager.AddBodyShop();
+        shopManager.OnLevelUp();
     }
 
     private void FixedUpdate()
@@ -87,6 +88,10 @@ public class HeadController: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increases the XP of the snake and levels up if necessary
+    /// </summary>
+    /// <param name="amount">Amount of XP gained</param>
     internal void IncreaseXP(int amount)
     {
         XP += amount;
@@ -96,8 +101,8 @@ public class HeadController: MonoBehaviour
             LevelUp();
         }
     }
-
-    internal void LevelUp()
+    
+    private void LevelUp()
     {
         XP = 0;
 
@@ -108,10 +113,14 @@ public class HeadController: MonoBehaviour
         TriggerManager.BodyLevelUpTrigger.CallTrigger(Level);
 
         // bring to the level up scene
-        shopManager.AddBodyShop();
+        shopManager.OnLevelUp();
     }
 
-    // returns the position of the head if it exists
+    /// <summary>
+    /// Returns the position of the head if it exists
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception">Throws an exception if the head is null</exception>
     internal Vector2 HeadPos()
     {
         if (head is null)
@@ -122,6 +131,10 @@ public class HeadController: MonoBehaviour
         return head.transform.position;
     }
 
+    /// <summary>
+    /// Returns the position of the tail
+    /// </summary>
+    /// <returns></returns>
     internal Vector2 TailPos()
     {
         if (head is null)
@@ -132,12 +145,17 @@ public class HeadController: MonoBehaviour
         return head.TailPos();
     }
 
-    // adds a new body to the snake
+    /// <summary>
+    /// Adds a new body to the snake
+    /// </summary>
+    /// <param name="bodyClass">The name of the class of the new body</param>
     internal void AddBody(string bodyClass)
     {
         // creates the body and sets it up and places it as the head of the snake
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
         BodyController bodyContr = body.AddComponent<BodyController>();
+
+        currentBodies.Add(bodyClass);
 
         switch(bodyClass)
         {
@@ -196,7 +214,10 @@ public class HeadController: MonoBehaviour
         }
     }
 
-    // returns the total number of bodies in the snake
+    /// <summary>
+    /// Returns the length of the snake
+    /// </summary>
+    /// <returns></returns>
     internal int Length()
     {
         if (head is null)
@@ -209,6 +230,10 @@ public class HeadController: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns the percentage of XP to the next level
+    /// </summary>
+    /// <returns></returns>
     public float GetXPPercentage()
     {
         return (float)XP / XPLevelUp;

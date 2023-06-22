@@ -1,15 +1,6 @@
 {
   "buffsAllBodies": true,
-
   "defenceIncrease": 5,
 
-  "r": 0.133,
-  "g": 0.103,
-  "b": 0.163,
-
-  "defence": 5,
-  "maxHealth": 70,
-  "contactDamage": 10,
-  "contactForce": 2000,
-  "velocityContribution": 6.5
+  "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/BlacksmithBody.json"
 }

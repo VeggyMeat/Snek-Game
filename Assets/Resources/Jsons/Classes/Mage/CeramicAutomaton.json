@@ -1,20 +1,11 @@
 {
   "timeDelay": 0.5,
   "regularAttack": true,
-
   "maxShield": 1,
   "shieldRegenDelay": 10,
 
   "boltPath": "GameObjects/CapsuleProjectile",
   "boltJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
 
-  "defence": 0,
-  "maxHealth": 1,
-  "contactDamage": 0,
-  "contactForce": 3000,
-  "velocityContribution": 9,
-
-  "r": 0.75,
-  "g": 0.5,
-  "b": 0.3
+  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/CeramicAutomatonBody.json"
 }

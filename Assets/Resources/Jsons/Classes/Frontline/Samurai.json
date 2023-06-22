@@ -4,18 +4,9 @@
   "damage": 75,
   "force": 50000,
   "regularAttack": true,
-
-  "r": 1,
-  "g": 0.4,
-  "b": 0.2,
-
-  "defence": 2,
-  "maxHealth": 150,
-  "contactDamage": 20,
-  "contactForce": 3500,
-  "velocityContribution": 7,
-
   "attackLength": 6,
   "critChance": 0.2,
-  "critMultiplier": 3
+  "critMultiplier": 3,
+
+  "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SamuraiBody.json"
 }

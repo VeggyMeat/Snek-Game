@@ -1,22 +1,13 @@
 {
   "timeDelay": 2.5,
   "regularAttack": true,
-
   "buffDelay": 120,
   "attackSpeedBuff": 1.2,
   "localDamageBuff": 1.25,
   "orbNumber": 1,
 
-  "defence": 0,
-  "maxHealth": 100,
-  "contactDamage": 5,
-  "contactForce": 2000,
-  "velocityContribution": 8,
-
   "orbPath": "GameObjects/CircleProjectile",
   "orbJson": "Assets/Resources/Jsons/Projectiles/ClockworkMagicianProjectile.json",
 
-  "r": 0.75,
-  "g": 0.2,
-  "b": 0.4
+  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/ClockworkMagicianBody.json"
 }

@@ -10,6 +10,8 @@ public class Class: MonoBehaviour
     internal BodyController body;
     internal string jsonPath;
 
+    public string bodyJson;
+
     // Called by ClassSetup, overwritten by all inheriting classes
     internal virtual void Setup()
     {
@@ -22,7 +24,7 @@ public class Class: MonoBehaviour
     {
         JsonSetup(jsonPath);
 
-        body.JsonSetup(jsonPath);
+        body.jsonFile = bodyJson;
     }
 
     // called when an enemy is killed by the class object

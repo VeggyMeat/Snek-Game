@@ -4,18 +4,10 @@
   "damage": 50,
   "force": 50000,
   "regularAttack": true,
+  "attackRadius": 4,
+  "AOEEffectTime": 0.5,
 
-  "r": 1,
-  "g": 1,
-  "b": 0,
-
-  "defence": 5,
-  "maxHealth": 200,
-  "contactDamage": 25,
-  "contactForce": 4000,
-  "velocityContribution": 5,
   "AOEEffectPath": "GameObjects/AOEEffect",
 
-  "attackRadius": 4,
-  "AOEEffectTime": 0.5
+  "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SwordsmanBody.json"
 }

@@ -1,0 +1,11 @@
+{
+  "r": 0.4,
+  "g": 0.6,
+  "b": 0.4,
+
+  "defence": 0,
+  "maxHealth": 100,
+  "contactDamage": 10,
+  "contactForce": 2000,
+  "velocityContribution": 7.5
+}

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,6 +69,22 @@ public class BodyController : MonoBehaviour
     public int contactDamage;
     public int contactForce;
 
+    public int ContactDamage
+    {
+        get
+        {
+            return (int) (contactDamage * DamageMultiplier);
+        }
+    }
+
+    public int ContactForce
+    {
+        get
+        {
+            return contactForce;
+        }
+    }
+
     internal Buff healthBuff;
     internal Buff speedBuff;
     internal Buff damageBuff;
@@ -98,10 +115,13 @@ public class BodyController : MonoBehaviour
 
     internal List<Class> classes = new List<Class>();
 
+    internal string jsonFile;
+    private bool jsonLoaded = false;
+
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
     // sets up variables
-    internal virtual void Setup()
+    private void Setup()
     {
         // sets up the classes bit on the body
         foreach(Class c in classes)
@@ -110,13 +130,15 @@ public class BodyController : MonoBehaviour
             c.ClassSetup();
         }
 
+        // loads in the attributes from the json
+        LoadFromJson();
+
         // updates the total mass of the snake
         snake.velocity += velocityContribution;
         health = maxHealth;
 
         // sets the color of the object
-        color = new Color(r, g, b);
-        spriteRenderer.color = color;
+        ResetColour();
 
         // sets up the buffs
         healthBuff = gameObject.AddComponent<Buff>();
@@ -137,6 +159,7 @@ public class BodyController : MonoBehaviour
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
 
+        // sets up the classes
         foreach (Class c in classes)
         {
             c.body = this;
@@ -145,6 +168,12 @@ public class BodyController : MonoBehaviour
     }
 
     // function called when a new body is created
+
+    /// <summary>
+    /// Sets up the body and its classes
+    /// </summary>
+    /// <param name="snake">Snake that the body belongs to</param>
+    /// <param name="prev">The previous body in the snake (or null if none)</param>
     internal void BodySetup(HeadController snake, BodyController prev)
     {
         // sets up the starting variables for the body
@@ -167,13 +196,20 @@ public class BodyController : MonoBehaviour
         lastPosition = selfRigid.position;
     }
 
-    // returns whether the body is the head of the snake
+    /// <summary>
+    /// Returns whether the body is the head of the snake
+    /// </summary>
+    /// <returns></returns>
     internal bool IsHead()
     {
         return prev is null;
     }
 
-    // adds a new body to the snake
+    /// <summary>
+    /// Adds a new body to the end of the snake
+    /// </summary>
+    /// <param name="body">The snake body to be added</param>
+    /// <param name="snake">The snake the new body will belong to</param>
     internal void AddBody(GameObject body, HeadController snake)
     {
         if (next is null)
@@ -189,7 +225,10 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    // returns the position of the body in the snake (un-used)
+    /// <summary>
+    /// Returns the position of the body in the snake
+    /// </summary>
+    /// <returns></returns>
     internal int Position()
     {
         if (prev is null)
@@ -200,7 +239,10 @@ public class BodyController : MonoBehaviour
         return prev.Position() + 1;
     }
 
-    // used to calculate the total length of the snake, returns the length of body parts from it
+    /// <summary>
+    /// Returns the length of body parts from it
+    /// </summary>
+    /// <returns></returns>
     internal int Length()
     {
         if (next is null)
@@ -213,6 +255,10 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gives the position of the tail of the snake
+    /// </summary>
+    /// <returns></returns>
     internal Vector2 TailPos()
     {
         if (next is null)
@@ -242,7 +288,11 @@ public class BodyController : MonoBehaviour
         return true;
     }
 
-    // returns whether the body survives or not
+    /// <summary>
+    /// Changes the health of the body when damage is dealt or healing applied
+    /// </summary>
+    /// <param name="quantity">The change in health requested</param>
+    /// <returns>If the body survives or not</returns>
     internal virtual bool ChangeHealth(int quantity)
     {
         if (quantity > 0)
@@ -272,7 +322,8 @@ public class BodyController : MonoBehaviour
         return HealthChangeCheck();
     }
 
-    internal virtual void OnDeath()
+    // called when the body dies
+    private void OnDeath()
     {
         isDead = true;
 
@@ -299,7 +350,7 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    internal virtual void Revived()
+    private void Revived()
     {
         isDead = false;
 
@@ -324,7 +375,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    // currently un-used, would be used if body needs to be removed
+    /// <summary>
+    /// Removes the body from the snake (and destroys it)
+    /// </summary>
     internal void DestroySelf()
     {
         // removes itself from the linkedList
@@ -398,6 +451,7 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    // updates the snake's velocity when a speed buff is added or removed
     private void UpdateVelocityContribution(float prev)
     {
         snake.velocity -= prev;
@@ -405,7 +459,7 @@ public class BodyController : MonoBehaviour
     }
 
     // functions that get called by the respective buffs
-    internal virtual void HealthBuffUpdate(float amount, bool multiplicative)
+    private void HealthBuffUpdate(float amount, bool multiplicative)
     {
         // if its a multiplying one, multiply the health by that much
         if (multiplicative)
@@ -421,13 +475,14 @@ public class BodyController : MonoBehaviour
         // call a health change check to see if body has died
         HealthChangeCheck();
 
+        // passes on the update to the classes
         foreach(Class c in classes)
         {
             c.OnHealthBuffUpdate(amount, multiplicative);
         }
     }
 
-    internal virtual void SpeedBuffUpdate(float amount, bool multiplicative)
+    private void SpeedBuffUpdate(float amount, bool multiplicative)
     {
         float prev;
 
@@ -444,20 +499,119 @@ public class BodyController : MonoBehaviour
 
         // call an update to the velocity contribution
         UpdateVelocityContribution(prev);
+
+        // passes on the update to the classes
+        foreach (Class c in classes)
+        {
+            c.OnSpeedBuffUpdate(amount, multiplicative);
+        }
     }
 
-    internal virtual void AttackSpeedBuffUpdate(float amount, bool multiplicative)
+    private void AttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
-
+        // passes on the update to the classes
+        foreach (Class c in classes)
+        {
+            c.OnAttackSpeedBuffUpdate(amount, multiplicative);
+        }
     }
 
-    internal void JsonSetup(string json)
+    /// <summary>
+    /// Sets the snake's colour to the values 'r', 'g' and 'b'
+    /// </summary>
+    internal void ResetColour()
+    {
+        color = new Color(r, g, b);
+        spriteRenderer.color = color;
+    }
+
+    /// <summary>
+    /// Reloads the snake's variables from the json file
+    /// </summary>
+    internal void LoadFromJson()
     {
         // loads in all the variables from the json
-        StreamReader reader = new StreamReader(json);
+        StreamReader reader = new StreamReader(jsonFile);
         string text = reader.ReadToEnd();
         reader.Close();
 
-        JsonUtility.FromJsonOverwrite(text, this);
+        Dictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(text);
+
+        if (jsonLoaded)
+        {
+            bool resetColour = false;
+            foreach (string term in values.Keys)
+            {
+                switch (term)
+                {
+                    case "defence":
+                        Defence = Convert.ToInt32(values[term]);
+                        break;
+                    case "maxHealth":
+                        MaxHealth = Convert.ToInt32(values[term]);
+                        break;
+                    case "velocityContribution":
+                        VelocityContribution = Convert.ToSingle(values[term]);
+                        break;
+                    case "contactDamage":
+                        contactDamage = Convert.ToInt32(values[term]);
+                        break;
+                    case "contactForce":
+                        contactForce = Convert.ToInt32(values[term]);
+                        break;
+                    case "r":
+                        r = Convert.ToSingle(values[term]);
+                        resetColour = true;
+                        break;
+                    case "g":
+                        g = Convert.ToSingle(values[term]);
+                        resetColour = true;
+                        break;
+                    case "b":
+                        b = Convert.ToSingle(values[term]);
+                        resetColour = true;
+                        break;
+                }
+            }
+            if (resetColour)
+            {
+                ResetColour();
+            }
+        }
+        else
+        {
+            foreach (string term in values.Keys)
+            {
+                switch (term)
+                {
+                    case "defence":
+                        defence = Convert.ToInt32(values[term]);
+                        break;
+                    case "maxHealth":
+                        maxHealth = Convert.ToInt32(values[term]);
+                        break;
+                    case "velocityContribution":
+                        velocityContribution = Convert.ToSingle(values[term]);
+                        break;
+                    case "contactDamage":
+                        contactDamage = Convert.ToInt32(values[term]);
+                        break;
+                    case "contactForce":
+                        contactForce = Convert.ToInt32(values[term]);
+                        break;
+                    case "r":
+                        r = Convert.ToSingle(values[term]);
+                        break;
+                    case "g":
+                        g = Convert.ToSingle(values[term]);
+                        break;
+                    case "b":
+                        b = Convert.ToSingle(values[term]);
+                        break;
+                }
+            }
+        }
+
+        jsonLoaded = true;
     }
 }

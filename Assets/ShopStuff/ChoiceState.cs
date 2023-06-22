@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ShopState
+public enum ChoiceState
 {
-    BodyChose,
+    NewBody,
+    Small_Item,
+    Powerful_Item,
     BodyUpgrade,
-    MajorItem,
-    MinorItem,
-    None,
-    Select
+    None
 }

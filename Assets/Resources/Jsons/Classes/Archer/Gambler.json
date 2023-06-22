@@ -5,16 +5,8 @@
   "minDamage": 25,
   "maxDamage": 100,
 
-  "r": 0.4,
-  "g": 0.6,
-  "b": 0.4,
-
-  "defence": 0,
-  "maxHealth": 100,
-  "contactDamage": 10,
-  "contactForce": 2000,
-  "velocityContribution": 7.5,
-
   "projectilePath": "GameObjects/CircleProjectile",
-  "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json"
+  "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",
+
+  "bodyJson": "Assets/Resources/Jsons/Classes/Archer/GamblerBody.json"
 }

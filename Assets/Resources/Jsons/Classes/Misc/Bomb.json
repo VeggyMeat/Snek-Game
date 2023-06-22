@@ -9,7 +9,5 @@
   "contactForce": 3000,
   "velocityContribution": 5,
 
-  "r": 0.7,
-  "g": 0.25,
-  "b": 0.25
+  "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
 }

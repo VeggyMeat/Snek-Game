@@ -3,15 +3,7 @@
   "lifeSpan": 30,
 
   "zombiePath": "GameObjects/Zombie1",
-  "zombieJson": "Assets/Resources/jsons/Misc/NecroZombie.json",
+  "zombieJson": "Assets/Resources/Jsons/Misc/NecroZombie.json",
 
-  "defence": 0,
-  "maxHealth": 105,
-  "contactDamage": 10,
-  "contactForce": 2000,
-  "velocityContribution": 7.5,
-
-  "r": 0.25,
-  "g": 0.25,
-  "b": 0.25
+  "bodyJson": "Assets/Resources/Jsons/Classes/Misc/NecroBody.json"
 }

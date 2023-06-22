@@ -1,18 +1,9 @@
 {
   "timeDelay": 0.75,
   "regularAttack": true,
-
   "damage": 50,
   "beamThickness": 0.5,
   "beamLength": 100,
 
-  "defence": 0,
-  "maxHealth": 100,
-  "contactDamage": 5,
-  "contactForce": 2000,
-  "velocityContribution": 8,
-
-  "r": 0.4,
-  "g": 0.25,
-  "b": 0.9
+  "jsonBody": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
 }
