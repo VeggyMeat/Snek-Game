@@ -11,7 +11,7 @@ public class HeadController: MonoBehaviour
 {
     // movement related
     public double turningRate = 2;
-    public int frameDelay;
+    public int frameDelay = 4;
 
     public GameObject circle;
 

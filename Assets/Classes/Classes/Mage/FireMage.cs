@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class FireMage : Mage
 {
-    public int orbNumber;
-    public float rotation;
-    public float orbVariation;
+    private int orbNumber;
+    private float rotation;
+    private float orbVariation;
 
-    public string orbPath;
-    public string orbJson;
+    private string orbPath;
+    private string orbJson;
 
-    internal GameObject orb;
+    private GameObject orb;
 
     private float angleFacing;
 
@@ -45,6 +45,40 @@ public class FireMage : Mage
 
             // creates and sets up a new projectile
             Projectile.Shoot(orb, transform.position, angleFacing, orbJson, this, body.DamageMultiplier);
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "orbNumber":
+                    orbNumber = int.Parse(jsonData[item].ToString());
+                    break;
+                case "rotation":
+                    rotation = float.Parse(jsonData[item].ToString());
+                    break;
+                case "orbVariation":
+                    orbVariation = float.Parse(jsonData[item].ToString());
+                    break;
+                case "orbPath":
+                    orbPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        // grabs the orb thats shot
+                        orb = Resources.Load<GameObject>(orbPath);
+                    }
+
+                    break;
+                case "orbJson":
+                    orbJson = jsonData[item].ToString();
+                    break;
+            }
         }
     }
 }

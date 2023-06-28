@@ -5,5 +5,5 @@
   "beamThickness": 0.5,
   "beamLength": 100,
 
-  "jsonBody": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
+  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
 }

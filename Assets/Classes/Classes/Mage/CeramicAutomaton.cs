@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CeramicAutomaton : Mage
 {
-    public int maxShield;
-    public int shieldRegenDelay;
+    private int maxShield;
+    private float shieldRegenDelay;
 
-    public string boltJson;
-    public string boltPath;
+    private string boltJson;
+    private string boltPath;
 
     private int shield;
+    private bool shieldRegenActive = false;
+
     private GameObject boltTemplate;
 
     internal override void ClassSetup()
@@ -31,6 +33,8 @@ public class CeramicAutomaton : Mage
         // adds ChangeHealthTrigger to the BodyLostHealthTrigger
         TriggerManager.BodyLostHealthTrigger.AddTrigger(ChangeHealthTrigger);
 
+        // starts the process of regening shields periodically
+
         base.Setup();
     }
 
@@ -41,10 +45,35 @@ public class CeramicAutomaton : Mage
         if (shield > 0)
         {
             shield--;
+
+            if (!shieldRegenActive)
+            {
+                Invoke(nameof(RegenShield), shieldRegenDelay);
+                shieldRegenActive = true;
+            }
+
             return 0;
         }
 
         return quantity;
+    }
+
+    // regens one layer of shield
+    internal void RegenShield()
+    {
+        if (shield < maxShield)
+        {
+            shield++;
+
+            if (shield < maxShield)
+            {
+                Invoke(nameof(RegenShield), shieldRegenDelay);
+            }
+            else
+            {
+                shieldRegenActive = false;
+            }
+        }
     }
 
     internal override void Attack()
@@ -54,5 +83,36 @@ public class CeramicAutomaton : Mage
 
         // creates and sets up a new projectile
         Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this, body.DamageMultiplier);
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "boltPath":
+                    boltPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        // grabs the orb thats shot
+                        boltTemplate = Resources.Load<GameObject>(boltPath);
+                    }
+
+                    break;
+                case "boltJson":
+                    boltJson = jsonData[item].ToString();
+                    break;
+                case "maxShield":
+                    maxShield = int.Parse(jsonData[item].ToString());
+                    break;
+                case "shieldRegenDelay":
+                    shieldRegenDelay = float.Parse(jsonData[item].ToString());
+                    break;
+            }
+        }
     }
 }

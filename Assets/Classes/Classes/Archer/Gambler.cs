@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Gambler : Archer
 {
-    public string projectilePath;
-    public string projectileJson;
+    private string projectilePath;
+    private string projectileJson;
 
-    public float minRadius;
-    public float maxRadius;
+    private float minRadius;
+    private float maxRadius;
 
-    public float minDamage;
-    public float maxDamage;
+    private float minDamage;
+    private float maxDamage;
 
     internal override void ClassSetup()
     {
@@ -48,7 +50,7 @@ public class Gambler : Archer
     }
 
     // maps one set of values to another
-    public float Map(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
+    private float Map(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
     {
 
         float OldRange = (OldMax - OldMin);
@@ -58,4 +60,33 @@ public class Gambler : Archer
         return (NewValue);
     }
 
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "projectilePath":
+                    projectilePath = (string)jsonData[item];
+                    break;
+                case "projectileJson":
+                    projectileJson = (string)jsonData[item];
+                    break;
+                case "minRadius":
+                    minRadius = Convert.ToSingle(jsonData[item]);
+                    break;
+                case "maxRadius":
+                    maxRadius = Convert.ToSingle(jsonData[item]);
+                    break;
+                case "minDamage":
+                    minDamage = Convert.ToSingle(jsonData[item]);
+                    break;
+                case "maxDamage":
+                    maxDamage = Convert.ToSingle(jsonData[item]);
+                    break;
+            }
+        }
+    }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mage : Class
 {
-    public float timeDelay;
-    public bool regularAttack;
+    protected float timeDelay;
+    protected bool regularAttack;
 
     internal override void Setup()
     {
@@ -78,5 +78,43 @@ public class Mage : Class
 
         // resets the repeating attack
         ResetRepeatingAttack();
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "timeDelay":
+                    timeDelay = float.Parse(jsonData["timeDelay"].ToString());
+
+                    if (jsonLoaded)
+                    {
+                        ResetRepeatingAttack();
+                    }
+
+                    break;
+
+                case "regularAttack":
+                    regularAttack = bool.Parse(jsonData["regularAttack"].ToString());
+
+                    if (jsonLoaded)
+                    {
+                        if (regularAttack)
+                        {
+                            StartRepeatingAttack();
+                        }
+                        else
+                        {
+                            StopRepeatingAttack();
+                        }
+                    }
+
+                    break;
+            }
+        }
     }
 }

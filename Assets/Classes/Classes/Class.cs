@@ -1,6 +1,9 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Class: MonoBehaviour
@@ -8,9 +11,16 @@ public class Class: MonoBehaviour
     internal int enemiesKilled;
     internal int level = 1;
     internal BodyController body;
+
     internal string jsonPath;
 
-    public string bodyJson;
+    private string BodyJson
+    {
+        get { return body.jsonFile; }
+        set { body.jsonFile = value; }
+    }
+
+    protected bool jsonLoaded;
 
     /// <summary>
     /// Called by the body after it has been set up
@@ -26,9 +36,7 @@ public class Class: MonoBehaviour
     /// </summary>
     internal virtual void ClassSetup()
     {
-        JsonSetup(jsonPath);
-
-        body.jsonFile = bodyJson;
+        JsonSetupFile(jsonPath);
     }
 
     /// <summary>
@@ -52,17 +60,61 @@ public class Class: MonoBehaviour
     }
 
     /// <summary>
-    /// Overwrites the class values from a json file
+    /// Takes a json file and turns it into a dictionary, calling InternalJsonSetup
     /// </summary>
     /// <param name="json">The json file</param>
-    internal void JsonSetup(string json)
+    internal void JsonSetupFile(string json)
     {
         // loads in all the variables from the json
         StreamReader reader = new StreamReader(json);
         string text = reader.ReadToEnd();
         reader.Close();
 
-        JsonUtility.FromJsonOverwrite(text, this);
+        Dictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(text);
+
+        InternalJsonSetup(values);
+
+        if (jsonLoaded)
+        {
+            body.LoadFromJson();
+        }
+
+        jsonLoaded = true;
+    }
+
+    /// <summary>
+    /// Takes json data and turns it into a dictionary, calling InternalJsonSetup
+    /// </summary>
+    /// <param name="json">The json data in string format</param>
+    internal void JsonSetupString(string json)
+    {
+        Dictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+        InternalJsonSetup(values);
+        
+        if (jsonLoaded)
+        {
+            body.LoadFromJson();
+        }
+
+        jsonLoaded = true;
+    }
+
+    /// <summary>
+    /// overwrites the variables in the json
+    /// </summary>
+    /// <param name="jsonData"></param>
+    protected virtual void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "bodyJson":
+                    BodyJson = jsonData["bodyJson"].ToString();
+                    break;
+            }
+        }
     }
 
     /// <summary>

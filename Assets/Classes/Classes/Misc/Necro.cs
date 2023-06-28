@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Necro : Class
 {
-    public int maxSummoned;
+    private int maxSummoned;
 
-    public string zombiePath;
-    public string zombieJson;
+    private string zombiePath;
+    private string zombieJson;
 
     // currently unused (mostly) should be replaced or utilised in the future
     internal List<NecromancerZombieController> summonedZombies;
@@ -87,5 +87,32 @@ public class Necro : Class
 
         // removes this from the list of enemy death triggers
         TriggerManager.EnemyDeadTrigger.RemoveTrigger(EnemyKilledTrigger);
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "maxSummoned":
+                    maxSummoned = (int)(long)jsonData[item];
+                    break;
+                case "zombiePath":
+                    zombiePath = (string)jsonData[item];
+
+                    if (jsonLoaded)
+                    {
+                        zombie = Resources.Load<GameObject>(zombiePath);
+                    }
+
+                    break;
+                case "zombieJson":
+                    zombieJson = (string)jsonData[item];
+                    break;
+            }
+        }
     }
 }

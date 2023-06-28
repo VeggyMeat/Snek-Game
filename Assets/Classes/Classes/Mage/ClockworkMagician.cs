@@ -6,19 +6,19 @@ public class ClockworkMagician : Mage
 {
     // wont have levels
 
-    public float buffDelay;
-    public float localAttackSpeedBuff;
-    public float localDamageBuff;
+    private float buffDelay;
+    private float localAttackSpeedBuff;
+    private float localDamageBuff;
 
     private float damageMult = 1;
     private int internalLevel = 0;
 
-    public int orbNumber;
+    private int orbNumber;
 
-    public string orbPath;
-    public string orbJson;
+    private string orbPath;
+    private string orbJson;
 
-    internal GameObject orbTemplate;
+    private GameObject orbTemplate;
 
     internal override void ClassSetup()
     {
@@ -100,5 +100,42 @@ public class ClockworkMagician : Mage
 
         // restarts the buff increases when revived
         StartBuff();
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "orbNumber":
+                    orbNumber = int.Parse(jsonData[item].ToString());
+                    break;
+                case "orbPath":
+                    orbPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        // grabs the orb thats shot
+                        orbTemplate = Resources.Load<GameObject>(orbPath);
+                    }
+
+                    break;
+                case "orbJson":
+                    orbJson = jsonData[item].ToString();
+                    break;
+                case "buffDelay":
+                    buffDelay = float.Parse(jsonData[item].ToString());
+                    break;
+                case "localAttackSpeedBuff":
+                    localAttackSpeedBuff = float.Parse(jsonData[item].ToString());
+                    break;
+                case "localDamageBuff":
+                    localDamageBuff = float.Parse(jsonData[item].ToString());
+                    break;
+            }
+        }
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Archer : Class
 {
-    public float timeDelay;
-    public GameObject projectile;
+    protected float timeDelay;
+    internal GameObject projectile;
 
     internal override void Setup()
     {
@@ -18,19 +18,25 @@ public class Archer : Class
         StartRepeatingProjectile();
     }
 
-    // runs the LaunchProjectile function every timeDelay seconds
+    /// <summary>
+    /// Runs the LaunchProjectile function every timeDelay seconds
+    /// </summary>
     internal void StartRepeatingProjectile()
     {
         InvokeRepeating(nameof(LaunchProjectile), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
     }
 
-    // stops the repeating projectile from happening
+    /// <summary>
+    /// Stops the repeating projectile from happening
+    /// </summary>
     internal void StopRepeatingProjectile()
     {
         CancelInvoke(nameof(LaunchProjectile));
     }
 
-    // stops the projectile from firing, then starts immediatly after
+    /// <summary>
+    /// Stops the projectile from firing, then starts immediatly after
+    /// </summary>
     internal void ResetRepeatingProjectile()
     {
         StopRepeatingProjectile();
@@ -67,5 +73,20 @@ public class Archer : Class
 
         // resets the repeating projectile
         ResetRepeatingProjectile();
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch(item) 
+            {
+                case "timeDelay":
+                    timeDelay = float.Parse(jsonData[item].ToString());
+                    break;
+            }
+        }
     }
 }

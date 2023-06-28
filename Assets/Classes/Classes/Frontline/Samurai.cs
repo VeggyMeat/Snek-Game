@@ -8,10 +8,10 @@ public class Samurai : Frontline
 {
     // todo: make the samurai slash show on the screen with some visual effect
 
-    public float critChance;
-    public float critMultiplier;
+    private float critChance;
+    private float critMultiplier;
 
-    public float attackLength;
+    private float attackLength;
 
     internal override void ClassSetup()
     {
@@ -65,6 +65,27 @@ public class Samurai : Frontline
                         EnemyKilled(hitObject);
                     }
                 }
+            }
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "critChance":
+                    critChance = float.Parse(jsonData[item].ToString());
+                    break;
+                case "critMultiplier":
+                    critMultiplier = float.Parse(jsonData[item].ToString());
+                    break;
+                case "attackLength":
+                    attackLength = float.Parse(jsonData[item].ToString());
+                    break;
             }
         }
     }

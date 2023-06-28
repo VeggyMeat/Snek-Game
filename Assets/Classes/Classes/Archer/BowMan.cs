@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BowMan : Archer
 {
-    public int projectileCount;
-    public int enemyDeathVolleyCount;
+    private int projectileCount;
+    private int enemyDeathVolleyCount;
     
-    public string projectilePath;
-    public string projectileJson;
+    private string projectilePath;
+    private string projectileJson;
 
     internal override void ClassSetup()
     {
@@ -38,7 +40,7 @@ public class BowMan : Archer
         for (int i = 0; i < projectileCount; i++)
         {
             // creates and sets up a new projectile
-            Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileJson, this, body.DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), projectileJson, this, body.DamageMultiplier);
         }
     }
 
@@ -50,6 +52,30 @@ public class BowMan : Archer
         for (int i = 0; i < enemyDeathVolleyCount; i++) 
         {
             LaunchProjectile();
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "projectileCount":
+                    projectileCount = Convert.ToInt32(jsonData[item]);
+                    break;
+                case "enemyDeathVolleyCount":
+                    enemyDeathVolleyCount = Convert.ToInt32(jsonData[item]);
+                    break;
+                case "projectilePath":
+                    projectilePath = Convert.ToString(jsonData[item]);
+                    break;
+                case "projectileJson":
+                    projectileJson = Convert.ToString(jsonData[item]);
+                    break;
+            }
         }
     }
 }

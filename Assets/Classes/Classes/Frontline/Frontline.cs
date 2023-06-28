@@ -6,15 +6,15 @@ using UnityEngine;
 // a class just for the sake of being inherited from
 public class Frontline : Class
 {
-    public float attackDelay;
-    public float scanRadius;
+    protected float attackDelay;
+    protected float scanRadius;
 
-    public int damage;
+    protected int damage;
 
     // currently unused
-    public int force;
+    protected int force;
 
-    public bool regularAttack;
+    protected bool regularAttack;
 
     // called when class body instantiated
     internal override void Setup()
@@ -23,7 +23,7 @@ public class Frontline : Class
 
         base.Setup();
 
-        if (regularAttack )
+        if (regularAttack)
         {
             // starts the repeating scan of enemies to attack
             StartRepeatingScan();
@@ -110,6 +110,56 @@ public class Frontline : Class
         {
             // resets the repeating scan
             ResetRepeatingScan();
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "attackDelay":
+                    attackDelay = float.Parse(jsonData[item].ToString());
+
+                    if (jsonLoaded)
+                    {
+                        ResetRepeatingScan();
+                    }
+
+                    break;
+
+                case "scanRadius":
+                    scanRadius = float.Parse(jsonData[item].ToString());
+                    break;
+
+                case "damage":
+                    damage = int.Parse(jsonData[item].ToString());
+                    break;
+
+                case "force":
+                    force = int.Parse(jsonData[item].ToString());
+                    break;
+
+                case "regularAttack":
+                    regularAttack = bool.Parse(jsonData[item].ToString());
+
+                    if (jsonLoaded)
+                    {
+                        if (regularAttack)
+                        {
+                            StartRepeatingScan();
+                        }
+                        else
+                        {
+                            StopRepeatingScan();
+                        }
+                    }
+
+                    break;
+            }
         }
     }
 }

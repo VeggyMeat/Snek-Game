@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enchanter : Class
 {
-    public bool buffsAllBodies;
+    protected bool buffsAllBodies;
 
     internal override void Setup()
     {
@@ -92,5 +92,37 @@ public class Enchanter : Class
         AddBuff(newBody.gameObject);
 
         return newBody;
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "buffsAllBodies":
+                    if (jsonData[item].ToString() == "True")
+                    {
+                        buffsAllBodies = true;
+
+                        if (jsonLoaded)
+                        {
+                            BuffAllBodies();
+                        }
+                    }
+                    else
+                    {
+                        buffsAllBodies = false;
+
+                        if (jsonLoaded)
+                        {
+                            UnbuffAllBodies();
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }

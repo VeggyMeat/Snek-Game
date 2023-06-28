@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Blacksmith : Enchanter
 {
-    public int defenceIncrease;
+    private int defenceIncrease;
 
     internal override void ClassSetup()
     {
@@ -29,5 +29,27 @@ public class Blacksmith : Enchanter
 
         // increases the body's defence by the defenceIncrease
         body.defenceBuff.AddBuff(-defenceIncrease, false, null);
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "defenceIncrease":
+                    if (jsonLoaded)
+                    {
+                        UnbuffAllBodies();
+                        BuffAllBodies();
+                    }
+
+                    defenceIncrease = int.Parse(jsonData[item].ToString());
+
+                    break;
+            }
+        }
     }
 }

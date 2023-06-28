@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Swordsman : Frontline
 {
-    public float attackRadius;
-    public float AOEEffectTime;
+    private float attackRadius;
+    private float AOEEffectTime;
 
-    public string AOEEffectPath;
+    private string AOEEffectPath;
 
     private GameObject AOEEffect;
 
@@ -59,6 +59,34 @@ public class Swordsman : Frontline
                 {
                     // add a knockback thing
                 }
+            }
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "attackRadius":
+                    attackRadius = float.Parse(jsonData[item].ToString());
+                    break;
+                case "AOEEffectTime":
+                    AOEEffectTime = float.Parse(jsonData[item].ToString());
+                    break;
+                case "AOEEffectPath":
+                    AOEEffectPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        // gets the AOEEffect ready to be spawned
+                        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
+                    }
+
+                    break;
             }
         }
     }

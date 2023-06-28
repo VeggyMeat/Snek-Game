@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Engineer : Class
 {
-    public float spawnDelay;
+    private float spawnDelay;
 
-    public string turretPath;
-    public string turretJson;
+    private string turretPath;
+    private string turretJson;
 
     internal List<GameObject> turrets;
 
@@ -81,5 +81,39 @@ public class Engineer : Class
         // resets the repeating spawn
         CancelTurretRepeating();
         StartTurretRepeating();
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "spawnDelay":
+                    spawnDelay = float.Parse(jsonData[item].ToString());
+
+                    if (jsonLoaded)
+                    {
+                        CancelTurretRepeating();
+                        StartTurretRepeating();
+                    }
+
+                    break;
+                case "turretPath":
+                    turretPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        turret = Resources.Load<GameObject>(turretPath);
+                    }
+
+                    break;
+                case "turretJson":
+                    turretJson = jsonData[item].ToString();
+                    break;
+            }
+        }
     }
 }

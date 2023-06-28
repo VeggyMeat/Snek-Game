@@ -130,7 +130,7 @@ public class BodyController : MonoBehaviour
             c.ClassSetup();
         }
 
-        // loads in the attributes from the json
+        // loads in the data from json
         LoadFromJson();
 
         // updates the total mass of the snake

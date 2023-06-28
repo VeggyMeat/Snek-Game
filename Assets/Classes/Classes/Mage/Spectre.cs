@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Spectre : Mage
 {
-    public int orbNumber;
+    private int orbNumber;
 
-    public string orbPath;
-    public string orbJson;
+    private string orbPath;
+    private string orbJson;
 
-    public float damageMult;
-    public float speedMult;
+    private float damageMult;
+    private float speedMult;
 
     internal GameObject orbTemplate;
 
@@ -65,5 +66,39 @@ public class Spectre : Mage
 
         // sets the delay back to the original amount
         timeDelay *= speedMult;
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "orbNumber":
+                    orbNumber = int.Parse(jsonData[item].ToString());
+                    break;
+                case "damageMult":
+                    damageMult = float.Parse(jsonData[item].ToString());
+                    break;
+                case "speedMult":
+                    speedMult = float.Parse(jsonData[item].ToString());
+                    break;
+                case "orbPath":
+                    orbPath = jsonData[item].ToString();
+
+                    if (jsonLoaded)
+                    {
+                        // grabs the orb thats shot
+                        orbTemplate = Resources.Load<GameObject>(orbPath);
+                    }
+
+                    break;
+                case "orbJson":
+                    orbJson = jsonData[item].ToString();
+                    break;
+            }
+        }
     }
 }

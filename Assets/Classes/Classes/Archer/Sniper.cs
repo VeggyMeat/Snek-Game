@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Sniper : Archer
 {
-    public float scanRadius;
-    public int damage;
+    private float scanRadius;
+    private int damage;
 
     internal override void ClassSetup()
     {
@@ -57,6 +60,24 @@ public class Sniper : Archer
                         }
                     }
                 }
+            }
+        }
+    }
+
+    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
+    {
+        base.InternalJsonSetup(jsonData);
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "scanRadius":
+                    scanRadius = Convert.ToSingle(jsonData[item]);
+                    break;
+                case "damage":
+                    damage = Convert.ToInt32(jsonData[item]);
+                    break;
             }
         }
     }

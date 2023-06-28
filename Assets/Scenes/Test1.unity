@@ -556,26 +556,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eadac6df96969245882ee574dde63e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turningRate: 3
-  frameDelay: 7
+  turningRate: 2
+  frameDelay: 4
   circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
   BaseXPLevelRequirement: 50
   XPIncreaseLevel: 25
   bodies:
+  - Sniper
   - BowMan
   - Gambler
-  - Samurai
-  - Swordsman
-  - FireMage
-  - ClockworkMagician
-  - Spectre
-  - Necro
-  - Engineer
-  - Bomb
-  - SorcererProdigy
-  - CeramicAutomaton
-  - Sniper
   - Blacksmith
+  - Swordsman
+  - Samurai
+  - CeramicAutomaton
+  - ClockworkMagician
+  - FireMage
+  - SorcererProdigy
+  - Spectre
+  - Engineer
+  - Necro
   shopManager: {fileID: 783227184}
 --- !u!4 &346601360
 Transform:
