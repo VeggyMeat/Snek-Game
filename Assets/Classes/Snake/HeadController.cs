@@ -21,9 +21,12 @@ public class HeadController: MonoBehaviour
 
     public List<string> bodies;
 
+    /// <summary>
+    /// The BodyController of the head of the snake
+    /// </summary>
     internal BodyController head;
 
-    internal double angle;
+    internal double angle = 0f;
     internal Vector2 velocityVector;
     internal float velocity = 0;
 
@@ -46,15 +49,15 @@ public class HeadController: MonoBehaviour
         ItemManager.Setup(this);
 
         XPLevelUp = BaseXPLevelRequirement;
-        velocityVector = new Vector2(0f, 0f);
-
+        velocityVector = new Vector2(0, velocity);
+        
+        // calls an initial body selection
         shopManager.OnLevelUp();
     }
 
     private void FixedUpdate()
     {
-        // incomplete
-
+        // gets information on the key presses
         bool rightPress = Input.GetKey(KeyCode.RightArrow);
         bool leftPress = Input.GetKey(KeyCode.LeftArrow);
 
@@ -66,16 +69,12 @@ public class HeadController: MonoBehaviour
         else if (rightPress)
         {
             angle += turningRate * Time.deltaTime;
-
-            velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
         }
-
         else if (leftPress)
         {
-            angle -= turningRate * Time.deltaTime;
-
-            velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
+            angle -= turningRate * Time.deltaTime;    
         }
+        velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
 
         if (head) 
         {
@@ -94,8 +93,10 @@ public class HeadController: MonoBehaviour
     /// <param name="amount">Amount of XP gained</param>
     internal void IncreaseXP(int amount)
     {
+        // increases the xp
         XP += amount;
 
+        // levels it up if it has enough
         if (XP >= XPLevelUp)
         {
             LevelUp();
@@ -103,12 +104,14 @@ public class HeadController: MonoBehaviour
     }
     
     /// <summary>
-    /// Called when the snake levels up, sends a signal to set up the selection screen
+    /// Called when the snake levels up, sets up the selection screen
     /// </summary>
     private void LevelUp()
     {
+        // resets xp
         XP = 0;
 
+        // increases level, increases next xp requirement
         XPLevelUp += XPIncreaseLevel;
         Level++;
 

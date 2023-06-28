@@ -71,6 +71,9 @@ public class BodyController : MonoBehaviour
     private int contactDamage;
     private int contactForce;
 
+    /// <summary>
+    /// The damage dealt on contact with an enemy
+    /// </summary>
     public int ContactDamage
     {
         get
@@ -79,6 +82,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The force applied to the enemy on contact
+    /// </summary>
     public int ContactForce
     {
         get
@@ -104,46 +110,63 @@ public class BodyController : MonoBehaviour
     internal Rigidbody2D selfRigid;
     internal SpriteRenderer spriteRenderer;
 
+
+    /// <summary>
+    /// The next snake body in the chain
+    /// </summary>
     internal BodyController next;
+
+    /// <summary>
+    /// The previous snake body in the chain
+    /// </summary>
     internal BodyController prev;
+
+    /// <summary>
+    /// The HeadController of the snake
+    /// </summary>
     internal HeadController snake;
+
 
     internal int health;
 
+
+    /// <summary>
+    /// The previous velocity vector of the body last FixedUpdate
+    /// </summary>
     internal Vector2 lastMoved;
+
+    /// <summary>
+    /// The last position this body was in, last FixedUpdate
+    /// </summary>
     internal Vector2 lastPosition;
+
 
     internal bool isDead = false;
 
+    /// <summary>
+    /// All of the classes attatched to this body
+    /// </summary>
     internal List<Class> classes = new List<Class>();
 
+    /// <summary>
+    /// The path of the body's json file
+    /// </summary>
     internal string jsonFile;
+    /// <summary>
+    /// All of the variables' data for each level
+    /// </summary>
     private List<Dictionary<string, object>> jsonData;
 
     private bool jsonLoaded = false;
 
+    /// <summary>
+    /// A queue of positions that the previous body was in frames ago
+    /// </summary>
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
-
-    private int positionIndex;
-
-    public int PositionIndex
-    {
-        get { return positionIndex; }
-    }
 
     // sets up variables
     private void Setup()
     {
-        // sets up the position index
-        if (prev is null)
-        {
-            positionIndex = 0;
-        }
-        else
-        {
-            positionIndex = prev.positionIndex + 1;
-        }
-
         // sets up the classes bit on the body
         foreach(Class c in classes)
         {
@@ -176,6 +199,7 @@ public class BodyController : MonoBehaviour
 
         attackSpeedBuff = gameObject.AddComponent<Buff>();
         attackSpeedBuff.Setup(AttackSpeedBuffUpdate, 1f);
+
 
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
@@ -252,11 +276,13 @@ public class BodyController : MonoBehaviour
     /// <returns></returns>
     internal int Position()
     {
+        // if its the head, return 0
         if (prev is null)
         {
             return 0;
         }
 
+        // else return one plus the position of the previous body
         return prev.Position() + 1;
     }
 
@@ -266,10 +292,12 @@ public class BodyController : MonoBehaviour
     /// <returns></returns>
     internal int Length()
     {
+        // if its the tail returns one
         if (next is null)
         {
             return 1;
         }
+        // otherwise return one plus the length from the next body
         else
         {
             return 1 + next.Length();
@@ -282,15 +310,20 @@ public class BodyController : MonoBehaviour
     /// <returns></returns>
     internal Vector2 TailPos()
     {
+        // if its the tail, return its position
         if (next is null)
         {
             return transform.position;
         }
 
+        // otherwise passes it down the chain
         return next.TailPos();
     }
 
-    // checks if body is dead or has too much HP (returns whether the body is still alive)
+    /// <summary>
+    /// checks if body is dead or has too much HP (returns whether the body is still alive)
+    /// </summary>
+    /// <returns>If the body survives or not</returns>
     private bool HealthChangeCheck()
     {
         // if the health is bigger than MaxHealth, reduce it down to MaxHealth
@@ -321,6 +354,7 @@ public class BodyController : MonoBehaviour
             // increase health trigger (ASSUMES NO HEALING WILL MAKE YOU TAKE DAMAGE)
             quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn(quantity);
 
+            // increases the health by the amount healed
             health += quantity;
         }
         else if (quantity < 0)
@@ -337,15 +371,19 @@ public class BodyController : MonoBehaviour
             // lost health trigger (ASSUMES IT WILL NOT MAKE BODY HEAL)
             quantity = TriggerManager.BodyLostHealthTrigger.CallTriggerReturn(quantity);
 
+            // reduces the health by the final damage
             health += quantity;
         }
 
         return HealthChangeCheck();
     }
 
-    // called when the body dies
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     private void OnDeath()
     {
+        // sets the body to be dead
         isDead = true;
 
         // reverts the original additions from the body
@@ -371,8 +409,12 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     private void Revived()
     {
+        // sets the body to be alive again
         isDead = false;
 
         // updates the total mass of the snake
@@ -401,11 +443,12 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal void DestroySelf()
     {
-        // removes itself from the linkedList
+        // removes itself from the linkedList, filling the gap
         if (next is not null)
         {
             next.prev = prev;
         }
+
         if (prev is not null)
         {
             prev.next = next;
@@ -423,7 +466,10 @@ public class BodyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // moves the body
+    /// <summary>
+    /// Moves the body of this body, passes along to the next
+    /// </summary>
+    /// <param name="place"></param>
     internal void Move(Vector2 place = new Vector2())
     {
         // if head
@@ -472,14 +518,17 @@ public class BodyController : MonoBehaviour
         }
     }
 
-    // updates the snake's velocity when a speed buff is added or removed
+    /// <summary>
+    /// Updates the snake's velocity when a speed buff is added or removed
+    /// </summary>
+    /// <param name="prev"></param>
     private void UpdateVelocityContribution(float prev)
     {
+        // removes the previous velocity amount, and adds the new amount
         snake.velocity -= prev;
         snake.velocity += VelocityContribution;
     }
 
-    // functions that get called by the respective buffs
     private void HealthBuffUpdate(float amount, bool multiplicative)
     {
         // if its a multiplying one, multiply the health by that much
@@ -530,7 +579,7 @@ public class BodyController : MonoBehaviour
 
     private void AttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
-        // passes on the update to the classes
+        // passes on the update to all the classes
         foreach (Class c in classes)
         {
             c.OnAttackSpeedBuffUpdate(amount, multiplicative);
@@ -542,7 +591,10 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal void ResetColour()
     {
+        // sets the new colour to the values
         color = new Color(r, g, b);
+
+        // displays that colour to the renderer
         spriteRenderer.color = color;
     }
 
@@ -553,11 +605,12 @@ public class BodyController : MonoBehaviour
     /// <returns></returns>
     internal void JsonToBodyData()
     {
-        // loads in all the variables from the json
+        // gets the text from the file
         StreamReader reader = new StreamReader(jsonFile);
         string text = reader.ReadToEnd();
         reader.Close();
 
+        // sets the jsonData to the deserialized json in the appropriate format
         jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
     }
 
@@ -566,11 +619,16 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal void LoadFromJson()
     {
+        // gets the values that need to be set for this level
         Dictionary<string, object> values = jsonData[level - 1];
 
+        // if the json has been loaded already
         if (jsonLoaded)
         {
+            // whether or not to reset colour
             bool resetColour = false;
+            
+            // sets the values for each term
             foreach (string term in values.Keys)
             {
                 switch (term)
@@ -604,6 +662,8 @@ public class BodyController : MonoBehaviour
                         break;
                 }
             }
+
+            // resets the colour if needed
             if (resetColour)
             {
                 ResetColour();
@@ -611,6 +671,7 @@ public class BodyController : MonoBehaviour
         }
         else
         {
+            // sets the values for each term
             foreach (string term in values.Keys)
             {
                 switch (term)
@@ -644,9 +705,10 @@ public class BodyController : MonoBehaviour
                         break;
                 }
             }
-        }
 
-        jsonLoaded = true;
+            // indicates that the json has been loaded
+            jsonLoaded = true;
+        }
     }
 
     /// <summary>
@@ -654,21 +716,25 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal virtual void LevelUp()
     {
+        // increases the level
         level++;
 
+        // if its at max level, indicates it cant level further
         if (level == maxLevel)
         {
             levelable = false;
         }
 
+        // levels up each of the attatched classes
         foreach (Class friendly in classes)
         {
             friendly.LevelUp();
         }
 
+        // reloads the body's values from the json
         LoadFromJson();
 
-        // level up trigger
+        // calls the level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
     }
 }

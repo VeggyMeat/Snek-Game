@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turningRate: 2
-  frameDelay: 4
+  frameDelay: 7
   circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
   BaseXPLevelRequirement: 50
   XPIncreaseLevel: 25

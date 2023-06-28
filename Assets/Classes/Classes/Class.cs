@@ -8,18 +8,42 @@ using UnityEngine;
 
 public class Class: MonoBehaviour
 {
+    /// <summary>
+    /// The number of enemies killed by this class
+    /// </summary>
     protected int enemiesKilled;
 
+    /// <summary>
+    /// The body this class is attatched to
+    /// </summary>
     internal BodyController body;
 
+    /// <summary>
+    /// The path of the json file
+    /// </summary>
     protected string jsonPath;
+
+    /// <summary>
+    /// List of Dictionaries containing the variable information for the class at each level
+    /// </summary>
     protected List<Dictionary<string, object>> jsonData;
 
+    /// <summary>
+    /// The body's json file's path
+    /// </summary>
     private string BodyJson
     {
-        set { body.jsonFile = value; }
+        set 
+        { 
+            // sets the value, and then loads the body's variables from the json
+            body.jsonFile = value;
+            body.JsonToBodyData();
+        }
     }
 
+    /// <summary>
+    /// Whether this class's variables have been loaded from a json yet
+    /// </summary>
     protected bool jsonLoaded;
 
     /// <summary>
@@ -36,7 +60,13 @@ public class Class: MonoBehaviour
     /// </summary>
     internal virtual void ClassSetup()
     {
-        jsonData = JsonToLevelData(jsonPath);
+        // loads in the text from the file
+        StreamReader reader = new StreamReader(jsonPath);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        // deserializes the json into a list of dictionaries containing the variables' contents for each level
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
     }
 
     /// <summary>
@@ -60,51 +90,38 @@ public class Class: MonoBehaviour
     }
 
     /// <summary>
-    /// Takes a json file and turns it into a dictionary, calling InternalJsonSetup
-    /// </summary>
-    /// <param name="json">The json file</param>
-    internal List<Dictionary<string, object>> JsonToLevelData(string json)
-    {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(json);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        List<Dictionary<string, object>> values = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
-
-        return values;
-    }
-
-    /// <summary>
     /// Takes json data and turns it into a dictionary, calling InternalJsonSetup
     /// </summary>
     /// <param name="data">The data in a dictionary format</param>
     internal void JsonSetup(Dictionary<string, object> data)
     {
+        // overwrites the values in the classes json
         InternalJsonSetup(data);
         
+        // loads the body's variables from the json
         if (jsonLoaded)
         {
             body.LoadFromJson();
         }
-
-        jsonLoaded = true;
+        else
+        {
+            jsonLoaded = true;
+        }
     }
 
     /// <summary>
-    /// overwrites the variables in the json
+    /// Overwrites the variables in the json
     /// </summary>
     /// <param name="jsonData"></param>
     protected virtual void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
+        // goes through each item in the data, overwriting any variables that are in the json
         foreach (string item in jsonData.Keys)
         {
             switch (item)
             {
                 case "bodyJson":
                     BodyJson = jsonData["bodyJson"].ToString();
-
-                    body.JsonToBodyData();
                     break;
             }
         }
