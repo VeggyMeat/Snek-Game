@@ -1,11 +1,13 @@
-{
-  "r": 0.75,
-  "g": 0.75,
-  "b": 0.8,
+[
+  {
+    "r": 0.75,
+    "g": 0.75,
+    "b": 0.8,
 
-  "defence": 0,
-  "maxHealth": 50,
-  "contactDamage": 5,
-  "contactForce": 1000,
-  "velocityContribution": 7.5
-}
+    "defence": 0,
+    "maxHealth": 50,
+    "contactDamage": 5,
+    "contactForce": 1000,
+    "velocityContribution": 7.5
+  }
+]

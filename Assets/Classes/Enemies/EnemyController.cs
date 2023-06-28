@@ -150,10 +150,10 @@ public class EnemyController : MonoBehaviour
             body.ChangeHealth(-contactDamage * (1 + passiveHandler.passiveValues["DamageBuff"] / 100));
 
             // take damage from the body
-            ChangeHealth(body.contactDamage);
+            ChangeHealth(body.ContactDamage);
 
             // get hit away from the player
-            selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.contactForce);
+            selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce);
         }
 
     }

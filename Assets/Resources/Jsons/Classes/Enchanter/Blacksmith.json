@@ -1,6 +1,8 @@
-{
-  "buffsAllBodies": true,
-  "defenceIncrease": 5,
+[
+  {
+    "buffsAllBodies": true,
+    "defenceIncrease": 5,
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/BlacksmithBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/BlacksmithBody.json"
+  }
+]

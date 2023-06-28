@@ -1,12 +1,14 @@
-{
-  "orbNumber": 1,
-  "rotation": 0.157,
-  "timeDelay": 0.03,
-  "orbVariation": 0.0491,
-  "regularAttack": true,
+[
+  {
+    "orbNumber": 1,
+    "rotation": 0.157,
+    "timeDelay": 0.03,
+    "orbVariation": 0.0491,
+    "regularAttack": true,
 
-  "orbPath": "GameObjects/CircleProjectile",
-  "orbJson": "Assets/Resources/Jsons/Projectiles/FireMageProjectile.json",
+    "orbPath": "GameObjects/CircleProjectile",
+    "orbJson": "Assets/Resources/Jsons/Projectiles/FireMageProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/FireMageBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Mage/FireMageBody.json"
+  }
+]

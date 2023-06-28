@@ -1,12 +1,14 @@
-{
-  "orbNumber": 2,
-  "timeDelay": 0.75,
-  "regularAttack": true,
-  "damageMult": 3,
-  "speedMult": 3,
+[
+  {
+    "orbNumber": 2,
+    "timeDelay": 0.75,
+    "regularAttack": true,
+    "damageMult": 3,
+    "speedMult": 3,
 
-  "orbPath": "GameObjects/CircleProjectile",
-  "orbJson": "Assets/Resources/Jsons/Projectiles/SpectreProjectile.json",
+    "orbPath": "GameObjects/CircleProjectile",
+    "orbJson": "Assets/Resources/Jsons/Projectiles/SpectreProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SpectreBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SpectreBody.json"
+  }
+]

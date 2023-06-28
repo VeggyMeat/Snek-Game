@@ -1,12 +1,14 @@
-{
-  "attackDelay": 0.5,
-  "scanRadius": 5,
-  "damage": 75,
-  "force": 50000,
-  "regularAttack": true,
-  "attackLength": 6,
-  "critChance": 0.2,
-  "critMultiplier": 3,
+[
+  {
+    "attackDelay": 0.5,
+    "scanRadius": 5,
+    "damage": 75,
+    "force": 50000,
+    "regularAttack": true,
+    "attackLength": 6,
+    "critChance": 0.2,
+    "critMultiplier": 3,
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SamuraiBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SamuraiBody.json"
+  }
+]

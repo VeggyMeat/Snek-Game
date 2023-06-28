@@ -7,12 +7,14 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
-    // all defined by the classes that inherit the body controller
+    private int defence;
+    private int maxHealth;
+    private float velocityContribution;
 
-    // unbuffed versions, just to inherit from jsons (has to be public because of that, very dangerous)
-    public int defence;
-    public int maxHealth;
-    public float velocityContribution;
+    internal int level = 0;
+    internal int maxLevel;
+
+    public bool levelable = true;
 
     public int Defence
     { 
@@ -66,8 +68,8 @@ public class BodyController : MonoBehaviour
 
     internal List<string> classNames = new List<string>();
 
-    public int contactDamage;
-    public int contactForce;
+    private int contactDamage;
+    private int contactForce;
 
     public int ContactDamage
     {
@@ -116,13 +118,32 @@ public class BodyController : MonoBehaviour
     internal List<Class> classes = new List<Class>();
 
     internal string jsonFile;
+    private List<Dictionary<string, object>> jsonData;
+
     private bool jsonLoaded = false;
 
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
+    private int positionIndex;
+
+    public int PositionIndex
+    {
+        get { return positionIndex; }
+    }
+
     // sets up variables
     private void Setup()
     {
+        // sets up the position index
+        if (prev is null)
+        {
+            positionIndex = 0;
+        }
+        else
+        {
+            positionIndex = prev.positionIndex + 1;
+        }
+
         // sets up the classes bit on the body
         foreach(Class c in classes)
         {
@@ -131,7 +152,7 @@ public class BodyController : MonoBehaviour
         }
 
         // loads in the data from json
-        LoadFromJson();
+        LevelUp();
 
         // updates the total mass of the snake
         snake.velocity += velocityContribution;
@@ -526,16 +547,26 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Reloads the snake's variables from the json file
+    /// Takes in a json file and converts it to the data for all the levels of the body
     /// </summary>
-    internal void LoadFromJson()
+    /// <param name="json">The path of the json file</param>
+    /// <returns></returns>
+    internal void JsonToBodyData()
     {
         // loads in all the variables from the json
         StreamReader reader = new StreamReader(jsonFile);
         string text = reader.ReadToEnd();
         reader.Close();
 
-        Dictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(text);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
+    }
+
+    /// <summary>
+    /// Reloads the snake's variables from the json file
+    /// </summary>
+    internal void LoadFromJson()
+    {
+        Dictionary<string, object> values = jsonData[level - 1];
 
         if (jsonLoaded)
         {
@@ -608,10 +639,36 @@ public class BodyController : MonoBehaviour
                     case "b":
                         b = Convert.ToSingle(values[term]);
                         break;
+                    case "maxLevel":
+                        maxLevel = int.Parse(values["maxLevel"].ToString());
+                        break;
                 }
             }
         }
 
         jsonLoaded = true;
+    }
+
+    /// <summary>
+    /// Called when the body levels up
+    /// </summary>
+    internal virtual void LevelUp()
+    {
+        level++;
+
+        if (level == maxLevel)
+        {
+            levelable = false;
+        }
+
+        foreach (Class friendly in classes)
+        {
+            friendly.LevelUp();
+        }
+
+        LoadFromJson();
+
+        // level up trigger
+        TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
     }
 }

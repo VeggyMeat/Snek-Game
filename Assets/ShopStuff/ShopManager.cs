@@ -21,9 +21,27 @@ public class ShopManager : MonoBehaviour
 
     private static bool timeActive = true;
 
+    internal List<string> levelableBodies = new List<string>();
+
+    public void Start()
+    {
+        TriggerManager.BodySpawnTrigger.AddTrigger(OnAddedBody);
+    }
+
     public void OnLevelUp()
     {
         choiceManager.StartSet(nextState);
+    }
+
+    private BodyController OnAddedBody(BodyController body)
+    {
+        // if it can be leveled up, add it to the list
+        if (body.levelable)
+        {
+            levelableBodies.Add(body.classes[0].name);
+        }
+
+        return null;
     }
 
     public void AfterLevelUp()

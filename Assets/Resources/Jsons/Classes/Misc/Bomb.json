@@ -1,13 +1,15 @@
-{
-  "timeDelay": 30,
-  "radius": 30,
-  "XPChance": 0.1,
+[
+  {
+    "timeDelay": 30,
+    "radius": 30,
+    "XPChance": 0.1,
 
-  "defence": 0,
-  "maxHealth": 100,
-  "contactDamage": 10,
-  "contactForce": 3000,
-  "velocityContribution": 5,
+    "defence": 0,
+    "maxHealth": 100,
+    "contactDamage": 10,
+    "contactForce": 3000,
+    "velocityContribution": 5,
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
+  }
+]

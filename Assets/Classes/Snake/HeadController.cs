@@ -158,8 +158,10 @@ public class HeadController: MonoBehaviour
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
         BodyController bodyContr = body.AddComponent<BodyController>();
 
+        // adds the new body to the list of bodies
         currentBodies.Add(bodyClass);
 
+        // adds the respective class to the body
         switch(bodyClass)
         {
             case "BowMan":
@@ -205,8 +207,13 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<Blacksmith>());
                 break;
         }
+
+        // removes that body from the list of available bodies
+        bodies.Remove(bodyClass);
+
         if (head is null)
         {
+            // gets the BodyController and sets it up as the head
             head = body.GetComponent<BodyController>();
             head.BodySetup(this, null);
         }

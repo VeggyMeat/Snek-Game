@@ -1,8 +1,10 @@
-{
-  "spawnDelay": 2.5,
+[
+  {
+    "spawnDelay": 2.5,
 
-  "turretPath": "GameObjects/Turret",
-  "turretJson": "Assets/Resources/Jsons/Misc/EngineerTurret.json",
+    "turretPath": "GameObjects/Turret",
+    "turretJson": "Assets/Resources/Jsons/Misc/EngineerTurret.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
+  }
+]

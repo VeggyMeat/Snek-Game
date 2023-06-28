@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class ChoiceManager : CanvasManager
 {
@@ -34,6 +35,11 @@ public class ChoiceManager : CanvasManager
 
     public override void ButtonClicked(int button)
     {
+        if (options[button] == "None")
+        {
+            return;
+        }
+
         // hides the canvas and clears the state
         HideButtons();
 
@@ -44,7 +50,26 @@ public class ChoiceManager : CanvasManager
                 break;
             case ChoiceState.BodyUpgrade:
                 // levels up a body
-                // add when level up system added
+
+                // gets the body
+                BodyController body = headController.head;
+                while (body.classes[0].name != options[button])
+                {
+                    body = body.next;
+                }
+
+                // levels up each class attatched to the body
+                foreach (Class friendly in body.classes)
+                {
+                    friendly.LevelUp();
+                }
+
+                // if the body is no longer levelable, remove it from the list
+                if (!body.levelable)
+                {
+                    shopManager.levelableBodies.Remove(body.classes[0].name);
+                }
+
                 break;
             case ChoiceState.Small_Item:
                 // adds an item
@@ -70,7 +95,7 @@ public class ChoiceManager : CanvasManager
                 options = PickAmount(headController.bodies, optionsNum);
                 break;
             case ChoiceState.BodyUpgrade:
-                options = PickAmount(headController.CurrentBodies, Math.Min(optionsNum, headController.CurrentBodies.Count));
+                options = PickAmount(shopManager.levelableBodies, Math.Min(optionsNum, headController.CurrentBodies.Count));
                 break;
             case ChoiceState.Small_Item:
                 // to make, when items are added
@@ -91,8 +116,15 @@ public class ChoiceManager : CanvasManager
         for (int i = 0; i < number; i++)
         {
             int index = UnityEngine.Random.Range(0, things.Count);
-            options.Add(things[index]);
-            things.RemoveAt(index);
+            if (things.Count != 0)
+            {
+                options.Add(things[index]);
+                things.RemoveAt(index);
+            }
+            else
+            {
+                options.Add("None");
+            }
         }
 
         return options;

@@ -1,11 +1,13 @@
-{
-  "timeDelay": 0.5,
-  "regularAttack": true,
-  "maxShield": 1,
-  "shieldRegenDelay": 10,
+[
+  {
+    "timeDelay": 0.5,
+    "regularAttack": true,
+    "maxShield": 1,
+    "shieldRegenDelay": 10,
 
-  "boltPath": "GameObjects/CapsuleProjectile",
-  "boltJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
+    "boltPath": "GameObjects/CapsuleProjectile",
+    "boltJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/CeramicAutomatonBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Mage/CeramicAutomatonBody.json"
+  }
+]

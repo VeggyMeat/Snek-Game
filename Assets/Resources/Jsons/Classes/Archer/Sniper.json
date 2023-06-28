@@ -1,7 +1,9 @@
-{
-  "timeDelay": 2,
-  "scanRadius": 20,
-  "damage": 100,
+[
+  {
+    "timeDelay": 2,
+    "scanRadius": 20,
+    "damage": 100,
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Archer/SniperBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/SniperBody.json"
+  }
+]

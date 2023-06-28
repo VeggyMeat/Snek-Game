@@ -1,10 +1,12 @@
-{
-  "timeDelay": 0.25,
-  "projectileCount": 3,
-  "enemyDeathVolleyCount": 0,
+[
+  {
+    "timeDelay": 0.25,
+    "projectileCount": 3,
+    "enemyDeathVolleyCount": 0,
 
-  "projectilePath": "GameObjects/CapsuleProjectile",
-  "projectileJson": "Assets/Resources/Jsons/Projectiles/BowManProjectile.json",
+    "projectilePath": "GameObjects/CapsuleProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/BowManProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Archer/BowManBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/BowManBody.json"
+  }
+]

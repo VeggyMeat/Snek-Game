@@ -1,12 +1,14 @@
-{
-  "timeDelay": 0.25,
-  "minRadius": 0.1,
-  "maxRadius": 0.5,
-  "minDamage": 25,
-  "maxDamage": 100,
+[
+  {
+    "timeDelay": 0.25,
+    "minRadius": 0.1,
+    "maxRadius": 0.5,
+    "minDamage": 25,
+    "maxDamage": 100,
 
-  "projectilePath": "GameObjects/CircleProjectile",
-  "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",
+    "projectilePath": "GameObjects/CircleProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Archer/GamblerBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/GamblerBody.json"
+  }
+]

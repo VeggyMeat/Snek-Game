@@ -1,9 +1,11 @@
-{
-  "timeDelay": 0.75,
-  "regularAttack": true,
-  "damage": 50,
-  "beamThickness": 0.5,
-  "beamLength": 100,
+[
+  {
+    "timeDelay": 0.75,
+    "regularAttack": true,
+    "damage": 50,
+    "beamThickness": 0.5,
+    "beamLength": 100,
 
-  "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
-}
+    "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
+  }
+]
