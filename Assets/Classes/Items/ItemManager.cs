@@ -12,8 +12,20 @@ public static class ItemManager
         ItemManager.headController = headController;
     }
 
-    internal static void AddItem(Item item)
+    internal static void AddItem(string itemName)
     {
+        Item item;
+        switch (itemName)
+        {
+            case "Quiver":
+                item = new Quiver();
+                break;
+
+            default:
+                // crashes if its been called with an item that doesn't exist
+                throw new System.Exception();
+        }
+
         item.Setup();
         items.Add(item);
     }

@@ -17,6 +17,10 @@ public class ShopManager : MonoBehaviour
     public ChoiceManager choiceManager;
     public SelectionManager selectionManager;
 
+    public List<string> bodies;
+    public List<string> smallItems;
+    public List<string> powerfulItems;
+
     internal ChoiceState nextState = ChoiceState.NewBody;
 
     private static bool timeActive = true;

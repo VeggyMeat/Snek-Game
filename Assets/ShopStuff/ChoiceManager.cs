@@ -48,6 +48,7 @@ public class ChoiceManager : CanvasManager
             case ChoiceState.NewBody:
                 headController.AddBody(options[button]);
                 break;
+
             case ChoiceState.BodyUpgrade:
                 // levels up a body
 
@@ -69,15 +70,18 @@ public class ChoiceManager : CanvasManager
                 {
                     shopManager.levelableBodies.Remove(body.classes[0].name);
                 }
-
                 break;
+
             case ChoiceState.Small_Item:
                 // adds an item
-                // add when items added
+                ItemManager.AddItem(options[button]);
                 break;
+
             case ChoiceState.Powerful_Item:
                 // adds a powerful item
+                ItemManager.AddItem(options[button]);
                 break;
+
             case ChoiceState.None: 
                 throw new Exception();
         }
@@ -92,16 +96,16 @@ public class ChoiceManager : CanvasManager
         switch (state)
         {
             case ChoiceState.NewBody:
-                options = PickAmount(headController.bodies, optionsNum);
+                options = PickAmount(shopManager.bodies, optionsNum);
                 break;
             case ChoiceState.BodyUpgrade:
-                options = PickAmount(shopManager.levelableBodies, Math.Min(optionsNum, headController.CurrentBodies.Count));
+                options = PickAmount(shopManager.levelableBodies, optionsNum);
                 break;
             case ChoiceState.Small_Item:
-                // to make, when items are added
+                options = PickAmount(shopManager.smallItems, optionsNum);
                 break;
-            case ChoiceState.Powerful_Item: 
-                // to make, when items are added
+            case ChoiceState.Powerful_Item:
+                options = PickAmount(shopManager.powerfulItems, optionsNum);
                 break;
             case ChoiceState.None:
                 throw new Exception();

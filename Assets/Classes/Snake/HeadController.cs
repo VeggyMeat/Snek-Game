@@ -19,8 +19,6 @@ public class HeadController: MonoBehaviour
     public int BaseXPLevelRequirement = 50;
     public int XPIncreaseLevel = 25;
 
-    public List<string> bodies;
-
     /// <summary>
     /// The BodyController of the head of the snake
     /// </summary>
@@ -212,7 +210,7 @@ public class HeadController: MonoBehaviour
         }
 
         // removes that body from the list of available bodies
-        bodies.Remove(bodyClass);
+        shopManager.bodies.Remove(bodyClass);
 
         if (head is null)
         {

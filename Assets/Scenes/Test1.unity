@@ -561,20 +561,6 @@ MonoBehaviour:
   circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
   BaseXPLevelRequirement: 50
   XPIncreaseLevel: 25
-  bodies:
-  - Sniper
-  - BowMan
-  - Gambler
-  - Blacksmith
-  - Swordsman
-  - Samurai
-  - CeramicAutomaton
-  - ClockworkMagician
-  - FireMage
-  - SorcererProdigy
-  - Spectre
-  - Engineer
-  - Necro
   shopManager: {fileID: 783227184}
 --- !u!4 &346601360
 Transform:
@@ -857,6 +843,23 @@ MonoBehaviour:
   head: {fileID: 346601359}
   choiceManager: {fileID: 1830078726}
   selectionManager: {fileID: 1594572202}
+  bodies:
+  - BowMan
+  - Gambler
+  - Sniper
+  - FireMage
+  - Spectre
+  - Necro
+  - Engineer
+  - CeramicAutomaton
+  - Swordsman
+  - Samurai
+  - Blacksmith
+  - ClockworkMagician
+  - SorcererProdigy
+  smallItems: []
+  powerfulItems:
+  - Quiver
 --- !u!4 &783227185
 Transform:
   m_ObjectHideFlags: 0
