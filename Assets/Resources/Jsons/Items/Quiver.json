@@ -2,5 +2,5 @@
   "itemName": "Quiver",
   "itemDescription": "Increases the damage of archers by ~%",
 
-  "damageModifier": 1.2
+  "attackSpeedModifier": 5.0
 }

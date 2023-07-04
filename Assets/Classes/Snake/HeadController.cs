@@ -33,6 +33,7 @@ public class HeadController: MonoBehaviour
     private int XPLevelUp;
 
     public ShopManager shopManager;
+    public EnemySummonerController enemySummonerController;
 
     private List<string> currentBodies = new List<string>();
 

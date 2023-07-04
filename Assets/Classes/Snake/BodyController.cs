@@ -200,16 +200,15 @@ public class BodyController : MonoBehaviour
         attackSpeedBuff = gameObject.AddComponent<Buff>();
         attackSpeedBuff.Setup(AttackSpeedBuffUpdate, 1f);
 
-
-        // calls the trigger saying a new body was added
-        TriggerManager.BodySpawnTrigger.CallTrigger(this);
-
         // sets up the classes
         foreach (Class c in classes)
         {
             c.body = this;
             c.Setup();
         }
+
+        // calls the trigger saying a new body was added
+        TriggerManager.BodySpawnTrigger.CallTrigger(this);
     }
 
     // function called when a new body is created

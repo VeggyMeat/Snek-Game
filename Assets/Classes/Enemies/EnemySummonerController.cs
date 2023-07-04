@@ -57,6 +57,8 @@ public class EnemySummonerController : MonoBehaviour
 
             enemyPrefabs[type].Add(enemyPrefab);
         }
+
+        
     }
 
     private void RoundSpawn()

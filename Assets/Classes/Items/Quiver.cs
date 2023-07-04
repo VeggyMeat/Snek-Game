@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Quiver : Item
 {
-    internal string jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
-
-    internal float attackSpeedModifier;
+    private float attackSpeedModifier;
 
     internal override void Setup()
     {
+        jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
+
         // sets up the variables based upon the json
-        JsonSetup(jsonPath);
+        JsonSetup();
 
         base.Setup();
         
@@ -29,7 +29,7 @@ public class Quiver : Item
         if (body.classNames.Contains("Archer"))
         {
             // add the buff
-            body.attackSpeedBuff.AddBuff(attackSpeedModifier, true, 0f);
+            body.attackSpeedBuff.AddBuff(attackSpeedModifier, true, null);
         }
 
         return body;
@@ -38,7 +38,7 @@ public class Quiver : Item
     // currently un-used, will be used when levels added
     private void RemoveBuff(BodyController body)
     {
-        body.attackSpeedBuff.AddBuff(1 / attackSpeedModifier, true, 0f);
+        body.attackSpeedBuff.AddBuff(1 / attackSpeedModifier, true, null);
     }
 
     // goes through and buffs each archer
@@ -54,6 +54,23 @@ public class Quiver : Item
 
             // gets the next body in the snake
             body = body.next;
+        }
+    }
+
+    protected override void JsonSetup()
+    {
+        jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
+
+        base.JsonSetup();
+
+        foreach (string item in jsonData.Keys)
+        {
+            switch (item)
+            {
+                case "attackSpeedModifier":
+                    attackSpeedModifier = float.Parse(jsonData[item].ToString());
+                    break;
+            }
         }
     }
 }
