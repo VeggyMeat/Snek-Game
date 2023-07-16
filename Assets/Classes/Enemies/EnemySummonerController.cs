@@ -10,7 +10,6 @@ public class EnemySummonerController : MonoBehaviour
 
     private Dictionary<string, List<GameObject>> enemyPrefabs;
 
-    public int spawnClumps;
     public float spawnDelay;
     public float firstDelay;
 

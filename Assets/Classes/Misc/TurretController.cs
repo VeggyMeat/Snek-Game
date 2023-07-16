@@ -7,34 +7,37 @@ public class TurretController : MonoBehaviour
 {
     private Engineer parent;
 
-    public float lifeSpan;
+    private float lifeSpan;
 
-    public string bulletJson;
-    public string bulletPath;
+    private string bulletJson;
+    private string bulletPath;
 
-    public float angularVelocity;
+    private float angularVelocity;
 
-    public float timeDelay;
+    private float timeDelay;
 
     private GameObject bulletTemplate;
 
-    internal void Setup(string jsonPath, Engineer parent)
+    private Dictionary<string, object> variables;
+
+    private List<Dictionary<>>
+
+    internal void Setup(Dictionary<string, object> variables, Engineer parent)
     {
         // sets the engineer as the owner
         this.parent = parent;
 
         // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        this.variables = variables;
+        LoadVariables();
 
         // loads the bullet in
         bulletTemplate = Resources.Load<GameObject>(bulletPath);
 
         // makes the turret spin
         GetComponent<Rigidbody2D>().angularVelocity = angularVelocity;
+
+        // loads the bullet's json file in
 
         // starts firing bullets regularly
         InvokeRepeating(nameof(FireBullet), timeDelay, timeDelay);
@@ -68,5 +71,31 @@ public class TurretController : MonoBehaviour
     internal void Die()
     {
         Destroy(gameObject);
+    }
+
+    // loads in the variables from those given by the parent object
+    internal void LoadVariables()
+    {
+        foreach(string item in variables.Keys)
+        {
+            switch (item)
+            {
+                case "lifeSpan":
+                    lifeSpan = float.Parse(variables[item].ToString());
+                    break;
+                case "bulletJson":
+                    bulletJson = variables[item].ToString();
+                    break;
+                case "bulletPath":
+                    bulletPath = variables[item].ToString();
+                    break;
+                case "angularVelocity":
+                    angularVelocity = float.Parse(variables[item].ToString());
+                    break;
+                case "timeDelay":
+                    timeDelay = float.Parse(variables[item].ToString());
+                    break;
+            }
+        }
     }
 }

@@ -21,14 +21,13 @@ public class ProjectileController : MonoBehaviour
     public float scaleX;
     public float scaleY;
 
-    internal virtual void Setup(string jsonPath, Class owner, float damageMultiplier)
+    private Dictionary<string, object> variables;
+
+    internal virtual void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier)
     {
         // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        this.variables = variables;
+        LoadVariables();
 
         // sets the scale
         transform.localScale = new Vector3(scaleX, scaleY, 1);
@@ -99,6 +98,40 @@ public class ProjectileController : MonoBehaviour
         else
         {
             selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity);
+        }
+    }
+
+    internal void LoadVariables()
+    {
+        foreach(string key in variables.Keys)
+        {
+            switch (key)
+            {
+                case "velocity":
+                    velocity = float.Parse(variables[key].ToString());
+                    break;
+                case "lifeSpan":
+                    lifeSpan = float.Parse(variables[key].ToString());
+                    break;
+                case "damage":
+                    damage = int.Parse(variables[key].ToString());
+                    break;
+                case "r":
+                    r = float.Parse(variables[key].ToString());
+                    break;
+                case "g":
+                    g = float.Parse(variables[key].ToString());
+                    break;
+                case "b":
+                    b = float.Parse(variables[key].ToString());
+                    break;
+                case "scaleX":
+                    scaleX = float.Parse(variables[key].ToString());
+                    break;
+                case "scaleY":
+                    scaleY = float.Parse(variables[key].ToString());
+                    break;
+            }
         }
     }
 }
