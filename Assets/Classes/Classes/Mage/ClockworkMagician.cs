@@ -20,7 +20,7 @@ public class ClockworkMagician : Mage
 
     private GameObject orbTemplate;
 
-    private List<Dictionary<string, object>> orbVariables;
+    private JsonVariable orbVariables;
 
     internal override void ClassSetup()
     {
@@ -37,7 +37,7 @@ public class ClockworkMagician : Mage
         // buffs the magician every buffDelay seconds
         StartBuff();
 
-        orbVariables = Projectile.LoadVariablesFromJson(orbJson);
+        orbVariables = new JsonVariable(orbJson);
 
         // calls the base setup
         base.Setup();
@@ -71,7 +71,7 @@ public class ClockworkMagician : Mage
         for (int  i = 0; i < orbNumber; i++)
         {
             // spawns the new projectile
-            ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbVariables[body.Level - 1], this, 1f);
+            ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbVariables.Variables, this, 1f);
             
             // updates its damage
             projectile.damage = (int)(projectile.damage * damageMult * body.DamageMultiplier);
@@ -140,6 +140,16 @@ public class ClockworkMagician : Mage
                     localDamageBuff = float.Parse(jsonData[item].ToString());
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            orbVariables.IncreaseIndex();
         }
     }
 }

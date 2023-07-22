@@ -84,7 +84,7 @@ public class Class: MonoBehaviour
     /// <summary>
     /// Called by the body when it levels up
     /// </summary>
-    internal void LevelUp()
+    internal virtual void LevelUp()
     {
         JsonSetup(jsonData[body.Level - 1]);
     }

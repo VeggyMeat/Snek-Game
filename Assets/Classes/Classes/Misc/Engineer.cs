@@ -15,7 +15,7 @@ public class Engineer : Class
 
     private GameObject turret;
 
-    private List<Dictionary<string, object>> turretVariables;
+    private JsonVariable turretVariables;
 
     internal override void ClassSetup()
     {
@@ -33,13 +33,7 @@ public class Engineer : Class
         // gets the turret asset ready
         turret = Resources.Load<GameObject>(turretPath);
 
-        // loads in the text from the json file
-        StreamReader reader = new StreamReader(turretJson);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        // converts the text to the variable list
-        turretVariables = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
+        turretVariables = new JsonVariable(turretJson);
 
         StartTurretRepeating();
     }
@@ -53,7 +47,7 @@ public class Engineer : Class
         TurretController controller = turretSpawned.GetComponent<TurretController>();
 
         // sets up the turret
-        controller.Setup(turretVariables[body.Level - 1], this);
+        controller.Setup(turretVariables.Variables, this);
     }
 
     // starts the invoke to spawn turrets
@@ -126,6 +120,16 @@ public class Engineer : Class
                     turretJson = jsonData[item].ToString();
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            turretVariables.IncreaseIndex();
         }
     }
 }

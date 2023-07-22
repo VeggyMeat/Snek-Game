@@ -17,7 +17,7 @@ public class Gambler : Archer
     private float minDamage;
     private float maxDamage;
 
-    private List<Dictionary<string, object>> projectileVariables;
+    private JsonVariable projectileVariables;
 
     internal override void ClassSetup()
     {
@@ -31,7 +31,7 @@ public class Gambler : Archer
         // grabs the projectile from resources
         projectile = Resources.Load<GameObject>(projectilePath);
 
-        projectileVariables = Projectile.LoadVariablesFromJson(projectileJson);
+        projectileVariables = new JsonVariable(projectileJson);
 
         // calls the archer's setup
         base.Setup();
@@ -45,7 +45,7 @@ public class Gambler : Archer
         float damage = Map(minRadius, maxRadius, minDamage, maxDamage, radius);
 
         // creates and sets up a new projectile
-        ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileVariables[body.Level - 1], this, 1f);
+        ProjectileController controller = Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileVariables.Variables, this, 1f);
 
         // sets the damage of the projectile
         controller.damage = (int)(damage * body.DamageMultiplier);
@@ -92,6 +92,15 @@ public class Gambler : Archer
                     maxDamage = Convert.ToSingle(jsonData[item]);
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+        if (body.Level != 1)
+        {
+            projectileVariables.IncreaseIndex();
         }
     }
 }

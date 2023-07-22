@@ -15,7 +15,7 @@ public class Spectre : Mage
 
     internal GameObject orbTemplate;
 
-    private List<Dictionary<string, object>> orbVariables;
+    private JsonVariable orbVariables;
 
     internal override void ClassSetup()
     {
@@ -29,7 +29,7 @@ public class Spectre : Mage
         // grabs the orb thats shot
         orbTemplate = Resources.Load<GameObject>(orbPath);
 
-        orbVariables = Projectile.LoadVariablesFromJson(orbJson);
+        orbVariables = new JsonVariable(orbJson);
 
         // calls the base setup
         base.Setup();
@@ -40,7 +40,7 @@ public class Spectre : Mage
         for (int i = 0; i < orbNumber; i++)
         {
             // creates and sets up a new orb
-            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables[body.Level - 1], this, body.DamageMultiplier);
+            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables.Variables, this, body.DamageMultiplier);
 
             // if dead, increases the damage by the miltiplier
             if (body.isDead)
@@ -103,6 +103,16 @@ public class Spectre : Mage
                     orbJson = jsonData[item].ToString();
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            orbVariables.IncreaseIndex();
         }
     }
 }

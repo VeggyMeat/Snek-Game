@@ -20,15 +20,4 @@ public static class Projectile
 
         return projController;
     }
-
-    public static List<Dictionary<string, object>> LoadVariablesFromJson(string jsonPath)
-    {
-        // loads in the text from the json file
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        // converts the text to the variable list and returns it
-        return JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
-    }
 }

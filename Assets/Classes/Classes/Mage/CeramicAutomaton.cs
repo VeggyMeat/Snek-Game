@@ -17,7 +17,7 @@ public class CeramicAutomaton : Mage
 
     private GameObject boltTemplate;
 
-    private List<Dictionary<string, object>> boltVariables;
+    private JsonVariable boltVariables;
 
     internal override void ClassSetup()
     {
@@ -37,7 +37,7 @@ public class CeramicAutomaton : Mage
         // adds ChangeHealthTrigger to the BodyLostHealthTrigger
         TriggerManager.BodyLostHealthTrigger.AddTrigger(ChangeHealthTrigger);
 
-        boltVariables = Projectile.LoadVariablesFromJson(boltJson);
+        boltVariables = new JsonVariable(boltJson);
 
         base.Setup();
     }
@@ -86,7 +86,7 @@ public class CeramicAutomaton : Mage
         float angle = Random.Range(0, Mathf.PI * 2);
 
         // creates and sets up a new projectile
-        Projectile.Shoot(boltTemplate, transform.position, angle, boltVariables[body.Level - 1], this, body.DamageMultiplier);
+        Projectile.Shoot(boltTemplate, transform.position, angle, boltVariables.Variables, this, body.DamageMultiplier);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -117,6 +117,16 @@ public class CeramicAutomaton : Mage
                     shieldRegenDelay = float.Parse(jsonData[item].ToString());
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            boltVariables.IncreaseIndex();
         }
     }
 }

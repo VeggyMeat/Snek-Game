@@ -17,7 +17,7 @@ public class FireMage : Mage
 
     private float angleFacing;
 
-    private List<Dictionary<string, object>> orbVariables;
+    private JsonVariable orbVariables;
 
     internal override void ClassSetup()
     {
@@ -31,7 +31,7 @@ public class FireMage : Mage
         // grabs the orb thats shot
         orb = Resources.Load<GameObject>(orbPath);
 
-        orbVariables = Projectile.LoadVariablesFromJson(orbJson);
+        orbVariables = new JsonVariable(orbJson);
 
         // calls the base setup
         base.Setup();
@@ -49,7 +49,7 @@ public class FireMage : Mage
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
             // creates and sets up a new projectile
-            Projectile.Shoot(orb, transform.position, angleFacing, orbVariables[body.Level - 1], this, body.DamageMultiplier);
+            Projectile.Shoot(orb, transform.position, angleFacing, orbVariables.Variables, this, body.DamageMultiplier);
         }
     }
 
@@ -84,6 +84,16 @@ public class FireMage : Mage
                     orbJson = jsonData[item].ToString();
                     break;
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            orbVariables.IncreaseIndex();
         }
     }
 }

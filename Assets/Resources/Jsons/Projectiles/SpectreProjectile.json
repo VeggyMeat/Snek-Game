@@ -1,12 +1,14 @@
-{
-  "velocity": 7.5,
-  "lifeSpan": 3,
-  "damage": 20,
+[
+  {
+    "velocity": 7.5,
+    "lifeSpan": 3,
+    "damage": 20,
 
-  "r": 0.337,
-  "g": 0.324,
-  "b": 0.388,
+    "r": 0.337,
+    "g": 0.324,
+    "b": 0.388,
 
-  "scaleX": 0.25,
-  "scaleY": 0.25
-}
+    "scaleX": 0.25,
+    "scaleY": 0.25
+  }
+]

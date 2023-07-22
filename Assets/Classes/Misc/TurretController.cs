@@ -21,7 +21,7 @@ public class TurretController : MonoBehaviour
 
     private Dictionary<string, object> variables;
 
-    private List<Dictionary<string, object>> bulletVariables;
+    private JsonVariable bulletVariables;
 
     internal void Setup(Dictionary<string, object> variables, Engineer parent)
     {
@@ -39,7 +39,7 @@ public class TurretController : MonoBehaviour
         GetComponent<Rigidbody2D>().angularVelocity = angularVelocity;
 
         // loads the bullet's json file in
-        bulletVariables = Projectile.LoadVariablesFromJson(bulletJson);
+        bulletVariables = new JsonVariable(bulletJson, parent.body.Level);
 
         // starts firing bullets regularly
         InvokeRepeating(nameof(FireBullet), timeDelay, timeDelay);
@@ -61,7 +61,7 @@ public class TurretController : MonoBehaviour
 
         // sets up the bullet
         // gets the variable information based on the bullet json corresponding to the body's level
-        controller.Setup(bulletVariables[parent.body.Level - 1], this, parent.body.DamageMultiplier);
+        controller.Setup(bulletVariables.Variables, this, parent.body.DamageMultiplier);
     }
 
     // called when a bullet kills an enemy
