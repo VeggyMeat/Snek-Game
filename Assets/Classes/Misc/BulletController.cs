@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BulletController : MonoBehaviour
 {
     private TurretController parent;
 
-    public float velocity;
-    public float lifeSpan;
-    public int damage;
+    private Dictionary<string, object> variables;
 
-    internal void Setup(string jsonPath, TurretController parent, float DamageMultiplier)
+    private float velocity;
+    private float lifeSpan;
+    private int damage;
+
+    internal void Setup(Dictionary<string, object> variables, TurretController parent, float DamageMultiplier)
     {
         // sets the engineer as the owner
         this.parent = parent;
 
         // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
+        this.variables = variables;
+        LoadVariables();
 
         // kills the projectile when it should die
         Invoke(nameof(Die), lifeSpan);
@@ -59,5 +60,24 @@ public class BulletController : MonoBehaviour
     internal void Die()
     {
         Destroy(gameObject);
+    }
+
+    internal void LoadVariables()
+    {
+        foreach (string key in variables.Keys)
+        {
+            switch (key)
+            {
+                case "velocity":
+                    velocity = float.Parse(variables[key].ToString());
+                    break;
+                case "lifeSpan":
+                    lifeSpan = float.Parse(variables[key].ToString());
+                    break;
+                case "damage":
+                    damage = int.Parse(variables[key].ToString());
+                    break;
+            }
+        }
     }
 }

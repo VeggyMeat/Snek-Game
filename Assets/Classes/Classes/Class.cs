@@ -86,7 +86,7 @@ public class Class: MonoBehaviour
     /// </summary>
     internal void LevelUp()
     {
-        JsonSetup(jsonData[body.level - 1]);
+        JsonSetup(jsonData[body.Level - 1]);
     }
 
     /// <summary>

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ public class BowMan : Archer
     private string projectilePath;
     private string projectileJson;
 
+    private List<Dictionary<string, object>> arrowVariables = new List<Dictionary<string, object>>();
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Archer/BowMan.json";
@@ -22,6 +25,9 @@ public class BowMan : Archer
 
     internal override void Setup()
     {
+        // gets the json data and loads it into the arrowVariables
+        arrowVariables = Projectile.LoadVariablesFromJson(projectileJson);
+
         // grabs the projectile from resources
         projectile = Resources.Load<GameObject>(projectilePath);
 
@@ -40,7 +46,7 @@ public class BowMan : Archer
         for (int i = 0; i < projectileCount; i++)
         {
             // creates and sets up a new projectile
-            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), projectileJson, this, body.DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), arrowVariables[body.Level - 1], this, body.DamageMultiplier);
         }
     }
 

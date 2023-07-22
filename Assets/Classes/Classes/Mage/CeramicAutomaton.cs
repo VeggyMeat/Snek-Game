@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class CeramicAutomaton : Mage
@@ -14,6 +16,8 @@ public class CeramicAutomaton : Mage
     private bool shieldRegenActive = false;
 
     private GameObject boltTemplate;
+
+    private List<Dictionary<string, object>> boltVariables;
 
     internal override void ClassSetup()
     {
@@ -33,7 +37,7 @@ public class CeramicAutomaton : Mage
         // adds ChangeHealthTrigger to the BodyLostHealthTrigger
         TriggerManager.BodyLostHealthTrigger.AddTrigger(ChangeHealthTrigger);
 
-        // starts the process of regening shields periodically
+        boltVariables = Projectile.LoadVariablesFromJson(boltJson);
 
         base.Setup();
     }
@@ -82,7 +86,7 @@ public class CeramicAutomaton : Mage
         float angle = Random.Range(0, Mathf.PI * 2);
 
         // creates and sets up a new projectile
-        Projectile.Shoot(boltTemplate, transform.position, angle, boltJson, this, body.DamageMultiplier);
+        Projectile.Shoot(boltTemplate, transform.position, angle, boltVariables[body.Level - 1], this, body.DamageMultiplier);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)

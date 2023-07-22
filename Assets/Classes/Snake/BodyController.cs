@@ -11,7 +11,16 @@ public class BodyController : MonoBehaviour
     private int maxHealth;
     private float velocityContribution;
 
-    internal int level = 0;
+    private int level = 0;
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
+
     internal int maxLevel;
 
     public bool levelable = true;

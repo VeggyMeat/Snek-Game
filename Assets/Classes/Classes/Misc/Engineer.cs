@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Engineer : Class
@@ -12,6 +14,8 @@ public class Engineer : Class
     internal List<GameObject> turrets;
 
     private GameObject turret;
+
+    private List<Dictionary<string, object>> turretVariables;
 
     internal override void ClassSetup()
     {
@@ -29,6 +33,14 @@ public class Engineer : Class
         // gets the turret asset ready
         turret = Resources.Load<GameObject>(turretPath);
 
+        // loads in the text from the json file
+        StreamReader reader = new StreamReader(turretJson);
+        string text = reader.ReadToEnd();
+        reader.Close();
+
+        // converts the text to the variable list
+        turretVariables = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
+
         StartTurretRepeating();
     }
 
@@ -41,7 +53,7 @@ public class Engineer : Class
         TurretController controller = turretSpawned.GetComponent<TurretController>();
 
         // sets up the turret
-        controller.Setup(turretJson, this);
+        controller.Setup(turretVariables[body.Level - 1], this);
     }
 
     // starts the invoke to spawn turrets

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,7 @@ public class TurretController : MonoBehaviour
 
     private Dictionary<string, object> variables;
 
-    private List<Dictionary<>>
+    private List<Dictionary<string, object>> bulletVariables;
 
     internal void Setup(Dictionary<string, object> variables, Engineer parent)
     {
@@ -38,6 +39,7 @@ public class TurretController : MonoBehaviour
         GetComponent<Rigidbody2D>().angularVelocity = angularVelocity;
 
         // loads the bullet's json file in
+        bulletVariables = Projectile.LoadVariablesFromJson(bulletJson);
 
         // starts firing bullets regularly
         InvokeRepeating(nameof(FireBullet), timeDelay, timeDelay);
@@ -58,7 +60,8 @@ public class TurretController : MonoBehaviour
         BulletController controller = bullet.GetComponent<BulletController>();
 
         // sets up the bullet
-        controller.Setup(bulletJson, this, parent.body.DamageMultiplier);
+        // gets the variable information based on the bullet json corresponding to the body's level
+        controller.Setup(bulletVariables[parent.body.Level - 1], this, parent.body.DamageMultiplier);
     }
 
     // called when a bullet kills an enemy
