@@ -54,21 +54,18 @@ public class ChoiceManager : CanvasManager
 
                 // gets the body
                 BodyController body = headController.head;
-                while (body.classes[0].name != options[button])
+                while (body.Name != options[button])
                 {
                     body = body.next;
                 }
 
-                // levels up each class attatched to the body
-                foreach (Class friendly in body.classes)
-                {
-                    friendly.LevelUp();
-                }
+                // levels up the body
+                body.LevelUp();
 
                 // if the body is no longer levelable, remove it from the list
                 if (!body.levelable)
                 {
-                    shopManager.levelableBodies.Remove(body.classes[0].name);
+                    shopManager.levelableBodies.Remove(body.Name);
                 }
                 break;
 

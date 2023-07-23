@@ -993,6 +993,7 @@ MonoBehaviour:
   - Blacksmith
   - ClockworkMagician
   - SorcererProdigy
+  - Bomb
   smallItems: []
   powerfulItems:
   - Quiver
@@ -1313,7 +1314,6 @@ MonoBehaviour:
   - {fileID: 7656828050263642448, guid: 045feb5fb2c77da48a3917770dde42c4, type: 3}
   - {fileID: 7656828050263642448, guid: e1a3faf95e1a0b24681eb7fba07a80fe, type: 3}
   - {fileID: 7656828050263642448, guid: 0c9229eae5669cd4ab5801fc5e96f72a, type: 3}
-  spawnClumps: 25
   spawnDelay: 10
   firstDelay: 5
   radius: 20

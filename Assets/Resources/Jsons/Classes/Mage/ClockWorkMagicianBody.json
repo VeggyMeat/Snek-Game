@@ -8,6 +8,8 @@
     "maxHealth": 100,
     "contactDamage": 5,
     "contactForce": 2000,
-    "velocityContribution": 8
+    "velocityContribution": 8,
+
+    "name": "ClockworkMagician"
   }
 ]

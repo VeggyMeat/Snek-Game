@@ -39,7 +39,7 @@ public class TurretController : MonoBehaviour
         GetComponent<Rigidbody2D>().angularVelocity = angularVelocity;
 
         // loads the bullet's json file in
-        bulletVariables = new JsonVariable(bulletJson, parent.body.Level);
+        bulletVariables = new JsonVariable(bulletJson, parent.body.Level - 1);
 
         // starts firing bullets regularly
         InvokeRepeating(nameof(FireBullet), timeDelay, timeDelay);

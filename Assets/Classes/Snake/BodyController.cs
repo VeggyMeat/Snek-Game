@@ -11,6 +11,22 @@ public class BodyController : MonoBehaviour
     private int maxHealth;
     private float velocityContribution;
 
+    /// <summary>
+    /// The name of the class
+    /// </summary>
+    protected new string name;
+
+    /// <summary>
+    /// The name of the class
+    /// </summary>
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+    }
+
     private int level = 0;
 
     public int Level
@@ -620,6 +636,9 @@ public class BodyController : MonoBehaviour
 
         // sets the jsonData to the deserialized json in the appropriate format
         jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
+
+        // gets the max number of levels from the json
+        maxLevel = jsonData.Count;
     }
 
     /// <summary>
@@ -711,6 +730,9 @@ public class BodyController : MonoBehaviour
                     case "maxLevel":
                         maxLevel = int.Parse(values["maxLevel"].ToString());
                         break;
+                    case "name":
+                        name = values["name"].ToString();
+                        break;
                 }
             }
 
@@ -727,12 +749,6 @@ public class BodyController : MonoBehaviour
         // increases the level
         level++;
 
-        // if its at max level, indicates it cant level further
-        if (level == maxLevel)
-        {
-            levelable = false;
-        }
-
         // levels up each of the attatched classes
         foreach (Class friendly in classes)
         {
@@ -741,6 +757,12 @@ public class BodyController : MonoBehaviour
 
         // reloads the body's values from the json
         LoadFromJson();
+
+        // if its at max level, indicates it cant level further
+        if (level == maxLevel)
+        {
+            levelable = false;
+        }
 
         // calls the level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);

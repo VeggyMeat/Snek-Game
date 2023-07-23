@@ -42,7 +42,7 @@ public class ShopManager : MonoBehaviour
         // if it can be leveled up, add it to the list
         if (body.levelable)
         {
-            levelableBodies.Add(body.classes[0].name);
+            levelableBodies.Add(body.Name);
         }
 
         return null;

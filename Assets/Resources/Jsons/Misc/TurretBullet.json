@@ -1,5 +1,7 @@
-{
-  "velocity": 10,
-  "lifeSpan": 5,
-  "damage": 50
-}
+[
+  {
+    "velocity": 10,
+    "lifeSpan": 5,
+    "damage": 50
+  }
+]

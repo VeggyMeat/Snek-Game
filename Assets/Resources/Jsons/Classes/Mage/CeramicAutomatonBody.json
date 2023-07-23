@@ -8,6 +8,8 @@
     "maxHealth": 1,
     "contactDamage": 0,
     "contactForce": 3000,
-    "velocityContribution": 9
+    "velocityContribution": 9,
+
+    "Name": "CeramicAutomaton"
   }
 ]

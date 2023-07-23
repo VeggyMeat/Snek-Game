@@ -8,6 +8,8 @@
     "maxHealth": 50,
     "contactDamage": 5,
     "contactForce": 1000,
-    "velocityContribution": 7.5
+    "velocityContribution": 7.5,
+
+    "name": "Spectre"
   }
 ]

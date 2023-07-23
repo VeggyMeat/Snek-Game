@@ -1,8 +1,10 @@
-{
-  "lifeSpan": 10,
-  "angularVelocity": 40,
-  "timeDelay": 0.5,
+[
+  {
+    "lifeSpan": 10,
+    "angularVelocity": 40,
+    "timeDelay": 0.5,
 
-  "bulletPath": "GameObjects/Bullet",
-  "bulletJson": "Assets/Resources/Jsons/Misc/TurretBullet.json"
-}
+    "bulletPath": "GameObjects/Bullet",
+    "bulletJson": "Assets/Resources/Jsons/Misc/TurretBullet.json"
+  }
+]

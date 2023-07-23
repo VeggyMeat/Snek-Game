@@ -8,6 +8,8 @@
     "maxHealth": 150,
     "contactDamage": 20,
     "contactForce": 3500,
-    "velocityContribution": 7
+    "velocityContribution": 7,
+
+    "name": "Samurai"
   }
 ]

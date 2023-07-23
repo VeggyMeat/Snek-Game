@@ -8,6 +8,8 @@
     "maxHealth": 200,
     "contactDamage": 25,
     "contactForce": 4000,
-    "velocityContribution": 5
+    "velocityContribution": 5,
+
+    "name": "Swordsman"
   }
 ]

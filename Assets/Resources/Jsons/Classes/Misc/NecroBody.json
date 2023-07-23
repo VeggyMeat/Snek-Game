@@ -8,6 +8,8 @@
     "maxHealth": 105,
     "contactDamage": 10,
     "contactForce": 2000,
-    "velocityContribution": 7.5
+    "velocityContribution": 7.5,
+
+    "name": "Necro"
   }
 ]
