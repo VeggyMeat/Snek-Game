@@ -1,6 +1,8 @@
-{
-  "itemName": "Quiver",
-  "itemDescription": "Increases the damage of archers by ~%",
+[
+  {
+    "itemName": "Quiver",
+    "itemDescription": "Increases the damage of archers by ~%",
 
-  "attackSpeedModifier": 5.0
-}
+    "attackSpeedModifier": 5.0
+  }
+]

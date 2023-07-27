@@ -69,30 +69,12 @@ public class Gambler : Archer
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "projectilePath":
-                    projectilePath = (string)jsonData[item];
-                    break;
-                case "projectileJson":
-                    projectileJson = (string)jsonData[item];
-                    break;
-                case "minRadius":
-                    minRadius = Convert.ToSingle(jsonData[item]);
-                    break;
-                case "maxRadius":
-                    maxRadius = Convert.ToSingle(jsonData[item]);
-                    break;
-                case "minDamage":
-                    minDamage = Convert.ToSingle(jsonData[item]);
-                    break;
-                case "maxDamage":
-                    maxDamage = Convert.ToSingle(jsonData[item]);
-                    break;
-            }
-        }
+        jsonData.Setup(ref projectilePath, "projectilePath");
+        jsonData.Setup(ref projectileJson, "projectileJson");
+        jsonData.Setup(ref minRadius, "minRadius");
+        jsonData.Setup(ref maxRadius, "maxRadius");
+        jsonData.Setup(ref minDamage, "minDamage");
+        jsonData.Setup(ref maxDamage, "maxDamage");
     }
 
     internal override void LevelUp()

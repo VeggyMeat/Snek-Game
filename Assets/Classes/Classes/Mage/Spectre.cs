@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Spectre : Mage
 {
@@ -76,32 +77,18 @@ public class Spectre : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref orbNumber, "orbNumber");
+        jsonData.Setup(ref damageMult, "damageMult");
+        jsonData.Setup(ref speedMult, "speedMult");
+        jsonData.Setup(ref orbJson, "orbJson");
+        if (jsonData.ContainsKey("orbPath"))
         {
-            switch (item)
+            orbPath = jsonData["orbPath"].ToString();
+
+            if (jsonLoaded)
             {
-                case "orbNumber":
-                    orbNumber = int.Parse(jsonData[item].ToString());
-                    break;
-                case "damageMult":
-                    damageMult = float.Parse(jsonData[item].ToString());
-                    break;
-                case "speedMult":
-                    speedMult = float.Parse(jsonData[item].ToString());
-                    break;
-                case "orbPath":
-                    orbPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        // grabs the orb thats shot
-                        orbTemplate = Resources.Load<GameObject>(orbPath);
-                    }
-
-                    break;
-                case "orbJson":
-                    orbJson = jsonData[item].ToString();
-                    break;
+                // grabs the orb thats shot
+                orbTemplate = Resources.Load<GameObject>(orbPath);
             }
         }
     }

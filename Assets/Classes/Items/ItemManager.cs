@@ -15,12 +15,15 @@ public static class ItemManager
     internal static void AddItem(string itemName)
     {
         Item item;
+
         switch (itemName)
         {
             case "Quiver":
                 item = new Quiver();
                 break;
-
+            case "LuckyFlask":
+                item = new LuckyFlask();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();

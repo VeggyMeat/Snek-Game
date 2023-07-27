@@ -79,26 +79,10 @@ public class TurretController : MonoBehaviour
     // loads in the variables from those given by the parent object
     internal void LoadVariables()
     {
-        foreach(string item in variables.Keys)
-        {
-            switch (item)
-            {
-                case "lifeSpan":
-                    lifeSpan = float.Parse(variables[item].ToString());
-                    break;
-                case "bulletJson":
-                    bulletJson = variables[item].ToString();
-                    break;
-                case "bulletPath":
-                    bulletPath = variables[item].ToString();
-                    break;
-                case "angularVelocity":
-                    angularVelocity = float.Parse(variables[item].ToString());
-                    break;
-                case "timeDelay":
-                    timeDelay = float.Parse(variables[item].ToString());
-                    break;
-            }
-        }
+        variables.Setup(ref lifeSpan, "lifeSpan");
+        variables.Setup(ref bulletJson, "bulletJson");
+        variables.Setup(ref bulletPath, "bulletPath");
+        variables.Setup(ref angularVelocity, "angularVelocity");
+        variables.Setup(ref timeDelay, "timeDelay");
     }
 }

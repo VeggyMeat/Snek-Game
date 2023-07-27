@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class CeramicAutomaton : Mage
 {
@@ -93,29 +94,18 @@ public class CeramicAutomaton : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref boltJson, "boltJson");
+        jsonData.Setup(ref maxShield, "maxShield");
+        jsonData.Setup(ref shieldRegenDelay, "shieldRegenDelay");
+
+        if (jsonData.ContainsKey("boltPath"))
         {
-            switch (item)
+            boltPath = jsonData["boltPath"].ToString();
+
+            if (jsonLoaded)
             {
-                case "boltPath":
-                    boltPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        // grabs the orb thats shot
-                        boltTemplate = Resources.Load<GameObject>(boltPath);
-                    }
-
-                    break;
-                case "boltJson":
-                    boltJson = jsonData[item].ToString();
-                    break;
-                case "maxShield":
-                    maxShield = int.Parse(jsonData[item].ToString());
-                    break;
-                case "shieldRegenDelay":
-                    shieldRegenDelay = float.Parse(jsonData[item].ToString());
-                    break;
+                // grabs the orb thats shot
+                boltTemplate = Resources.Load<GameObject>(boltPath);
             }
         }
     }

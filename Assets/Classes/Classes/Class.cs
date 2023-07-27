@@ -115,15 +115,9 @@ public class Class: MonoBehaviour
     /// <param name="jsonData"></param>
     protected virtual void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
-        // goes through each item in the data, overwriting any variables that are in the json
-        foreach (string item in jsonData.Keys)
+        if (jsonData.ContainsKey("bodyJson"))
         {
-            switch (item)
-            {
-                case "bodyJson":
-                    BodyJson = jsonData["bodyJson"].ToString();
-                    break;
-            }
+            BodyJson = jsonData["bodyJson"].ToString();
         }
     }
 

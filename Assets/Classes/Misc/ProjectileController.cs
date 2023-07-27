@@ -103,35 +103,13 @@ public class ProjectileController : MonoBehaviour
 
     internal void LoadVariables()
     {
-        foreach(string key in variables.Keys)
-        {
-            switch (key)
-            {
-                case "velocity":
-                    velocity = float.Parse(variables[key].ToString());
-                    break;
-                case "lifeSpan":
-                    lifeSpan = float.Parse(variables[key].ToString());
-                    break;
-                case "damage":
-                    damage = int.Parse(variables[key].ToString());
-                    break;
-                case "r":
-                    r = float.Parse(variables[key].ToString());
-                    break;
-                case "g":
-                    g = float.Parse(variables[key].ToString());
-                    break;
-                case "b":
-                    b = float.Parse(variables[key].ToString());
-                    break;
-                case "scaleX":
-                    scaleX = float.Parse(variables[key].ToString());
-                    break;
-                case "scaleY":
-                    scaleY = float.Parse(variables[key].ToString());
-                    break;
-            }
-        }
+        variables.Setup(ref velocity, "velocity");
+        variables.Setup(ref lifeSpan, "lifeSpan");
+        variables.Setup(ref damage, "damage");
+        variables.Setup(ref r, "r");
+        variables.Setup(ref g, "g");
+        variables.Setup(ref b, "b");
+        variables.Setup(ref scaleX, "scaleX");
+        variables.Setup(ref scaleY, "scaleY");
     }
 }

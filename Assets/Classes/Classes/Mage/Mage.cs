@@ -84,36 +84,29 @@ public class Mage : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        if (jsonData.ContainsKey("timeDelay"))
         {
-            switch (item)
+            timeDelay = float.Parse(jsonData["timeDelay"].ToString());
+
+            if (jsonLoaded)
             {
-                case "timeDelay":
-                    timeDelay = float.Parse(jsonData["timeDelay"].ToString());
+                ResetRepeatingAttack();
+            }
+        }
+        if (jsonData.ContainsKey("regularAttack"))
+        {
+            regularAttack = bool.Parse(jsonData["regularAttack"].ToString());
 
-                    if (jsonLoaded)
-                    {
-                        ResetRepeatingAttack();
-                    }
-
-                    break;
-
-                case "regularAttack":
-                    regularAttack = bool.Parse(jsonData["regularAttack"].ToString());
-
-                    if (jsonLoaded)
-                    {
-                        if (regularAttack)
-                        {
-                            StartRepeatingAttack();
-                        }
-                        else
-                        {
-                            StopRepeatingAttack();
-                        }
-                    }
-
-                    break;
+            if (jsonLoaded)
+            {
+                if (regularAttack)
+                {
+                    StartRepeatingAttack();
+                }
+                else
+                {
+                    StopRepeatingAttack();
+                }
             }
         }
     }

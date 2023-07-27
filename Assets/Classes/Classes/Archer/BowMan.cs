@@ -65,24 +65,10 @@ public class BowMan : Archer
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "projectileCount":
-                    projectileCount = Convert.ToInt32(jsonData[item]);
-                    break;
-                case "enemyDeathVolleyCount":
-                    enemyDeathVolleyCount = Convert.ToInt32(jsonData[item]);
-                    break;
-                case "projectilePath":
-                    projectilePath = Convert.ToString(jsonData[item]);
-                    break;
-                case "projectileJson":
-                    projectileJson = Convert.ToString(jsonData[item]);
-                    break;
-            }
-        }
+        jsonData.Setup(ref projectileCount, "projectileCount");
+        jsonData.Setup(ref enemyDeathVolleyCount, "enemyDeathVolleyCount");
+        jsonData.Setup(ref projectilePath, "projectilePath");
+        jsonData.Setup(ref projectileJson, "projectileJson");
     }
 
     internal override void LevelUp()

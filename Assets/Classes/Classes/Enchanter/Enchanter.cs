@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Enchanter : Class
 {
@@ -98,30 +99,25 @@ public class Enchanter : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        if (jsonData.ContainsKey("buffsAllBodies"))
         {
-            switch (item)
+            if (jsonData["buffsAllBodies"].ToString() == "True")
             {
-                case "buffsAllBodies":
-                    if (jsonData[item].ToString() == "True")
-                    {
-                        buffsAllBodies = true;
+                buffsAllBodies = true;
 
-                        if (jsonLoaded)
-                        {
-                            BuffAllBodies();
-                        }
-                    }
-                    else
-                    {
-                        buffsAllBodies = false;
+                if (jsonLoaded)
+                {
+                    BuffAllBodies();
+                }
+            }
+            else
+            {
+                buffsAllBodies = false;
 
-                        if (jsonLoaded)
-                        {
-                            UnbuffAllBodies();
-                        }
-                    }
-                    break;
+                if (jsonLoaded)
+                {
+                    UnbuffAllBodies();
+                }
             }
         }
     }

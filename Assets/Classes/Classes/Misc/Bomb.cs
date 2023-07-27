@@ -102,22 +102,8 @@ public class Bomb : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "XPChance":
-                    XPChance = float.Parse(jsonData["XPChance"].ToString());
-                    break;
-
-                case "timeDelay":
-                    timeDelay = int.Parse(jsonData["timeDelay"].ToString());
-                    break;
-
-                case "radius":
-                    radius = int.Parse(jsonData["radius"].ToString());
-                    break;
-            }
-        }
+        jsonData.Setup(ref XPChance, "XPChance");
+        jsonData.Setup(ref timeDelay, "timeDelay");
+        jsonData.Setup(ref radius, "radius");
     }
 }

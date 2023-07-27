@@ -73,20 +73,8 @@ public class Samurai : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "critChance":
-                    critChance = float.Parse(jsonData[item].ToString());
-                    break;
-                case "critMultiplier":
-                    critMultiplier = float.Parse(jsonData[item].ToString());
-                    break;
-                case "attackLength":
-                    attackLength = float.Parse(jsonData[item].ToString());
-                    break;
-            }
-        }
+        jsonData.Setup(ref critChance, "critChance");
+        jsonData.Setup(ref critMultiplier, "critMultiplier");
+        jsonData.Setup(ref attackLength, "attackLength");
     }
 }

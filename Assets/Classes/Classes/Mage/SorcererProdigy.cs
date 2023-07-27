@@ -63,20 +63,8 @@ public class SorcererProdigy : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "damage":
-                    damage = int.Parse(jsonData[item].ToString());
-                    break;
-                case "beamThickness":
-                    beamThickness = float.Parse(jsonData[item].ToString());
-                    break;
-                case "beamLength":
-                    beamLength = float.Parse(jsonData[item].ToString());
-                    break;
-            }
-        }
+        jsonData.Setup(ref damage, "damage");
+        jsonData.Setup(ref beamThickness, "beamThickness");
+        jsonData.Setup(ref beamLength, "beamLength");
     }
 }

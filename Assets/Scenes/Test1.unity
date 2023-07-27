@@ -994,7 +994,8 @@ MonoBehaviour:
   - ClockworkMagician
   - SorcererProdigy
   - Bomb
-  smallItems: []
+  smallItems:
+  - LuckyFlask
   powerfulItems:
   - Quiver
 --- !u!4 &783227185

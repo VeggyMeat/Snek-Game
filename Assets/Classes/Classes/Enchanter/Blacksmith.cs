@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Blacksmith : Enchanter
 {
@@ -35,21 +36,15 @@ public class Blacksmith : Enchanter
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        if (jsonData.ContainsKey("defenceIncrease"))
         {
-            switch (item)
+            if (jsonLoaded)
             {
-                case "defenceIncrease":
-                    if (jsonLoaded)
-                    {
-                        UnbuffAllBodies();
-                        BuffAllBodies();
-                    }
-
-                    defenceIncrease = int.Parse(jsonData[item].ToString());
-
-                    break;
+                UnbuffAllBodies();
+                BuffAllBodies();
             }
+
+            defenceIncrease = int.Parse(jsonData["defenceIncrease"].ToString());
         }
     }
 }

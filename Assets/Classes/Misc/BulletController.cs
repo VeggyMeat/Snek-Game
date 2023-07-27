@@ -64,20 +64,8 @@ public class BulletController : MonoBehaviour
 
     internal void LoadVariables()
     {
-        foreach (string key in variables.Keys)
-        {
-            switch (key)
-            {
-                case "velocity":
-                    velocity = float.Parse(variables[key].ToString());
-                    break;
-                case "lifeSpan":
-                    lifeSpan = float.Parse(variables[key].ToString());
-                    break;
-                case "damage":
-                    damage = int.Parse(variables[key].ToString());
-                    break;
-            }
-        }
+        variables.Setup(ref velocity, "velocity");
+        variables.Setup(ref lifeSpan, "lifeSpan");
+        variables.Setup(ref damage, "damage");
     }
 }

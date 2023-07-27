@@ -10,9 +10,6 @@ public class Quiver : Item
     {
         jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
 
-        // sets up the variables based upon the json
-        JsonSetup();
-
         base.Setup();
         
         // when a new body is added calls the AddArcherBuff function on it
@@ -35,12 +32,6 @@ public class Quiver : Item
         return body;
     }
 
-    // currently un-used, will be used when levels added
-    private void RemoveBuff(BodyController body)
-    {
-        body.attackSpeedBuff.AddBuff(1 / attackSpeedModifier, true, null);
-    }
-
     // goes through and buffs each archer
     private void BuffArchers()
     {
@@ -59,18 +50,8 @@ public class Quiver : Item
 
     protected override void JsonSetup()
     {
-        jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
-
         base.JsonSetup();
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "attackSpeedModifier":
-                    attackSpeedModifier = float.Parse(jsonData[item].ToString());
-                    break;
-            }
-        }
+        jsonVariables.Setup(ref attackSpeedModifier, nameof(attackSpeedModifier));
     }
 }

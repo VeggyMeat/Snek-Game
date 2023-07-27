@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Engineer : Class
 {
@@ -93,32 +94,25 @@ public class Engineer : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref turretJson, "turretJson");
+
+        if (jsonData.ContainsKey("spawnDelay"))
         {
-            switch (item)
+            spawnDelay = float.Parse(jsonData["spawnDelay"].ToString());
+
+            if (jsonLoaded)
             {
-                case "spawnDelay":
-                    spawnDelay = float.Parse(jsonData[item].ToString());
+                CancelTurretRepeating();
+                StartTurretRepeating();
+            }
+        }
+        if (jsonData.ContainsKey("turretPath"))
+        {
+            turretPath = jsonData["turretPath"].ToString();
 
-                    if (jsonLoaded)
-                    {
-                        CancelTurretRepeating();
-                        StartTurretRepeating();
-                    }
-
-                    break;
-                case "turretPath":
-                    turretPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        turret = Resources.Load<GameObject>(turretPath);
-                    }
-
-                    break;
-                case "turretJson":
-                    turretJson = jsonData[item].ToString();
-                    break;
+            if (jsonLoaded)
+            {
+                turret = Resources.Load<GameObject>(turretPath);
             }
         }
     }

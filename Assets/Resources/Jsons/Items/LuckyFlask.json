@@ -1,0 +1,20 @@
+[
+  {
+    "itemName": "LuckyFlask",
+    "itemDescription": "Provides a ~% chance to dodge damage dealt to any body",
+
+    "dodgeChance": 0.01
+  },
+  {
+    "dodgeChance": 0.02
+  },
+  {
+    "dodgeChance": 0.03
+  },
+  {
+    "dodgeChance": 0.04
+  },
+  {
+    "dodgeChance": 0.05
+  }
+]

@@ -39,7 +39,7 @@ public class BodyController : MonoBehaviour
 
     internal int maxLevel;
 
-    public bool levelable = true;
+    internal bool levelable = true;
 
     public int Defence
     { 
@@ -652,89 +652,42 @@ public class BodyController : MonoBehaviour
         // if the json has been loaded already
         if (jsonLoaded)
         {
-            // whether or not to reset colour
-            bool resetColour = false;
-            
             // sets the values for each term
-            foreach (string term in values.Keys)
+            if (values.ContainsKey(nameof(defence)))
             {
-                switch (term)
-                {
-                    case "defence":
-                        Defence = Convert.ToInt32(values[term]);
-                        break;
-                    case "maxHealth":
-                        MaxHealth = Convert.ToInt32(values[term]);
-                        break;
-                    case "velocityContribution":
-                        VelocityContribution = Convert.ToSingle(values[term]);
-                        break;
-                    case "contactDamage":
-                        contactDamage = Convert.ToInt32(values[term]);
-                        break;
-                    case "contactForce":
-                        contactForce = Convert.ToInt32(values[term]);
-                        break;
-                    case "r":
-                        r = Convert.ToSingle(values[term]);
-                        resetColour = true;
-                        break;
-                    case "g":
-                        g = Convert.ToSingle(values[term]);
-                        resetColour = true;
-                        break;
-                    case "b":
-                        b = Convert.ToSingle(values[term]);
-                        resetColour = true;
-                        break;
-                }
+                Defence = (int)Convert.ChangeType(values[nameof(defence)], typeof(int));
             }
+            if (values.ContainsKey(nameof(maxHealth)))
+            {
+                MaxHealth = (int)Convert.ChangeType(values[nameof(maxHealth)], typeof(int));
+            }
+            if (values.ContainsKey(nameof(velocityContribution)))
+            {
+                VelocityContribution = (float)Convert.ChangeType(values[nameof(velocityContribution)], typeof(float));
+            }
+            values.Setup(ref contactDamage, nameof(contactDamage));
+            values.Setup(ref contactForce, nameof(contactForce));
+            values.Setup(ref r, nameof(r));
+            values.Setup(ref g, nameof(g));
+            values.Setup(ref b, nameof(b));
+            values.Setup(ref maxLevel, nameof(maxLevel));
+            values.Setup(ref name, nameof(name));
 
-            // resets the colour if needed
-            if (resetColour)
-            {
-                ResetColour();
-            }
+            ResetColour();
         }
         else
         {
             // sets the values for each term
-            foreach (string term in values.Keys)
-            {
-                switch (term)
-                {
-                    case "defence":
-                        defence = Convert.ToInt32(values[term]);
-                        break;
-                    case "maxHealth":
-                        maxHealth = Convert.ToInt32(values[term]);
-                        break;
-                    case "velocityContribution":
-                        velocityContribution = Convert.ToSingle(values[term]);
-                        break;
-                    case "contactDamage":
-                        contactDamage = Convert.ToInt32(values[term]);
-                        break;
-                    case "contactForce":
-                        contactForce = Convert.ToInt32(values[term]);
-                        break;
-                    case "r":
-                        r = Convert.ToSingle(values[term]);
-                        break;
-                    case "g":
-                        g = Convert.ToSingle(values[term]);
-                        break;
-                    case "b":
-                        b = Convert.ToSingle(values[term]);
-                        break;
-                    case "maxLevel":
-                        maxLevel = int.Parse(values["maxLevel"].ToString());
-                        break;
-                    case "name":
-                        name = values["name"].ToString();
-                        break;
-                }
-            }
+            values.Setup(ref defence, nameof(defence));
+            values.Setup(ref maxHealth, nameof(maxHealth));
+            values.Setup(ref velocityContribution, nameof(velocityContribution));
+            values.Setup(ref contactDamage, nameof(contactDamage));
+            values.Setup(ref contactForce, nameof(contactForce));
+            values.Setup(ref r, nameof(r));
+            values.Setup(ref g, nameof(g));
+            values.Setup(ref b, nameof(b));
+            values.Setup(ref maxLevel, nameof(maxLevel));
+            values.Setup(ref name, nameof(name));
 
             // indicates that the json has been loaded
             jsonLoaded = true;

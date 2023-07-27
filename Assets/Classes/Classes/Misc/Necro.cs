@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Necro : Class
 {
@@ -93,25 +94,15 @@ public class Necro : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref maxSummoned, "maxSummoned");
+        jsonData.Setup(ref zombieJson, "zombieJson");
+        if (jsonData.ContainsKey("zombiePath"))
         {
-            switch (item)
+            zombiePath = (string)jsonData["zombiePath"];
+
+            if (jsonLoaded)
             {
-                case "maxSummoned":
-                    maxSummoned = (int)(long)jsonData[item];
-                    break;
-                case "zombiePath":
-                    zombiePath = (string)jsonData[item];
-
-                    if (jsonLoaded)
-                    {
-                        zombie = Resources.Load<GameObject>(zombiePath);
-                    }
-
-                    break;
-                case "zombieJson":
-                    zombieJson = (string)jsonData[item];
-                    break;
+                zombie = Resources.Load<GameObject>(zombiePath);
             }
         }
     }

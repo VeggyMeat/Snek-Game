@@ -68,17 +68,7 @@ public class Sniper : Archer
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "scanRadius":
-                    scanRadius = Convert.ToSingle(jsonData[item]);
-                    break;
-                case "damage":
-                    damage = Convert.ToInt32(jsonData[item]);
-                    break;
-            }
-        }
+        jsonData.Setup(ref scanRadius, "scanRadius");
+        jsonData.Setup(ref damage, "damage");
     }
 }

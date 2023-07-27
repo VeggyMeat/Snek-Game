@@ -79,14 +79,6 @@ public class Archer : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch(item) 
-            {
-                case "timeDelay":
-                    timeDelay = float.Parse(jsonData[item].ToString());
-                    break;
-            }
-        }
+        jsonData.Setup(ref timeDelay, "timeDelay");
     }
 }

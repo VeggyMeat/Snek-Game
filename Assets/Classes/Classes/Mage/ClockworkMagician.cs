@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ClockworkMagician : Mage
 {
@@ -110,35 +111,20 @@ public class ClockworkMagician : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref orbNumber, "orbNumber");
+        jsonData.Setup(ref orbJson, "orbJson");
+        jsonData.Setup(ref buffDelay, "buffDelay");
+        jsonData.Setup(ref localAttackSpeedBuff, "localAttackSpeedBuff");
+        jsonData.Setup(ref localDamageBuff, "localDamageBuff");
+
+        if (jsonData.ContainsKey("orbPath"))
         {
-            switch (item)
+            orbPath = jsonData["orbPath"].ToString();
+
+            if (jsonLoaded)
             {
-                case "orbNumber":
-                    orbNumber = int.Parse(jsonData[item].ToString());
-                    break;
-                case "orbPath":
-                    orbPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        // grabs the orb thats shot
-                        orbTemplate = Resources.Load<GameObject>(orbPath);
-                    }
-
-                    break;
-                case "orbJson":
-                    orbJson = jsonData[item].ToString();
-                    break;
-                case "buffDelay":
-                    buffDelay = float.Parse(jsonData[item].ToString());
-                    break;
-                case "localAttackSpeedBuff":
-                    localAttackSpeedBuff = float.Parse(jsonData[item].ToString());
-                    break;
-                case "localDamageBuff":
-                    localDamageBuff = float.Parse(jsonData[item].ToString());
-                    break;
+                // grabs the orb thats shot
+                orbTemplate = Resources.Load<GameObject>(orbPath);
             }
         }
     }

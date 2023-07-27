@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 // a class just for the sake of being inherited from
 public class Frontline : Class
@@ -117,48 +118,33 @@ public class Frontline : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref scanRadius, "scanRadius");
+        jsonData.Setup(ref damage, "damage");
+        jsonData.Setup(ref force, "force");
+
+        if (jsonData.ContainsKey("attackDelay"))
         {
-            switch (item)
+            attackDelay = float.Parse(jsonData["attackDelay"].ToString());
+
+            if (jsonLoaded)
             {
-                case "attackDelay":
-                    attackDelay = float.Parse(jsonData[item].ToString());
+                ResetRepeatingScan();
+            }
+        }
+        if (jsonData.ContainsKey("regularAttack"))
+        {
+            regularAttack = bool.Parse(jsonData["regularAttack"].ToString());
 
-                    if (jsonLoaded)
-                    {
-                        ResetRepeatingScan();
-                    }
-
-                    break;
-
-                case "scanRadius":
-                    scanRadius = float.Parse(jsonData[item].ToString());
-                    break;
-
-                case "damage":
-                    damage = int.Parse(jsonData[item].ToString());
-                    break;
-
-                case "force":
-                    force = int.Parse(jsonData[item].ToString());
-                    break;
-
-                case "regularAttack":
-                    regularAttack = bool.Parse(jsonData[item].ToString());
-
-                    if (jsonLoaded)
-                    {
-                        if (regularAttack)
-                        {
-                            StartRepeatingScan();
-                        }
-                        else
-                        {
-                            StopRepeatingScan();
-                        }
-                    }
-
-                    break;
+            if (jsonLoaded)
+            {
+                if (regularAttack)
+                {
+                    StartRepeatingScan();
+                }
+                else
+                {
+                    StopRepeatingScan();
+                }
             }
         }
     }

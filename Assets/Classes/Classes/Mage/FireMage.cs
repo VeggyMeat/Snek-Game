@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class FireMage : Mage
 {
@@ -57,32 +58,19 @@ public class FireMage : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref orbNumber, "orbNumber");
+        jsonData.Setup(ref rotation, "rotation");
+        jsonData.Setup(ref orbVariation, "orbVariation");
+        jsonData.Setup(ref orbJson, "orbJson");
+        
+        if (jsonData.ContainsKey("orbPath"))
         {
-            switch (item)
+            orbPath = jsonData["orbPath"].ToString();
+
+            if (jsonLoaded)
             {
-                case "orbNumber":
-                    orbNumber = int.Parse(jsonData[item].ToString());
-                    break;
-                case "rotation":
-                    rotation = float.Parse(jsonData[item].ToString());
-                    break;
-                case "orbVariation":
-                    orbVariation = float.Parse(jsonData[item].ToString());
-                    break;
-                case "orbPath":
-                    orbPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        // grabs the orb thats shot
-                        orb = Resources.Load<GameObject>(orbPath);
-                    }
-
-                    break;
-                case "orbJson":
-                    orbJson = jsonData[item].ToString();
-                    break;
+                // grabs the orb thats shot
+                orb = Resources.Load<GameObject>(orbPath);
             }
         }
     }

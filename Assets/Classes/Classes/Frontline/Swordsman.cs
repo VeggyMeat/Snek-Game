@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using System.IO;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Swordsman : Frontline
 {
@@ -67,26 +68,17 @@ public class Swordsman : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        foreach (string item in jsonData.Keys)
+        jsonData.Setup(ref attackRadius, "attackRadius");
+        jsonData.Setup(ref AOEEffectTime, "AOEEffectTime");
+
+        if (jsonData.ContainsKey("AOEEffectPath"))
         {
-            switch (item)
+            AOEEffectPath = jsonData["AOEEffectPath"].ToString();
+
+            if (jsonLoaded)
             {
-                case "attackRadius":
-                    attackRadius = float.Parse(jsonData[item].ToString());
-                    break;
-                case "AOEEffectTime":
-                    AOEEffectTime = float.Parse(jsonData[item].ToString());
-                    break;
-                case "AOEEffectPath":
-                    AOEEffectPath = jsonData[item].ToString();
-
-                    if (jsonLoaded)
-                    {
-                        // gets the AOEEffect ready to be spawned
-                        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-                    }
-
-                    break;
+                // gets the AOEEffect ready to be spawned
+                AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
             }
         }
     }

@@ -10,36 +10,54 @@ public class Item
     protected string itemDescription;
 
     protected string jsonPath;
-    protected Dictionary<string, object> jsonData;
+    protected List<Dictionary<string, object>> jsonData;
+    protected Dictionary<string, object> jsonVariables;
+
+    protected int level = 0;
+    protected int maxLevel;
 
     public string ItemName { get => itemName; }
     public string ItemDescription { get => itemDescription; }
-    
+
+    public bool Levelable { get => level < maxLevel; }
+
+    public int Level { get => level; }
+
     internal virtual void Setup()
     {
+        // loads in the data from the json
+        LoadJson();
 
+        maxLevel = jsonData.Count;
+
+        // levels up the item initially
+        LevelUp();
+    }
+
+    protected void LoadJson()
+    {
+        string jsonString = File.ReadAllText(jsonPath);
+        jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonString);
     }
 
     protected virtual void JsonSetup()
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
+        jsonVariables.Setup(ref itemName, nameof(itemName));
+        jsonVariables.Setup(ref itemDescription, nameof(itemDescription));
+    }
 
-        jsonData = JsonConvert.DeserializeObject<Dictionary<string, object>>(text);
+    /// <summary>
+    /// Levels up the item
+    /// </summary>
+    protected virtual void LevelUp()
+    {
+        // increases the level
+        level++;
 
-        foreach (string item in jsonData.Keys)
-        {
-            switch (item)
-            {
-                case "itemName":
-                    itemName = (string)jsonData[item];
-                    break;
-                case "itemDescription":
-                    itemDescription = (string)jsonData[item];
-                    break;
-            }
-        }
+        // loads in the jsonVariables from the jsonData
+        jsonVariables = jsonData[level - 1];
+
+        // sets up the variables based upon the json
+        JsonSetup();
     }
 }
