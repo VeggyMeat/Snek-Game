@@ -24,6 +24,9 @@ public static class ItemManager
             case "LuckyFlask":
                 item = new LuckyFlask();
                 break;
+            case "SteeringWheel":
+                item = new SteeringWheel();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();

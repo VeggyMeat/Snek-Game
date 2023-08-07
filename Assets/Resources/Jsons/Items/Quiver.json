@@ -3,6 +3,18 @@
     "itemName": "Quiver",
     "itemDescription": "Increases the damage of archers by ~%",
 
-    "attackSpeedModifier": 5.0
+    "attackSpeedModifier": 1.1
+  },
+  {
+    "attackSpeedModifier": 1.2
+  },
+  {
+    "attackSpeedModifier": 1.3
+  },
+  {
+    "attackSpeedModifier": 1.4
+  },
+  {
+    "attackSpeedModifier": 1.5
   }
 ]

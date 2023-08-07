@@ -425,14 +425,14 @@ public class BodyController : MonoBehaviour
         // makes the body revive in timeDead seconds
         Invoke(nameof(Revived), timeDead);
 
-        // body died trigger called
-        TriggerManager.BodyDeadTrigger.CallTrigger(gameObject);
-
         // calls the OnDeath for all classes attatched
         foreach (Class c in classes)
         {
             c.OnDeath();
         }
+
+        // body died trigger called
+        TriggerManager.BodyDeadTrigger.CallTrigger(gameObject);
     }
 
     /// <summary>
@@ -454,14 +454,14 @@ public class BodyController : MonoBehaviour
         Color oldColor = spriteRenderer.color;
         GetComponent<SpriteRenderer>().color = new Color(oldColor.r, oldColor.g, oldColor.b, 1f);
 
-        // stops it from being revived again if its a premature revive (not implemented yet)
-        CancelInvoke(nameof(Revived));
-
         // calls the Revived for all classes attatched
         foreach (Class c in classes)
         {
             c.Revived();
         }
+
+        // stops it from being revived again if its a premature revive (not implemented yet)
+        CancelInvoke(nameof(Revived));
     }
 
     /// <summary>

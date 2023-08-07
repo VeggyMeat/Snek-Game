@@ -1,0 +1,19 @@
+[
+  {
+    "itemName": "SteeringWheel",
+    "itemDescription": "Turn ~% faster",
+    "turningRateMultiplier": 1.1
+  },
+  {
+    "turningRateMultiplier": 1.2
+  },
+  {
+    "turningRateMultiplier": 1.3
+  },
+  {
+    "turningRateMultiplier": 1.4
+  },
+  {
+    "turningRateMultiplier": 1.5
+  }
+]
