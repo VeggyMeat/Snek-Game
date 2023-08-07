@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.7,
+    "g": 0.3,
+    "b": 0.2,
+
+    "defence": 5,
+    "maxHealth": 150,
+    "contactDamage": 20,
+    "contactForce": 3500,
+    "velocityContribution": 6,
+
+    "name": "EnragedBerzerker"
+  }
+]

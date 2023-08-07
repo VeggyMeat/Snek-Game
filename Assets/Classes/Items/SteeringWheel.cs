@@ -31,8 +31,6 @@ public class SteeringWheel : Item
 
             // add the new multiplier to the snake
             ItemManager.headController.turningRate *= turningRateMultiplier;
-
-            Debug.Log(ItemManager.headController.turningRate);
         }
     }
 }

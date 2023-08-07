@@ -174,4 +174,14 @@ public class Class: MonoBehaviour
     {
 
     }
+
+    /// <summary>
+    /// Called when the body takes damage
+    /// </summary>
+    /// <param name="amount">The damage taken</param>
+    /// <returns>Return the new damage value</returns>
+    internal virtual float OnDamageTaken(float amount)
+    {
+        return amount;
+    }
 }

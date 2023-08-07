@@ -25,7 +25,7 @@ internal class Gun : MonoBehaviour
     private GameObject bulletPrefab;
     private string bulletPath;
     private string bulletJson;
-    private List<Dictionary<string, object>> bulletVariables;
+    private JsonVariable bulletVariables;
 
     private float damageMultiplication;
 
@@ -39,6 +39,9 @@ internal class Gun : MonoBehaviour
 
         // loads in the bullet
         bulletPrefab = Resources.Load<GameObject>(bulletPath);
+
+        // loads the bullet variables in
+        bulletVariables = new JsonVariable(bulletJson);
 
         // attatches the gun to the class
         this.attatched = attatched;
@@ -55,23 +58,15 @@ internal class Gun : MonoBehaviour
         // loads in the data from the json into the variables
         LoadVariables();
 
-        // loads in the data from the bullet's json
-        LoadJson();
-    }
-
-    private void LoadJson()
-    {
-        // loads in the text from the file
-        StreamReader reader = new StreamReader(bulletJson);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        // deserializes the json into a list of dictionaries containing the variables' contents for each level
-        bulletVariables = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
+        if (level > 1)
+        {
+            bulletVariables.IncreaseIndex();
+        }
     }
 
     private void LoadVariables()
     {
+        // gets the next set of data for the gun
         Dictionary<string, object> data = jsonData[level - 1];
 
         data.Setup(ref bulletJson, "bulletJson");
@@ -79,6 +74,7 @@ internal class Gun : MonoBehaviour
 
         if (data.ContainsKey("timeDelay"))
         {
+            // loads in the new timeDelay
             timeDelay = float.Parse(data["timeDelay"].ToString());
 
             // if the json has already been loaded, it stops firing projectiles and starts again with the new time delay
@@ -98,7 +94,7 @@ internal class Gun : MonoBehaviour
 
     private void FireProjectile()
     {
-        Projectile.Shoot(bulletPrefab, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), bulletVariables[level - 1], attatched, damageMultiplication * attatched.body.DamageMultiplier);
+        Projectile.Shoot(bulletPrefab, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), bulletVariables.Variables, attatched, damageMultiplication * attatched.body.DamageMultiplier);
     }
 
     private void StartFiringProjectiles()

@@ -998,6 +998,7 @@ MonoBehaviour:
   - Prince
   - FairyWithAGun
   - Shieldman
+  - EnragedBerzerker
   smallItems:
   - LuckyFlask
   powerfulItems:

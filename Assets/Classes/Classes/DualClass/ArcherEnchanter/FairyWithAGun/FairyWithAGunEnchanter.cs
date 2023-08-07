@@ -47,6 +47,12 @@ public class FairyWithAGunEnchanter : Enchanter
 
         // set up the gun
         gun.Setup(body.classes[0], damageModifier, gunData);
+
+        // matches the gun to the current level
+        for (int i = 1; i < body.Level; i++)
+        {
+            gun.UpgradeGun();
+        }
     }
 
     internal override void RemoveBuff(GameObject thing)

@@ -1,0 +1,16 @@
+[
+  {
+    "attackDelay": 1,
+    "scanRadius": 6,
+    "damage": 25,
+    "force": 50000,
+    "regularAttack": true,
+    "attackRadius": 3,
+    "AOEEffectTime": 0.5,
+    "attackSpeedBuff": 0.05,
+
+    "AOEEffectPath": "GameObjects/AOEEffect",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/EnragedBerzerkerBody.json"
+  }
+]

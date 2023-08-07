@@ -373,8 +373,6 @@ public class BodyController : MonoBehaviour
     /// <returns>If the body survives or not</returns>
     internal virtual bool ChangeHealth(int quantity)
     {
-        Debug.Log(health);
-
         if (quantity > 0)
         {
             // increase health trigger (ASSUMES NO HEALING WILL MAKE YOU TAKE DAMAGE)
@@ -385,6 +383,12 @@ public class BodyController : MonoBehaviour
         }
         else if (quantity < 0)
         {
+            // calls each class for taking damage
+            foreach (Class clas in classes)
+            {
+                clas.OnDamageTaken(quantity);
+            }
+
             // reduce the damage taken by the defence
             quantity += Defence;
 

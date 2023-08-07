@@ -35,32 +35,35 @@ public class CeramicAutomaton : Mage
         // grabs the projectile template from the path
         boltTemplate = Resources.Load<GameObject>(boltPath);
 
-        // adds ChangeHealthTrigger to the BodyLostHealthTrigger
-        TriggerManager.BodyLostHealthTrigger.AddTrigger(ChangeHealthTrigger);
-
         boltVariables = new JsonVariable(boltJson);
 
         base.Setup();
     }
 
-    // Called when the body takes damage
-    internal int ChangeHealthTrigger(int quantity)
+    internal override float OnDamageTaken(float amount)
     {
         // if there is a shield left, it ignores damage
         if (shield > 0)
         {
+            // removes a shield
             shield--;
 
+            // if currently not regenerating a shield, start regenerating
             if (!shieldRegenActive)
             {
+                // start regenerating
                 Invoke(nameof(RegenShield), shieldRegenDelay);
+
+                // show that its regenerating
                 shieldRegenActive = true;
             }
 
-            return 0;
+            // return the base effect on 0
+            return base.OnDamageTaken(0);
         }
 
-        return quantity;
+        // return the base effect on the orginal damage amount
+        return base.OnDamageTaken(amount);
     }
 
     // regens one layer of shield
