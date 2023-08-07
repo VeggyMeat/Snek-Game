@@ -216,7 +216,6 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<PrinceEnchanter>());
                 break;
             case "FairyWithAGun":
-                Debug.Log("added");
                 bodyContr.classes.Add(body.AddComponent<FairyWithAGunEnchanter>());
                 bodyContr.classes.Add(body.AddComponent<FairyWithAGunArcher>());
                 break;

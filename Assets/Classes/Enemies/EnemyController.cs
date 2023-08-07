@@ -67,8 +67,6 @@ public class EnemyController : MonoBehaviour
     // returns whether the body survives or not
     internal bool ChangeHealth(int quantity)
     {
-        Debug.Log(quantity);
-
         // if invulnerable just ignores damage
         if (passiveHandler.passiveValues["Invulnerability"] > 0)
         {

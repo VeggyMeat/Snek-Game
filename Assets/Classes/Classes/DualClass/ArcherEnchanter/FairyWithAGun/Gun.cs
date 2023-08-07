@@ -6,7 +6,7 @@ using UnityEngine;
 
 internal class Gun : MonoBehaviour
 {
-    private int level = 1;
+    private int level = 0;
 
     internal int Level
     {
@@ -31,16 +31,11 @@ internal class Gun : MonoBehaviour
 
     internal void Setup(Class attatched, float damageMultiplication, List<Dictionary<string, object>> variables)
     {
-        Debug.Log(variables);
-
         // matches the jsonData to the variables
         jsonData = variables;
 
-        // loads in the data from the variables
-        LoadVariables();
-
-        // Loads in the data from the json
-        LoadJson();
+        // Levels the gun up to level 1
+        UpgradeGun();
 
         // loads in the bullet
         bulletPrefab = Resources.Load<GameObject>(bulletPath);
@@ -57,11 +52,11 @@ internal class Gun : MonoBehaviour
         // increases the level
         level++;
 
-        // loads in the data from the json
-        LoadJson();
-
         // loads in the data from the json into the variables
         LoadVariables();
+
+        // loads in the data from the bullet's json
+        LoadJson();
     }
 
     private void LoadJson()
@@ -77,7 +72,10 @@ internal class Gun : MonoBehaviour
 
     private void LoadVariables()
     {
-        Dictionary<string, object> data = jsonData[level];
+        Dictionary<string, object> data = jsonData[level - 1];
+
+        data.Setup(ref bulletJson, "bulletJson");
+        data.Setup(ref bulletPath, "bulletPath");
 
         if (data.ContainsKey("timeDelay"))
         {
@@ -91,11 +89,16 @@ internal class Gun : MonoBehaviour
 
             StartFiringProjectiles();
         }
+
+        if (!jsonLoaded)
+        {
+            jsonLoaded = true;
+        }
     }
 
     private void FireProjectile()
     {
-        Projectile.Shoot(bulletPrefab, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), bulletVariables[level - 1], attatched, damageMultiplication);
+        Projectile.Shoot(bulletPrefab, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), bulletVariables[level - 1], attatched, damageMultiplication * attatched.body.DamageMultiplier);
     }
 
     private void StartFiringProjectiles()

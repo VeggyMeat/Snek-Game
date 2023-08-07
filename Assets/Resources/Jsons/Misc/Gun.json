@@ -1,0 +1,7 @@
+[
+  {
+    "timeDelay": 1,
+    "bulletPath": "GameObjects/CircleProjectile",
+    "bulletJson": "Assets/Resources/Jsons/Projectiles/FairyWithAGunProjectile.json"
+  }
+]
