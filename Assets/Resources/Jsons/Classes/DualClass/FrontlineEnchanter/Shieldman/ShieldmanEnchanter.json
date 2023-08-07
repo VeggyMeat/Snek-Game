@@ -1,0 +1,8 @@
+[
+  {
+    "buffsAllBodies": true,
+    "healthIncrease": 25,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Shieldman/ShieldmanBody.json"
+  }
+]

@@ -27,10 +27,10 @@ public class PrinceEnchanter : Enchanter
     internal override void RemoveBuff(GameObject player)
     {
         // gets the BodyController
-        BodyController body = player.GetComponent<BodyController>();
+        BodyController playerBody = player.GetComponent<BodyController>();
 
         // decreases the body's damage by the damageIncrease multiplier
-        body.damageBuff.AddBuff(1/damageIncrease, true, null);
+        playerBody.damageBuff.AddBuff(1/damageIncrease, true, null);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)

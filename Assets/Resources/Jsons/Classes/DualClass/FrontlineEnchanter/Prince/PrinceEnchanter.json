@@ -1,8 +1,6 @@
 [
   {
     "buffsAllBodies": true,
-    "damageIncrease": 1.15,
-
-    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceBody.json"
+    "damageIncrease": 1.15
   }
 ]

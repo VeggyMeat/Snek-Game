@@ -373,6 +373,8 @@ public class BodyController : MonoBehaviour
     /// <returns>If the body survives or not</returns>
     internal virtual bool ChangeHealth(int quantity)
     {
+        Debug.Log(health);
+
         if (quantity > 0)
         {
             // increase health trigger (ASSUMES NO HEALING WILL MAKE YOU TAKE DAMAGE)
@@ -386,8 +388,8 @@ public class BodyController : MonoBehaviour
             // reduce the damage taken by the defence
             quantity += Defence;
 
-            // if the body ignores damage from defence, return it survived
-            if (quantity > 0)
+            // if the body ignores damage from defence, return it survived (it cant heal from blocking too much)
+            if (quantity >= 0)
             {
                 return true;
             }
@@ -665,15 +667,6 @@ public class BodyController : MonoBehaviour
             {
                 VelocityContribution = (float)Convert.ChangeType(values[nameof(velocityContribution)], typeof(float));
             }
-            values.Setup(ref contactDamage, nameof(contactDamage));
-            values.Setup(ref contactForce, nameof(contactForce));
-            values.Setup(ref r, nameof(r));
-            values.Setup(ref g, nameof(g));
-            values.Setup(ref b, nameof(b));
-            values.Setup(ref maxLevel, nameof(maxLevel));
-            values.Setup(ref name, nameof(name));
-
-            ResetColour();
         }
         else
         {
@@ -681,17 +674,22 @@ public class BodyController : MonoBehaviour
             values.Setup(ref defence, nameof(defence));
             values.Setup(ref maxHealth, nameof(maxHealth));
             values.Setup(ref velocityContribution, nameof(velocityContribution));
-            values.Setup(ref contactDamage, nameof(contactDamage));
-            values.Setup(ref contactForce, nameof(contactForce));
-            values.Setup(ref r, nameof(r));
-            values.Setup(ref g, nameof(g));
-            values.Setup(ref b, nameof(b));
-            values.Setup(ref maxLevel, nameof(maxLevel));
-            values.Setup(ref name, nameof(name));
 
             // indicates that the json has been loaded
             jsonLoaded = true;
         }
+
+        // sets up the other variables
+        values.Setup(ref contactDamage, nameof(contactDamage));
+        values.Setup(ref contactForce, nameof(contactForce));
+        values.Setup(ref r, nameof(r));
+        values.Setup(ref g, nameof(g));
+        values.Setup(ref b, nameof(b));
+        values.Setup(ref maxLevel, nameof(maxLevel));
+        values.Setup(ref name, nameof(name));
+
+        // sets the colour of the body based on the r, g, b values
+        ResetColour();
     }
 
     /// <summary>
