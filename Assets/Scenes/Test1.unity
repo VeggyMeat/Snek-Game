@@ -1002,6 +1002,7 @@ MonoBehaviour:
   - LuckyFlask
   powerfulItems:
   - Quiver
+  - SteeringWheel
 --- !u!4 &783227185
 Transform:
   m_ObjectHideFlags: 0
