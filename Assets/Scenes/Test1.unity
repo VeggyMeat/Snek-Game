@@ -994,6 +994,9 @@ MonoBehaviour:
   - ClockworkMagician
   - SorcererProdigy
   - Bomb
+  - Healer
+  - Prince
+  - FairyWithAGun
   smallItems:
   - LuckyFlask
   powerfulItems:

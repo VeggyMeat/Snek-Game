@@ -7,6 +7,7 @@ public class Archer : Class
 {
     protected float timeDelay;
     internal GameObject projectile;
+    protected bool autoFire;
 
     internal override void Setup()
     {
@@ -14,8 +15,11 @@ public class Archer : Class
 
         base.Setup();
 
-        // starts firing the projectiles
-        StartRepeatingProjectile();
+        if (autoFire)
+        {
+            // starts firing the projectiles
+            StartRepeatingProjectile();
+        }
     }
 
     /// <summary>
@@ -34,16 +38,6 @@ public class Archer : Class
         CancelInvoke(nameof(LaunchProjectile));
     }
 
-    /// <summary>
-    /// Stops the projectile from firing, then starts immediatly after
-    /// </summary>
-    internal void ResetRepeatingProjectile()
-    {
-        StopRepeatingProjectile();
-
-        StartRepeatingProjectile();
-    }
-
     // creates a base case incase not implemented
     internal virtual void LaunchProjectile()
     {
@@ -55,7 +49,10 @@ public class Archer : Class
         base.Revived();
 
         // starts projectiles again
-        StartRepeatingProjectile();
+        if (autoFire)
+        {
+            StartRepeatingProjectile();
+        }
     }
 
     internal override void OnDeath()
@@ -63,7 +60,10 @@ public class Archer : Class
         base.OnDeath();
 
         // stops projectiles from being fired
-        StopRepeatingProjectile();
+        if (autoFire)
+        {
+            StopRepeatingProjectile();
+        }
     }
 
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
@@ -72,7 +72,11 @@ public class Archer : Class
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
         // resets the repeating projectile
-        ResetRepeatingProjectile();
+        if (autoFire)
+        {
+            StopRepeatingProjectile();
+            StartRepeatingProjectile();
+        }
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -80,5 +84,6 @@ public class Archer : Class
         base.InternalJsonSetup(jsonData);
 
         jsonData.Setup(ref timeDelay, "timeDelay");
+        jsonData.Setup(ref autoFire, "autoFire");
     }
 }

@@ -1,0 +1,15 @@
+[
+  {
+    "r": 1,
+    "g": 0.753,
+    "b": 0.796,
+
+    "defence": 0,
+    "maxHealth": 70,
+    "contactDamage": 5,
+    "contactForce": 1750,
+    "velocityContribution": 6,
+
+    "name": "Healer"
+  }
+]

@@ -14,4 +14,15 @@ public static class Wrapper
             variable = (T)Convert.ChangeType(dict[name], typeof(T));
         }
     }
+
+    /// <summary>
+    /// Returns a random item from the list
+    /// </summary>
+    /// <typeparam name="T">The type of class in the list</typeparam>
+    /// <param name="ls">The list the item gets chosen from</param>
+    /// <returns></returns>
+    public static T RandomItem<T>(this List<T> ls)
+    {
+        return ls[UnityEngine.Random.Range(0, ls.Count - 1)];
+    }
 }

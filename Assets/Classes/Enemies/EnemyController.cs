@@ -67,6 +67,8 @@ public class EnemyController : MonoBehaviour
     // returns whether the body survives or not
     internal bool ChangeHealth(int quantity)
     {
+        Debug.Log(quantity);
+
         // if invulnerable just ignores damage
         if (passiveHandler.passiveValues["Invulnerability"] > 0)
         {
@@ -150,7 +152,7 @@ public class EnemyController : MonoBehaviour
             body.ChangeHealth(-contactDamage * (1 + passiveHandler.passiveValues["DamageBuff"] / 100));
 
             // take damage from the body
-            ChangeHealth(body.ContactDamage);
+            ChangeHealth(-body.ContactDamage);
 
             // get hit away from the player
             selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce);

@@ -1,0 +1,9 @@
+[
+  {
+    "buffsAllBodies": false,
+    "healthIncrease": 15,
+    "timeDelay": 5,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/HealerBody.json"
+  }
+]

@@ -5,6 +5,7 @@
     "maxRadius": 0.5,
     "minDamage": 25,
     "maxDamage": 100,
+    "autoFire": true,
 
     "projectilePath": "GameObjects/CircleProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",

@@ -3,6 +3,7 @@
     "timeDelay": 2,
     "scanRadius": 20,
     "damage": 100,
+    "autoFire": true,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/SniperBody.json"
   }

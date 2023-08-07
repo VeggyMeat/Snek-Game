@@ -9,6 +9,11 @@ using UnityEngine;
 public class Class: MonoBehaviour
 {
     /// <summary>
+    /// Whether this is the primary class on a body
+    /// </summary>
+    protected bool primary = true;
+
+    /// <summary>
     /// The number of enemies killed by this class
     /// </summary>
     protected int enemiesKilled;
@@ -101,7 +106,10 @@ public class Class: MonoBehaviour
         // loads the body's variables from the json
         if (jsonLoaded)
         {
-            body.LoadFromJson();
+            if (primary)
+            {
+                body.LoadFromJson();
+            }
         }
         else
         {

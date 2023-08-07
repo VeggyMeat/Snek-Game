@@ -3,6 +3,7 @@
     "timeDelay": 0.25,
     "projectileCount": 3,
     "enemyDeathVolleyCount": 0,
+    "autoFire": true,
 
     "projectilePath": "GameObjects/CapsuleProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/BowManProjectile.json",

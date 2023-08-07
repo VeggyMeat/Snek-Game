@@ -154,7 +154,8 @@ public class ChoiceManager : CanvasManager
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 // refresh shop options
-                
+                GenerateOptions();
+                UpdateOptions();
             }
         }
     }

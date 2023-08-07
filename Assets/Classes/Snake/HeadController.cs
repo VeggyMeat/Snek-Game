@@ -208,6 +208,18 @@ public class HeadController: MonoBehaviour
             case "Blacksmith":
                 bodyContr.classes.Add(body.AddComponent<Blacksmith>());
                 break;
+            case "Healer":
+                bodyContr.classes.Add(body.AddComponent<Healer>());
+                break;
+            case "Prince":
+                bodyContr.classes.Add(body.AddComponent<PrinceFrontline>());
+                bodyContr.classes.Add(body.AddComponent<PrinceEnchanter>());
+                break;
+            case "FairyWithAGun":
+                Debug.Log("added");
+                bodyContr.classes.Add(body.AddComponent<FairyWithAGunEnchanter>());
+                bodyContr.classes.Add(body.AddComponent<FairyWithAGunArcher>());
+                break;
         }
 
         // removes that body from the list of available bodies

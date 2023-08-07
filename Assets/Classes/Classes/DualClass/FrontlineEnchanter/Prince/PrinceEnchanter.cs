@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-public class Blacksmith : Enchanter
+public class PrinceEnchanter : Enchanter
 {
-    private int defenceIncrease;
+    private float damageIncrease;
 
     internal override void ClassSetup()
     {
-        jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Blacksmith.json";
+        jsonPath = "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceEnchanter.json";
+
+        primary = false;
 
         base.ClassSetup();
     }
@@ -17,10 +18,10 @@ public class Blacksmith : Enchanter
     internal override void AddBuff(GameObject player)
     {
         // gets the BodyController
-        BodyController body = player.GetComponent<BodyController>();
+        BodyController playerBody = player.GetComponent<BodyController>();
 
-        // increases the body's defence by the defenceIncrease
-        body.defenceBuff.AddBuff(defenceIncrease, false, null);
+        // increases the body's damage by the damageIncrease multiplier
+        playerBody.damageBuff.AddBuff(damageIncrease, true, null);
     }
 
     internal override void RemoveBuff(GameObject player)
@@ -28,22 +29,22 @@ public class Blacksmith : Enchanter
         // gets the BodyController
         BodyController body = player.GetComponent<BodyController>();
 
-        // decreases the body's defence by the defenceIncrease
-        body.defenceBuff.AddBuff(-defenceIncrease, false, null);
+        // decreases the body's damage by the damageIncrease multiplier
+        body.damageBuff.AddBuff(1/damageIncrease, true, null);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("defenceIncrease"))
+        if (jsonData.ContainsKey("damageIncrease"))
         {
             if (jsonLoaded)
             {
                 UnbuffAllBodies();
             }
 
-            defenceIncrease = int.Parse(jsonData["defenceIncrease"].ToString());
+            damageIncrease = float.Parse(jsonData["damageIncrease"].ToString());
 
             if (jsonLoaded)
             {

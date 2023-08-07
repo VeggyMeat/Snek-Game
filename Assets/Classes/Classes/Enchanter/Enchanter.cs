@@ -17,24 +17,43 @@ public class Enchanter : Class
         // buffs all of the bodies and adds the trigger if buffsAllBodies is true
         if (buffsAllBodies)
         {
-            BuffAllBodies();
+            BuffAllBodies(true);
 
             TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
         }
     }
 
-    internal virtual void BuffAllBodies()
+    internal virtual void BuffAllBodies(bool first = false)
     {
         // gets the head
         BodyController bodyBuffed = body.snake.head;
 
+        int count = 0;
+
         while (bodyBuffed is not null)
         {
+            count++;
+            // makes sure the body doesn't get buffed twice initially
+            if (first)
+            {
+                if (bodyBuffed.Name == body.Name)
+                {
+                    continue;
+                }
+            }
+
             // adds the buff to the body
             AddBuff(bodyBuffed.gameObject);
 
             // gets the next body
             bodyBuffed = bodyBuffed.next;
+
+            Debug.Log(bodyBuffed);
+
+            if (count > 20)
+            {
+                break;
+            }
         }
     }
 
@@ -43,6 +62,8 @@ public class Enchanter : Class
         // gets the head
         BodyController bodyBuffed = body.snake.head;
 
+        int count = 0;
+
         while (bodyBuffed is not null)
         {
             // remove the buff from the body
@@ -50,6 +71,12 @@ public class Enchanter : Class
 
             // gets the next body
             bodyBuffed = bodyBuffed.next;
+
+            count++;
+            if (count > 20)
+            {
+                break;
+            }
         }
     }
 

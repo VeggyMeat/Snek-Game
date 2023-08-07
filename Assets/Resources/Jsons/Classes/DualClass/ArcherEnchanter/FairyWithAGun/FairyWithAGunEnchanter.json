@@ -1,0 +1,8 @@
+[
+  {
+    "buffsAllBodies": true,
+    "gunJson": "Assets/Resources/Jsons/Misc/Gun.json",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherEnchanter/FairyWithAGun/FairyWithAGunBody.json"
+  }
+]
