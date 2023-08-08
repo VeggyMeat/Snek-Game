@@ -6,6 +6,8 @@ using UnityEngine;
 
 internal class Gun : MonoBehaviour
 {
+    // currently is not affected by a change of attackSpeedBuff by either the fairy or the class its attatched to
+
     private int level = 0;
 
     internal int Level

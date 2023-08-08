@@ -6,21 +6,13 @@ using static UnityEditor.Progress;
 
 public class Enchanter : Class
 {
-    protected bool buffsAllBodies;
+    protected bool buffsAllBodies = false;
 
     internal override void Setup()
     {
-        body.classNames.Add("Enchnatment");
+        body.classNames.Add("Enchanter");
 
         base.Setup();
-
-        // buffs all of the bodies and adds the trigger if buffsAllBodies is true
-        if (buffsAllBodies)
-        {
-            BuffAllBodies(true);
-
-            TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
-        }
     }
 
     internal virtual void BuffAllBodies(bool first = false)
@@ -113,23 +105,26 @@ public class Enchanter : Class
 
         if (jsonData.ContainsKey("buffsAllBodies"))
         {
-            if (jsonData["buffsAllBodies"].ToString() == "True")
-            {
-                buffsAllBodies = true;
+            bool oldBuffsAllBodies = buffsAllBodies;
+            buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
 
-                if (jsonLoaded)
-                {
-                    BuffAllBodies();
-                }
+            // if it used to buff them, but now it doesnt
+            if (oldBuffsAllBodies && !buffsAllBodies) 
+            { 
+                // removes the trigger
+                TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
+
+                // unbuffs all the bodies
+                UnbuffAllBodies();
             }
-            else
+            // if it is just now buffing them
+            else if (!oldBuffsAllBodies && buffsAllBodies)
             {
-                buffsAllBodies = false;
+                // adds the trigger
+                TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
 
-                if (jsonLoaded)
-                {
-                    UnbuffAllBodies();
-                }
+                // buffs all the bodies
+                BuffAllBodies(true);
             }
         }
     }

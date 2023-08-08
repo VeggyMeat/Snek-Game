@@ -25,8 +25,6 @@ public class EnragedBerzerker : Frontline
         // adds the buff to the body
         body.attackSpeedBuff.AddBuff(attackSpeedBuff, false, null);
 
-        Debug.Log(body.attackSpeedBuff.Value);
-
         // returns the base effect on the orginal damage
         return base.OnDamageTaken(amount);
     }

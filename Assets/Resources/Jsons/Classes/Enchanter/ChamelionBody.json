@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.4,
+    "g": 0.2,
+    "b": 0.796,
+
+    "defence": 2,
+    "maxHealth": 75,
+    "contactDamage": 5,
+    "contactForce": 1750,
+    "velocityContribution": 7,
+
+    "name": "Chamelion"
+  }
+]

@@ -14,6 +14,13 @@ public class Healer : Enchanter
         base.ClassSetup();
     }
 
+    internal override void Setup()
+    {
+        base.Setup();
+
+        StartHealing();
+    }
+
     private void HealRandomAlly()
     {
         List<BodyController> healable = new List<BodyController>();
@@ -29,8 +36,6 @@ public class Healer : Enchanter
             currentBody = currentBody.next;
         }
 
-        Debug.Log(healable.Count);
-
         if (healable.Count != 0)
         {
             HealAlly(healable.RandomItem());
@@ -40,13 +45,11 @@ public class Healer : Enchanter
     private void HealAlly(BodyController healBody)
     {
         healBody.ChangeHealth(healthIncrease);
-
-        Debug.Log($"healed {body.Name} now at {body.health}");
     }
 
     private void StartHealing()
     {
-        InvokeRepeating(nameof(HealRandomAlly), timeDelay, timeDelay);
+        InvokeRepeating(nameof(HealRandomAlly), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
     }
 
     private void StopHealing()
@@ -66,8 +69,8 @@ public class Healer : Enchanter
             if (jsonLoaded)
             {
                 StopHealing();
+                StartHealing();
             }
-            StartHealing();
         }
 
         jsonData.Setup(ref healthIncrease, "healthIncrease");
@@ -86,6 +89,17 @@ public class Healer : Enchanter
         base.Revived();
 
         // continues healing
+        StartHealing();
+    }
+
+    internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        base.OnAttackSpeedBuffUpdate(amount, multiplicative);
+
+        // stops healing
+        StopHealing();
+
+        // starts healing
         StartHealing();
     }
 }

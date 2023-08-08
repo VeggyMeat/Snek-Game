@@ -1,0 +1,14 @@
+[
+  {
+    "buffsAllBodies": false,
+
+    "buffLength": 5,
+    "timeDelay": 5,
+    "attackSpeedMultiplier": 5,
+    "damageMultiplier": 5,
+    "defenceMultiplier": 5,
+    "healthMultiplier": 5,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/ChamelionBody.json"
+  }
+]
