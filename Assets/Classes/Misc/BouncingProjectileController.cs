@@ -24,7 +24,7 @@ public class BouncingProjectileController : ProjectileController
             // get the enemy controller
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
-            if (!body.dead)
+            if (!body.Dead)
             {
                 // apply damage to the enemy
                 if (!body.ChangeHealth(-damage))

@@ -48,7 +48,7 @@ public class Swordsman : Frontline
             EnemyController enemyController = enemyObj.GetComponent<EnemyController>();
 
             // if the enemy is not dead
-            if (!enemyController.dead)
+            if (!enemyController.Dead)
             {
                 // apply damage to the enemy
                 if (!enemyController.ChangeHealth(-(int)(damage * body.DamageMultiplier)))

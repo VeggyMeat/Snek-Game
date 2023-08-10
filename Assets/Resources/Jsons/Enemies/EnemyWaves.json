@@ -33,7 +33,7 @@
   {
     "Small": 10,
     "Medium": 10,
-    "Large": 5,
-    "Special": 5
+    "Large": 5
+    // "Special": 5
   }
 ]

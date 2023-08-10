@@ -44,7 +44,7 @@ public class Spectre : Mage
             ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables.Variables, this, body.DamageMultiplier);
 
             // if dead, increases the damage by the miltiplier
-            if (body.isDead)
+            if (body.IsDead)
             {
                 controller.damage = (int)(controller.damage * damageMult);
             }

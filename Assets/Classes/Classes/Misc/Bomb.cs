@@ -79,7 +79,7 @@ public class Bomb : Class
             EnemyController enemyController = enemyObj.GetComponent<EnemyController>();
 
             // if the enemy is not dead
-            if (!enemyController.dead)
+            if (!enemyController.Dead)
             {
                 // kills the enemy
                 enemyController.Die();

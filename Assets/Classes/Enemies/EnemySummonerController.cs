@@ -6,26 +6,51 @@ using Newtonsoft.Json;
 
 public class EnemySummonerController : MonoBehaviour
 {
-    public List<GameObject> unsortedEnemyPrefabs;
+    /// <summary>
+    /// All the enemy games objects to be spawned
+    /// </summary>
+    [SerializeField] private List<GameObject> unsortedEnemyPrefabs;
 
     private Dictionary<string, List<GameObject>> enemyPrefabs;
 
-    public float spawnDelay;
-    public float firstDelay;
+    /// <summary>
+    /// The delay in seconds between the rounds of enemies spawning
+    /// </summary>
+    [SerializeField] private float spawnDelay;
 
-    public float radius;
+    /// <summary>
+    /// The delay in seconds before the first round of enemies spawn
+    /// </summary>
+    [SerializeField] private float firstDelay;
+
+    /// <summary>
+    /// The radius of the circle around the player that enemies spawn on
+    /// </summary>
+    [SerializeField] private float radius;
 
     internal string jsonPath = "Assets/Resources/Jsons/Enemies/EnemyWaves.json";
 
     private Transform cameraTransform;
+
+    /// <summary>
+    /// The number of enemies that have died
+    /// </summary>
     internal int enemiesDead = 0;
 
     private List<Dictionary<string, int>> enemyData = new List<Dictionary<string, int>>();
 
+    /// <summary>
+    /// The current round of the game
+    /// </summary>
     private int round = 0;
+
+    /// <summary>
+    /// TEMPORARY makes the game loop and adds a multiplier to the number of enemies spawned
+    /// </summary>
     private int extra = 1;
 
-    // Start is called before the first frame update
+    private int enemiesSpawned = 0;
+
     void Start()
     {
         // gets enemyData from the json file
@@ -50,24 +75,28 @@ public class EnemySummonerController : MonoBehaviour
             {"Special", new List<GameObject>()}
         };
 
+        // goes through each prefab
         foreach (GameObject enemyPrefab in unsortedEnemyPrefabs)
+        
         {
+            // gets the enemy type for that prefab
             string type = enemyPrefab.GetComponent<EnemyController>().EnemyType;
 
+            // adds that prefab into the right dictionary
             enemyPrefabs[type].Add(enemyPrefab);
         }
-
-        
     }
 
     private void RoundSpawn()
     {
+        // if the round is greater than the number of rounds, add one to the multiplier and reset the round
         if (round >= enemyData.Count)
         {
             extra++;
             round %= enemyData.Count;
         }
 
+        // grabs the data for the next round
         Dictionary<string, int> roundData = enemyData[round];
 
         // for each type of enemy
@@ -76,6 +105,8 @@ public class EnemySummonerController : MonoBehaviour
             // spawn a random enemy of that size, that many times
             SpawnEnemies(enemyPrefabs[pair.Key][Random.Range(0, enemyPrefabs[pair.Key].Count)], pair.Value * extra);
         }
+
+        // increases the round for next time
         round++;
     }
     
@@ -93,14 +124,19 @@ public class EnemySummonerController : MonoBehaviour
             // spawns an enemy at that random position
             GameObject enemy = Instantiate(enemyPrefab, pos + cameraTransform.position, Quaternion.identity);
 
-            // sets the enemy's summoner to this
+            // sets up the enemy
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();
-            newEnemy.summoner = this;
-            newEnemy.Setup();
+            newEnemy.Setup(this, enemiesSpawned);
+
+            // increases the number of enmies spawned
+            enemiesSpawned++;
         }
     }
 
-    // called when an enemy despawns
+    /// <summary>
+    /// Called by enemies when the enemy despawns
+    /// </summary>
+    /// <param name="enemy">The enemy that despawned</param>
     internal void EnemyDespawned(EnemyController enemy)
     {
         // spawns an enemy to replace it

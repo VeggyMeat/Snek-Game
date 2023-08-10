@@ -87,7 +87,7 @@ public class NecromancerZombieController : MonoBehaviour
         }
         else
         {
-            if (targetScript.dead)
+            if (targetScript.Dead)
             {
                 // if the target is dead, forget about it
                 target = null;
@@ -172,7 +172,7 @@ public class NecromancerZombieController : MonoBehaviour
                 parent.EnemyKilled(collision.gameObject);
             }
 
-            if (!body.dead)
+            if (!body.Dead)
             {
                 // get hit away from the enemy
                 selfRigid.AddForce((selfRigid.position - (Vector2)body.transform.position).normalized * body.ContactDamage);

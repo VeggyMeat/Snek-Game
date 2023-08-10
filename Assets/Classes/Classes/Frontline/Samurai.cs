@@ -57,7 +57,7 @@ public class Samurai : Frontline
             {
                 // hit an enemy
                 EnemyController enemyController = hitObject.GetComponent<EnemyController>();
-                if (!enemyController.dead)
+                if (!enemyController.Dead)
                 {
                     if (!enemyController.ChangeHealth(-(int)(hitDamage * body.DamageMultiplier)))
                     {

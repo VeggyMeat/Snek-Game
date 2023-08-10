@@ -38,7 +38,7 @@ public class BowMan : Archer
     // called regularly by archer
     internal override void LaunchProjectile()
     {
-        if (body.isDead)
+        if (body.IsDead)
         {
             return;
         }

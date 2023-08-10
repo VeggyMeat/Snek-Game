@@ -11,9 +11,6 @@ public class BodyController : MonoBehaviour
     private int maxHealth;
     private float velocityContribution;
 
-    /// <summary>
-    /// The name of the class
-    /// </summary>
     protected new string name;
 
     /// <summary>
@@ -29,6 +26,9 @@ public class BodyController : MonoBehaviour
 
     private int level = 0;
 
+    /// <summary>
+    /// The body's current level (starts from 1)
+    /// </summary>
     public int Level
     {
         get
@@ -41,6 +41,9 @@ public class BodyController : MonoBehaviour
 
     internal bool levelable = true;
 
+    /// <summary>
+    /// Defence value of the body, any incoming damage gets reduced by this
+    /// </summary>
     public int Defence
     { 
         get
@@ -54,6 +57,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The maximum and starting health value of the body
+    /// </summary>
     public int MaxHealth
     {
         get
@@ -68,6 +74,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The contribution to the snake's velocity given by the body (bigger = faster)
+    /// </summary>
     public float VelocityContribution
     {
         get
@@ -83,6 +92,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Multiplier for all body damage
+    /// </summary>
     public float DamageMultiplier
     {
         get
@@ -91,6 +103,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The list of all the names of the classes that are attatched to this body
+    /// </summary>
     internal List<string> classNames = new List<string>();
 
     private int contactDamage;
@@ -118,21 +133,54 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Buff dealing with maxHealth and health
+    /// </summary>
     internal Buff healthBuff;
+
+    /// <summary>
+    /// Buff dealing with the velocity contribution of the body
+    /// </summary>
     internal Buff speedBuff;
+    
+    /// <summary>
+    /// Buff dealing with the damage multiplier of the body
+    /// </summary>
     internal Buff damageBuff;
+
+    /// <summary>
+    /// Buff dealing with the body's defence
+    /// </summary>
     internal Buff defenceBuff;
+    
+    /// <summary>
+    /// Body dealing with the attack speed multiplier of the body
+    /// </summary>
     internal Buff attackSpeedBuff;
 
-    internal Color color;
+    /// <summary>
+    /// The color of the body
+    /// </summary>
+    private Color color;
 
-    public float r;
-    public float g;
-    public float b;
+    // rgb colours of the body
+    private float r;
+    private float g;
+    private float b;
 
-    internal float timeDead = 30f;
+    /// <summary>
+    /// The length of time the body is dead for before automatically being revived
+    /// </summary>
+    private float timeDead = 30f;
 
+    /// <summary>
+    /// The rigidbody of the body
+    /// </summary>
     internal Rigidbody2D selfRigid;
+    
+    /// <summary>
+    /// The sprite renderer of the body
+    /// </summary>
     internal SpriteRenderer spriteRenderer;
 
 
@@ -151,7 +199,9 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal HeadController snake;
 
-
+    /// <summary>
+    /// The current health value of the body
+    /// </summary>
     internal int health;
 
 
@@ -165,8 +215,18 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal Vector2 lastPosition;
 
+    private bool isDead = false;
 
-    internal bool isDead = false;
+    /// <summary>
+    /// Whether the body is dead or not
+    /// </summary>
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+    }
 
     /// <summary>
     /// All of the classes attatched to this body
@@ -177,11 +237,15 @@ public class BodyController : MonoBehaviour
     /// The path of the body's json file
     /// </summary>
     internal string jsonFile;
+
     /// <summary>
     /// All of the variables' data for each level
     /// </summary>
     private List<Dictionary<string, object>> jsonData;
 
+    /// <summary>
+    /// Whether the json data has been loaded in before or not
+    /// </summary>
     private bool jsonLoaded = false;
 
     /// <summary>
@@ -559,6 +623,11 @@ public class BodyController : MonoBehaviour
         snake.velocity += VelocityContribution;
     }
 
+    /// <summary>
+    /// Called by Buff Manager when healthBuff is changed
+    /// </summary>
+    /// <param name="amount">the value of the change by the health buff</param>
+    /// <param name="multiplicative">Whether its a value added to max health (false) or a scaler (true)</param>
     private void HealthBuffUpdate(float amount, bool multiplicative)
     {
         // if its a multiplying one, multiply the health by that much
@@ -582,6 +651,11 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by Buff Manager when speedBuff is changed
+    /// </summary>
+    /// <param name="amount">the value of the change by the speed buff</param>
+    /// <param name="multiplicative">Whether its a value added to speed (false) or a scaler (true)</param>
     private void SpeedBuffUpdate(float amount, bool multiplicative)
     {
         float prev;
@@ -607,6 +681,11 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by Buff Manager when attackSpeedBuff is changed
+    /// </summary>
+    /// <param name="amount">the value of the change by the attack speed buff</param>
+    /// <param name="multiplicative">Whether its a value added to attack speed (false) or a scaler (true)</param>
     private void AttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // passes on the update to all the classes

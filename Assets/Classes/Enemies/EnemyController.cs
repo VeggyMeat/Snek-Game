@@ -8,23 +8,34 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {   
     [SerializeField] private float speed;
+
+    public float Speed
+    {
+        get
+        {
+            return speedBuff.Value;
+        }
+    }
+
     [SerializeField] private float angularVelocity;
     [SerializeField] private int maxHealth;
 
+    /// <summary>
+    /// The maxHealth of the enemy
+    /// </summary>
     public int MaxHealth
     {
         get
         {
-            return maxHealth;
-        }
-        set
-        {
-            maxHealth = value;
+            return (int)healthBuff.Value;
         }
     }
 
     [SerializeField] private int contactDamage;
 
+    /// <summary>
+    /// The damage dealt to a body when it touches the enemy
+    /// </summary>
     public int ContactDamage
     {
         get
@@ -35,6 +46,9 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private int xPDrop;
 
+    /// <summary>
+    /// The amount of XP given to the player when killed
+    /// </summary>
     public int XPDrop
     {
         get
@@ -48,6 +62,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool walkTowards;
     [SerializeField] private string enemyType;
 
+    /// <summary>
+    /// The type of enemy (small, medium, large, special) that this enemy is (should be changed)
+    /// </summary>
     public string EnemyType
     {
         get
@@ -56,20 +73,121 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    internal int health;
-    internal bool dead = false;
+    private int health;
+
+    /// <summary>
+    /// The remaining health of the enemy
+    /// </summary>
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    private bool dead = false;
+
+    /// <summary>
+    /// Whether the enemy is dead or not
+    /// </summary>
+    public bool Dead
+    {
+        get
+        {
+            return dead;
+        }
+    }
+
+    /// <summary>
+    /// The RigidBody2D of the enemy
+    /// </summary>
     internal Rigidbody2D selfRigid;
+
+    /// <summary>
+    /// The EnemySummonerController that spawned this enemy
+    /// </summary>
     internal EnemySummonerController summoner;
 
-    internal EnemyPassiveHandler passiveHandler;
-
+    /// <summary>
+    /// The body the enemy is targetting
+    /// </summary>
     private Transform player;
 
-    internal virtual void Setup()
+    private int id;
+
+    /// <summary>
+    /// The unique ID of the enemy
+    /// </summary>
+    public int ID
     {
-        // gets a new passive handler
-        passiveHandler = gameObject.AddComponent<EnemyPassiveHandler>();
-        passiveHandler.Setup(this);
+        get
+        {
+            return id;
+        }
+    }
+
+    private int extraLives = 0;
+
+    /// <summary>
+    /// The extra lives on the enemy
+    /// </summary>
+    private int ExtraLives
+    {
+        get
+        {
+            return extraLives;
+        }
+    }
+
+    /// <summary>
+    /// The buff controlling whether the enemy is invulnerable or more (any addition will make it invulnerable)
+    /// </summary>
+    internal Buff invulnerabilityBuff;
+
+    /// <summary>
+    /// The buff controlling the movement speed of the enemy
+    /// </summary>
+    internal Buff speedBuff;
+
+    /// <summary>
+    /// The buff controlling the damage of the enemy
+    /// </summary>
+    internal Buff damageBuff;
+    
+    /// <summary>
+    /// The buff controlling the health of the enemy
+    /// </summary>
+    internal Buff healthBuff;
+
+    /// <summary>
+    /// List of actions that are called on the death of the enemy
+    /// </summary>
+    internal List<Action> onDeath = new List<Action>();
+
+    /// <summary>
+    /// Whether the enemy is invulnerable or not
+    /// </summary>
+    public bool Invulnerable
+    {
+        get
+        {
+            return invulnerabilityBuff.Value > 1.1;
+        }
+    }
+
+    /// <summary>
+    /// Sets up the enemy script
+    /// </summary>
+    /// <param name="summoner">The summoner that spawned this enemy</param>
+    /// <param name="id">The unique id for this enemy</param>
+    internal virtual void Setup(EnemySummonerController summoner, int id)
+    {
+        // sets up the summoner
+        this.summoner = summoner;
+
+        // sets up the id of the enemy
+        this.id = id;
 
         // sets up the rigid body and the player location
         selfRigid = GetComponent<Rigidbody2D>();
@@ -83,6 +201,19 @@ public class EnemyController : MonoBehaviour
 
         // calls the enemy spawn trigger
         TriggerManager.EnemySpawnTrigger.CallTrigger(gameObject);
+
+        // sets up the buffs
+        healthBuff = gameObject.AddComponent<Buff>();
+        healthBuff.Setup(HealthBuffUpdate, maxHealth);
+
+        speedBuff = gameObject.AddComponent<Buff>();
+        speedBuff.Setup(null, speed);
+
+        damageBuff = gameObject.AddComponent<Buff>();
+        damageBuff.Setup(null, 1f);
+
+        invulnerabilityBuff = gameObject.AddComponent<Buff>();
+        invulnerabilityBuff.Setup(null, 1f);
     }
 
     void FixedUpdate()
@@ -99,7 +230,7 @@ public class EnemyController : MonoBehaviour
             }
 
             // moves directly towards the player
-            selfRigid.MovePosition((1 + passiveHandler.passiveValues["SpeedBuff"] / 100) * speed * difference.normalized * Time.deltaTime + selfRigid.position);
+            selfRigid.MovePosition(Speed * Time.deltaTime * difference.normalized + selfRigid.position);
         }
     }
 
@@ -110,50 +241,29 @@ public class EnemyController : MonoBehaviour
     /// <returns>Whether the enemy survived or not (true / false)</returns>
     internal bool ChangeHealth(int quantity)
     {
-        // if invulnerable just ignores damage
-        if (passiveHandler.passiveValues["Invulnerability"] > 0)
+        // if this is dealing damage
+        if (quantity < 0)
         {
-            return true;
+            // if the enemy is invulnerable
+            if (Invulnerable)
+            {
+                // ignore the damage and return that it survived
+                return true;
+            }
         }
 
         // change the health by the quantity
         health += quantity;
 
-        if (quantity > 0)
-        {
-            // if the enemy has too much health, set it back down to max
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-        }
-        else if (quantity < 0)
-        {
-            // if the health is less than 0, kill it
-            if (health <= 0)
-            {
-                health = 0;
-                Die();
-
-                return false;
-            }
-        }
-
-        // return saying that the enemy survived the hit
-        return true;
+        // return the response from the health check
+        return HealthChangeCheck();
     }
 
-    // gets called when the enemy is due to die
+    /// <summary>
+    /// Called to kill the enemy
+    /// </summary>
     internal virtual void Die()
     {
-        if (passiveHandler.passiveValues["ExtraLives"] > 0)
-        {
-            // if the enemy has extra lives, it just loses one
-            passiveHandler.passiveValues["ExtraLives"]--;
-            health = maxHealth;
-            return;
-        }
-
         // declares to other objects that this is dead
         dead = true;
 
@@ -167,7 +277,9 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // gets called when the enemy is despawned because of distance
+    /// <summary>
+    /// Called to despawn the enemy when its out of the player range
+    /// </summary>
     internal virtual void Despawn()
     {
         // declares to other objects that this is dead
@@ -189,7 +301,7 @@ public class EnemyController : MonoBehaviour
             BodyController body = collision.gameObject.GetComponent<BodyController>();
 
             // apply damage to the player affected by the passive effects
-            body.ChangeHealth(-contactDamage * (1 + passiveHandler.passiveValues["DamageBuff"] / 100));
+            body.ChangeHealth(-contactDamage);
 
             // take damage from the body
             ChangeHealth(-body.ContactDamage);
@@ -198,5 +310,52 @@ public class EnemyController : MonoBehaviour
             selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce);
         }
 
+    }
+
+    /// <summary>
+    /// Checks stuff about the enemy health after the health has been changed
+    /// </summary>
+    /// <returns>Whether the enemy survived</returns>
+    private bool HealthChangeCheck()
+    {
+        // if it has too much health set it down
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+
+            // return saying it did not survive
+            return false;
+        }
+
+        // return saying that the enemy survived the hit
+        return true;
+    }
+
+    /// <summary>
+    /// Called when the healthBuff is changed
+    /// </summary>
+    /// <param name="amount">the value of the change by the health buff</param>
+    /// <param name="multiplicative">Whether its a value added to max health (false) or a scaler (true)</param>
+    private void HealthBuffUpdate(float amount, bool multiplicative)
+    {
+        // if its a multiplying one, multiply the health by that much
+        if (multiplicative)
+        {
+            health = (int)(health * amount);
+        }
+        // if its an additive one, increase (/decrease) the health by the amount
+        else
+        {
+            health += (int)amount;
+        }
+
+        // call a health change check to see if body has died
+        HealthChangeCheck();
     }
 }

@@ -13,10 +13,18 @@ public class Buff: MonoBehaviour
     private float value;
     private float originalValue;
 
+    /// <summary>
+    /// The new value of the buff
+    /// </summary>
     public float Value { get { return value; } }
 
-    public Action<float, bool>? update;
+    private Action<float, bool>? update;
 
+    /// <summary>
+    /// Sets up the buff
+    /// </summary>
+    /// <param name="update">The action that is called when this buff is changed</param>
+    /// <param name="originalValue">The original value given to the buff to hold and return as .Value</param>
     public void Setup (Action<float, bool>? update, float originalValue)
     {
         this.update = update;
@@ -35,6 +43,12 @@ public class Buff: MonoBehaviour
         updateValue(originalValue);
     }
 
+    /// <summary>
+    /// Adds an effect to the buff
+    /// </summary>
+    /// <param name="amount">The change either being added or multiplied to the value</param>
+    /// <param name="multiplicative">Whether the effect should be added to the value (false) or a multiplier effect (true)</param>
+    /// <param name="duration">How long this effect should last (null = infinite)</param>
     public void AddBuff(float amount, bool multiplicative, float? duration)
     {
         // starts the coroutine with the respective buffs
@@ -43,6 +57,12 @@ public class Buff: MonoBehaviour
 
     private IEnumerator InternalAddBuff(float amount, bool multiplicative, float? duration)
     {
+        // if its any other value suggesting the duration should not end, set it to null
+        if (duration <= 0 || duration == float.PositiveInfinity || duration == float.NegativeInfinity)
+        {
+            duration = null;
+        }
+
         // adds the buff
         if (multiplicative)
         {

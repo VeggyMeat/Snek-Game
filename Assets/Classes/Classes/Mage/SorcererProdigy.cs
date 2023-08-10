@@ -47,7 +47,7 @@ public class SorcererProdigy : Mage
                 EnemyController enemy = objectHit.GetComponent<EnemyController>();
 
                 // if the enemy is alive, deal damage to it
-                if (!enemy.dead)
+                if (!enemy.Dead)
                 {
                     // if the enemy dies trigger it
                     if (!enemy.ChangeHealth(-(int)(damage * body.DamageMultiplier)))

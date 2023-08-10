@@ -51,7 +51,7 @@ public class Sniper : Archer
                     EnemyController enemy = obj.GetComponent<EnemyController>();
 
                     // if the enemy is not dead
-                    if (!enemy.dead)
+                    if (!enemy.Dead)
                     {
                         // deals damage to the enemy
                         if (!enemy.ChangeHealth(-(int)(damage * body.DamageMultiplier)))
