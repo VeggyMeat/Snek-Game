@@ -229,6 +229,9 @@ public class HeadController: MonoBehaviour
             case "Chamelion":
                 bodyContr.classes.Add(body.AddComponent<Chamelion>());
                 break;
+            case "DiscusMan":
+                bodyContr.classes.Add(body.AddComponent<DiscusMan>());
+                break;
         }
 
         // removes that body from the list of available bodies

@@ -52,7 +52,7 @@ public class EnemySummonerController : MonoBehaviour
 
         foreach (GameObject enemyPrefab in unsortedEnemyPrefabs)
         {
-            string type = enemyPrefab.GetComponent<EnemyController>().enemyType;
+            string type = enemyPrefab.GetComponent<EnemyController>().EnemyType;
 
             enemyPrefabs[type].Add(enemyPrefab);
         }
@@ -104,6 +104,6 @@ public class EnemySummonerController : MonoBehaviour
     internal void EnemyDespawned(EnemyController enemy)
     {
         // spawns an enemy to replace it
-        SpawnEnemies(enemyPrefabs[enemy.enemyType][Random.Range(0, enemyPrefabs[enemy.enemyType].Count)], 1);
+        SpawnEnemies(enemyPrefabs[enemy.EnemyType][Random.Range(0, enemyPrefabs[enemy.EnemyType].Count)], 1);
     }
 }

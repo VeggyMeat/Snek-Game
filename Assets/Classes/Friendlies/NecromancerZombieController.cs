@@ -14,9 +14,6 @@ public class NecromancerZombieController : MonoBehaviour
     public float angularVelocity;
     public int timeAlive;
 
-    // need to remove this
-    internal float radius = 1f;
-
     internal float health;
     internal Rigidbody2D selfRigid;
     internal Necro parent;
@@ -166,7 +163,7 @@ public class NecromancerZombieController : MonoBehaviour
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             // take damage from the body
-            ChangeHealth(body.contactDamage);
+            ChangeHealth(body.ContactDamage);
 
             // apply damage to the enemy
             if (!body.ChangeHealth(-contactDamage))
@@ -178,7 +175,7 @@ public class NecromancerZombieController : MonoBehaviour
             if (!body.dead)
             {
                 // get hit away from the enemy
-                selfRigid.AddForce((selfRigid.position - (Vector2)body.transform.position).normalized * body.contactForce);
+                selfRigid.AddForce((selfRigid.position - (Vector2)body.transform.position).normalized * body.ContactDamage);
             }
         }
     }

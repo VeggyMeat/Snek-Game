@@ -7,15 +7,54 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {   
-    public float speed;
-    public float angularVelocity;
-    public int maxHealth;
-    public int contactDamage;
-    public int XPDrop;
-    public int despawnRadius;
-    public int contactForce;
-    public bool walkTowards;
-    public string enemyType;
+    [SerializeField] private float speed;
+    [SerializeField] private float angularVelocity;
+    [SerializeField] private int maxHealth;
+
+    public int MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+        set
+        {
+            maxHealth = value;
+        }
+    }
+
+    [SerializeField] private int contactDamage;
+
+    public int ContactDamage
+    {
+        get
+        {
+            return contactDamage;
+        }
+    }
+
+    [SerializeField] private int xPDrop;
+
+    public int XPDrop
+    {
+        get
+        {
+            return xPDrop;
+        }
+    }
+
+    [SerializeField] private int despawnRadius;
+    [SerializeField] private int contactForce;
+    [SerializeField] private bool walkTowards;
+    [SerializeField] private string enemyType;
+
+    public string EnemyType
+    {
+        get
+        {
+            return enemyType;
+        }
+    }
 
     internal int health;
     internal bool dead = false;
@@ -64,7 +103,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // returns whether the body survives or not
+    /// <summary>
+    /// Change the health of the enemy by the quantity
+    /// </summary>
+    /// <param name="quantity">The value to change the health by</param>
+    /// <returns>Whether the enemy survived or not (true / false)</returns>
     internal bool ChangeHealth(int quantity)
     {
         // if invulnerable just ignores damage
@@ -73,12 +116,12 @@ public class EnemyController : MonoBehaviour
             return true;
         }
 
+        // change the health by the quantity
         health += quantity;
 
         if (quantity > 0)
         {
-            // increase health trigger
-
+            // if the enemy has too much health, set it back down to max
             if (health > maxHealth)
             {
                 health = maxHealth;
@@ -86,11 +129,9 @@ public class EnemyController : MonoBehaviour
         }
         else if (quantity < 0)
         {
-            // lost health trigger (not implemented)
-
+            // if the health is less than 0, kill it
             if (health <= 0)
             {
-
                 health = 0;
                 Die();
 
@@ -98,6 +139,7 @@ public class EnemyController : MonoBehaviour
             }
         }
 
+        // return saying that the enemy survived the hit
         return true;
     }
 

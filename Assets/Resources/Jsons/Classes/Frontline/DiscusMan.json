@@ -1,0 +1,12 @@
+[
+  {
+    "discusPath": "GameObjects/Discus",
+    "discusJson": "Assets/Resources/Jsons/Misc/Discus.json",
+    "maxDiscuses": 2,
+    "discusDelay": 2,
+    "orbitRadius": 3.5,
+    "orbitSpeed": 180,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/DiscusManBody.json"
+  }
+]

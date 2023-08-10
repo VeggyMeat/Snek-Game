@@ -47,9 +47,9 @@ public class EnemyPassiveHandler: MonoBehaviour
 
         switch(name)
         {
-            case ("HealthBuff"):
+            case "HealthBuff":
                 enemy.health *= (1 + value);
-                enemy.maxHealth *= (1 + value);
+                enemy.MaxHealth *= (1 + value);
                 break;
         }
     }
@@ -60,9 +60,9 @@ public class EnemyPassiveHandler: MonoBehaviour
 
         switch (name)
         {
-            case ("HealthBuff"):
+            case "HealthBuff":
                 enemy.health /= (1 + value);
-                enemy.maxHealth /= (1 + value);
+                enemy.MaxHealth /= (1 + value);
                 break;
         }
     }
