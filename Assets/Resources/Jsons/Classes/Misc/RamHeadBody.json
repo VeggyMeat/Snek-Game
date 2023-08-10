@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.75,
+    "g": 0.1,
+    "b": 0.25,
+
+    "defence": 2,
+    "maxHealth": 90,
+    "contactDamage": 15,
+    "contactForce": 2500,
+    "velocityContribution": 6.5,
+
+    "name": "RamHead"
+  }
+]

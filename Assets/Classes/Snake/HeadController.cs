@@ -232,6 +232,9 @@ public class HeadController: MonoBehaviour
             case "DiscusMan":
                 bodyContr.classes.Add(body.AddComponent<DiscusMan>());
                 break;
+            case "RamHead":
+                bodyContr.classes.Add(body.AddComponent<RamHead>());
+                break;
         }
 
         // removes that body from the list of available bodies

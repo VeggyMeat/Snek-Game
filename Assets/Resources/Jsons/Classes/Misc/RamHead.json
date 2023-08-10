@@ -1,0 +1,10 @@
+[
+  {
+    "contactForceMultiplier": 2.5,
+    "contactDamageMultiplier": 1.5,
+    "healthAdded": 25,
+    "defenceAdded": 3,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/RamHeadBody.json"
+  }
+]

@@ -120,6 +120,10 @@ public class BodyController : MonoBehaviour
         {
             return (int) (contactDamage * DamageMultiplier);
         }
+        set
+        {
+            contactDamage = value;
+        }
     }
 
     /// <summary>
@@ -130,6 +134,10 @@ public class BodyController : MonoBehaviour
         get
         {
             return contactForce;
+        }
+        set
+        {
+            contactForce = value;
         }
     }
 

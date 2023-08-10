@@ -155,7 +155,7 @@ MonoBehaviour:
   angularVelocity: 45
   maxHealth: 50
   contactDamage: 5
-  XPDrop: 5
+  xPDrop: 5
   despawnRadius: 30
   contactForce: 2000
   walkTowards: 1
