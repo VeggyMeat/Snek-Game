@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.7,
+    "g": 0.1,
+    "b": 0.3,
+
+    "defence": 0,
+    "maxHealth": 150,
+    "contactDamage": 20,
+    "contactForce": 2500,
+    "velocityContribution": 5,
+
+    "name": "Vampire"
+  }
+]

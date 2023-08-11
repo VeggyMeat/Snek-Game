@@ -1,0 +1,11 @@
+[
+  {
+    "healSnakeAmount": 10,
+    "healVampireAmount": 10,
+    "damageBodiesAmount": 5,
+    "suckHealthDelay": 1,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/Vampire/VampireBody.json",
+    "regularAttack": false
+  }
+]

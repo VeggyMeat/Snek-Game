@@ -303,9 +303,13 @@ public class EnemyController : MonoBehaviour
             // apply damage to the player affected by the passive effects
             body.ChangeHealth(-contactDamage);
 
-            // take damage from the body
-            ChangeHealth(-body.ContactDamage);
-
+            // take damage from the body, if this dies give the kill to the body
+            if (!ChangeHealth(-body.ContactDamage))
+            {
+                // gives credit to the first class in the list
+                body.classes[0].EnemyKilled(gameObject);
+            }
+            
             // get hit away from the player
             selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce);
         }

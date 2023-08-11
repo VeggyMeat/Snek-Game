@@ -6,6 +6,7 @@
     "discusDelay": 2,
     "orbitRadius": 3.5,
     "orbitSpeed": 180,
+    "regularAttack": false,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/DiscusManBody.json"
   }

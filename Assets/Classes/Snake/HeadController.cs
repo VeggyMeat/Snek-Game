@@ -235,6 +235,10 @@ public class HeadController: MonoBehaviour
             case "RamHead":
                 bodyContr.classes.Add(body.AddComponent<RamHead>());
                 break;
+            case "Vampire":
+                bodyContr.classes.Add(body.AddComponent<VampireMage>());
+                bodyContr.classes.Add(body.AddComponent<VampireFrontline>());
+                break;
         }
 
         // removes that body from the list of available bodies

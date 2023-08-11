@@ -1,6 +1,6 @@
 [
   {
-    "contactForceMultiplier": 2.5,
+    "contactForceMultiplier": 1.5,
     "contactDamageMultiplier": 1.5,
     "healthAdded": 25,
     "defenceAdded": 3,

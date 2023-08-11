@@ -176,7 +176,7 @@ public class Class: MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the body takes damage
+    /// Called when the body takes damage, before the damage is applied
     /// </summary>
     /// <param name="amount">The damage taken</param>
     /// <returns>Return the new damage value</returns>

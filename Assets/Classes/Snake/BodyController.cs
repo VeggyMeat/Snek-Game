@@ -340,7 +340,7 @@ public class BodyController : MonoBehaviour
     /// <summary>
     /// Returns whether the body is the head of the snake
     /// </summary>
-    /// <returns></returns>
+    /// <returns>If its the head or not</returns>
     internal bool IsHead()
     {
         return prev is null;

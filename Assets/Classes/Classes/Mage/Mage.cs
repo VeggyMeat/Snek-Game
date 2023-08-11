@@ -76,8 +76,11 @@ public class Mage : Class
         // calls the base function
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
-        // resets the repeating attack
-        ResetRepeatingAttack();
+        if (regularAttack)
+        {
+            // resets the repeating attack
+            ResetRepeatingAttack();
+        }
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -90,7 +93,10 @@ public class Mage : Class
 
             if (jsonLoaded)
             {
-                ResetRepeatingAttack();
+                if (regularAttack)
+                {
+                    ResetRepeatingAttack();
+                }
             }
         }
         if (jsonData.ContainsKey("regularAttack"))
