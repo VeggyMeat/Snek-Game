@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: ffc962fb7fc6e054b99d95f22e07c52f
+guid: 11ebc1fb441e17a4c8179b5d426b626d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - healthBarPrefab: {fileID: 634545999819481101, guid: ce1b33754e2a8b144986e32745e79c04, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

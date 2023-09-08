@@ -19,6 +19,10 @@ public class HeadController: MonoBehaviour
     public int BaseXPLevelRequirement = 50;
     public int XPIncreaseLevel = 25;
 
+    [SerializeField] internal float bodyHealthBarScaleX = 1;
+    [SerializeField] internal float bodyHealthBarScaleY = 1;
+    [SerializeField] internal GameObject healthBarPrefab;
+
     /// <summary>
     /// The BodyController of the head of the snake
     /// </summary>

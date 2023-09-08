@@ -212,6 +212,16 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal int health;
 
+    /// <summary>
+    /// The percentage value (0-1) of the remaining health of the body
+    /// </summary>
+    internal float PercentageHealth
+    {
+        get
+        {
+            return health / maxHealth;
+        }
+    }
 
     /// <summary>
     /// The previous velocity vector of the body last FixedUpdate
@@ -261,6 +271,8 @@ public class BodyController : MonoBehaviour
     /// </summary>
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
+    private HealthBarController healthBarController;
+
     // sets up variables
     private void Setup()
     {
@@ -303,6 +315,12 @@ public class BodyController : MonoBehaviour
             c.body = this;
             c.Setup();
         }
+
+        // sets up the healthBar
+        Debug.Log(snake.healthBarPrefab);
+        healthBarController = Instantiate(snake.healthBarPrefab, transform).GetComponent<HealthBarController>();
+        healthBarController.Setup(snake.bodyHealthBarScaleX, snake.bodyHealthBarScaleY);
+        healthBarController.SetBar(PercentageHealth);
 
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
@@ -476,6 +494,8 @@ public class BodyController : MonoBehaviour
             // reduces the health by the final damage
             health += quantity;
         }
+
+        // update the healthBar attatched to the body
 
         return HealthChangeCheck();
     }
