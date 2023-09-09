@@ -80,8 +80,6 @@ public class VampireMage : Mage
 
                 // heal the amount of health
                 body.ChangeHealth(healVampireAmount);
-
-                Debug.Log(body.next.health);
             }
 
             // if there is a body before this one
@@ -92,11 +90,7 @@ public class VampireMage : Mage
 
                 // heal the amount of health
                 body.ChangeHealth(healVampireAmount);
-
-                Debug.Log(body.prev.health);
             }
-
-            Debug.Log($"body health is {body.health}");
         }
     }
 

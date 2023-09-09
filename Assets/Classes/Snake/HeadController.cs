@@ -160,7 +160,7 @@ public class HeadController: MonoBehaviour
     /// <param name="bodyClass">The name of the class of the new body</param>
     internal void AddBody(string bodyClass)
     {
-        // creates the body and sets it up and places it as the head of the snake
+        // creates the body and sets it up and places it as the head of the snake or at the end
         GameObject body = Instantiate(circle, (Vector3)TailPos() + new Vector3 (0, 0, 2), Quaternion.identity);
         BodyController bodyContr = body.AddComponent<BodyController>();
 
