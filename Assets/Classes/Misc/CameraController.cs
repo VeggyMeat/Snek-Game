@@ -5,11 +5,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    public GameObject snakeHead;
-    public static Transform cameraTransform;
-    public double followSpeed = 5;
+    [SerializeField] private GameObject snakeHead;
+    internal static Transform cameraTransform;
+    [SerializeField] private double followSpeed = 5;
 
-    // Start is called before the first frame update
     void Start()
     {
         cameraTransform = transform;
@@ -18,12 +17,9 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // canera LERP
+        // camera LERP
 
-        transform.position = Vector3.Lerp(cameraTransform.position, new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, -1), (float)(followSpeed * Time.deltaTime));
+        transform.position = Vector3.Lerp(cameraTransform.position, new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, cameraTransform.position.z), (float)(followSpeed * Time.deltaTime));
 
-        // camera TRACK
-
-        //cameraTransform.position = new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, -1);
     }
 }

@@ -16,7 +16,7 @@ public class HealthBarController : MonoBehaviour
         transform.localScale = new Vector3 (scaleX * transform.localScale.x, scaleY * transform.localScale.y, 1);
 
         // sets the initialScale for a full healthBar
-        initialScale = transform.localScale;
+        initialScale = greenBarObject.transform.localScale;
     }
 
     internal void SetBar(float percentage)
@@ -31,12 +31,12 @@ public class HealthBarController : MonoBehaviour
         }
 
         // calculate the new position of the bar, so that it stays on the left
-        float position = (percentage - 1) / 2;
+        float position = (1 - percentage) / 2;
 
-        // sets the new position of the healthBar
-        transform.position.Set(position, transform.position.y, transform.position.z);
+        // sets the new position of the green bar of the health bar
+        greenBarObject.transform.position = new Vector3(transform.position.x + position, greenBarObject.transform.position.y, greenBarObject.transform.position.z);
 
-        // sets the new scale of the healthBar
-        transform.localScale.Set(initialScale.x * (1 - percentage), transform.localScale.y, transform.localScale.z);
+        // sets the new scale of the green bar of the health bar
+        greenBarObject.transform.localScale = new Vector3(initialScale.x * percentage, greenBarObject.transform.localScale.y, greenBarObject.transform.localScale.z);
     }
 }

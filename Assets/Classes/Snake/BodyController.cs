@@ -219,7 +219,7 @@ public class BodyController : MonoBehaviour
     {
         get
         {
-            return health / maxHealth;
+            return (float)health / (float)maxHealth;
         }
     }
 
@@ -496,6 +496,7 @@ public class BodyController : MonoBehaviour
         }
 
         // update the healthBar attatched to the body
+        healthBarController.SetBar(PercentageHealth);
 
         return HealthChangeCheck();
     }
