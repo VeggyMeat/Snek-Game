@@ -154,6 +154,9 @@ MonoBehaviour:
   speed: 2
   angularVelocity: 30
   maxHealth: 100
+  healthBarScaleX: 0.2
+  healthBarScaleY: 0.2
+  healthBarPrefab: {fileID: 634545999819481101, guid: ce1b33754e2a8b144986e32745e79c04, type: 3}
   contactDamage: 10
   xPDrop: 10
   despawnRadius: 30

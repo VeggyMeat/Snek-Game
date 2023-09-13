@@ -122,7 +122,7 @@ public class EnemySummonerController : MonoBehaviour
             Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 2);
 
             // spawns an enemy at that random position
-            GameObject enemy = Instantiate(enemyPrefab, pos + cameraTransform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, pos + cameraTransform.position + new Vector3 (0, 0, 6), Quaternion.identity);
 
             // sets up the enemy
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();

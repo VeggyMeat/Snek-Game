@@ -20,6 +20,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float angularVelocity;
     [SerializeField] private int maxHealth;
 
+    [SerializeField] private float healthBarScaleX = 1;
+    [SerializeField] private float healthBarScaleY = 1;
+    [SerializeField] private GameObject healthBarPrefab;
+    private HealthBarController healthBar;
+
     /// <summary>
     /// The maxHealth of the enemy
     /// </summary>
@@ -199,6 +204,11 @@ public class EnemyController : MonoBehaviour
         // sets the health to the max health
         health = maxHealth;
 
+        // sets the healthBar up
+        healthBar = Instantiate(healthBarPrefab, transform).GetComponent<HealthBarController>();
+        healthBar.Setup(healthBarScaleX, healthBarScaleY);
+        healthBar.SetBar((float)health/maxHealth);
+
         // calls the enemy spawn trigger
         TriggerManager.EnemySpawnTrigger.CallTrigger(gameObject);
 
@@ -336,6 +346,9 @@ public class EnemyController : MonoBehaviour
             // return saying it did not survive
             return false;
         }
+
+        // update the healthBar
+        healthBar.SetBar((float)health / maxHealth);
 
         // return saying that the enemy survived the hit
         return true;

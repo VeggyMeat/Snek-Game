@@ -246,7 +246,10 @@ public class HeadController: MonoBehaviour
         }
 
         // removes that body from the list of available bodies
-        shopManager.bodies.Remove(bodyClass);
+        if (shopManager.remove)
+        {
+            shopManager.bodies.Remove(bodyClass);
+        }
 
         if (head is null)
         {

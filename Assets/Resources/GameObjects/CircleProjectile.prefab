@@ -140,4 +140,9 @@ MonoBehaviour:
   velocity: 0
   lifeSpan: 0
   damage: 0
+  r: 0
+  g: 0
+  b: 0
+  scaleX: 0
+  scaleY: 0
   maxBounces: 0

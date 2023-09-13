@@ -10,6 +10,12 @@ public class HealthBarController : MonoBehaviour
     [SerializeField] private GameObject greenBarObject;
     private Vector3 initialScale;
 
+    private void Update()
+    {
+        // resets rotation
+        transform.rotation = Quaternion.identity;
+    }
+
     internal void Setup(float scaleX, float scaleY)
     {
         // set the scale of the healthbar
@@ -21,20 +27,21 @@ public class HealthBarController : MonoBehaviour
 
     internal void SetBar(float percentage)
     {
+        // TEMP fixes out of bounds values
         if (percentage > 1)
         {
-            throw new Exception("percentage > 1");
+            percentage = 1;
         }
         else if (percentage < 0)
         {
-            throw new Exception("percentage < 0");
+            percentage = 0;
         }
 
         // calculate the new position of the bar, so that it stays on the left
-        float position = (1 - percentage) / 2;
+        float position = initialScale.x * (1 - percentage) / 2;
 
         // sets the new position of the green bar of the health bar
-        greenBarObject.transform.position = new Vector3(transform.position.x + position, greenBarObject.transform.position.y, greenBarObject.transform.position.z);
+        greenBarObject.transform.localPosition = new Vector3(position, greenBarObject.transform.localPosition.y, greenBarObject.transform.localPosition.z);
 
         // sets the new scale of the green bar of the health bar
         greenBarObject.transform.localScale = new Vector3(initialScale.x * percentage, greenBarObject.transform.localScale.y, greenBarObject.transform.localScale.z);
