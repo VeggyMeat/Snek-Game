@@ -78,6 +78,7 @@ public class TestManager: MonoBehaviour
 
         ShopManager shopManager = shopManagerObj.GetComponent<ShopManager>();
 
+        // attatches the head to the shopManager and vice versa
         head.shopManager = shopManager;
         shopManager.head = head;
 
@@ -111,7 +112,7 @@ public class TestManager: MonoBehaviour
         ShopManager shopManager = ShopManagerSetup(headController);
 
         // creates a body attatched to the snake
-        headController.AddBody("BowMan");
+        headController.AddBody(shopManager.bodies.RandomItem());
 
         return "Passed HeadControllerAddBodyTest";
 
@@ -127,7 +128,7 @@ public class TestManager: MonoBehaviour
         ShopManager shopManager = ShopManagerSetup(headController);
 
         // creates a body attatched to the snake
-        headController.AddBody("BowMan");
+        headController.AddBody(shopManager.bodies.RandomItem());
 
         // creates a random location
         Vector2 randomLocation = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
@@ -152,13 +153,17 @@ public class TestManager: MonoBehaviour
         return "Passed HeadControllerHeadPosTest";
     }
 
+    /// <summary>
+    /// Tests the HeadController.TailPos() function
+    /// </summary>
+    /// <returns></returns>
     private string HeadControllerTailPosTest()
     {
         HeadController headController = PlayerSetup();
         ShopManager shopManager = ShopManagerSetup(headController);
 
         // creates a body attatched to the snake
-        headController.AddBody("BowMan");
+        headController.AddBody(shopManager.bodies.RandomItem());
 
         // creates a random location
         Vector2 randomLocation = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
@@ -172,7 +177,7 @@ public class TestManager: MonoBehaviour
         }
 
         // creates a body attatched to the snake
-        headController.AddBody("BowMan");
+        headController.AddBody(shopManager.bodies.RandomItem());
 
         // creates a random location
         Vector2 randomLocation2 = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
@@ -207,7 +212,7 @@ public class TestManager: MonoBehaviour
         for (int i = 1; i < 6; i++)
         {
             // creates a body attatched to the snake
-            headController.AddBody("BowMan");
+            headController.AddBody(shopManager.bodies.RandomItem());
 
             // if the Length() returns something other than the number of BowMans added
             if (headController.Length() != i)
@@ -222,20 +227,57 @@ public class TestManager: MonoBehaviour
 
     /* ------------------------------------ TESTS RUN ON BODYCONTROLLER ------------------------------------
     * Notes: 
+    * Length() tested through HeadControllerLengthTest
+    * BodySetup() tested through BodyControllerAddBodyTest
+    * TailPos() tested through the HeadControllerTailPosTest
+    * HealthChangeCheck() tested through BodyControllerChangeHealthTest
+    * OnDeath() tested through game play
+    * Revied() tested through game play
+    * Move() tested through game play
+    * Buff Updates tested through other tests
+    * JsonToBodyData() tested through BodyControllerAddBodyTest
+    * LoadFromJson() tested through BodyControllerAddBodyTest and BodyControllerLevelUpTest
     */
+
+    /// <summary>
+    /// Tests the BodyController.AddBody() function
+    /// </summary>
+    /// <returns></returns>
+    private string BodyControllerAddBodyTest()
+    {
+        HeadController headController = PlayerSetup();
+        ShopManager shopManager = ShopManagerSetup(headController);
+
+        int length = 0;
+
+        // adds every body from the shopManager to the snake
+        foreach (string body in shopManager.bodies)
+        {
+            headController.AddBody(body);
+
+            length++;
+        }
+
+        if (length != headController.Length())
+        {
+            return $"Failed BodyControllerAddBodyTest, Added {length} bodies but only {headController.Length()} were successfully added";
+        }
+
+        return "Passed BodyControllerAddBodyTest";
+    }
 
 
     /// <summary>
     /// Tests the BodyController.ChangeHealth() function
     /// </summary>
     /// <returns></returns>
-    private string BodyControllerHealthTest()
+    private string BodyControllerChangeHealthTest()
     {
         HeadController headController = PlayerSetup();
         ShopManager shopManager = ShopManagerSetup(headController);
 
         // add a bowman to the snake
-        headController.AddBody("BowMan");
+        headController.AddBody(shopManager.bodies.RandomItem());
 
         // get the starting health of the bow man
         int startingHealth = headController.head.health;
@@ -243,25 +285,25 @@ public class TestManager: MonoBehaviour
         // deal 20 damage to the bowman
         if (headController.head.ChangeHealth(-20))
         {
-            return $"Failed BodyControllerHealthTest, returned saying the body was not alive when it still was";
+            return $"Failed BodyControllerChangeHealthTest, returned saying the body was not alive when it still was";
         }
 
         // if the bowman's health is not exactly 20 less than starting health, return saying test failed
         if (headController.head.health + 20 != startingHealth)
         {
-            return $"Failed BodyControllerHealthTest, dealt 20 damage from {startingHealth} ending with {headController.head.health} expected {startingHealth - 20}";
+            return $"Failed BodyControllerChangeHealthTest, dealt 20 damage from {startingHealth} ending with {headController.head.health} expected {startingHealth - 20}";
         }
 
         // heal the bowman by 50
         if (headController.head.ChangeHealth(50))
         {
-            return $"Failed BodyControllerHealthTest, returned saying the body was not alive when it still was";
+            return $"Failed BodyControllerChangeHealthTest, returned saying the body was not alive when it still was";
         }
 
         // if the bowman isnt at max hp, return saying test failed
         if (headController.head.health != headController.head.MaxHealth)
         {
-            return $"Failed BodyControllerHealthTest, overhealing body from {startingHealth - 20} by 50 made it {headController.head.health} rather than expected max health value of {headController.head.MaxHealth}";
+            return $"Failed BodyControllerChangeHealthTest, overhealing body from {startingHealth - 20} by 50 made it {headController.head.health} rather than expected max health value of {headController.head.MaxHealth}";
         }
 
         // get the amount of damage about to deal
@@ -270,23 +312,146 @@ public class TestManager: MonoBehaviour
         // deal damage to the bowman for its entire hp
         if (headController.head.ChangeHealth(-damageDealt))
         {
-            return $"Failed BodyControllerHealthTest, on fatal damage, said the body was still alive";
+            return $"Failed BodyControllerChangeHealthTest, on fatal damage, said the body was still alive";
         }
 
         // if its not dead, then return saying test failed
         if (!headController.head.IsDead)
         {
-            return $"Failed BodyControllerHealthTest, Dealt {damageDealt} damage from {damageDealt} health to the body leaving it at, {headController.head.health} health but did not die";
+            return $"Failed BodyControllerChangeHealthTest, Dealt {damageDealt} damage from {damageDealt} health to the body leaving it at, {headController.head.health} health but did not die";
         }
 
-        return "Passed BodyControllerHealthTest";
+        return "Passed BodyControllerChangeHealthTest";
     }
 
-    private string BodyControllerAddBodyTest()
+    /// <summary>
+    /// Tests the BodyController.IsHead() function
+    /// </summary>
+    /// <returns></returns>
+    private string BodyControllerIsHeadTest()
     {
         HeadController headController = PlayerSetup();
         ShopManager shopManager = ShopManagerSetup(headController);
 
-        foreach ()
+        // adds a body
+        headController.AddBody(shopManager.bodies.RandomItem());
+
+        // checks that its the head
+        if (!headController.head.IsHead())
+        {
+            return "Failed BodyControllerIsHeadTest, returned false when it should have returned true on 1st body";
+        }
+
+        // adds another body
+        headController.AddBody(shopManager.bodies.RandomItem());
+
+        // checks the first body is still the head
+        if (!headController.head.IsHead())
+        {
+            return "Failed BodyControllerIsHeadTest, returned false when it should have returned true after adding 2nd body";
+        }
+
+        // checks that the second body is not the head
+        if (headController.head.next.IsHead())
+        {
+            return "Failed BodyControllerIsHeadTest, returned true when it should have returned false on 2nd body";
+        }
+
+        return "Passed BodyControllerIsHeadTest";
     }
+
+    /// <summary>
+    /// Tests the BodyController.Position() function
+    /// </summary>
+    /// <returns></returns>
+    private string BodyControllerPositionTest()
+    {
+        HeadController headController = PlayerSetup();
+        ShopManager shopManager = ShopManagerSetup(headController);
+
+        // adds a body
+        headController.AddBody(shopManager.bodies.RandomItem());
+        
+        // checks its position index is 0
+        if (headController.head.Position() != 0)
+        {
+            return $"Failed BodyControllerPositionTest, returned {headController.head.Position()} when it should have returned 0 on 1st body";
+        } 
+
+        // adds another body
+        headController.AddBody(shopManager.bodies.RandomItem());
+
+        // checks the first body's position is still 0
+        if (headController.head.Position() != 0)
+        {
+            return $"Failed BodyControllerPositionTest, returned {headController.head.Position()} when it should have returned 0 on 1st body with 2 bodies";
+        }
+
+        // checks the new body's position is 1
+        if (headController.head.next.Position() != 1)
+        {
+              return $"Failed BodyControllerPositionTest, returned {headController.head.next.Position()} when it should have returned 1 on 2nd body with 2 bodies";
+        }
+
+        return "Passed BodyControllerPositionTest";
+    }
+
+    /// <summary>
+    /// Tests the BodyController.DestroySelf() function
+    /// </summary>
+    /// <returns></returns>
+    private string BodyControllerDestroySelfTest()
+    {
+        HeadController headController = PlayerSetup();
+        ShopManager shopManager = ShopManagerSetup(headController);
+
+        // adds a body
+        headController.AddBody(shopManager.bodies.RandomItem());
+
+        // destroys that body
+        headController.head.DestroySelf();
+
+        if (headController.Length() != 0)
+        {
+            return "Failed BodyControllerDestroySelfTest, did not remove body from snake with 1 body";
+        }
+
+        // adds 3 new bodies
+        headController.AddBody(shopManager.bodies.RandomItem());
+        headController.AddBody(shopManager.bodies.RandomItem());
+        headController.AddBody(shopManager.bodies.RandomItem());
+
+        // destroys the second body
+        BodyController thirdBody = headController.head.next.next;
+        headController.head.next.DestroySelf();
+
+        if (thirdBody != headController.head.next)
+        {
+            return "Failed BodyControllerDestroySelfTest, did not remove 2nd body from snake with 3 bodies";
+        }
+
+        // destroy the tail
+        headController.head.next.DestroySelf();
+
+        if (headController.Length() != 1)
+        {
+              return "Failed BodyControllerDestroySelfTest, did not remove 2nd body from snake with 2 bodies";
+        }
+
+        return "Passed BodyControllerDestroySelfTest";
+    }
+
+    /*
+    private string BodyControllerLevelUpTest()
+    {
+        HeadController headController = PlayerSetup();
+        ShopManager shopManager = ShopManagerSetup(headController);
+    }
+    */
+
+    // other tests:
+    // TriggerManager
+    // EnemySummonerController
+    // EnemyController
+    // Buff
 }
