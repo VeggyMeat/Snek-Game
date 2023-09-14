@@ -317,7 +317,6 @@ public class BodyController : MonoBehaviour
         }
 
         // sets up the healthBar
-        Debug.Log(snake.healthBarPrefab);
         healthBarController = Instantiate(snake.healthBarPrefab, transform).GetComponent<HealthBarController>();
         healthBarController.Setup(snake.bodyHealthBarScaleX, snake.bodyHealthBarScaleY);
         healthBarController.SetBar(PercentageHealth);
