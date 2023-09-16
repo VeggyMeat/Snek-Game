@@ -1,0 +1,14 @@
+[
+  {
+    "timeDelay": 0.25,
+    "projectileCount": 6,
+    "spreadAngle": 0.75,
+    "range": 5,
+    "autoFire": true,
+
+    "projectilePath": "GameObjects/CircleProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/ShotgunnerProjectile.json",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/ShotgunnerBody.json"
+  }
+]

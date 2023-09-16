@@ -30,7 +30,7 @@ public class EnemySummonerController : MonoBehaviour
 
     internal string jsonPath = "Assets/Resources/Jsons/Enemies/EnemyWaves.json";
 
-    private Transform cameraTransform;
+    [SerializeField] private Transform cameraTransform;
 
     /// <summary>
     /// The number of enemies that have died
@@ -59,9 +59,6 @@ public class EnemySummonerController : MonoBehaviour
         reader.Close();
 
         enemyData = JsonConvert.DeserializeObject<List<Dictionary<string, int>>>(text);
-
-        // gets the camera object
-        cameraTransform = GameObject.Find("Main Camera").transform;
 
         // triggers the SpawnEnemies function every spawnDelay seconds
         InvokeRepeating(nameof(RoundSpawn), firstDelay, spawnDelay);

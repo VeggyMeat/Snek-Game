@@ -243,6 +243,9 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<VampireMage>());
                 bodyContr.classes.Add(body.AddComponent<VampireFrontline>());
                 break;
+            case "Shotgunner":
+                bodyContr.classes.Add(body.AddComponent<Shotgunner>());
+                break;
         }
 
         // removes that body from the list of available bodies

@@ -100,8 +100,6 @@ public class FairyWithAGunEnchanter : Enchanter
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
-        base.InternalJsonSetup(jsonData);
-
         if (jsonData.ContainsKey("gunJson"))
         {
             // load the gunJson location in
@@ -110,5 +108,7 @@ public class FairyWithAGunEnchanter : Enchanter
             // load the data from the json in
             LoadGunData();
         }
+
+        base.InternalJsonSetup(jsonData);
     }
 }
