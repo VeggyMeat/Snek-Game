@@ -37,7 +37,7 @@ public class MagicArcherArcher : Archer
         }
 
         // creates and sets up a new projectile
-        Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
+        Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)

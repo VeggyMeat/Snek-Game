@@ -1,5 +1,15 @@
 [
   {
+    "r": 0.2,
+    "g": 0.3,
+    "b": 0.9,
 
+    "defence": 0,
+    "maxHealth": 75,
+    "contactDamage": 5,
+    "contactForce": 1500,
+    "velocityContribution": 8,
+
+    "name": "MagicArcher"
   }
 ]

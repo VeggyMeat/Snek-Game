@@ -1,5 +1,11 @@
 [
   {
+    "timeDelay": 1,
+    "autoFire": true,
 
+    "projectilePath": "GameObjects/CapsuleProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/MagicArcherArcherProjectile.json",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/MagicArcherBody.json"
   }
 ]

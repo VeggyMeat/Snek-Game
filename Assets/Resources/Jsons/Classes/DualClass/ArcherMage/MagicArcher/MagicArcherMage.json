@@ -1,5 +1,9 @@
 [
   {
+    "orbs": 4,
+    "regularAttack": false,
 
+    "orbPath": "GameObjects/CircleProjectile",
+    "orbJson": "Assets/Resources/Jsons/Projectiles/MagicArcherMageProjectile.json"
   }
 ]
