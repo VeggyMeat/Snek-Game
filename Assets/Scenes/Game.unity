@@ -320,11 +320,15 @@ PrefabInstance:
       objectReference: {fileID: 1594572202}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.size
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.data[23]
       value: Shotgunner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: bodies.Array.data[24]
+      value: Ninja
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290823, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: m_RootOrder

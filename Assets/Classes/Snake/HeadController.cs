@@ -246,6 +246,9 @@ public class HeadController: MonoBehaviour
             case "Shotgunner":
                 bodyContr.classes.Add(body.AddComponent<Shotgunner>());
                 break;
+            case "Ninja":
+                bodyContr.classes.Add(body.AddComponent<Ninja>());
+                break;
         }
 
         // removes that body from the list of available bodies

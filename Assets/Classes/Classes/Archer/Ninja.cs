@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ninja : Archer
 {
     private float enemySpeedMultiplier;
+    private float enemySpeedDuration;
 
     private string projectilePath;
     private string projectileJson;
@@ -34,7 +35,10 @@ public class Ninja : Archer
     internal override void LaunchProjectile()
     {
         // creates and sets up a new projectile
-        Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
+        SlowingProjectileController projectileShot = (SlowingProjectileController)Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
+
+        projectileShot.enemySlowMultiplier = enemySpeedMultiplier;
+        projectileShot.enemySlowDuration = enemySpeedDuration;
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -42,6 +46,7 @@ public class Ninja : Archer
         base.InternalJsonSetup(jsonData);
 
         jsonData.Setup(ref enemySpeedMultiplier, "enemySpeedMultiplier");
+        jsonData.Setup(ref enemySpeedDuration, "enemySpeedDuration");
         jsonData.Setup(ref projectilePath, "projectilePath");
         jsonData.Setup(ref projectileJson, "projectileJson");
     }

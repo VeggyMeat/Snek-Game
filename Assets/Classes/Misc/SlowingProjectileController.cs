@@ -5,8 +5,18 @@ using UnityEngine;
 public class SlowingProjectileController : ProjectileController
 {
     // public so that they can be set manually, maybe update this
-    public int enemySlowMultiplier;
-    public int enemySlowDuration;
+    public float enemySlowMultiplier;
+    public float enemySlowDuration;
+    public float spin;
+
+    private void Setup()
+    {
+        // grabs the velocity
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        // sets the angular velocity
+        rb.angularVelocity = new Vector3 (0, 0, spin);
+    }
 
     // triggers when the projectile collides with something
     internal override void OnTriggerEnter2D(Collider2D collision)

@@ -2,6 +2,7 @@
   {
     "timeDelay": 0.25,
     "enemySpeedMultiplier": 0.5,
+    "enemySpeedDuration": 2.5,
     "autoFire": true,
 
     "projectilePath": "GameObjects/ShurikenProjectile",
