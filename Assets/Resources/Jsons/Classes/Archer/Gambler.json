@@ -7,7 +7,7 @@
     "maxDamage": 100,
     "autoFire": true,
 
-    "projectilePath": "GameObjects/CircleProjectile",
+    "projectilePath": "GameObjects/GamblerProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/GamblerBody.json"

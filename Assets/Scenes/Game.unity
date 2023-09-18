@@ -171,6 +171,11 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 7606299714746054576, guid: 53f564bb6be29af468792f86642ca26e, type: 3}
   m_PrefabInstance: {fileID: 7606299714538901433}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1406212757 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3878227089450483933, guid: 530c6f8299881e34e82d331587efb148, type: 3}
+  m_PrefabInstance: {fileID: 3878227089132615773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1594572202 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6857713516973592526, guid: fbb4442411251384db307abfc6a66e3e, type: 3}
@@ -254,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1043120970778701597, guid: baa048c842da19740923be4a974f1210, type: 3}
       propertyPath: runTests
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1043120970778701597, guid: baa048c842da19740923be4a974f1210, type: 3}
       propertyPath: uIPrefab
@@ -313,6 +318,14 @@ PrefabInstance:
       propertyPath: selectionManager
       value: 
       objectReference: {fileID: 1594572202}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: bodies.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: bodies.Array.data[23]
+      value: Shotgunner
+      objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290823, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -880,6 +893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySummoner
       objectReference: {fileID: 0}
+    - target: {fileID: 7715808371998813676, guid: de4bfebec93fc9e49aa4c50178f402a7, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1406212757}
     - target: {fileID: 7715808371998813677, guid: de4bfebec93fc9e49aa4c50178f402a7, type: 3}
       propertyPath: m_RootOrder
       value: 2

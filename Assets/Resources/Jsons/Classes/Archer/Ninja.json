@@ -1,0 +1,12 @@
+[
+  {
+    "timeDelay": 0.25,
+    "enemySpeedMultiplier": 0.5,
+    "autoFire": true,
+
+    "projectilePath": "GameObjects/ShurikenProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/NinjaProjectile.json",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/NinjaBody.json"
+  }
+]

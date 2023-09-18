@@ -1,19 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BouncingProjectileController : ProjectileController
+public class SlowingProjectileController : ProjectileController
 {
-    private int bounces;
-
-    // public so that it can be set manually, maybe update this
-    public int maxBounces;
-
-    private void Awake()
-    {
-        bounces = maxBounces;
-    }
+    // public so that they can be set manually, maybe update this
+    public int enemySlowMultiplier;
+    public int enemySlowDuration;
 
     // triggers when the projectile collides with something
     internal override void OnTriggerEnter2D(Collider2D collision)
@@ -31,20 +24,11 @@ public class BouncingProjectileController : ProjectileController
                 {
                     // enemy has been killed
                     owner.EnemyKilled(collision.gameObject);
-
-                    bounces--;
-
-                    // if its not out of bounces, bounce it
-                    if (bounces >= 0)
-                    {
-                        // grabs a random angle and sets it as the new angle
-                        float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
-                        transform.rotation = Quaternion.Euler(0, 0, angle);
-
-                        // sets the new movement vector
-                        SetMovement();
-                        return;
-                    }
+                }
+                else
+                {
+                    // if it survives applies the slow debuff
+                    body.speedBuff.AddBuff(enemySlowMultiplier, true, enemySlowDuration);
                 }
                 // kill the projectile
                 Die();
