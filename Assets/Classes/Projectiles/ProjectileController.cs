@@ -23,11 +23,14 @@ public class ProjectileController : MonoBehaviour
 
     private Dictionary<string, object> variables;
 
-    internal virtual void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier)
+    internal virtual void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
     {
         // loads in all the variables from the json
         this.variables = variables;
         LoadVariables();
+
+        Debug.Log(scaleX);
+        Debug.Log(scaleY);
 
         // sets the scale
         transform.localScale = new Vector3(scaleX, scaleY, 1);
@@ -41,7 +44,8 @@ public class ProjectileController : MonoBehaviour
         // gets the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
 
-        SetMovement(true);
+        // sets the movement of the projectile
+        SetMovement(addOwnerVelocity);
 
         // kills the projectile in lifeSpan seconds
         Invoke(nameof(Die), lifeSpan);

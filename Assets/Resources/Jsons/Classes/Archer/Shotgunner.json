@@ -1,9 +1,9 @@
 [
   {
-    "timeDelay": 0.25,
-    "projectileCount": 6,
-    "spreadAngle": 0.75,
-    "range": 5,
+    "timeDelay": 1,
+    "projectileCount": 12,
+    "spreadAngle": 0.3,
+    "range": 10,
     "autoFire": true,
 
     "projectilePath": "GameObjects/CircleProjectile",

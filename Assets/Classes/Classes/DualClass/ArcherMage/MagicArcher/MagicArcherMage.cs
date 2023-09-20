@@ -60,7 +60,7 @@ public class MagicArcherMage : Mage
         for (double i = 0; i < Mathf.PI * 2; i += Mathf.PI * 2 / orbs)
         {
             // launches a projectile
-            Projectile.Shoot(orbTemplate, enemy.transform.position, angle + (float)i, orbVariables.Variables, this, body.DamageMultiplier);
+            Projectile.Shoot(orbTemplate, enemy.transform.position, angle + (float)i, orbVariables.Variables, this, body.DamageMultiplier, false);
         }
     }
 }

@@ -6,6 +6,6 @@
     "projectilePath": "GameObjects/CapsuleProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/MagicArcherArcherProjectile.json",
 
-    "bodyJson": "Assets/Resources/Jsons/Classes/Archer/MagicArcherBody.json"
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherMage/MagicArcher/MagicArcherBody.json"
   }
 ]
