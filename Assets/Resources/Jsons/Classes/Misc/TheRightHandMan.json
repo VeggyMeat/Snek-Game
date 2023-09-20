@@ -1,0 +1,9 @@
+[
+  {
+    "headDamageMultiplier": 1.5,
+    "headSpeedMultiplier": 1.5,
+    "headAttackSpeedMultiplier": 1.2,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/TheRightHandManBody.json"
+  }
+]

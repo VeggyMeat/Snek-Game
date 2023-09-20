@@ -25,22 +25,22 @@ public class Buff: MonoBehaviour
     /// </summary>
     /// <param name="update">The action that is called when this buff is changed</param>
     /// <param name="originalValue">The original value given to the buff to hold and return as .Value</param>
-    public void Setup (Action<float, bool>? update, float originalValue)
+    public void Setup(Action<float, bool>? update, float originalValue)
     {
         this.update = update;
         this.originalValue = originalValue;
-        updateValue(originalValue);
+        UpdateValue(originalValue);
     }
 
-    private void updateValue(float value)
+    private void UpdateValue(float value)
     {
         this.value = (value + adder) * multiplier;
     }
 
-    public void updateOriginalValue(float originalValue)
+    public void UpdateOriginalValue(float originalValue)
     {
         this.originalValue = originalValue;
-        updateValue(originalValue);
+        UpdateValue(originalValue);
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class Buff: MonoBehaviour
         }
 
         // updates the value and tells the owner it was updated
-        updateValue(originalValue);
+        UpdateValue(originalValue);
 
         if (update is not null)
         {
@@ -105,7 +105,7 @@ public class Buff: MonoBehaviour
             }
 
             // updates the value and tells the owner it was updated
-            updateValue(originalValue);
+            UpdateValue(originalValue);
 
             if (update is not null)
             {

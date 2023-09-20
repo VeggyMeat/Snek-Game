@@ -71,6 +71,10 @@ MonoBehaviour:
   - DiscusMan
   - RamHead
   - Vampire
+  - Shotgunner
+  - Ninja
+  - MagicArcher
+  - TheRightHandMan
   smallItems:
   - LuckyFlask
   powerfulItems:

@@ -53,7 +53,7 @@ public class BodyController : MonoBehaviour
         set
         {
             defence = value;
-            defenceBuff.updateOriginalValue(value);
+            defenceBuff.UpdateOriginalValue(value);
         }
     }
 
@@ -69,7 +69,7 @@ public class BodyController : MonoBehaviour
         set
         {
             maxHealth = value;
-            healthBuff.updateOriginalValue(value);
+            healthBuff.UpdateOriginalValue(value);
             HealthChangeCheck();
         }
     }
@@ -87,7 +87,7 @@ public class BodyController : MonoBehaviour
         {
             float oldValue = VelocityContribution;
             velocityContribution = value;
-            speedBuff.updateOriginalValue(value);
+            speedBuff.UpdateOriginalValue(value);
             UpdateVelocityContribution(oldValue);
         }
     }
