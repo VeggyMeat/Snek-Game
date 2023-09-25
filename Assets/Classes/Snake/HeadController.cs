@@ -256,6 +256,9 @@ public class HeadController: MonoBehaviour
             case "TheRightHandMan":
                 bodyContr.classes.Add(body.AddComponent<TheRightHandMan>());
                 break;
+            case "Furnace":
+                bodyContr.classes.Add(body.AddComponent<Furnace>());
+                break;
         }
 
         // removes that body from the list of available bodies

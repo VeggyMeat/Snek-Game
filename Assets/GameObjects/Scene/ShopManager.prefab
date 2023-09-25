@@ -75,6 +75,7 @@ MonoBehaviour:
   - Ninja
   - MagicArcher
   - TheRightHandMan
+  - Furnace
   smallItems:
   - LuckyFlask
   powerfulItems:

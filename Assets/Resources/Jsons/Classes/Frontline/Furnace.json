@@ -1,0 +1,12 @@
+[
+  {
+    "attackDelay": 1,
+    "scanAttack": false,
+    "damage": 25,
+    "burnDelay": 1,
+    "regularAttack": true,
+    "burnRange": 5,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/FurnaceBody.json"
+  }
+]

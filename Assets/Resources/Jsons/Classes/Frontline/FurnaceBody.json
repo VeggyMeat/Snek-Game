@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.1,
+    "g": 0.1,
+    "b": 0.1,
+
+    "defence": 5,
+    "maxHealth": 150,
+    "contactDamage": 5,
+    "contactForce": 1500,
+    "velocityContribution": 3,
+
+    "name": "Furnace"
+  }
+]

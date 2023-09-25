@@ -10,6 +10,8 @@ public class Frontline : Class
     protected float attackDelay;
     protected float scanRadius;
 
+    protected bool scanAttack = true;
+
     protected int damage;
 
     // currently unused
@@ -34,6 +36,12 @@ public class Frontline : Class
     // when called, finds an enemy within range of hte body
     internal void ScanRange()
     {
+        // if its not a scan attack, just call the attack function
+        if (!scanAttack)
+        {
+            Attack(transform.position);
+        }
+
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, scanRadius);
 
@@ -121,6 +129,7 @@ public class Frontline : Class
         jsonData.Setup(ref scanRadius, "scanRadius");
         jsonData.Setup(ref damage, "damage");
         jsonData.Setup(ref force, "force");
+        jsonData.Setup(ref scanAttack, "scanAttack");
 
         if (jsonData.ContainsKey("attackDelay"))
         {
