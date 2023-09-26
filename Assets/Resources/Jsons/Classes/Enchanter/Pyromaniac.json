@@ -1,5 +1,10 @@
 [
   {
+    "burnDelay": 0.5,
+    "burnStacks": 2,
+    "burnDamage": 5,
+    "buffsAllBodies": false,
 
+    "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/PyromaniacBody.json"
   }
 ]

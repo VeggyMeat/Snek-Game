@@ -249,7 +249,7 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     /// <param name="quantity">The value to change the health by</param>
     /// <returns>Whether the enemy survived or not (true / false)</returns>
-    internal bool ChangeHealth(int quantity)
+    internal bool ChangeHealth(int quantity, bool ignoreTrigger = false)
     {
         // if this is dealing damage
         if (quantity < 0)
@@ -266,7 +266,18 @@ public class EnemyController : MonoBehaviour
         health += quantity;
 
         // return the response from the health check
-        return HealthChangeCheck();
+        bool alive = HealthChangeCheck();
+
+        if (!ignoreTrigger)
+        {
+            if (alive && quantity < 0)
+            {
+                // call the enemy lost health trigger
+                TriggerManager.EnemyLostHealthTrigger.CallTrigger(this);
+            }
+        }
+
+        return alive;
     }
 
     /// <summary>

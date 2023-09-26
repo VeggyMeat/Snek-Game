@@ -259,6 +259,9 @@ public class HeadController: MonoBehaviour
             case "Furnace":
                 bodyContr.classes.Add(body.AddComponent<Furnace>());
                 break;
+            case "Pyromaniac":
+                bodyContr.classes.Add(body.AddComponent<Pyromaniac>());
+                break;
         }
 
         // removes that body from the list of available bodies

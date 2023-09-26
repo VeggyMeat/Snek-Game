@@ -19,4 +19,6 @@ public static class TriggerManager
     public static BodyTrigger<GameObject> EnemySpawnTrigger = new BodyTrigger<GameObject>();
 
     public static BodyTrigger<GameObject> EnemyDeadTrigger = new BodyTrigger<GameObject>();
+
+    public static BodyTrigger<EnemyController> EnemyLostHealthTrigger = new BodyTrigger<EnemyController>();
 }

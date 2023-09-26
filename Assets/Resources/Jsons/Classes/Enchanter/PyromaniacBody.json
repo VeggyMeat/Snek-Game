@@ -1,5 +1,15 @@
 [
   {
+    "r": 0.5,
+    "g": 0.2,
+    "b": 0.15,
 
+    "defence": 0,
+    "maxHealth": 75,
+    "contactDamage": 10,
+    "contactForce": 2000,
+    "velocityContribution": 6,
+
+    "name": "Pyromaniac"
   }
 ]

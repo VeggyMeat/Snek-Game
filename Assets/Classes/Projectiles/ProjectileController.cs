@@ -29,9 +29,6 @@ public class ProjectileController : MonoBehaviour
         this.variables = variables;
         LoadVariables();
 
-        Debug.Log(scaleX);
-        Debug.Log(scaleY);
-
         // sets the scale
         transform.localScale = new Vector3(scaleX, scaleY, 1);
 
@@ -68,6 +65,12 @@ public class ProjectileController : MonoBehaviour
         {
             // get the enemy controller
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
+
+            // if the enemy is dead, ignore it
+            if (body.Dead)
+            {
+                return;
+            }
 
             // apply damage to the enemy
             if (!body.ChangeHealth(-damage))
