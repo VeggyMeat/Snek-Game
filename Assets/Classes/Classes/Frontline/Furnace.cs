@@ -6,8 +6,8 @@ public class Furnace : Frontline
 
     private float burnRange;
 
-    private List<EnemyController> burnEnemies = new List<EnemyController>();
-    private List<EnemyController> deadEnemies = new List<EnemyController>();
+    private readonly List<EnemyController> burnEnemies = new List<EnemyController>();
+    private readonly List<EnemyController> deadEnemies = new List<EnemyController>();
 
     internal override void ClassSetup()
     {
