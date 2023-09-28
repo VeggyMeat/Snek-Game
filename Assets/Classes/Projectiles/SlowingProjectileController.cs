@@ -19,7 +19,7 @@ public class SlowingProjectileController : ProjectileController
     }
 
     // triggers when the projectile collides with something
-    internal override void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")

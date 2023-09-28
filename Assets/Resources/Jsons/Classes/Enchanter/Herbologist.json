@@ -1,0 +1,13 @@
+[
+  {
+    "buffsAllBodies": false,
+    "healingOrbHealAmount": 25,
+    "healingOrbDelay": 5,
+    "healingOrbPath": "GameObjects/HealingOrb",
+    "healingOrbRadius": 10,
+    "healingOrbDespawnRange": 25,
+    "healingOrbLifeSpan": 120,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/HerbologistBody.json"
+  }
+]

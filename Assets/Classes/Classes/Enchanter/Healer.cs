@@ -30,7 +30,10 @@ public class Healer : Enchanter
         {
             if (currentBody.health < currentBody.MaxHealth)
             {
-                healable.Add(currentBody);
+                if (!currentBody.IsDead)
+                {
+                    healable.Add(currentBody);
+                }
             }
 
             currentBody = currentBody.next;

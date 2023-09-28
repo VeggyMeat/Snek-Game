@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 8673155070215483208}
   m_Layer: 0
   m_Name: ShurikenProjectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,3 +358,4 @@ MonoBehaviour:
   scaleY: 0
   enemySlowMultiplier: 0
   enemySlowDuration: 0
+  spin: 0
