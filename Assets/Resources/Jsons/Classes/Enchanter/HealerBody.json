@@ -6,7 +6,7 @@
 
     "defence": 0,
     "maxHealth": 70,
-    "contactDamage": 5,
+    "contactDamage": 2,
     "contactForce": 1750,
     "velocityContribution": 6,
 

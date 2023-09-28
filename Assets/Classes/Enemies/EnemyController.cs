@@ -295,7 +295,7 @@ public class EnemyController : MonoBehaviour
         TriggerManager.EnemyDeadTrigger.CallTrigger(gameObject);
 
         // deletes this object
-        Destroy(gameObject);
+        Destroy(gameObject, 0.05f);
     }
 
     /// <summary>
@@ -310,7 +310,7 @@ public class EnemyController : MonoBehaviour
         summoner.EnemyDespawned(this);
 
         // deletes this object
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

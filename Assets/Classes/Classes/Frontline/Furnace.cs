@@ -7,7 +7,6 @@ public class Furnace : Frontline
     private float burnRange;
 
     private readonly List<EnemyController> burnEnemies = new List<EnemyController>();
-    private readonly List<EnemyController> deadEnemies = new List<EnemyController>();
 
     internal override void ClassSetup()
     {
@@ -68,24 +67,17 @@ public class Furnace : Frontline
                 EnemyKilled(enemyController.gameObject);
 
                 // remove the enemy from the list
-                deadEnemies.Add(enemyController);
+                burnEnemies.Remove(enemyController);
             }
         }
     }
 
     private void BurnEnemies()
     {
-        // clears the previous dead enemies
-        deadEnemies.Clear();
-
-        foreach (EnemyController enemyController in burnEnemies)
+        for (int i = burnEnemies.Count - 1; i >= 0; i--)
         {
+            EnemyController enemyController = burnEnemies[i];
             BurnEnemy(enemyController);
-        }
-
-        foreach (EnemyController enemyController in deadEnemies)
-        {
-            burnEnemies.Remove(enemyController);
         }
     }
 

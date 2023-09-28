@@ -542,6 +542,7 @@ public class BodyController : MonoBehaviour
         // updates the total mass of the snake
         snake.velocity += VelocityContribution;
         health = MaxHealth;
+        healthBarController.SetBar(PercentageHealth);
 
         // changes the tag back so that enemies can deal damage
         gameObject.tag = "Player";

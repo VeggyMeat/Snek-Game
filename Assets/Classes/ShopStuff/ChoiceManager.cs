@@ -35,52 +35,59 @@ public class ChoiceManager : CanvasManager
 
     public override void ButtonClicked(int button)
     {
-        if (options[button] == "None")
+        if (button != -1)
         {
-            return;
+            if (options[button] == "None")
+            {
+                return;
+            }
         }
 
         // hides the canvas and clears the state
         HideButtons();
 
-        switch (state)
+        // -1 is the skip button and so ignores the adding stuff
+        if (button != -1)
         {
-            case ChoiceState.NewBody:
-                headController.AddBody(options[button]);
-                break;
+            switch (state)
+            {
+                case ChoiceState.NewBody:
+                    headController.AddBody(options[button]);
+                    break;
 
-            case ChoiceState.BodyUpgrade:
-                // levels up a body
+                case ChoiceState.BodyUpgrade:
+                    // levels up a body
 
-                // gets the body
-                BodyController body = headController.head;
-                while (body.Name != options[button])
-                {
-                    body = body.next;
-                }
+                    // gets the body
+                    BodyController body = headController.head;
+                    while (body.Name != options[button])
+                    {
+                        body = body.next;
+                    }
 
-                // levels up the body
-                body.LevelUp();
+                    // levels up the body
+                    body.LevelUp();
 
-                // if the body is no longer levelable, remove it from the list
-                if (!body.levelable)
-                {
-                    shopManager.levelableBodies.Remove(body.Name);
-                }
-                break;
+                    // if the body is no longer levelable, remove it from the list
+                    if (!body.levelable)
+                    {
+                        shopManager.levelableBodies.Remove(body.Name);
+                    }
+                    break;
 
-            case ChoiceState.Small_Item:
-                // adds an item
-                ItemManager.AddItem(options[button]);
-                break;
+                case ChoiceState.Small_Item:
+                    // adds an item
+                    ItemManager.AddItem(options[button]);
+                    break;
 
-            case ChoiceState.Powerful_Item:
-                // adds a powerful item
-                ItemManager.AddItem(options[button]);
-                break;
+                case ChoiceState.Powerful_Item:
+                    // adds a powerful item
+                    ItemManager.AddItem(options[button]);
+                    break;
 
-            case ChoiceState.None: 
-                throw new Exception();
+                case ChoiceState.None:
+                    throw new Exception();
+            }
         }
 
         state = ChoiceState.None;

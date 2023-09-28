@@ -58,7 +58,7 @@ public class ProjectileController : MonoBehaviour
     }
 
     // triggers when the projectile collides with something
-    internal virtual void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")

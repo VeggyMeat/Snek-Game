@@ -262,6 +262,9 @@ public class HeadController: MonoBehaviour
             case "Pyromaniac":
                 bodyContr.classes.Add(body.AddComponent<Pyromaniac>());
                 break;
+            case "Herbologist":
+                bodyContr.classes.Add(body.AddComponent<Herbologist>());
+                break;
         }
 
         // removes that body from the list of available bodies
