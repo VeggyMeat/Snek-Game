@@ -1,0 +1,9 @@
+[
+  {
+    "buffsAllBodies": false,
+    "maxHealthIncrease": 1,
+    "reviveHealthPercentage": 0.2,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/MageEnchanter/DeathWard/DeathWardBody.json"
+  }
+]

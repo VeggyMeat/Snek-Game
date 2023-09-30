@@ -78,6 +78,7 @@ MonoBehaviour:
   - Furnace
   - Pyromaniac
   - Herbologist
+  - DeathWard
   smallItems:
   - LuckyFlask
   powerfulItems:

@@ -534,7 +534,7 @@ public class BodyController : MonoBehaviour
     /// <summary>
     /// Called when the body is revived
     /// </summary>
-    private void Revived()
+    public void Revived()
     {
         // sets the body to be alive again
         isDead = false;
@@ -669,6 +669,8 @@ public class BodyController : MonoBehaviour
         {
             health += (int)amount;
         }
+
+        healthBarController.SetBar(PercentageHealth);
 
         // call a health change check to see if body has died
         HealthChangeCheck();

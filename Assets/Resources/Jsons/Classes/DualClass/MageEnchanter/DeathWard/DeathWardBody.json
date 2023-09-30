@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.4,
+    "g": 0.15,
+    "b": 0.2,
+
+    "defence": 0,
+    "maxHealth": 150,
+    "contactDamage": 10,
+    "contactForce": 2250,
+    "velocityContribution": 6,
+
+    "name": "DeathWard"
+  }
+]

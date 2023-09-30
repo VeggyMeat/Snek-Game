@@ -132,7 +132,7 @@ public class Pyromaniac : Enchanter
 
     internal override void OnDeath()
     {
-        TriggerManager.EnemyLostHealthTrigger.AddTrigger(ApplyBurn);
+        TriggerManager.EnemyLostHealthTrigger.RemoveTrigger(ApplyBurn);
 
         base.OnDeath();
     }

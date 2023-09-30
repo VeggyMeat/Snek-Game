@@ -265,6 +265,10 @@ public class HeadController: MonoBehaviour
             case "Herbologist":
                 bodyContr.classes.Add(body.AddComponent<Herbologist>());
                 break;
+            case "DeathWard":
+                bodyContr.classes.Add(body.AddComponent<DeathWardEnchanter>());
+                bodyContr.classes.Add(body.AddComponent<DeathWardMage>());
+                break;
         }
 
         // removes that body from the list of available bodies
