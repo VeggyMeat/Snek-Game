@@ -3,8 +3,7 @@
     "timeDelay": 0.25,
     "minRadius": 0.1,
     "maxRadius": 0.5,
-    "minDamage": 25,
-    "maxDamage": 100,
+    "maxDamageMultiplier": 4,
     "autoFire": true,
 
     "projectilePath": "GameObjects/GamblerProjectile",

@@ -63,8 +63,8 @@ public class SorcererProdigy : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref damage, "damage");
-        jsonData.Setup(ref beamThickness, "beamThickness");
-        jsonData.Setup(ref beamLength, "beamLength");
+        jsonData.Setup(ref damage, nameof(damage));
+        jsonData.Setup(ref beamThickness, nameof(beamThickness));
+        jsonData.Setup(ref beamLength, nameof(beamLength));
     }
 }

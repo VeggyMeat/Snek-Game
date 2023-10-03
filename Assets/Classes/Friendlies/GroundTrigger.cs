@@ -24,8 +24,6 @@ public class GroundTrigger : MonoBehaviour
             // if the object is out of range
             if (Vector2.Distance(transform.position, parent.DespawnPosition) > despawnRange)
             {
-                Debug.Log("Despawn");
-
                 // tells the parent that the object is despawning
                 parent.OnDespawn();
 

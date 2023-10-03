@@ -26,8 +26,6 @@ public class DeathWardEnchanter : Enchanter
 
     private GameObject OnEnemyDeath(GameObject enemy)
     {
-        Debug.Log("enemy died");
-
         body.healthBuff.AddBuff(maxHealthIncrease, false, 0);
 
         return enemy;
@@ -40,8 +38,6 @@ public class DeathWardEnchanter : Enchanter
         {
             return bodyObject;
         }
-
-        Debug.Log("body died");
 
         BodyController bodyController = bodyObject.GetComponent<BodyController>();
 

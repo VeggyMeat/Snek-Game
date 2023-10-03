@@ -3,6 +3,7 @@
     "velocity": 5,
     "lifeSpan": 3.5,
     "maxBounces": 3,
+    "damage": 25,
 
     "r": 0.667,
     "g": 0.659,

@@ -7,6 +7,8 @@ public class Healer : Enchanter
 
     private int healthIncrease;
 
+    private bool healing = false;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Healer.json";
@@ -17,8 +19,6 @@ public class Healer : Enchanter
     internal override void Setup()
     {
         base.Setup();
-
-        StartHealing();
     }
 
     private void HealRandomAlly()
@@ -52,38 +52,47 @@ public class Healer : Enchanter
 
     private void StartHealing()
     {
+        if (healing)
+        {
+            return;
+        }
+
         InvokeRepeating(nameof(HealRandomAlly), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
+
+        healing = true;
     }
 
     private void StopHealing()
     {
+        if (!healing)
+        {
+            return;
+        }
+
         CancelInvoke(nameof(HealRandomAlly));
+
+        healing = false;
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("timeDelay"))
+        if (jsonData.ContainsKey(nameof(timeDelay)))
         {
-            timeDelay = int.Parse(jsonData["timeDelay"].ToString());
+            timeDelay = int.Parse(jsonData[nameof(timeDelay)].ToString());
 
-            // restarts the healing
-            if (jsonLoaded)
-            {
-                StopHealing();
-                StartHealing();
-            }
+            StopHealing();
+            StartHealing();
         }
 
-        jsonData.Setup(ref healthIncrease, "healthIncrease");
+        jsonData.Setup(ref healthIncrease, nameof(healthIncrease));
     }
 
     internal override void OnDeath()
     {
         base.OnDeath();
 
-        // stops healing
         StopHealing();
     }
 
@@ -91,7 +100,6 @@ public class Healer : Enchanter
     {
         base.Revived();
 
-        // continues healing
         StartHealing();
     }
 
@@ -99,10 +107,7 @@ public class Healer : Enchanter
     {
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
-        // stops healing
         StopHealing();
-
-        // starts healing
         StartHealing();
     }
 }

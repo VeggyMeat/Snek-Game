@@ -9,28 +9,11 @@ public class Shotgunner : Archer
     private float spreadAngle;
     private float range;
 
-    private string projectilePath;
-    private string projectileJson;
-
-    private JsonVariable arrowVariables;
-
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Archer/Shotgunner.json";
 
         base.ClassSetup();
-    }
-
-    internal override void Setup()
-    {
-        // gets the json data and loads it into the arrowVariables
-        arrowVariables = new JsonVariable(projectileJson);
-
-        // grabs the projectile from resources
-        projectile = Resources.Load<GameObject>(projectilePath);
-
-        // calls the archer's setup
-        base.Setup();
     }
 
     internal override void LaunchProjectile()
@@ -60,7 +43,7 @@ public class Shotgunner : Archer
             float addedAngle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
 
             // shoots the projectile
-            Projectile.Shoot(projectile, transform.position, angle + addedAngle, arrowVariables.Variables, this, body.DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, angle + addedAngle, projectileVariables.Variables, this, body.DamageMultiplier);
         }
     }
 
@@ -71,17 +54,5 @@ public class Shotgunner : Archer
         jsonData.Setup(ref projectileCount, nameof(projectileCount));
         jsonData.Setup(ref spreadAngle, nameof(spreadAngle));
         jsonData.Setup(ref range, nameof(range));
-        jsonData.Setup(ref projectilePath, "projectilePath");
-        jsonData.Setup(ref projectileJson, "projectileJson");
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            arrowVariables.IncreaseIndex();
-        }
     }
 }

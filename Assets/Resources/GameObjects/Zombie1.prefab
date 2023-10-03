@@ -99,6 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71d2a4f4ee10b5499a3262c0699a1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  maxHealth: 0
+  contactDamage: 0
+  despawnRadius: 0
+  angularVelocity: 0
+  timeAlive: 0
 --- !u!50 &-5753681885060690662
 Rigidbody2D:
   serializedVersion: 4

@@ -98,11 +98,13 @@ public class Herbologist : Enchanter, IGroundTriggerManager
 
     private void StartSummoning()
     {
+        // if already summoning, ignore
         if (summoning)
         {
             return;
         }
 
+        // start summoning and note that it is summoning
         InvokeRepeating(nameof(SummonHealingOrb), healingOrbDelay, healingOrbDelay);
 
         summoning = true;
@@ -110,11 +112,13 @@ public class Herbologist : Enchanter, IGroundTriggerManager
 
     private void StopSummoning()
     {
+        // if not summoning, ignore
         if (!summoning) 
         { 
             return; 
         }
 
+        // stop summoning and note that it is not summoning
         CancelInvoke();
 
         summoning = false;

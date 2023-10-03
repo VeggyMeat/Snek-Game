@@ -7,11 +7,13 @@ public class BouncingProjectileController : ProjectileController
 {
     private int bounces;
 
-    // public so that it can be set manually, maybe update this
-    public int maxBounces;
+    private int maxBounces;
 
-    private void Awake()
+    internal override void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
     {
+        base.Setup(variables, owner, damageMultiplier, addOwnerVelocity);
+
+        // sets bounces equal to max bounces
         bounces = maxBounces;
     }
 
@@ -32,6 +34,7 @@ public class BouncingProjectileController : ProjectileController
                     // enemy has been killed
                     owner.EnemyKilled(collision.gameObject);
 
+                    // reduces the number of bounces left
                     bounces--;
 
                     // if its not out of bounces, bounce it
@@ -46,9 +49,17 @@ public class BouncingProjectileController : ProjectileController
                         return;
                     }
                 }
+
                 // kill the projectile
                 Die();
             }
         }
+    }
+
+    internal override void LoadVariables()
+    {
+        base.LoadVariables();
+
+        variables.Setup(ref maxBounces, nameof(maxBounces));
     }
 }

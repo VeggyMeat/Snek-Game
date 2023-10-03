@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Enchanter : Class
+public abstract class Enchanter : Class
 {
     protected bool buffsAllBodies = false;
 
@@ -15,7 +15,11 @@ public class Enchanter : Class
         base.Setup();
     }
 
-    internal virtual void BuffAllBodies(bool first = false)
+    /// <summary>
+    /// Buffs all currently alive bodies
+    /// </summary>
+    /// <param name="first">whether to buff itself or not</param>
+    protected virtual void BuffAllBodies(bool first = false)
     {
         // gets the head
         BodyController bodyBuffed = body.snake.head;
@@ -42,7 +46,10 @@ public class Enchanter : Class
         }
     }
 
-    internal virtual void UnbuffAllBodies()
+    /// <summary>
+    /// Unbuffs all currently alive bodies
+    /// </summary>
+    protected virtual void UnbuffAllBodies()
     {
         // gets the head
         BodyController bodyBuffed = body.snake.head;
@@ -57,17 +64,29 @@ public class Enchanter : Class
         }
     }
 
+    /// <summary>
+    /// Adds the buff to a GameObject
+    /// </summary>
+    /// <param name="thing">The GameObject</param>
+    /// <exception cref="NotImplementedException"></exception>
     internal virtual void AddBuff(GameObject thing)
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Removes the buff from a GameObject
+    /// </summary>
+    /// <param name="thing">The GameObject</param>
+    /// <exception cref="NotImplementedException"></exception>
     internal virtual void RemoveBuff(GameObject thing)
     {
         throw new NotImplementedException();
     }
 
-    // called when the body dies
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -79,7 +98,9 @@ public class Enchanter : Class
         }
     }
 
-    // calls when the body is revived
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -91,7 +112,11 @@ public class Enchanter : Class
         }
     }
 
-    // called when a new body is added, if the buffAllBodies is true
+    /// <summary>
+    /// Called when a new body is added, if the buffAllBodies is true
+    /// </summary>
+    /// <param name="newBody">The new body</param>
+    /// <returns></returns>
     internal BodyController NewBodyTrigger(BodyController newBody)
     {
         AddBuff(newBody.gameObject);

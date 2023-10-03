@@ -5,8 +5,8 @@
     "maxShield": 1,
     "shieldRegenDelay": 10,
 
-    "boltPath": "GameObjects/CapsuleProjectile",
-    "boltJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
+    "orbPath": "GameObjects/CapsuleProjectile",
+    "orbJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Mage/CeramicAutomatonBody.json"
   }

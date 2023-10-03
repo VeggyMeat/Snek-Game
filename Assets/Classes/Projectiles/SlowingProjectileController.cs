@@ -5,17 +5,16 @@ using UnityEngine;
 public class SlowingProjectileController : ProjectileController
 {
     // public so that they can be set manually, maybe update this
-    public float enemySlowMultiplier;
-    public float enemySlowDuration;
-    public float spin;
+    private float enemySlowMultiplier;
+    private float enemySlowDuration;
+    private float spin;
 
-    private void Setup()
+    internal override void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
     {
-        // grabs the velocity
-        Rigidbody rb = GetComponent<Rigidbody>();
+        base.Setup(variables, owner, damageMultiplier, addOwnerVelocity);
 
         // sets the angular velocity
-        rb.angularVelocity = new Vector3 (0, 0, spin);
+        selfRigid.angularVelocity = spin;
     }
 
     // triggers when the projectile collides with something
@@ -44,5 +43,14 @@ public class SlowingProjectileController : ProjectileController
                 Die();
             }
         }
+    }
+
+    internal override void LoadVariables()
+    {
+        base.LoadVariables();
+
+        variables.Setup(ref enemySlowMultiplier, nameof(enemySlowMultiplier));
+        variables.Setup(ref enemySlowDuration, nameof(enemySlowDuration));
+        variables.Setup(ref spin, nameof(spin));
     }
 }

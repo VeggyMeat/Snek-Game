@@ -109,15 +109,15 @@ public class Furnace : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("burnDelay"))
+        if (jsonData.ContainsKey(nameof(burnDelay)))
         {
-            burnDelay = int.Parse(jsonData["burnDelay"].ToString());
+            burnDelay = int.Parse(jsonData[nameof(burnDelay)].ToString());
 
             // reset the burning enemies loop
             StopBurningEnemies();
             StopBurningEnemies();
         }
 
-        jsonData.Setup(ref burnRange, "burnRange");
+        jsonData.Setup(ref burnRange, nameof(burnRange));
     }
 }

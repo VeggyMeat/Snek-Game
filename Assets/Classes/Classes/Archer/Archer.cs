@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Archer : Class
+public abstract class Archer : Class
 {
     protected float timeDelay;
     internal GameObject projectile;
     protected bool autoFire;
 
+    protected string projectilePath = null;
+    protected string projectileJson;
+
+    protected JsonVariable projectileVariables;
+
+    private bool firingProjectiles = false;
+
     internal override void Setup()
     {
+        // adds the archer class name to the body's classes for identification
         body.classNames.Add("Archer");
 
         base.Setup();
 
-        if (autoFire)
+        if (projectilePath is not null)
         {
-            // starts firing the projectiles
-            StartRepeatingProjectile();
+            // grabs the projectile from resources
+            projectile = Resources.Load<GameObject>(projectilePath);
+
+            // sets up the variables for the projectiles
+            projectileVariables = new JsonVariable(projectileJson);
         }
     }
 
@@ -27,7 +38,16 @@ public class Archer : Class
     /// </summary>
     internal void StartRepeatingProjectile()
     {
+        // if firing projectiles, ignore
+        if (firingProjectiles)
+        {
+            return;
+        }
+
+        // start firing projectiles and note that they are firing
         InvokeRepeating(nameof(LaunchProjectile), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
+
+        firingProjectiles = true;
     }
 
     /// <summary>
@@ -35,10 +55,22 @@ public class Archer : Class
     /// </summary>
     internal void StopRepeatingProjectile()
     {
+        // if not firing projectiles, ignore
+        if (!firingProjectiles)
+        {
+            return;
+        }
+
+        // stop firing projectiles and not they are not firing
         CancelInvoke(nameof(LaunchProjectile));
+
+        firingProjectiles = false;
     }
 
-    // creates a base case incase not implemented
+    /// <summary>
+    /// Called regularly by the archer based on timeDelay
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
     internal virtual void LaunchProjectile()
     {
         throw new System.NotImplementedException();
@@ -83,7 +115,20 @@ public class Archer : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref timeDelay, "timeDelay");
-        jsonData.Setup(ref autoFire, "autoFire");
+        jsonData.Setup(ref projectilePath, nameof(projectilePath));
+        jsonData.Setup(ref projectileJson, nameof(projectileJson));
+        jsonData.Setup(ref timeDelay, nameof(timeDelay));
+        jsonData.Setup(ref autoFire, nameof(autoFire));
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        // updates the arrow variables for the new level
+        if (body.Level != 1)
+        {
+            projectileVariables.IncreaseIndex();
+        }
     }
 }

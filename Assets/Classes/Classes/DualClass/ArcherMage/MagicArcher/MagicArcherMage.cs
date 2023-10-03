@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class MagicArcherMage : Mage
 {
-    private JsonVariable orbVariables;
-
-    private string orbPath;
-    private string orbJson;
-
     private float orbs;
-
-    private GameObject orbTemplate;
 
     internal override void ClassSetup()
     {
@@ -23,31 +16,10 @@ public class MagicArcherMage : Mage
         base.ClassSetup();
     }
 
-    internal override void Setup()
-    {
-        orbTemplate = Resources.Load<GameObject>(orbPath);
-
-        orbVariables = new JsonVariable(orbJson);
-
-        base.Setup();
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            orbVariables.IncreaseIndex();
-        }
-    }
-
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref orbPath, "orbPath");
-        jsonData.Setup(ref orbJson, "orbJson");
         jsonData.Setup(ref orbs, "orbs");
     }
 

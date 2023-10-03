@@ -16,7 +16,6 @@ public class Sniper : Archer
         base.ClassSetup();
     }
 
-    // called regularly by archer
     internal override void LaunchProjectile()
     {
         // gets all the objects within the range
@@ -68,7 +67,7 @@ public class Sniper : Archer
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref scanRadius, "scanRadius");
-        jsonData.Setup(ref damage, "damage");
+        jsonData.Setup(ref scanRadius, nameof(scanRadius));
+        jsonData.Setup(ref damage, nameof(damage));
     }
 }

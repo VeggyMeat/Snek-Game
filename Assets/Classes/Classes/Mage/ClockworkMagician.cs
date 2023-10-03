@@ -16,12 +16,7 @@ public class ClockworkMagician : Mage
 
     private int orbNumber;
 
-    private string orbPath;
-    private string orbJson;
-
-    private GameObject orbTemplate;
-
-    private JsonVariable orbVariables;
+    private bool buffing = false;
 
     internal override void ClassSetup()
     {
@@ -32,13 +27,8 @@ public class ClockworkMagician : Mage
 
     internal override void Setup()
     {
-        // grabs the orb thats shot
-        orbTemplate = Resources.Load<GameObject>(orbPath);
-
         // buffs the magician every buffDelay seconds
         StartBuff();
-
-        orbVariables = new JsonVariable(orbJson);
 
         // calls the base setup
         base.Setup();
@@ -72,23 +62,34 @@ public class ClockworkMagician : Mage
         for (int  i = 0; i < orbNumber; i++)
         {
             // spawns the new projectile
-            ProjectileController projectile = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbVariables.Variables, this, 1f);
-            
-            // updates its damage
-            projectile.damage = (int)(projectile.damage * damageMult * body.DamageMultiplier);
+            Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, Mathf.PI * 2), orbVariables.Variables, this, damageMult * body.DamageMultiplier);
         }
     }
 
     // starts the buff increases every buffDelay seconds
     internal void StartBuff()
     {
+        if (buffing)
+        {
+            return;
+        }
+
         InvokeRepeating(nameof(Buff), buffDelay, buffDelay);
+
+        buffing = true;
     }
 
     // stops the buff increases
     internal void EndBuff()
     {
+        if (!buffing)
+        {
+            return;
+        }
+
         CancelInvoke(nameof(Buff));
+
+        buffing = false;
     }
 
     internal override void OnDeath()
@@ -111,31 +112,9 @@ public class ClockworkMagician : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref orbNumber, "orbNumber");
-        jsonData.Setup(ref orbJson, "orbJson");
-        jsonData.Setup(ref buffDelay, "buffDelay");
-        jsonData.Setup(ref localAttackSpeedBuff, "localAttackSpeedBuff");
-        jsonData.Setup(ref localDamageBuff, "localDamageBuff");
-
-        if (jsonData.ContainsKey("orbPath"))
-        {
-            orbPath = jsonData["orbPath"].ToString();
-
-            if (jsonLoaded)
-            {
-                // grabs the orb thats shot
-                orbTemplate = Resources.Load<GameObject>(orbPath);
-            }
-        }
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            orbVariables.IncreaseIndex();
-        }
+        jsonData.Setup(ref orbNumber, nameof(orbNumber));
+        jsonData.Setup(ref buffDelay, nameof(buffDelay));
+        jsonData.Setup(ref localAttackSpeedBuff, nameof(localAttackSpeedBuff));
+        jsonData.Setup(ref localDamageBuff, nameof(localDamageBuff));
     }
 }

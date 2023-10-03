@@ -72,14 +72,14 @@ public class DiscusMan : Frontline
         base.InternalJsonSetup(jsonData);
 
         // sets up all the variables from the json
-        jsonData.Setup(ref discusJson, "discusJson");
-        jsonData.Setup(ref discusDelay, "discusDelay");
-        jsonData.Setup(ref discusPath, "discusPath");
+        jsonData.Setup(ref discusJson, nameof(discusJson));
+        jsonData.Setup(ref discusDelay, nameof(discusDelay));
+        jsonData.Setup(ref discusPath, nameof(discusPath));
 
-        if (jsonData.ContainsKey("maxDiscuses"))
+        if (jsonData.ContainsKey(nameof(maxDiscuses)))
         {
             // gets the new maxDiscuses value
-            maxDiscuses = int.Parse(jsonData["maxDiscuses"].ToString());
+            maxDiscuses = int.Parse(jsonData[nameof(maxDiscuses)].ToString());
 
             // if the number of max discuses increased then run spawnDiscus
             if (maxDiscuses > discuses.Count)
@@ -93,16 +93,16 @@ public class DiscusMan : Frontline
                 RemoveDiscus();
             }
         }
-        if (jsonData.ContainsKey("orbitSpeed"))
+        if (jsonData.ContainsKey(nameof(orbitSpeed)))
         {
-            orbitSpeed = float.Parse(jsonData["orbitSpeed"].ToString());
+            orbitSpeed = float.Parse(jsonData[nameof(orbitSpeed)].ToString());
 
             // starts rotating the snake body
             gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed;
         }
-        if (jsonData.ContainsKey("orbitRadius"))
+        if (jsonData.ContainsKey(nameof(orbitRadius)))
         {
-            orbitRadius = float.Parse(jsonData["orbitRadius"].ToString());
+            orbitRadius = float.Parse(jsonData[nameof(orbitRadius)].ToString());
 
             // sets the position of all the discuses
             SetDiscusesPositions();

@@ -73,8 +73,8 @@ public class Samurai : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref critChance, "critChance");
-        jsonData.Setup(ref critMultiplier, "critMultiplier");
-        jsonData.Setup(ref attackLength, "attackLength");
+        jsonData.Setup(ref critChance, nameof(critChance));
+        jsonData.Setup(ref critMultiplier, nameof(critMultiplier));
+        jsonData.Setup(ref attackLength, nameof(attackLength));
     }
 }

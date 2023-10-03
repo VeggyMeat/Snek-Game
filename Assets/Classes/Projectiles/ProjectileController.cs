@@ -6,23 +6,30 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    public Class owner;
+    protected Class owner;
 
-    private Rigidbody2D selfRigid;
+    protected Rigidbody2D selfRigid;
 
-    public float velocity;
-    public float lifeSpan;
-    public int damage;
+    protected float velocity;
+    protected float lifeSpan;
+    protected int damage;
 
-    public float r;
-    public float g;
-    public float b;
+    protected float r;
+    protected float g;
+    protected float b;
 
-    public float scaleX;
-    public float scaleY;
+    protected float scaleX;
+    protected float scaleY;
 
-    private Dictionary<string, object> variables;
+    protected Dictionary<string, object> variables;
 
+    /// <summary>
+    /// Called by the body to set the projectile up
+    /// </summary>
+    /// <param name="variables">The projectile's variables</param>
+    /// <param name="owner">The owner of the projectile</param>
+    /// <param name="damageMultiplier">The damage multiplier of the projectile</param>
+    /// <param name="addOwnerVelocity">Whether to add the owner's velocity or not</param>
     internal virtual void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
     {
         // loads in all the variables from the json
@@ -51,13 +58,18 @@ public class ProjectileController : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(r, g, b);
     }
 
-    // called when the projectile dies
+    /// <summary>
+    /// Called when the projectile dies
+    /// </summary>
     public virtual void Die()
     {
         Destroy(gameObject);
     }
 
-    // triggers when the projectile collides with something
+    /// <summary>
+    /// Called when the projectile collides with something
+    /// </summary>
+    /// <param name="collision"></param>
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // if the projectile collides with a body
@@ -79,19 +91,15 @@ public class ProjectileController : MonoBehaviour
                 owner.EnemyKilled(collision.gameObject);
             }
 
-            // calls the function to do something after the projectile has hit something
-            ProjectilePostHit();
+            // destroy the projectile
+            Die();
         }
     }
 
-    // called after the projectile has hit something
-    internal virtual void ProjectilePostHit()
-    {
-        // destroy the projectile
-        Die();
-    }
-
-    // sets the movement vector based on the place facing, and the velocity
+    /// <summary>
+    /// Sets the movement vector based on the place facing, and the velocity
+    /// </summary>
+    /// <param name="addParentVelocity"></param>
     internal void SetMovement(bool addParentVelocity = false)
     {
         // sets the movement of the projectile
@@ -104,19 +112,23 @@ public class ProjectileController : MonoBehaviour
         }
         else
         {
+            // doesnt add the parent velocity
             selfRigid.velocity = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * velocity, Mathf.Sin(angle * Mathf.Deg2Rad) * velocity);
         }
     }
 
-    internal void LoadVariables()
+    /// <summary>
+    /// Loads in all the variables
+    /// </summary>
+    internal virtual void LoadVariables()
     {
-        variables.Setup(ref velocity, "velocity");
-        variables.Setup(ref lifeSpan, "lifeSpan");
-        variables.Setup(ref damage, "damage");
-        variables.Setup(ref r, "r");
-        variables.Setup(ref g, "g");
-        variables.Setup(ref b, "b");
-        variables.Setup(ref scaleX, "scaleX");
-        variables.Setup(ref scaleY, "scaleY");
+        variables.Setup(ref velocity, nameof(velocity));
+        variables.Setup(ref lifeSpan, nameof(lifeSpan));
+        variables.Setup(ref damage, nameof(damage));
+        variables.Setup(ref r, nameof(r));
+        variables.Setup(ref g, nameof(g));
+        variables.Setup(ref b, nameof(b));
+        variables.Setup(ref scaleX, nameof(scaleX));
+        variables.Setup(ref scaleY, nameof(scaleY));
     }
 }

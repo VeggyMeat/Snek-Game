@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class Class: MonoBehaviour
+public abstract class Class: MonoBehaviour
 {
     /// <summary>
     /// Whether this is the primary class on a body

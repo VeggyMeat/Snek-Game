@@ -31,9 +31,6 @@ public class EnragedBerzerker : Frontline
 
     internal override void Setup()
     {
-        // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-
         base.Setup();
     }
 
@@ -76,19 +73,15 @@ public class EnragedBerzerker : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref attackRadius, "attackRadius");
-        jsonData.Setup(ref AOEEffectTime, "AOEEffectTime");
-        jsonData.Setup(ref attackSpeedBuff, "attackSpeedBuff");
+        jsonData.Setup(ref attackRadius, nameof(attackRadius));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref attackSpeedBuff, nameof(attackSpeedBuff));
 
-        if (jsonData.ContainsKey("AOEEffectPath"))
+        if (jsonData.ContainsKey(nameof(AOEEffectPath)))
         {
-            AOEEffectPath = jsonData["AOEEffectPath"].ToString();
+            AOEEffectPath = jsonData[nameof(AOEEffectPath)].ToString();
 
-            if (jsonLoaded)
-            {
-                // gets the AOEEffect ready to be spawned
-                AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-            }
+            AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
         }
     }
 }

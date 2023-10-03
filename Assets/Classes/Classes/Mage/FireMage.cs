@@ -11,31 +11,13 @@ public class FireMage : Mage
     private float rotation;
     private float orbVariation;
 
-    private string orbPath;
-    private string orbJson;
-
-    private GameObject orb;
-
     private float angleFacing;
-
-    private JsonVariable orbVariables;
 
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Mage/FireMage.json";
 
         base.ClassSetup();
-    }
-
-    internal override void Setup()
-    {
-        // grabs the orb thats shot
-        orb = Resources.Load<GameObject>(orbPath);
-
-        orbVariables = new JsonVariable(orbJson);
-
-        // calls the base setup
-        base.Setup();
     }
 
     internal override void Attack()
@@ -50,7 +32,7 @@ public class FireMage : Mage
             angleFacing += Random.Range(-orbVariation, orbVariation);
 
             // creates and sets up a new projectile
-            Projectile.Shoot(orb, transform.position, angleFacing, orbVariables.Variables, this, body.DamageMultiplier);
+            Projectile.Shoot(orbTemplate, transform.position, angleFacing, orbVariables.Variables, this, body.DamageMultiplier);
         }
     }
 
@@ -58,30 +40,8 @@ public class FireMage : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref orbNumber, "orbNumber");
-        jsonData.Setup(ref rotation, "rotation");
-        jsonData.Setup(ref orbVariation, "orbVariation");
-        jsonData.Setup(ref orbJson, "orbJson");
-        
-        if (jsonData.ContainsKey("orbPath"))
-        {
-            orbPath = jsonData["orbPath"].ToString();
-
-            if (jsonLoaded)
-            {
-                // grabs the orb thats shot
-                orb = Resources.Load<GameObject>(orbPath);
-            }
-        }
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            orbVariables.IncreaseIndex();
-        }
+        jsonData.Setup(ref orbNumber, nameof(orbNumber));
+        jsonData.Setup(ref rotation, nameof(rotation));
+        jsonData.Setup(ref orbVariation, nameof(orbVariation));
     }
 }

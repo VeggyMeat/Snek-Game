@@ -27,6 +27,8 @@ public class Chamelion : Enchanter
     private float timeDelay;
     private float buffLength;
 
+    private bool changingType = false;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Chamelion.json";
@@ -79,12 +81,30 @@ public class Chamelion : Enchanter
     // irrespective of attack speed buff
     private void StartChangingType()
     {
+        // if already changing type, ignore
+        if (changingType)
+        {
+            return;
+        }
+
+        // start changing type, and note that it is changing type
         InvokeRepeating(nameof(ChangeChamelionType), timeDelay, timeDelay);
+
+        changingType = true;
     }
 
     private void StopChangingType()
     {
+        // if not changing type already, ignore
+        if (!changingType)
+        {
+            return;
+        }
+
+        // stop changing type, and note that it is not changing type
         CancelInvoke(nameof(ChangeChamelionType));
+
+        changingType = false;
     }
 
     private void ChangeChamelionType()
@@ -126,15 +146,9 @@ public class Chamelion : Enchanter
 
         if (jsonData.ContainsKey(nameof(timeDelay)))
         {
-            // if the json has already been loaded, then stop the current changing type
-            if (jsonLoaded)
-            {
-                StopChangingType();
-            }
-
             timeDelay = float.Parse(jsonData[nameof(timeDelay)].ToString());
 
-            // starts chaning type
+            StopChangingType();
             StartChangingType();
         }
     }

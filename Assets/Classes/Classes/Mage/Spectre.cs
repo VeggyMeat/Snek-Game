@@ -8,15 +8,8 @@ public class Spectre : Mage
 {
     private int orbNumber;
 
-    private string orbPath;
-    private string orbJson;
-
     private float damageMult;
     private float speedMult;
-
-    internal GameObject orbTemplate;
-
-    private JsonVariable orbVariables;
 
     internal override void ClassSetup()
     {
@@ -25,28 +18,18 @@ public class Spectre : Mage
         base.ClassSetup();
     }
 
-    internal override void Setup()
-    {
-        // grabs the orb thats shot
-        orbTemplate = Resources.Load<GameObject>(orbPath);
-
-        orbVariables = new JsonVariable(orbJson);
-
-        // calls the base setup
-        base.Setup();
-    }
-
     internal override void Attack()
     {
         for (int i = 0; i < orbNumber; i++)
         {
-            // creates and sets up a new orb
-            ProjectileController controller = Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables.Variables, this, body.DamageMultiplier);
-
             // if dead, increases the damage by the miltiplier
             if (body.IsDead)
             {
-                controller.damage = (int)(controller.damage * damageMult);
+                Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables.Variables, this, body.DamageMultiplier * damageMult);
+            }
+            else
+            {
+                Projectile.Shoot(orbTemplate, transform.position, Random.Range(0, 2 * Mathf.PI), orbVariables.Variables, this, body.DamageMultiplier);
             }
         }
     }
@@ -77,29 +60,8 @@ public class Spectre : Mage
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref orbNumber, "orbNumber");
-        jsonData.Setup(ref damageMult, "damageMult");
-        jsonData.Setup(ref speedMult, "speedMult");
-        jsonData.Setup(ref orbJson, "orbJson");
-        if (jsonData.ContainsKey("orbPath"))
-        {
-            orbPath = jsonData["orbPath"].ToString();
-
-            if (jsonLoaded)
-            {
-                // grabs the orb thats shot
-                orbTemplate = Resources.Load<GameObject>(orbPath);
-            }
-        }
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            orbVariables.IncreaseIndex();
-        }
+        jsonData.Setup(ref orbNumber, nameof(orbNumber));
+        jsonData.Setup(ref damageMult, nameof(damageMult));
+        jsonData.Setup(ref speedMult, nameof(speedMult));
     }
 }

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class MagicArcherArcher : Archer
 {
-    private string projectilePath;
-    private string projectileJson;
-
-    private JsonVariable arrowVariables;
-
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/DualClass/ArcherMage/MagicArcher/MagicArcherArcher.json";
@@ -16,43 +11,11 @@ public class MagicArcherArcher : Archer
         base.ClassSetup();
     }
 
-    internal override void Setup()
-    {
-        // gets the json data and loads it into the arrowVariables
-        arrowVariables = new JsonVariable(projectileJson);
-
-        // grabs the projectile from resources
-        projectile = Resources.Load<GameObject>(projectilePath);
-
-        // calls the archer's setup
-        base.Setup();
-    }
-
     // called regularly by archer
     internal override void LaunchProjectile()
     {
-        
-
         // creates and sets up a new projectile
-        Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
-    }
-
-    protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
-    {
-        base.InternalJsonSetup(jsonData);
-
-        jsonData.Setup(ref projectilePath, "projectilePath");
-        jsonData.Setup(ref projectileJson, "projectileJson");
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            arrowVariables.IncreaseIndex();
-        }
+        Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileVariables.Variables, this, body.DamageMultiplier);
     }
 
     internal override void EnemyKilled(GameObject enemy)

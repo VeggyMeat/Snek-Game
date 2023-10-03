@@ -10,11 +10,6 @@ public class BowMan : Archer
 {
     private int projectileCount;
     private int enemyDeathVolleyCount;
-    
-    private string projectilePath;
-    private string projectileJson;
-
-    private JsonVariable arrowVariables;
 
     internal override void ClassSetup()
     {
@@ -23,38 +18,27 @@ public class BowMan : Archer
         base.ClassSetup();
     }
 
-    internal override void Setup()
-    {
-        // gets the json data and loads it into the arrowVariables
-        arrowVariables = new JsonVariable(projectileJson);
-
-        // grabs the projectile from resources
-        projectile = Resources.Load<GameObject>(projectilePath);
-
-        // calls the archer's setup
-        base.Setup();
-    }
-
-    // called regularly by archer
     internal override void LaunchProjectile()
     {
+        // if its dead, then dont launch a projectile
         if (body.IsDead)
         {
             return;
         }
 
+        // launches a volley of projectiles
         for (int i = 0; i < projectileCount; i++)
         {
             // creates and sets up a new projectile
-            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), arrowVariables.Variables, this, body.DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), projectileVariables.Variables, this, body.DamageMultiplier);
         }
     }
 
-    // on killing an enemy, shoots a volley round of projectiles
     internal override void EnemyKilled(GameObject enemy)
     {
         base.EnemyKilled(enemy);
 
+        // launches a volley of projectiles
         for (int i = 0; i < enemyDeathVolleyCount; i++) 
         {
             LaunchProjectile();
@@ -65,19 +49,7 @@ public class BowMan : Archer
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref projectileCount, "projectileCount");
-        jsonData.Setup(ref enemyDeathVolleyCount, "enemyDeathVolleyCount");
-        jsonData.Setup(ref projectilePath, "projectilePath");
-        jsonData.Setup(ref projectileJson, "projectileJson");
-    }
-
-    internal override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (body.Level != 1)
-        {
-            arrowVariables.IncreaseIndex();
-        }
+        jsonData.Setup(ref projectileCount, nameof(projectileCount));
+        jsonData.Setup(ref enemyDeathVolleyCount, nameof(enemyDeathVolleyCount));
     }
 }

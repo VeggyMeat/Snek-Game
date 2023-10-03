@@ -71,11 +71,13 @@ public class Pyromaniac : Enchanter
 
     private void StartBurning()
     {
+        // if burning, ignore
         if (burning)
         {
             return;
         }
 
+        // start burning and note that it is burning
         InvokeRepeating(nameof(BurnBodies), burnDelay, burnDelay);
 
         burning = true;
@@ -83,11 +85,13 @@ public class Pyromaniac : Enchanter
 
     private void StopBurning()
     {
+        // if not burning, ignore
         if (!burning)
         {
             return;
         }
 
+        // stop burning and note that it is no longer burning
         CancelInvoke(nameof(BurnBodies));
 
         burning = false;

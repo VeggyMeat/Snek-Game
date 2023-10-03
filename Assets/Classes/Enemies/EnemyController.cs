@@ -234,7 +234,7 @@ public class EnemyController : MonoBehaviour
             Vector2 difference = (Vector2)player.position - selfRigid.position;
 
             // if its too far away, despawns
-            if (difference.magnitude > despawnRadius)
+            if (difference.magnitude > despawnRadius && !dead)
             {
                 Despawn();
             }

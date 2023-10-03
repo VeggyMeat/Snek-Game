@@ -68,12 +68,12 @@ public class Swordsman : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref attackRadius, "attackRadius");
-        jsonData.Setup(ref AOEEffectTime, "AOEEffectTime");
+        jsonData.Setup(ref attackRadius, nameof(attackRadius));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
 
-        if (jsonData.ContainsKey("AOEEffectPath"))
+        if (jsonData.ContainsKey(nameof(AOEEffectPath)))
         {
-            AOEEffectPath = jsonData["AOEEffectPath"].ToString();
+            AOEEffectPath = jsonData[nameof(AOEEffectPath)].ToString();
 
             if (jsonLoaded)
             {

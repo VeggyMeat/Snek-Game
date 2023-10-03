@@ -2,16 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mage : Class
+public abstract class Mage : Class
 {
     protected float timeDelay;
     protected bool regularAttack;
+
+    protected string orbPath;
+    protected string orbJson;
+
+    internal GameObject orbTemplate;
+
+    protected JsonVariable orbVariables;
+
+    protected bool attacking = false;
 
     internal override void Setup()
     {
         body.classNames.Add("Mage");
 
         base.Setup();
+
+        orbVariables = new JsonVariable(orbJson);
 
         if (regularAttack)
         {
@@ -20,24 +31,34 @@ public class Mage : Class
         }
     }
 
-    // stops then starts again the repeating attack
-    internal void ResetRepeatingAttack()
+    /// <summary>
+    /// Runs the Attack function every timeDelay seconds
+    /// </summary>
+    protected void StartRepeatingAttack()
     {
-        StopRepeatingAttack();
+        if (attacking)
+        {
+            return;
+        }
 
-        StartRepeatingAttack();
-    }
-
-    // runs the Attack function every timeDelay seconds
-    internal void StartRepeatingAttack()
-    {
         InvokeRepeating(nameof(Attack), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
+
+        attacking = true;
     }
 
-    // stops the repeating attack from happening
-    internal void StopRepeatingAttack()
+    /// <summary>
+    /// Stops the repeating attack from happening
+    /// </summary>
+    protected void StopRepeatingAttack()
     {
+        if (!attacking)
+        {
+
+        }
+
         CancelInvoke(nameof(Attack));
+
+        attacking = false;
     }
 
     // creates a base case incase not implemented
@@ -46,7 +67,6 @@ public class Mage : Class
         throw new System.NotImplementedException();
     }
 
-    // called when the body is revived from the dead
     internal override void Revived()
     {
         base.Revived();
@@ -58,7 +78,6 @@ public class Mage : Class
         }
     }
 
-    // called when the body dies
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -79,7 +98,8 @@ public class Mage : Class
         if (regularAttack)
         {
             // resets the repeating attack
-            ResetRepeatingAttack();
+            StopRepeatingAttack();
+            StartRepeatingAttack();
         }
     }
 
@@ -87,21 +107,35 @@ public class Mage : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("timeDelay"))
+        jsonData.Setup(ref orbJson, nameof(orbJson));
+
+        if (jsonData.ContainsKey(nameof(orbPath)))
         {
-            timeDelay = float.Parse(jsonData["timeDelay"].ToString());
+            orbPath = jsonData[nameof(orbPath)].ToString();
+
+            if (jsonLoaded)
+            {
+                // grabs the orb thats shot
+                orbTemplate = Resources.Load<GameObject>(orbPath);
+            }
+        }
+
+        if (jsonData.ContainsKey(nameof(timeDelay)))
+        {
+            timeDelay = float.Parse(jsonData[nameof(timeDelay)].ToString());
 
             if (jsonLoaded)
             {
                 if (regularAttack)
                 {
-                    ResetRepeatingAttack();
+                    StopRepeatingAttack();
+                    StartRepeatingAttack();
                 }
             }
         }
-        if (jsonData.ContainsKey("regularAttack"))
+        if (jsonData.ContainsKey(nameof(regularAttack)))
         {
-            regularAttack = bool.Parse(jsonData["regularAttack"].ToString());
+            regularAttack = bool.Parse(jsonData[nameof(regularAttack)].ToString());
 
             if (jsonLoaded)
             {
@@ -114,6 +148,16 @@ public class Mage : Class
                     StopRepeatingAttack();
                 }
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {
+        base.LevelUp();
+
+        if (body.Level != 1)
+        {
+            orbVariables.IncreaseIndex();
         }
     }
 }
