@@ -19,6 +19,8 @@ public class Healer : Enchanter
     internal override void Setup()
     {
         base.Setup();
+
+        StartHealing();
     }
 
     private void HealRandomAlly()
@@ -82,8 +84,11 @@ public class Healer : Enchanter
         {
             timeDelay = int.Parse(jsonData[nameof(timeDelay)].ToString());
 
-            StopHealing();
-            StartHealing();
+            if (jsonLoaded)
+            {
+                StopHealing();
+                StartHealing();
+            }
         }
 
         jsonData.Setup(ref healthIncrease, nameof(healthIncrease));

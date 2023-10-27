@@ -79,6 +79,7 @@ MonoBehaviour:
   - Pyromaniac
   - Herbologist
   - DeathWard
+  - SpikeLauncher
   smallItems:
   - LuckyFlask
   powerfulItems:

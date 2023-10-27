@@ -1,0 +1,9 @@
+[
+  {
+    "autoFire": false,
+    "spikes": 4,
+    "projectilePath": "GameObjects/ShurikenProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/SpikeLauncherProjectile.json",
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineArcher/SpikeLauncher/SpikeLauncherBody.json"
+  }
+]

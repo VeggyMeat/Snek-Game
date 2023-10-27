@@ -7,9 +7,13 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour
 {
-    private int defence;
+    private int defence = 0;
     private int maxHealth;
     private float velocityContribution;
+
+    private int naturalRegen = 5;
+    private float regenDelay = 5;
+    private bool regenerating = false;
 
     protected new string name;
 
@@ -320,6 +324,9 @@ public class BodyController : MonoBehaviour
         healthBarController = Instantiate(snake.healthBarPrefab, transform).GetComponent<HealthBarController>();
         healthBarController.Setup(snake.bodyHealthBarScaleX, snake.bodyHealthBarScaleY);
         healthBarController.SetBar(PercentageHealth);
+
+        // makes the body start regenerating
+        StartRegenerating();
 
         // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
@@ -801,9 +808,61 @@ public class BodyController : MonoBehaviour
         values.Setup(ref b, nameof(b));
         values.Setup(ref maxLevel, nameof(maxLevel));
         values.Setup(ref name, nameof(name));
+        values.Setup(ref naturalRegen, nameof(naturalRegen));
+
+        if (values.ContainsKey(nameof(regenDelay)))
+        {
+            regenDelay = (float)Convert.ChangeType(values[nameof(regenDelay)], typeof(float));
+
+            if (jsonLoaded)
+            {
+                StopRegenerating();
+                StartRegenerating();
+            }
+        }
 
         // sets the colour of the body based on the r, g, b values
         ResetColour();
+    }
+
+    private void StartRegenerating()
+    {
+        if (regenDelay == 0 || naturalRegen == 0)
+        {
+            return;
+        }
+
+        if (regenerating)
+        {
+            return;
+        }
+
+        InvokeRepeating(nameof(Regenerate), regenDelay, regenDelay);
+
+        regenerating = true;
+    }
+
+    private void StopRegenerating()
+    {
+        if (regenDelay == 0 || naturalRegen == 0)
+        {
+            return;
+        }
+
+        if (!regenerating)
+        {
+            return;
+        }
+
+        CancelInvoke(nameof(Regenerate));
+
+        regenerating = false;
+    }
+
+    private void Regenerate()
+    {
+        // heals the body by the natural regen
+        ChangeHealth(naturalRegen);
     }
 
     /// <summary>

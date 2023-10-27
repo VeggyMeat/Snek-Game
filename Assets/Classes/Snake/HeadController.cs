@@ -269,6 +269,10 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<DeathWardEnchanter>());
                 bodyContr.classes.Add(body.AddComponent<DeathWardMage>());
                 break;
+            case "SpikeLauncher":
+                bodyContr.classes.Add(body.AddComponent<SpikeLauncherArcher>());
+                bodyContr.classes.Add(body.AddComponent<SpikeLauncherFrontline>());
+                break;
         }
 
         // removes that body from the list of available bodies

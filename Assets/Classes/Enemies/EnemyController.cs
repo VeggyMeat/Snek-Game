@@ -295,7 +295,7 @@ public class EnemyController : MonoBehaviour
         TriggerManager.EnemyDeadTrigger.CallTrigger(gameObject);
 
         // deletes this object
-        Destroy(gameObject, 0.05f);
+        Destroy(gameObject, 0.001f);
     }
 
     /// <summary>

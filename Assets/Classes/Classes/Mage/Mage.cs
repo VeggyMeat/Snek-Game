@@ -22,7 +22,10 @@ public abstract class Mage : Class
 
         base.Setup();
 
-        orbVariables = new JsonVariable(orbJson);
+        if (orbPath is not null)
+        {
+            orbVariables = new JsonVariable(orbJson);
+        }
 
         if (regularAttack)
         {
@@ -113,11 +116,8 @@ public abstract class Mage : Class
         {
             orbPath = jsonData[nameof(orbPath)].ToString();
 
-            if (jsonLoaded)
-            {
-                // grabs the orb thats shot
-                orbTemplate = Resources.Load<GameObject>(orbPath);
-            }
+            // grabs the orb thats shot
+            orbTemplate = Resources.Load<GameObject>(orbPath);
         }
 
         if (jsonData.ContainsKey(nameof(timeDelay)))

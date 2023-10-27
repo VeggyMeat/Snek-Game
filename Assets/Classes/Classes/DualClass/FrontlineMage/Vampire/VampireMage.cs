@@ -56,7 +56,10 @@ public class VampireMage : Mage
             if (healBody.Name != "Vampire")
             {
                 // heal it
-                healBody.ChangeHealth(healSnakeAmount);
+                if (!healBody.IsDead)
+                {
+                    healBody.ChangeHealth(healSnakeAmount);
+                }
             }
 
             // get the next body in the snake
@@ -70,26 +73,30 @@ public class VampireMage : Mage
     {
         if (body.health < body.MaxHealth / 2)
         {
-            Debug.Log("sucked life");
-
             // if there is a snake after
             if (body.next is not null)
             {
-                // deal damage to it
-                body.next.ChangeHealth(-damageBodiesAmount);
+                if (!body.IsDead)
+                {
+                    // deal damage to it
+                    body.next.ChangeHealth(-damageBodiesAmount);
 
-                // heal the amount of health
-                body.ChangeHealth(healVampireAmount);
+                    // heal the amount of health
+                    body.ChangeHealth(healVampireAmount);
+                }
             }
 
             // if there is a body before this one
             if (body.prev is not null)
             {
-                // deal damage to it
-                body.prev.ChangeHealth(-damageBodiesAmount);
+                if (!body.IsDead)
+                {
+                    // deal damage to it
+                    body.prev.ChangeHealth(-damageBodiesAmount);
 
-                // heal the amount of health
-                body.ChangeHealth(healVampireAmount);
+                    // heal the amount of health
+                    body.ChangeHealth(healVampireAmount);
+                }
             }
         }
     }
