@@ -1,0 +1,12 @@
+[
+  {
+    "regularAttack": true,
+    "scanAttack": false,
+    "attackDelay": 2,
+    "damage": 50,
+    "force": 0,
+    "attackRadius": 4,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/ForceFieldMage/ForceFieldMageBody.json"
+  }
+]

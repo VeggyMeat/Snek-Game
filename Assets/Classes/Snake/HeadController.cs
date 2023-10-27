@@ -273,6 +273,10 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<SpikeLauncherArcher>());
                 bodyContr.classes.Add(body.AddComponent<SpikeLauncherFrontline>());
                 break;
+            case "ForceFieldMage":
+                bodyContr.classes.Add(body.AddComponent<ForceFieldMageFrontline>());
+                bodyContr.classes.Add(body.AddComponent<ForceFieldMageMage>());
+                break;
         }
 
         // removes that body from the list of available bodies

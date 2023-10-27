@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-// a class just for the sake of being inherited from
 public abstract class Frontline : Class
 {
     protected float attackDelay;

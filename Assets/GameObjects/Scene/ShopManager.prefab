@@ -80,6 +80,7 @@ MonoBehaviour:
   - Herbologist
   - DeathWard
   - SpikeLauncher
+  - ForceFieldMage
   smallItems:
   - LuckyFlask
   powerfulItems:

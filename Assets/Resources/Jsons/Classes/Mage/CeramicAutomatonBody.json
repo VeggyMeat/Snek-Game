@@ -10,6 +10,6 @@
     "contactForce": 3000,
     "velocityContribution": 9,
 
-    "Name": "CeramicAutomaton"
+    "name": "CeramicAutomaton"
   }
 ]

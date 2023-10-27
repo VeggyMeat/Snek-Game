@@ -27,8 +27,8 @@ public class SpikeLauncherArcher : Archer
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
-        jsonData.Setup(ref spikes, nameof(spikes));
-
         base.InternalJsonSetup(jsonData);
+
+        jsonData.Setup(ref spikes, nameof(spikes));
     }
 }

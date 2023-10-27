@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.5,
+    "g": 0.7,
+    "b": 0.2,
+
+    "defence": 0,
+    "maxHealth": 50,
+    "contactDamage": 5,
+    "contactForce": 1500,
+    "velocityContribution": 6,
+
+    "name": "ForceFieldMage"
+  }
+]
