@@ -81,6 +81,7 @@ MonoBehaviour:
   - DeathWard
   - SpikeLauncher
   - ForceFieldMage
+  - MirrorMage
   smallItems:
   - LuckyFlask
   powerfulItems:

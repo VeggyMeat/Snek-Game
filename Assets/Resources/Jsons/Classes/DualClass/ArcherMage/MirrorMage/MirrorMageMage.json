@@ -1,0 +1,8 @@
+[
+  {
+    "regularAttack": false,
+    "speedBuff": 0.75,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherMage/MirrorMage/MirrorMageBody.json"
+  }
+]

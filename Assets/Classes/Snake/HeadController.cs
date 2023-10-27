@@ -277,6 +277,10 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<ForceFieldMageFrontline>());
                 bodyContr.classes.Add(body.AddComponent<ForceFieldMageMage>());
                 break;
+            case "MirrorMage":
+                bodyContr.classes.Add(body.AddComponent<MirrorMageMage>());
+                bodyContr.classes.Add(body.AddComponent<MirrorMageArcher>());
+                break;
         }
 
         // removes that body from the list of available bodies

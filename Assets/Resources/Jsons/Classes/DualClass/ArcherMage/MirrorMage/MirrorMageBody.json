@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.9,
+    "g": 0.9,
+    "b": 0.9,
+
+    "defence": 0,
+    "maxHealth": 75,
+    "contactDamage": 5,
+    "contactForce": 2500,
+    "velocityContribution": 5,
+
+    "name": "MirrorMage"
+  }
+]
