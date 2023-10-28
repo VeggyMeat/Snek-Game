@@ -29,7 +29,7 @@ public class FairyWithAGunEnchanter : Enchanter
         gunData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
     }
 
-    internal override void AddBuff(GameObject player)
+    protected override void AddBuff(GameObject player)
     {
         // gets the BodyController
         BodyController body = player.GetComponent<BodyController>();
@@ -55,7 +55,7 @@ public class FairyWithAGunEnchanter : Enchanter
         }
     }
 
-    internal override void RemoveBuff(GameObject thing)
+    protected override void RemoveBuff(GameObject thing)
     {
         Gun gun;
 

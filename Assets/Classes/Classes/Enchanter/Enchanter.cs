@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -13,6 +14,13 @@ public abstract class Enchanter : Class
         body.classNames.Add("Enchanter");
 
         base.Setup();
+
+        if (buffsAllBodies) 
+        {
+            BuffAllBodies(true);
+
+            TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
+        }
     }
 
     /// <summary>
@@ -69,7 +77,7 @@ public abstract class Enchanter : Class
     /// </summary>
     /// <param name="thing">The GameObject</param>
     /// <exception cref="NotImplementedException"></exception>
-    internal virtual void AddBuff(GameObject thing)
+    protected virtual void AddBuff(GameObject thing)
     {
         throw new NotImplementedException();
     }
@@ -79,7 +87,7 @@ public abstract class Enchanter : Class
     /// </summary>
     /// <param name="thing">The GameObject</param>
     /// <exception cref="NotImplementedException"></exception>
-    internal virtual void RemoveBuff(GameObject thing)
+    protected virtual void RemoveBuff(GameObject thing)
     {
         throw new NotImplementedException();
     }
@@ -95,6 +103,8 @@ public abstract class Enchanter : Class
         {
             // removes buffs from all the bodies
             UnbuffAllBodies();
+
+            TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
         }
     }
 
@@ -109,6 +119,8 @@ public abstract class Enchanter : Class
         {
             // buffs all the bodies
             BuffAllBodies();
+
+            TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
         }
     }
 
@@ -130,26 +142,33 @@ public abstract class Enchanter : Class
 
         if (jsonData.ContainsKey("buffsAllBodies"))
         {
-            bool oldBuffsAllBodies = buffsAllBodies;
-            buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
-
-            // if it used to buff them, but now it doesnt
-            if (oldBuffsAllBodies && !buffsAllBodies) 
-            { 
-                // removes the trigger
-                TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
-
-                // unbuffs all the bodies
-                UnbuffAllBodies();
-            }
-            // if it is just now buffing them
-            else if (!oldBuffsAllBodies && buffsAllBodies)
+            if (jsonLoaded)
             {
-                // adds the trigger
-                TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
+                bool oldBuffsAllBodies = buffsAllBodies;
+                buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
 
-                // buffs all the bodies
-                BuffAllBodies(true);
+                // if it used to buff them, but now it doesnt
+                if (oldBuffsAllBodies && !buffsAllBodies)
+                {
+                    // removes the trigger
+                    TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
+
+                    // unbuffs all the bodies
+                    UnbuffAllBodies();
+                }
+                // if it is just now buffing them
+                else if (!oldBuffsAllBodies && buffsAllBodies)
+                {
+                    // adds the trigger
+                    TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
+
+                    // buffs all the bodies
+                    BuffAllBodies(true);
+                }
+            }
+            else
+            {
+                buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
             }
         }
     }

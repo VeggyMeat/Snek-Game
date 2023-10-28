@@ -14,7 +14,7 @@ public class Blacksmith : Enchanter
         base.ClassSetup();
     }
 
-    internal override void AddBuff(GameObject player)
+    protected override void AddBuff(GameObject player)
     {
         // gets the BodyController
         BodyController body = player.GetComponent<BodyController>();
@@ -23,7 +23,7 @@ public class Blacksmith : Enchanter
         body.defenceBuff.AddBuff(defenceIncrease, false, null);
     }
 
-    internal override void RemoveBuff(GameObject player)
+    protected override void RemoveBuff(GameObject player)
     {
         // gets the BodyController
         BodyController body = player.GetComponent<BodyController>();

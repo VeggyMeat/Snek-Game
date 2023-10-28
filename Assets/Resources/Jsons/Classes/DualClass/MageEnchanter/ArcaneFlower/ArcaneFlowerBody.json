@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.1,
+    "g": 0.4,
+    "b": 0.6,
+
+    "defence": 0,
+    "maxHealth": 75,
+    "contactDamage": 10,
+    "contactForce": 2000,
+    "velocityContribution": 7,
+
+    "name": "ArcaneFlower"
+  }
+]

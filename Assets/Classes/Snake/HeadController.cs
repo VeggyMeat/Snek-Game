@@ -36,6 +36,8 @@ public class HeadController: MonoBehaviour
     private int Level = 0;
     private int XPLevelUp;
 
+    internal float healingModifier = 1;
+
     public ShopManager shopManager;
     public EnemySummonerController enemySummonerController;
 
@@ -280,6 +282,10 @@ public class HeadController: MonoBehaviour
             case "MirrorMage":
                 bodyContr.classes.Add(body.AddComponent<MirrorMageMage>());
                 bodyContr.classes.Add(body.AddComponent<MirrorMageArcher>());
+                break;
+            case "ArcaneFlower":
+                bodyContr.classes.Add(body.AddComponent<ArcaneFlowerEnchanter>());
+                bodyContr.classes.Add(body.AddComponent<ArcaneFlowerMage>());
                 break;
         }
 

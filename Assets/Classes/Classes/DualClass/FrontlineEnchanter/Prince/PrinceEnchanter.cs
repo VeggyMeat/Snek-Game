@@ -15,7 +15,7 @@ public class PrinceEnchanter : Enchanter
         base.ClassSetup();
     }
 
-    internal override void AddBuff(GameObject player)
+    protected override void AddBuff(GameObject player)
     {
         // gets the BodyController
         BodyController playerBody = player.GetComponent<BodyController>();
@@ -24,7 +24,7 @@ public class PrinceEnchanter : Enchanter
         playerBody.damageBuff.AddBuff(damageIncrease, true, null);
     }
 
-    internal override void RemoveBuff(GameObject player)
+    protected override void RemoveBuff(GameObject player)
     {
         // gets the BodyController
         BodyController playerBody = player.GetComponent<BodyController>();

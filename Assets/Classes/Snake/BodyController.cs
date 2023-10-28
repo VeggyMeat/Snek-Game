@@ -475,7 +475,7 @@ public class BodyController : MonoBehaviour
             quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn(quantity);
 
             // increases the health by the amount healed
-            health += quantity;
+            health += (int)(quantity * snake.healingModifier);
         }
         else if (quantity < 0)
         {

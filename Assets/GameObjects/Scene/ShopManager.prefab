@@ -82,6 +82,7 @@ MonoBehaviour:
   - SpikeLauncher
   - ForceFieldMage
   - MirrorMage
+  - ArcaneFlower
   smallItems:
   - LuckyFlask
   powerfulItems:
