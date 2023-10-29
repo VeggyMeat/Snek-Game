@@ -18,7 +18,7 @@ public abstract class Mage : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("Mage");
+        body.classNames.Add(nameof(Mage));
 
         base.Setup();
 

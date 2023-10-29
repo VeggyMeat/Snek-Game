@@ -287,6 +287,10 @@ public class HeadController: MonoBehaviour
                 bodyContr.classes.Add(body.AddComponent<ArcaneFlowerEnchanter>());
                 bodyContr.classes.Add(body.AddComponent<ArcaneFlowerMage>());
                 break;
+            case "Swashbuckler":
+                bodyContr.classes.Add(body.AddComponent<SwashbucklerArcher>());
+                bodyContr.classes.Add(body.AddComponent<SwashbucklerFrontline>());
+                break;
         }
 
         // removes that body from the list of available bodies

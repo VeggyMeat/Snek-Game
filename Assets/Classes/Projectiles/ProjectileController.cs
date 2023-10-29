@@ -11,6 +11,19 @@ public class ProjectileController : MonoBehaviour
     protected Rigidbody2D selfRigid;
 
     protected float velocity;
+
+    internal float Velocity
+    {
+        get
+        {
+            return velocity;
+        }
+        set
+        {
+            velocity = value;
+        }
+    }
+
     protected float lifeSpan;
     protected int damage;
 
@@ -100,7 +113,7 @@ public class ProjectileController : MonoBehaviour
     /// Sets the movement vector based on the place facing, and the velocity
     /// </summary>
     /// <param name="addParentVelocity"></param>
-    internal void SetMovement(bool addParentVelocity = false)
+    protected void SetMovement(bool addParentVelocity = false)
     {
         // sets the movement of the projectile
         float angle = transform.rotation.eulerAngles.z + 90;

@@ -566,6 +566,9 @@ public class BodyController : MonoBehaviour
 
         // stops it from being revived again if its a premature revive (not implemented yet)
         CancelInvoke(nameof(Revived));
+
+        // body revived trigger
+        TriggerManager.BodyRevivedTrigger.CallTrigger(this);
     }
 
     /// <summary>

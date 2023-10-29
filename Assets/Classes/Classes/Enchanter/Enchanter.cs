@@ -11,7 +11,7 @@ public abstract class Enchanter : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("Enchanter");
+        body.classNames.Add(nameof(Enchanter));
 
         base.Setup();
 

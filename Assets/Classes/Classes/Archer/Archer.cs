@@ -20,7 +20,7 @@ public abstract class Archer : Class
     internal override void Setup()
     {
         // adds the archer class name to the body's classes for identification
-        body.classNames.Add("Archer");
+        body.classNames.Add(nameof(Archer));
 
         base.Setup();
 

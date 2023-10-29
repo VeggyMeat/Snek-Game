@@ -1,0 +1,14 @@
+[
+  {
+    "autoFire": true,
+    "timeDelay": 2,
+
+    "perArcherDamageIncrease": 0.2,
+    "perArcherSpeedIncrease": 0.2,
+
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/SwashbucklerProjectile.json",
+    "projectilePath": "GameObjects/CircleProjectile",
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineArcher/Swashbuckler/SwashbucklerBody.json"
+  }
+]

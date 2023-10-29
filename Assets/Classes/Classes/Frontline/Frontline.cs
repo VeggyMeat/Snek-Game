@@ -19,7 +19,7 @@ public abstract class Frontline : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("Frontline");
+        body.classNames.Add(nameof(Frontline));
 
         base.Setup();
 

@@ -26,8 +26,6 @@ public class ArcaneFlowerEnchanter : Enchanter
         BodyController bodyBuff = thing.GetComponent<BodyController>();
 
         bodyBuff.damageBuff.AddBuff(damageModifier, true, null);
-
-        Debug.Log($"Buffed {bodyBuff.name} with damageModifier {damageModifier} to a new value of {bodyBuff.damageBuff.Value}");
     }
 
     protected override void RemoveBuff(GameObject thing)
@@ -35,8 +33,6 @@ public class ArcaneFlowerEnchanter : Enchanter
         BodyController bodyBuff = thing.GetComponent<BodyController>();
 
         bodyBuff.damageBuff.AddBuff(1 / damageModifier, true, null);
-
-        Debug.Log($"Removed Buff {bodyBuff.name} with damageModifier {1 / damageModifier} to a new value of {bodyBuff.damageBuff.Value}");
     }
 
     internal override void OnDeath()

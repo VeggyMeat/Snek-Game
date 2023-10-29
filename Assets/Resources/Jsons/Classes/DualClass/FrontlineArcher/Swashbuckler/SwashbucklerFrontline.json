@@ -1,0 +1,15 @@
+[
+  {
+    "scanRadius": 4.5,
+    "attackDelay": 2,
+    "damage": 40,
+    "regularAttack": true,
+    "attackRadius": 3,
+    "AOEEffectTime": 1,
+
+    "perFrontlineDamageIncrease": 0.2,
+    "perFrontlineAreaIncrease": 0.2,
+
+    "AOEEffectPath": "GameObjects/AOEEffect"
+  }
+]

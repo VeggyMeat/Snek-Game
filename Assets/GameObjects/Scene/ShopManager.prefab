@@ -83,6 +83,7 @@ MonoBehaviour:
   - ForceFieldMage
   - MirrorMage
   - ArcaneFlower
+  - Swashbuckler
   smallItems:
   - LuckyFlask
   powerfulItems:
