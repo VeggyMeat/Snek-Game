@@ -8,6 +8,14 @@ public class ProjectileController : MonoBehaviour
 {
     protected Class owner;
 
+    public Class Owner
+    {
+        get
+        {
+            return owner;
+        }
+    }
+
     protected Rigidbody2D selfRigid;
 
     protected float velocity;
@@ -26,6 +34,18 @@ public class ProjectileController : MonoBehaviour
 
     protected float lifeSpan;
     protected int damage;
+
+    internal int Damage
+    {
+        get
+        {
+            return damage;
+        }
+        set 
+        { 
+            damage = value; 
+        }
+    }
 
     protected float r;
     protected float g;
@@ -143,5 +163,14 @@ public class ProjectileController : MonoBehaviour
         variables.Setup(ref b, nameof(b));
         variables.Setup(ref scaleX, nameof(scaleX));
         variables.Setup(ref scaleY, nameof(scaleY));
+    }
+
+    internal void Scale(float factor)
+    {
+        scaleX *= factor;
+        scaleY *= factor;
+
+        // sets the scale
+        transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 }

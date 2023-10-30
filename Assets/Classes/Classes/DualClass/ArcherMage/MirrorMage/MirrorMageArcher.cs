@@ -23,12 +23,17 @@ public class MirrorMageArcher : Archer
 
     internal override void LaunchProjectile()
     {
-        Projectile.Shoot(projectile, transform.position, Random.Range(0, Mathf.PI * 2), projectileVariables.Variables, this, body.DamageMultiplier, callTrigger: false);
+        Projectile.Shoot(projectile, transform.position, Random.Range(0, Mathf.PI * 2), projectileVariables.Variables, this, body.DamageMultiplier);
     }
 
     private GameObject OnProjectileShot(GameObject obj)
     {
-        LaunchProjectile();
+        ProjectileController projectileController = obj.GetComponent<ProjectileController>();
+
+        if (projectileController.Owner.body.Name != body.Name)
+        {
+            LaunchProjectile();
+        }
 
         return obj;
     }

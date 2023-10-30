@@ -1,0 +1,9 @@
+[
+  {
+    "buffsAllBodies": false,
+    "scaleFactor": 1.5,
+    "damageMultiplier": 1.2,
+
+    "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherEnchanter/Cannoneer/CannoneerBody.json"
+  }
+]

@@ -84,6 +84,7 @@ MonoBehaviour:
   - MirrorMage
   - ArcaneFlower
   - Swashbuckler
+  - Cannoneer
   smallItems:
   - LuckyFlask
   powerfulItems:

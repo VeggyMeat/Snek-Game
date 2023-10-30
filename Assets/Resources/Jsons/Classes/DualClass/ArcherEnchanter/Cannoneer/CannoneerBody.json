@@ -1,0 +1,15 @@
+[
+  {
+    "r": 0.2,
+    "g": 0,
+    "b": 0,
+
+    "defence": 2,
+    "maxHealth": 75,
+    "contactDamage": 10,
+    "contactForce": 2500,
+    "velocityContribution": 5.5,
+
+    "name": "Cannoneer"
+  }
+]
