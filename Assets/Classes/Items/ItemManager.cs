@@ -27,6 +27,12 @@ public static class ItemManager
             case "SteeringWheel":
                 item = new SteeringWheel();
                 break;
+            case "BigBullet":
+                item = new BigBullet();
+                break;
+            case "HeadstoneHelmet":
+                item = new HeadstoneHelmet();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();

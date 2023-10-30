@@ -1,0 +1,8 @@
+[
+  {
+    "itemName": "BigBullet",
+    "itemDescription": "Projectiles are ~% bigger",
+
+    "projectileSizeModifier": 1.3
+  }
+]

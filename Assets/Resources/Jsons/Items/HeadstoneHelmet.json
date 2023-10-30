@@ -1,0 +1,8 @@
+[
+  {
+    "itemName": "HeadstoneHelmet",
+    "itemDescription": "The head of your snake has ~% extra hp per dead body",
+
+    "healthPercentagePerBody": 0.25
+  }
+]

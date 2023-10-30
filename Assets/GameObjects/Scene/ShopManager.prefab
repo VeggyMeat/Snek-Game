@@ -90,4 +90,6 @@ MonoBehaviour:
   powerfulItems:
   - Quiver
   - SteeringWheel
+  - BigBullet
+  - HeadstoneHelmet
   remove: 1
