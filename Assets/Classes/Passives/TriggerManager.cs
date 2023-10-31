@@ -25,4 +25,8 @@ public static class TriggerManager
     public static BodyTrigger<GameObject> ProjectileShotTrigger = new BodyTrigger<GameObject>();
 
     public static BodyTrigger<BodyController> BodyRevivedTrigger = new BodyTrigger<BodyController>();
+
+    public static BodyTrigger<int> StartTurningTrigger = new BodyTrigger<int>();
+
+    public static BodyTrigger<int> StopTurningTrigger = new BodyTrigger<int>();
 }

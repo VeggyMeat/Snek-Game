@@ -33,6 +33,9 @@ public static class ItemManager
             case "HeadstoneHelmet":
                 item = new HeadstoneHelmet();
                 break;
+            case "KineticLauncher":
+                item = new KineticLauncher();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();

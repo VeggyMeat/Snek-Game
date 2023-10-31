@@ -1,0 +1,8 @@
+[
+  {
+    "itemName": "KineticLauncher",
+    "itemDescription": "Deal ~% more damage while you're turning",
+
+    "damageModifier": 10
+  }
+]

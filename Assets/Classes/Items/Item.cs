@@ -13,6 +13,8 @@ public class Item
     protected List<Dictionary<string, object>> jsonData;
     protected Dictionary<string, object> jsonVariables;
 
+    protected bool jsonLoaded = false;
+
     protected int level = 0;
     protected int maxLevel;
 
@@ -81,5 +83,7 @@ public class Item
 
         // sets up the variables based upon the json
         JsonSetup();
+
+        jsonLoaded = true;
     }
 }

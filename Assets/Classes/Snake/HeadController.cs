@@ -36,6 +36,16 @@ public class HeadController: MonoBehaviour
     private int Level = 0;
     private int XPLevelUp;
 
+    private bool turning = false;
+
+    public bool Turning
+    {
+        get
+        {
+            return turning;
+        }
+    }
+
     internal float healingModifier = 1;
 
     public ShopManager shopManager;
@@ -45,7 +55,10 @@ public class HeadController: MonoBehaviour
 
     public List<string> CurrentBodies
     {
-        get { return currentBodies; }
+        get 
+        { 
+            return currentBodies; 
+        }
     }
 
     void Start()
@@ -69,16 +82,45 @@ public class HeadController: MonoBehaviour
         // turning mechanism for the snake updating angle based on left or right arrow keys pressed
         if (rightPress && leftPress)
         {
+            if (turning)
+            {
+                TriggerManager.StopTurningTrigger.CallTrigger(0);
+            }
 
+            turning = false;
         }
         else if (rightPress)
         {
             angle += turningRate * Time.deltaTime;
+
+            if (!turning)
+            {
+                TriggerManager.StartTurningTrigger.CallTrigger(0);
+            }
+
+            turning = true;
         }
         else if (leftPress)
         {
-            angle -= turningRate * Time.deltaTime;    
+            angle -= turningRate * Time.deltaTime;
+
+            if (!turning)
+            {
+                TriggerManager.StartTurningTrigger.CallTrigger(0);
+            }
+
+            turning = true;
         }
+        else
+        {
+            if (turning)
+            {
+                TriggerManager.StopTurningTrigger.CallTrigger(0);
+            }
+
+            turning = false;
+        }
+
         velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
 
         if (head) 

@@ -92,4 +92,5 @@ MonoBehaviour:
   - SteeringWheel
   - BigBullet
   - HeadstoneHelmet
+  - KineticLauncher
   remove: 1
