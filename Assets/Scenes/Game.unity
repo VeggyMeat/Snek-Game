@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.data[2]
@@ -481,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.data[4]
       value: KineticLauncher
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: powerfulItems.Array.data[5]
+      value: MagicCap
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290823, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: m_RootOrder
@@ -1055,7 +1059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7715808371998813676, guid: de4bfebec93fc9e49aa4c50178f402a7, type: 3}
       propertyPath: spawnDelay
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7715808371998813676, guid: de4bfebec93fc9e49aa4c50178f402a7, type: 3}
       propertyPath: cameraTransform

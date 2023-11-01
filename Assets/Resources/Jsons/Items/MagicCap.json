@@ -1,0 +1,8 @@
+[
+  {
+    "itemName": "MagicCap",
+    "itemDescription": "Mages do ~% extra damage",
+
+    "damageMultiplier": 1.3
+  }
+]

@@ -36,6 +36,9 @@ public static class ItemManager
             case "KineticLauncher":
                 item = new KineticLauncher();
                 break;
+            case "MagicCap":
+                item = new MagicCap();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();
