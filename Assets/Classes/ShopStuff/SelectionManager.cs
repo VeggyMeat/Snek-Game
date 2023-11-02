@@ -5,6 +5,7 @@ using UnityEngine;
 public class SelectionManager : CanvasManager
 {
     public ShopManager shopManager;
+    public Reorganiser reorganiser;
 
     public override void ButtonClicked(int button)
     {
@@ -35,6 +36,8 @@ public class SelectionManager : CanvasManager
     {
         base.HideButtons();
 
+        reorganiser.Active = false;
+
         // resumes time
         shopManager.ResumeTime();
     }
@@ -42,6 +45,8 @@ public class SelectionManager : CanvasManager
     public override void ShowButtons()
     {
         base.ShowButtons();
+
+        reorganiser.Active = true;
 
         // pauses time
         shopManager.PauseTime();

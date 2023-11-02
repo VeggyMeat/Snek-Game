@@ -317,6 +317,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: headController
+      value: 
+      objectReference: {fileID: 346601359}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: startingSpot.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: startingSpot.y
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: seperationValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209952718597377301, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
+      propertyPath: mouseDistanceValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6253083919999698329, guid: 9c6114f758d1f0b4ca59285d01c40c11, type: 3}
       propertyPath: m_Name
       value: Reorganiser
@@ -1003,6 +1035,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6857713516973592526, guid: fbb4442411251384db307abfc6a66e3e, type: 3}
+      propertyPath: reorganiser
+      value: 
+      objectReference: {fileID: 815718985}
     - target: {fileID: 6857713516973592526, guid: fbb4442411251384db307abfc6a66e3e, type: 3}
       propertyPath: shopManager
       value: 
