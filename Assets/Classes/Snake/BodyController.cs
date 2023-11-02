@@ -173,7 +173,13 @@ public class BodyController : MonoBehaviour
     /// <summary>
     /// The color of the body
     /// </summary>
-    private Color color;
+    public Color Color
+    {
+        get
+        {
+            return spriteRenderer.color;
+        }
+    }
 
     // rgb colours of the body
     private float r;
@@ -741,11 +747,8 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal void ResetColour()
     {
-        // sets the new colour to the values
-        color = new Color(r, g, b);
-
         // displays that colour to the renderer
-        spriteRenderer.color = color;
+        spriteRenderer.color = new Color (r, g, b);
     }
 
     /// <summary>

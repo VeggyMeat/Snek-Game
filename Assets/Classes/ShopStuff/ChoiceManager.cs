@@ -13,7 +13,10 @@ public class ChoiceManager : CanvasManager
     private ChoiceState state = ChoiceState.None;
     private List<string> options;
 
+
+
     public ShopManager shopManager;
+    public Reorganiser reorganiser;
 
     /// <summary>
     /// Sets the state of the choice manager and creates the choices, freezing time
@@ -142,6 +145,8 @@ public class ChoiceManager : CanvasManager
     {
         base.HideButtons();
 
+        reorganiser.Active = false;
+
         // resumes time
         shopManager.ResumeTime();
     }
@@ -149,6 +154,8 @@ public class ChoiceManager : CanvasManager
     public override void ShowButtons()
     {
         base.ShowButtons();
+
+        reorganiser.Active = true;
 
         // pauses time
         shopManager.PauseTime();

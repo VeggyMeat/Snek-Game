@@ -32,6 +32,14 @@ public class EnemySummonerController : MonoBehaviour
 
     [SerializeField] private Transform cameraTransform;
 
+    public Transform CameraTransform
+    {
+        get
+        {
+            return cameraTransform;
+        }
+    }
+
     /// <summary>
     /// The number of enemies that have died
     /// </summary>
