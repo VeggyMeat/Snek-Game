@@ -7,6 +7,7 @@ using UnityEngine;
 public class Reorganiser : MonoBehaviour
 {
     List<GameObject> bodies = new List<GameObject>();
+    List<int> bodiesHashes = new List<int>();
 
     [SerializeField] private HeadController headController;
     [SerializeField] private GameObject body;
@@ -28,7 +29,10 @@ public class Reorganiser : MonoBehaviour
 
     private bool active = false;
 
+    private bool bodyChanged = false;
+
     private GameObject selectedBody = null;
+    private int selectedBodyHash = 0;
 
     private int selectedBodyPreviousSpot = -1;
 
@@ -72,6 +76,7 @@ public class Reorganiser : MonoBehaviour
 
             // adds it to the body list
             bodies.Add(bodyObject);
+            bodiesHashes.Add(bodyController.gameObject.GetHashCode());
 
             bodyController = bodyController.next;
         }
@@ -88,6 +93,7 @@ public class Reorganiser : MonoBehaviour
 
     private void CheckMousePos()
     {
+        // no gap is currently selected
         bodyGapPosition = -1;
 
         // gets the mouse position
@@ -100,13 +106,8 @@ public class Reorganiser : MonoBehaviour
         float y = StartingSpot.y;
         float x = StartingSpot.x;
 
+        // shows that no body is being hovered over
         bool hovered = false;
-
-        int extra = 1;
-        if (selectedBody is null)
-        {
-            extra = 0;
-        }
         
         for (int i = 0; i <= bodies.Count; i++)
         {
@@ -114,14 +115,15 @@ public class Reorganiser : MonoBehaviour
 
             if (!selectedBody && i < bodies.Count)
             {
+                // makes the body opaque again
                 Color oldColour = bodies[i].GetComponent<SpriteRenderer>().color;
-
-                // makes the opaque
                 bodies[i].GetComponent<SpriteRenderer>().color = new Color(oldColour.r, oldColour.g, oldColour.b, 1f);
             }
 
+            // checks if the mouse is over the current space
             bool hovering = Vector2.Distance(mousePosCoords, new Vector2(x, y)) < mouseDistanceValue;
 
+            // if its hovering, then an object has been hovered over this cycle
             if (hovering)
             {
                 hovered = true;
@@ -141,9 +143,14 @@ public class Reorganiser : MonoBehaviour
                     {
                         // adds the body back into the list
                         bodies.Insert(i, selectedBody);
+                        bodiesHashes.Insert(i, selectedBodyHash);
+
+                        // shows that a body has been changed
+                        bodyChanged = true;
 
                         // resets the selected body
                         selectedBody = null;
+                        selectedBodyHash = 0;
                     }
                 }
                 
@@ -155,11 +162,13 @@ public class Reorganiser : MonoBehaviour
                     {
                         // select that body
                         selectedBody = bodies[i];
+                        selectedBodyHash = bodiesHashes[i];
 
                         selectedBodyPreviousSpot = i;
 
                         // remove that body from the list
                         bodies.Remove(selectedBody);
+                        bodiesHashes.Remove(selectedBodyHash);
                     }
                     else
                     {
@@ -187,8 +196,10 @@ public class Reorganiser : MonoBehaviour
                 {
                     // adds the body back into the list at previous spot
                     bodies.Insert(selectedBodyPreviousSpot, selectedBody);
+                    bodiesHashes.Insert(selectedBodyPreviousSpot, selectedBodyHash);
 
                     selectedBody = null;
+                    selectedBodyHash = 0;
                 }
             }
         }
@@ -223,7 +234,50 @@ public class Reorganiser : MonoBehaviour
 
     private void Hide()
     {
-        // checks if anything has been changed
+        // if a body is still selected, put it back
+        if (selectedBody is not null)
+        {
+            bodies.Insert(selectedBodyPreviousSpot, selectedBody);
+            bodiesHashes.Insert(selectedBodyPreviousSpot, selectedBodyHash);
+        }
+
+
+        // if something has been changed
+        if (bodyChanged)
+        {
+            TriggerManager.PreBodyMoveTrigger.CallTrigger(0);
+
+            // gets the current arrangment of bodies
+            List<GameObject> order = new List<GameObject>();
+
+            foreach (int hash in bodiesHashes)
+            {
+                BodyController currentBody = ItemManager.headController.head;
+                bool found = false;
+
+                while (currentBody is not null)
+                {
+                    if (currentBody.gameObject.GetHashCode() == hash)
+                    {
+                        found = true;
+                        break;
+                    }
+
+                    currentBody = currentBody.next;
+                }
+
+                if (!found)
+                {
+                    throw new System.Exception("Body not found with hash");
+                }
+
+                order.Add(currentBody.gameObject);
+            }
+            
+            ItemManager.headController.Rearrange(order);
+
+            TriggerManager.PostBodyMoveTrigger.CallTrigger(0);
+        }
 
         // kills all the bodies
         foreach (GameObject bodyObj in bodies)
@@ -237,6 +291,8 @@ public class Reorganiser : MonoBehaviour
         }
 
         bodies.Clear();
+        bodiesHashes.Clear();
         selectedBody = null;
+        selectedBodyHash = 0;
     }
 }

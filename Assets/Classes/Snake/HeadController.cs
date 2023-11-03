@@ -382,4 +382,77 @@ public class HeadController: MonoBehaviour
     {
         return (float)XP / XPLevelUp;
     }
+
+    internal void Rearrange(List<GameObject> order)
+    {
+        // makes sure there is the right number of objects in the list
+        if (order.Count != currentBodies.Count)
+        {
+            throw new Exception("list passed does not contain the right number of objects");
+        }
+
+        // if the snake is empty, return
+        if (head is null)
+        {
+            return;
+        }
+
+        BodyController selectedBody;
+
+        try
+        {
+            selectedBody = order[0].GetComponent<BodyController>();
+        }
+        catch (Exception)
+        {
+            throw new Exception("list passed does not contain the right objects");
+        }
+
+        // checks if the selectedBody is the current head
+        if (selectedBody == head)
+        {
+            // if it is, then it is already in the right place
+            order.RemoveAt(0);
+            head.Rearrange(order);
+            return;
+        }
+
+        // switches their positions, positionFollow, lastMoved, lastPosition
+        Vector2 previousNextsPosition = head.transform.position;
+        Vector2 previousNextsLastMoved = head.lastMoved;
+        Vector2 previousNextsLastPosition = head.lastPosition;
+        Queue<Vector2> previousNextsPositionFollow = head.PositionFollow;
+
+        head.transform.position = selectedBody.transform.position;
+        head.lastMoved = selectedBody.lastMoved;
+        head.lastPosition = selectedBody.lastPosition;
+        head.PositionFollow = selectedBody.PositionFollow;
+
+        selectedBody.transform.position = previousNextsPosition;
+        selectedBody.lastMoved = previousNextsLastMoved;
+        selectedBody.lastPosition = previousNextsLastPosition;
+        selectedBody.PositionFollow = previousNextsPositionFollow;
+
+
+        // gets the previous head
+        BodyController previousHead = head;
+        BodyController nextHeadsNext = selectedBody.next;
+
+        // sets the new head's position in the linked list
+        head = selectedBody;
+        selectedBody.next = previousHead;
+        selectedBody.prev = null;
+
+        // sets the previous head's position in the list
+        previousHead.prev = head;
+        previousHead.next = nextHeadsNext;
+        if (nextHeadsNext is not null)
+        {
+            nextHeadsNext.prev = previousHead;
+        }
+
+        order.RemoveAt(0);
+        head.Rearrange(order);
+        return;
+    }
 }

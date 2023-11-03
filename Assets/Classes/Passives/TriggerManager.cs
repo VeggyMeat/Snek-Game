@@ -29,4 +29,8 @@ public static class TriggerManager
     public static BodyTrigger<int> StartTurningTrigger = new BodyTrigger<int>();
 
     public static BodyTrigger<int> StopTurningTrigger = new BodyTrigger<int>();
+
+    public static BodyTrigger<int> PreBodyMoveTrigger = new BodyTrigger<int>();
+
+    public static BodyTrigger<int> PostBodyMoveTrigger = new BodyTrigger<int>();
 }

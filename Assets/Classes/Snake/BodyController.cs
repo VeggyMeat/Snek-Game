@@ -281,6 +281,18 @@ public class BodyController : MonoBehaviour
     /// </summary>
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
+    public Queue<Vector2> PositionFollow
+    {
+        get
+        {
+            return positionFollow;
+        }
+        set
+        {
+            positionFollow = value;
+        }
+    }
+
     private HealthBarController healthBarController;
 
     // sets up variables
@@ -896,5 +908,72 @@ public class BodyController : MonoBehaviour
 
         // calls the level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
+    }
+
+    internal void Rearrange(List<GameObject> order)
+    {
+        // checks if the order is empty
+        if (order.Count == 0)
+        {
+            return;
+        }
+
+        // checks if the next body in the order is already in the right place
+        if (order[0] == next.gameObject)
+        {
+            order.RemoveAt(0);
+            next.Rearrange(order);
+            return;
+        }
+
+        BodyController selectedBody;
+
+        try
+        {
+            selectedBody = order[0].GetComponent<BodyController>();
+        }
+        catch (Exception)
+        {
+            throw new Exception("list passed does not contain the right objects");
+        }
+
+        // switches their positions, positionFollow, lastMoved, lastPosition
+        Vector2 previousNextsPosition = next.transform.position;
+        Vector2 previousNextsLastMoved = next.lastMoved;
+        Vector2 previousNextsLastPosition = next.lastPosition;
+        Queue<Vector2> previousNextsPositionFollow = next.positionFollow;
+
+        next.transform.position = selectedBody.transform.position;
+        next.lastMoved = selectedBody.lastMoved;
+        next.lastPosition = selectedBody.lastPosition;
+        next.positionFollow = selectedBody.positionFollow;
+
+        selectedBody.transform.position = previousNextsPosition;
+        selectedBody.lastMoved = previousNextsLastMoved;
+        selectedBody.lastPosition = previousNextsLastPosition;
+        selectedBody.positionFollow = previousNextsPositionFollow;
+
+
+        // switches their positions in the linked list
+        // gets the previous head
+        BodyController previousNext = next;
+        BodyController nextNextsNext = selectedBody.next;
+
+        // sets the new head's position in the linked list
+        next = selectedBody;
+        selectedBody.next = previousNext;
+        selectedBody.prev = this;
+
+        // sets the previous head's position in the list
+        previousNext.prev = next;
+        previousNext.next = nextNextsNext;
+        if (nextNextsNext is not null)
+        {
+            nextNextsNext.prev = previousNext;
+        }
+
+        order.RemoveAt(0);
+        next.Rearrange(order);
+        return;
     }
 }
