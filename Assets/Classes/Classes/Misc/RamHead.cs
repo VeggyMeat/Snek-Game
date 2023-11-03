@@ -22,13 +22,16 @@ public class RamHead : Class
 
         base.Setup();
 
-        BuffHead();
+        BuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
 
     /// <summary>
     /// Buffs the head
     /// </summary>
-    private void BuffHead()
+    private int BuffHead(int _)
     {
         // adds a health buff to the head
         body.snake.head.healthBuff.AddBuff(healthAdded, false, null);
@@ -41,12 +44,14 @@ public class RamHead : Class
 
         // increases the contactForce
         body.snake.head.ContactForce = (int)(body.snake.head.ContactForce * contactForceMultiplier);
+
+        return _;
     }
 
     /// <summary>
     /// Removes the buffs from the head
     /// </summary>
-    private void UnBuffHead()
+    private int UnBuffHead(int _)
     {
         // adds a negative health buff to the head
         body.snake.head.healthBuff.AddBuff(-healthAdded, false, null);
@@ -59,20 +64,28 @@ public class RamHead : Class
 
         // decreases the contactForce
         body.snake.head.ContactForce = (int)(body.snake.head.ContactForce / contactForceMultiplier);
+
+        return _;
     }
 
     internal override void OnDeath()
     {
         base.OnDeath();
 
-        UnBuffHead();
+        UnBuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.RemoveTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.RemoveTrigger(UnBuffHead);
     }
 
     internal override void Revived()
     {
         base.Revived();
 
-        BuffHead();
+        BuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -84,10 +97,10 @@ public class RamHead : Class
         jsonData.Setup(ref healthAdded, "healthAdded");
         jsonData.Setup(ref defenceAdded, "defenceAdded");
 
-        if (body.Level != 1)
+        if (jsonLoaded)
         {
-            UnBuffHead();
-            BuffHead();
+            UnBuffHead(0);
+            BuffHead(0);
         }
     }
 }

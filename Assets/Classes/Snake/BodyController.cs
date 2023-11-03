@@ -331,6 +331,10 @@ public class BodyController : MonoBehaviour
         attackSpeedBuff = gameObject.AddComponent<Buff>();
         attackSpeedBuff.Setup(AttackSpeedBuffUpdate, 1f);
 
+        // sets up the healthBar
+        healthBarController = Instantiate(snake.healthBarPrefab, transform).GetComponent<HealthBarController>();
+        healthBarController.Setup(snake.bodyHealthBarScaleX, snake.bodyHealthBarScaleY);
+
         // sets up the classes
         foreach (Class c in classes)
         {
@@ -338,9 +342,6 @@ public class BodyController : MonoBehaviour
             c.Setup();
         }
 
-        // sets up the healthBar
-        healthBarController = Instantiate(snake.healthBarPrefab, transform).GetComponent<HealthBarController>();
-        healthBarController.Setup(snake.bodyHealthBarScaleX, snake.bodyHealthBarScaleY);
         healthBarController.SetBar(PercentageHealth);
 
         // makes the body start regenerating

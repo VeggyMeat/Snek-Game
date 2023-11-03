@@ -17,47 +17,60 @@ public class TheRightHandMan : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("misc");
+        body.classNames.Add("Misc");
 
         base.Setup();
 
-        BuffHead();
+        BuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
 
     /// <summary>
     /// Buffs the head
     /// </summary>
-    private void BuffHead()
+    private int BuffHead(int _)
     {
         // adds the buffs
         body.snake.head.damageBuff.AddBuff(headDamageMultiplier, true, null);
         body.snake.head.speedBuff.AddBuff(headSpeedMultiplier, true, null);
         body.snake.head.attackSpeedBuff.AddBuff(headAttackSpeedMultiplier, true, null);
+
+        return _;
     }
 
     /// <summary>
     /// Removes the buffs from the head
     /// </summary>
-    private void UnBuffHead()
+    private int UnBuffHead(int _)
     {
         // removes the buffs
         body.snake.head.damageBuff.AddBuff(1 / headDamageMultiplier, true, null);
         body.snake.head.speedBuff.AddBuff(1 / headSpeedMultiplier, true, null);
         body.snake.head.attackSpeedBuff.AddBuff(1 / headAttackSpeedMultiplier, true, null);
+
+        return _;
     }
 
     internal override void OnDeath()
     {
         base.OnDeath();
 
-        UnBuffHead();
+        UnBuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.RemoveTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.RemoveTrigger(UnBuffHead);
     }
 
     internal override void Revived()
     {
         base.Revived();
 
-        BuffHead();
+        BuffHead(0);
+
+        TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
+        TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
@@ -68,10 +81,10 @@ public class TheRightHandMan : Class
         jsonData.Setup(ref headSpeedMultiplier, nameof(headSpeedMultiplier));
         jsonData.Setup(ref headAttackSpeedMultiplier, nameof(headAttackSpeedMultiplier));
 
-        if (body.Level != 1)
+        if (jsonLoaded)
         {
-            UnBuffHead();
-            BuffHead();
+            UnBuffHead(0);
+            BuffHead(0);
         }
     }
 }
