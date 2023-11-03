@@ -1,0 +1,9 @@
+[
+  {
+    "itemName": "ExplosiveTippedArrows",
+    "itemDescription": "Archers projectiles do ~% AOE damage ~radius when they hit an enemy",
+
+    "radius": 3,
+    "damage": 10
+  }
+]

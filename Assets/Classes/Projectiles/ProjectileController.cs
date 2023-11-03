@@ -124,6 +124,8 @@ public class ProjectileController : MonoBehaviour
                 owner.EnemyKilled(collision.gameObject);
             }
 
+            TriggerManager.ProjectileHitTrigger.CallTrigger(gameObject);
+
             // destroy the projectile
             Die();
         }

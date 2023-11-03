@@ -39,6 +39,9 @@ public class SlowingProjectileController : ProjectileController
                     // if it survives applies the slow debuff
                     body.speedBuff.AddBuff(enemySlowMultiplier, true, enemySlowDuration);
                 }
+
+                TriggerManager.ProjectileHitTrigger.CallTrigger(gameObject);
+
                 // kill the projectile
                 Die();
             }

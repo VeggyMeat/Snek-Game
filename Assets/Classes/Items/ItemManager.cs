@@ -18,26 +18,29 @@ public static class ItemManager
 
         switch (itemName)
         {
-            case "Quiver":
+            case nameof(Quiver):
                 item = new Quiver();
                 break;
-            case "LuckyFlask":
+            case nameof(LuckyFlask):
                 item = new LuckyFlask();
                 break;
-            case "SteeringWheel":
+            case nameof(SteeringWheel):
                 item = new SteeringWheel();
                 break;
-            case "BigBullet":
+            case nameof(BigBullet):
                 item = new BigBullet();
                 break;
-            case "HeadstoneHelmet":
+            case nameof(HeadstoneHelmet):
                 item = new HeadstoneHelmet();
                 break;
-            case "KineticLauncher":
+            case nameof(KineticLauncher):
                 item = new KineticLauncher();
                 break;
-            case "MagicCap":
+            case nameof(MagicCap):
                 item = new MagicCap();
+                break;
+            case nameof(ExplosiveTippedArrows):
+                item = new ExplosiveTippedArrows();
                 break;
             default:
                 // crashes if its been called with an item that doesn't exist

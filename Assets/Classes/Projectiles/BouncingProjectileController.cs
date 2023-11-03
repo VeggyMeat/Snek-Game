@@ -50,6 +50,8 @@ public class BouncingProjectileController : ProjectileController
                     }
                 }
 
+                TriggerManager.ProjectileHitTrigger.CallTrigger(gameObject);
+
                 // kill the projectile
                 Die();
             }
