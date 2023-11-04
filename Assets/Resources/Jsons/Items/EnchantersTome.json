@@ -1,0 +1,9 @@
+[
+  {
+    "itemName": "EnchantersTome",
+    "itemDescription": "For every enchanter you have, give all bodies ~% extra damage, ~% extra hp",
+
+    "enchanterHPMultiplier": 0.1,
+    "enchanterDamageMultiplier": 0.1
+  }
+]

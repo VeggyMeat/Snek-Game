@@ -42,6 +42,9 @@ public static class ItemManager
             case nameof(ExplosiveTippedArrows):
                 item = new ExplosiveTippedArrows();
                 break;
+            case nameof(EnchantersTome):
+                item = new EnchantersTome();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();

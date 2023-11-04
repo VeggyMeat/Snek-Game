@@ -19,7 +19,10 @@ public class MagicCap : Item
 
     private BodyController BuffBody(BodyController bodyController)
     {
-        bodyController.damageBuff.AddBuff(damageMultiplier, true, null);
+        if (bodyController.classNames.Contains(nameof(Mage)))
+        {
+            bodyController.damageBuff.AddBuff(damageMultiplier, true, null);
+        }
 
         return bodyController;
     }
