@@ -6,13 +6,13 @@ using UnityEngine;
 
 public static class TriggerManager
 {
-    public static BodyTrigger<int> BodyLostHealthTrigger = new BodyTrigger<int>();
+    public static BodyTrigger<(BodyController, int)> BodyLostHealthTrigger = new BodyTrigger<(BodyController, int)>();
 
-    public static BodyTrigger<int> BodyGainedHealthTrigger = new BodyTrigger<int>();
+    public static BodyTrigger<(BodyController, int)> BodyGainedHealthTrigger = new BodyTrigger<(BodyController, int)>();
 
     public static BodyTrigger<int> BodyLevelUpTrigger = new BodyTrigger<int>();
 
-    public static BodyTrigger<GameObject> BodyDeadTrigger = new BodyTrigger<GameObject>();
+    public static BodyTrigger<BodyController> BodyDeadTrigger = new BodyTrigger<BodyController>();
 
     public static BodyTrigger<BodyController> BodySpawnTrigger = new BodyTrigger<BodyController>();
 

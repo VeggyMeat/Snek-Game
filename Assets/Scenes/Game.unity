@@ -568,7 +568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: smallItems.Array.data[0]
@@ -605,6 +605,10 @@ PrefabInstance:
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.data[7]
       value: EnchantersTome
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: powerfulItems.Array.data[8]
+      value: BerserkerBlood
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290823, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: m_RootOrder

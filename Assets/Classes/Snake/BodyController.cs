@@ -491,7 +491,7 @@ public class BodyController : MonoBehaviour
         if (quantity > 0)
         {
             // increase health trigger (ASSUMES NO HEALING WILL MAKE YOU TAKE DAMAGE)
-            quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn(quantity);
+            quantity = TriggerManager.BodyGainedHealthTrigger.CallTriggerReturn((this, quantity)).Item2;
 
             // increases the health by the amount healed
             health += (int)(quantity * snake.healingModifier);
@@ -514,7 +514,7 @@ public class BodyController : MonoBehaviour
             }
 
             // lost health trigger (ASSUMES IT WILL NOT MAKE BODY HEAL)
-            quantity = TriggerManager.BodyLostHealthTrigger.CallTriggerReturn(quantity);
+            quantity = TriggerManager.BodyLostHealthTrigger.CallTriggerReturn((this, quantity)).Item2;
 
             // reduces the health by the final damage
             health += quantity;
@@ -554,7 +554,7 @@ public class BodyController : MonoBehaviour
         }
 
         // body died trigger called
-        TriggerManager.BodyDeadTrigger.CallTrigger(gameObject);
+        TriggerManager.BodyDeadTrigger.CallTrigger(this);
     }
 
     /// <summary>

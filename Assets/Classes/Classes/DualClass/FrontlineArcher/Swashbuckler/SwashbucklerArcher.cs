@@ -57,23 +57,23 @@ public class SwashbucklerArcher : Archer
         jsonData.Setup(ref perArcherSpeedIncrease, nameof(perArcherSpeedIncrease));
     }
 
-    private BodyController IncreaseArcher(BodyController bodyCon)
+    private BodyController IncreaseArcher(BodyController bodyController)
     {
-        if (bodyCon.classNames.Contains(nameof(Archer)))
+        if (bodyController.classNames.Contains(nameof(Archer)))
         {
             archerNumber++;
         }
 
-        return bodyCon;
+        return bodyController;
     }
 
-    private GameObject DecreaseArcher(GameObject bodyCon)
+    private BodyController DecreaseArcher(BodyController bodyController)
     {
-        if (bodyCon.GetComponent<BodyController>().classNames.Contains(nameof(Archer)))
+        if (bodyController.classNames.Contains(nameof(Archer)))
         {
             archerNumber--;
         }
 
-        return bodyCon.gameObject;
+        return bodyController;
     }
 }

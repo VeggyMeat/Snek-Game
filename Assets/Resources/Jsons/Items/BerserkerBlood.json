@@ -1,0 +1,10 @@
+[
+  {
+    "itemName": "BerserkerBlood",
+    "itemDescription": "frontlines get ~% damage and ~% attack speed boost when beneath ~% hp (powerful)",
+
+    "healthThreshold": 0.3,
+    "damageMultiplier": 5,
+    "attackSpeedMultiplier": 5
+  }
+]

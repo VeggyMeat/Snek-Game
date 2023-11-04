@@ -31,15 +31,13 @@ public class DeathWardEnchanter : Enchanter
         return enemy;
     }
 
-    private GameObject OnBodyDeath(GameObject bodyObject)
+    private BodyController OnBodyDeath(BodyController bodyController)
     {
         // if it is this object, ignore
-        if (bodyObject == body.gameObject)
+        if (bodyController == body)
         {
-            return bodyObject;
+            return bodyController;
         }
-
-        BodyController bodyController = bodyObject.GetComponent<BodyController>();
 
         // gets the HP that will be moved to the body
         int health = (int)(bodyController.MaxHealth * reviveHealthPercentage);
@@ -64,7 +62,7 @@ public class DeathWardEnchanter : Enchanter
             body.ChangeHealth(-health);
         }
 
-        return bodyObject;
+        return bodyController;
     }
 
     internal override void OnDeath()

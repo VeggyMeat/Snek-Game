@@ -17,14 +17,14 @@ public class LuckyFlask : Item
         TriggerManager.BodyLostHealthTrigger.AddTrigger(OnBodyHit);
     }
 
-    private int OnBodyHit(int damage)
+    private (BodyController, int) OnBodyHit((BodyController, int) info)
     {
         if (Random.Range(0f, 1f) < dodgeChance)
         {
-            return 0;
+            return (info.Item1, 0);
         }
 
-        return damage;
+        return info;
     }
 
     protected override void JsonSetup()

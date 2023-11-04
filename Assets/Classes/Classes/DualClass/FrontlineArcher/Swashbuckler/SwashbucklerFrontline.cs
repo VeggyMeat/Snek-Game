@@ -110,23 +110,23 @@ public class SwashbucklerFrontline : Frontline
         }
     }
 
-    private BodyController IncreaseFrontline(BodyController bodyCon)
+    private BodyController IncreaseFrontline(BodyController bodyController)
     {
-        if (bodyCon.classNames.Contains(nameof(Frontline)))
+        if (bodyController.classNames.Contains(nameof(Frontline)))
         {
             frontlineNumber++;
         }
 
-        return bodyCon;
+        return bodyController;
     }
 
-    private GameObject DecreaseFrontline(GameObject bodyCon)
+    private BodyController DecreaseFrontline(BodyController bodyController)
     {
-        if (bodyCon.GetComponent<BodyController>().classNames.Contains(nameof(Frontline)))
+        if (bodyController.classNames.Contains(nameof(Frontline)))
         {
             frontlineNumber--;
         }
 
-        return bodyCon.gameObject;
+        return bodyController;
     }
 }

@@ -32,7 +32,7 @@ public class HeadstoneHelmet : Item
         TriggerManager.BodyRevivedTrigger.AddTrigger(Decrease);
     }
 
-    private GameObject Increase(GameObject bodyObj)
+    private BodyController Increase(BodyController bodyController)
     {
         RemoveBuff();
 
@@ -40,7 +40,7 @@ public class HeadstoneHelmet : Item
 
         AddBuff();
 
-        return bodyObj;
+        return bodyController;
     }
 
     private BodyController Decrease(BodyController bodyController)

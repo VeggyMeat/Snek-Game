@@ -84,10 +84,8 @@ public class EnchantersTome : Item
         return bodyController;
     }
 
-    private GameObject DecreaseEnchanters(GameObject gameObject)
+    private BodyController DecreaseEnchanters(BodyController bodyController)
     {
-        BodyController bodyController = gameObject.GetComponent<BodyController>();
-
         // checks if the body is an enchanter
         if (bodyController.classNames.Contains(nameof(Enchanter)))
         {
@@ -99,7 +97,7 @@ public class EnchantersTome : Item
             BuffAllBodies();
         }
 
-        return gameObject;
+        return bodyController;
     }
 
     private void BuffAllBodies()
