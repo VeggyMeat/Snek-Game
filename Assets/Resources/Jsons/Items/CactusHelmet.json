@@ -1,0 +1,10 @@
+[
+  {
+    "itemName": "CactusHelmet",
+    "itemDescription": "Units release a bunch of projectiles whenever they lose hp",
+
+    "projectiles": 8,
+    "projectilePath": "GameObjects/CapsuleProjectile",
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/CactusHelmetProjectile.json"
+  }
+]

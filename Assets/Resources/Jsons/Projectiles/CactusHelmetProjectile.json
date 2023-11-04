@@ -1,0 +1,14 @@
+[
+  {
+    "velocity": 15,
+    "lifeSpan": 2,
+    "damage": 5,
+
+    "r": 0,
+    "g": 0.4,
+    "b": 0,
+
+    "scaleX": 0.2,
+    "scaleY": 0.2
+  }
+]

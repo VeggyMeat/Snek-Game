@@ -48,6 +48,9 @@ public static class ItemManager
             case nameof(BerserkerBlood):
                 item = new BerserkerBlood();
                 break;
+            case nameof(CactusHelmet):
+                item = new CactusHelmet();
+                break;
             default:
                 // crashes if its been called with an item that doesn't exist
                 throw new System.Exception();
