@@ -122,22 +122,12 @@ public abstract class Archer : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        // neither of these currently are allowed to be changed other than at level 1
+        // not allowed to change after initialisation
         jsonData.Setup(ref projectilePath, nameof(projectilePath));
         jsonData.Setup(ref projectileJson, nameof(projectileJson));
-
-        if (jsonData.ContainsKey(nameof(timeDelay))) 
-        {
-            timeDelay = float.Parse(jsonData[nameof(timeDelay)].ToString());
-
-            if (jsonLoaded)
-            {
-                // resets firing projectiles
-                StopRepeatingProjectile();
-                StartRepeatingProjectile();
-            }
-        }
         jsonData.Setup(ref autoFire, nameof(autoFire));
+
+        jsonData.SetupAction(ref timeDelay, nameof(timeDelay), StopRepeatingProjectile, StartRepeatingProjectile, jsonLoaded);
     }
 
     internal override void LevelUp()

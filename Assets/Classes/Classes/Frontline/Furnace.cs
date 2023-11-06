@@ -19,6 +19,7 @@ public class Furnace : Frontline
     {
         base.Setup();
 
+        // starts burning the enemies
         StartBurningEnemies();
     }
 
@@ -35,6 +36,7 @@ public class Furnace : Frontline
         // gets all of the enemies within the range
         Collider2D[] enemiesInRange = System.Array.FindAll(objectsInRange, obj => obj.CompareTag("Enemy"));
 
+        // if there are no enemies, ignore it
         if (enemiesInRange.Length == 0)
         {
             return;
@@ -42,8 +44,8 @@ public class Furnace : Frontline
 
         foreach (Collider2D enemy in enemiesInRange)
         {
+            // grab the gameObject and enemyController
             GameObject enemyObject = enemy.gameObject;
-
             EnemyController enemyController = enemyObject.GetComponent<EnemyController>();
 
             // adds the enemy to the burn list
@@ -74,6 +76,7 @@ public class Furnace : Frontline
 
     private void BurnEnemies()
     {
+        // goes through each enemy and burns them
         for (int i = burnEnemies.Count - 1; i >= 0; i--)
         {
             EnemyController enemyController = burnEnemies[i];
@@ -83,16 +86,19 @@ public class Furnace : Frontline
 
     private void StartBurningEnemies()
     {
+        // calls BurnEnemies every burnDelay seconds
         InvokeRepeating(nameof(BurnEnemies), burnDelay, burnDelay);
     }
 
     private void StopBurningEnemies()
     {
+        // stops calling BurnEnemies regularly
         CancelInvoke(nameof(BurnEnemies));
     }
 
     internal override void OnDeath()
     {
+        // stops burning the enemies
         StartBurningEnemies();
 
         base.OnDeath();
@@ -102,6 +108,7 @@ public class Furnace : Frontline
     {
         base.Revived();
 
+        // continues burning the enemies
         StartBurningEnemies();
     }
 
@@ -109,15 +116,7 @@ public class Furnace : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey(nameof(burnDelay)))
-        {
-            burnDelay = int.Parse(jsonData[nameof(burnDelay)].ToString());
-
-            // reset the burning enemies loop
-            StopBurningEnemies();
-            StopBurningEnemies();
-        }
-
+        jsonData.SetupAction(ref burnDelay, nameof(burnDelay), StopBurningEnemies, StartBurningEnemies, jsonLoaded);
         jsonData.Setup(ref burnRange, nameof(burnRange));
     }
 }

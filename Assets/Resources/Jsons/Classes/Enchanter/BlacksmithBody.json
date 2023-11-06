@@ -4,12 +4,28 @@
     "g": 0.103,
     "b": 0.163,
 
-    "defence": 5,
+    "defence": 2,
     "maxHealth": 70,
     "contactDamage": 10,
     "contactForce": 2000,
     "velocityContribution": 6.5,
 
     "name": "Blacksmith"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

@@ -2,10 +2,27 @@
   {
     "timeDelay": 0.25,
     "autoFire": true,
+    "projectiles": 2,
 
     "projectilePath": "GameObjects/ShurikenProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/NinjaProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/NinjaBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "timeDelay": 0.2
+  },
+
+  {
+
+  },
+
+  {
+    "timeDelay": 0.15
   }
 ]

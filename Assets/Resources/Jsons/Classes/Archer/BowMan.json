@@ -9,5 +9,24 @@
     "projectileJson": "Assets/Resources/Jsons/Projectiles/BowManProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/BowManBody.json"
+  },
+
+  {
+    "timeDelay": 0.2,
+    "projectileCount": 4
+  },
+
+  {
+    "enemyDeathVolleyCount": 1
+  },
+
+  {
+    "timeDelay": 0.15,
+    "enemyDeathVolleyCount": 2
+  },
+
+  {
+    "enemyDeathVolleyCount": 3,
+    "projectileCount": 5
   }
 ]

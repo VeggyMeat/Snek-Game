@@ -11,14 +11,18 @@ public abstract class Enchanter : Class
 
     internal override void Setup()
     {
+        // adds the enchanter class name to the body's classes for identification
         body.classNames.Add(nameof(Enchanter));
 
         base.Setup();
 
+        // if it buffs all bodies
         if (buffsAllBodies) 
         {
+            // buff all bodies
             BuffAllBodies(true);
 
+            // adds a trigger to buff the new body when a new body is spawned
             TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
         }
     }
@@ -27,7 +31,7 @@ public abstract class Enchanter : Class
     /// Buffs all currently alive bodies
     /// </summary>
     /// <param name="first">whether to buff itself or not</param>
-    protected virtual void BuffAllBodies(bool first = false)
+    protected virtual void BuffAllBodies(bool first)
     {
         // gets the head
         BodyController bodyBuffed = body.snake.head;
@@ -52,6 +56,14 @@ public abstract class Enchanter : Class
             // gets the next body
             bodyBuffed = bodyBuffed.next;
         }
+    }
+
+    /// <summary>
+    /// Buffs all currently alive bodies
+    /// </summary>
+    protected virtual void BuffAllBodies()
+    {
+        BuffAllBodies(false);
     }
 
     /// <summary>
@@ -104,6 +116,7 @@ public abstract class Enchanter : Class
             // removes buffs from all the bodies
             UnbuffAllBodies();
 
+            // removes the trigger
             TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
         }
     }
@@ -120,6 +133,7 @@ public abstract class Enchanter : Class
             // buffs all the bodies
             BuffAllBodies();
 
+            // adds the trigger back
             TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
         }
     }
@@ -131,6 +145,7 @@ public abstract class Enchanter : Class
     /// <returns></returns>
     internal BodyController NewBodyTrigger(BodyController newBody)
     {
+        // buffs the body
         AddBuff(newBody.gameObject);
 
         return newBody;
@@ -140,36 +155,7 @@ public abstract class Enchanter : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("buffsAllBodies"))
-        {
-            if (jsonLoaded)
-            {
-                bool oldBuffsAllBodies = buffsAllBodies;
-                buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
-
-                // if it used to buff them, but now it doesnt
-                if (oldBuffsAllBodies && !buffsAllBodies)
-                {
-                    // removes the trigger
-                    TriggerManager.BodySpawnTrigger.RemoveTrigger(NewBodyTrigger);
-
-                    // unbuffs all the bodies
-                    UnbuffAllBodies();
-                }
-                // if it is just now buffing them
-                else if (!oldBuffsAllBodies && buffsAllBodies)
-                {
-                    // adds the trigger
-                    TriggerManager.BodySpawnTrigger.AddTrigger(NewBodyTrigger);
-
-                    // buffs all the bodies
-                    BuffAllBodies(true);
-                }
-            }
-            else
-            {
-                buffsAllBodies = bool.Parse(jsonData["buffsAllBodies"].ToString());
-            }
-        }
+        // cant be changed after initialisation
+        jsonData.Setup(ref buffsAllBodies, nameof(buffsAllBodies));
     }
 }

@@ -7,19 +7,15 @@ public class SlowingProjectileController : ProjectileController
     // public so that they can be set manually, maybe update this
     private float enemySlowMultiplier;
     private float enemySlowDuration;
-    private float spin;
-
-    internal override void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
-    {
-        base.Setup(variables, owner, damageMultiplier, addOwnerVelocity);
-
-        // sets the angular velocity
-        selfRigid.angularVelocity = spin;
-    }
 
     // triggers when the projectile collides with something
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
@@ -44,6 +40,8 @@ public class SlowingProjectileController : ProjectileController
 
                 // kill the projectile
                 Die();
+
+                isDead = true;
             }
         }
     }
@@ -54,6 +52,5 @@ public class SlowingProjectileController : ProjectileController
 
         variables.Setup(ref enemySlowMultiplier, nameof(enemySlowMultiplier));
         variables.Setup(ref enemySlowDuration, nameof(enemySlowDuration));
-        variables.Setup(ref spin, nameof(spin));
     }
 }

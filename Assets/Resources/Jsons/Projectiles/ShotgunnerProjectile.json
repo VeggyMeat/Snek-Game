@@ -2,7 +2,7 @@
   {
     "velocity": 40,
     "lifeSpan": 0.25,
-    "damage": 50,
+    "damage": 20,
 
     "r": 0.1,
     "g": 0.1,
@@ -10,5 +10,22 @@
 
     "scaleX": 0.15,
     "scaleY": 0.15
+  },
+
+  {
+    "damage": 30
+  },
+
+  {
+
+  },
+
+  {
+    "damage": 40
+  },
+
+  {
+    "scaleX": 0.2,
+    "scaleY": 0.2
   }
 ]

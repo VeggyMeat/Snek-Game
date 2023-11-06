@@ -56,6 +56,12 @@ public static class ItemManager
                 throw new System.Exception();
         }
 
+        // removes that body from the list of available bodies
+        if (headController.shopManager.remove)
+        {
+            headController.shopManager.bodies.Remove(itemName);
+        }
+
         item.Setup();
         items.Add(item);
     }

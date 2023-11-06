@@ -20,13 +20,16 @@ public class Healer : Enchanter
     {
         base.Setup();
 
+        // starts healing bodies
         StartHealing();
     }
 
     private void HealRandomAlly()
     {
+        // creates a list of healable bodies
         List<BodyController> healable = new List<BodyController>();
 
+        // goes through each body in the snake and checks if its healable
         BodyController currentBody = body.snake.head;
         while (currentBody is not null)
         {
@@ -38,9 +41,11 @@ public class Healer : Enchanter
                 }
             }
 
+            // gets the next body
             currentBody = currentBody.next;
         }
 
+        // if something is healable, heal a random body that is healable
         if (healable.Count != 0)
         {
             HealAlly(healable.RandomItem());
@@ -49,16 +54,19 @@ public class Healer : Enchanter
 
     private void HealAlly(BodyController healBody)
     {
+        // increase the body's health by healthIncrease
         healBody.ChangeHealth(healthIncrease);
     }
 
     private void StartHealing()
     {
+        // if already healing, ignore
         if (healing)
         {
             return;
         }
 
+        // regularly calls HealRandomAlly
         InvokeRepeating(nameof(HealRandomAlly), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
 
         healing = true;
@@ -66,11 +74,13 @@ public class Healer : Enchanter
 
     private void StopHealing()
     {
+        // if not healing already, ignore
         if (!healing)
         {
             return;
         }
 
+        // stops regularly calling HealRandomAlly
         CancelInvoke(nameof(HealRandomAlly));
 
         healing = false;
@@ -80,17 +90,7 @@ public class Healer : Enchanter
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey(nameof(timeDelay)))
-        {
-            timeDelay = int.Parse(jsonData[nameof(timeDelay)].ToString());
-
-            if (jsonLoaded)
-            {
-                StopHealing();
-                StartHealing();
-            }
-        }
-
+        jsonData.SetupAction(ref timeDelay, nameof(timeDelay), UnbuffAllBodies, BuffAllBodies, jsonLoaded);
         jsonData.Setup(ref healthIncrease, nameof(healthIncrease));
     }
 
@@ -98,6 +98,7 @@ public class Healer : Enchanter
     {
         base.OnDeath();
 
+        // stops regularly healing bodies
         StopHealing();
     }
 
@@ -105,6 +106,7 @@ public class Healer : Enchanter
     {
         base.Revived();
 
+        // continues regularly healing bodies
         StartHealing();
     }
 
@@ -112,6 +114,7 @@ public class Healer : Enchanter
     {
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
+        // restarts the healing process
         StopHealing();
         StartHealing();
     }

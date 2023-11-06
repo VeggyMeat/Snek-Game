@@ -9,5 +9,22 @@
     "healingOrbLifeSpan": 120,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/HerbologistBody.json"
+  },
+
+  {
+    "healingOrbHealAmount": 35
+  },
+
+  {
+    "healingOrbHealAmount": 40,
+    "healingOrbDelay": 2.5
+  },
+
+  {
+    "healingOrbHealAmount": 50
+  },
+
+  {
+    "healingOrbDelay": 1
   }
 ]

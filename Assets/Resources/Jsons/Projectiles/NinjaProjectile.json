@@ -4,7 +4,7 @@
     "lifeSpan": 7.5,
     "damage": 25,
 
-    "enemySlowMultiplier": 0.5,
+    "enemySlowMultiplier": 0.75,
     "enemySlowDuration": 2.5,
 
     "r": 1,
@@ -13,5 +13,23 @@
 
     "scaleX": 0.35,
     "scaleY": 0.35
+  },
+
+  {
+    "enemySlowDuration": 3,
+    "damage": 30
+  },
+
+  {
+    "enemySlowMultiplier": 0.5
+  },
+
+  {
+    "enemySlowDuration": 3.5,
+    "damage": 35
+  },
+
+  {
+    "enemySlowMultiplier": 0.25
   }
 ]

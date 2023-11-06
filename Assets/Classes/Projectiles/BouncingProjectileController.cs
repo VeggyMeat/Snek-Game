@@ -20,6 +20,11 @@ public class BouncingProjectileController : ProjectileController
     // triggers when the projectile collides with something
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
@@ -54,6 +59,8 @@ public class BouncingProjectileController : ProjectileController
 
                 // kill the projectile
                 Die();
+
+                isDead = true;
             }
         }
     }

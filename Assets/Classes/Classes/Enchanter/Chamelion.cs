@@ -8,7 +8,7 @@ public class Chamelion : Enchanter
 {
     readonly List<string> Classes = new List<string>()
     {
-        "Frontline", "Enchanter", "Archer", "Mage"
+        "Mage", "Frontline", "Enchanter", "Archer"
     };
 
     readonly List<string> Buffs = new List<string>()
@@ -36,25 +36,18 @@ public class Chamelion : Enchanter
         base.ClassSetup();
     }
 
-    /// <summary>
-    /// Runs the BuffBody function on every body in the snake
-    /// </summary>
-    private void BuffAllBodies()
+    internal override void Setup()
     {
-        BodyController snakeBody = body.snake.head;
+        base.Setup();
 
-        while (snakeBody is not null)
-        {
-            // buff the body
-            BuffBody(snakeBody);
-
-            // grabs the next one
-            snakeBody = snakeBody.next;
-        }
+        // starts changing types
+        StartChangingType();
     }
 
-    private void BuffBody(BodyController snakeBody)
+    protected override void AddBuff(GameObject snakeObj)
     {
+        BodyController snakeBody = snakeObj.GetComponent<BodyController>();
+
         // if its the current class
         if (snakeBody.classNames.Contains(currentClass))
         {
@@ -144,12 +137,6 @@ public class Chamelion : Enchanter
         jsonData.Setup(ref healthMultiplier, nameof(healthMultiplier));
         jsonData.Setup(ref defenceMultiplier, nameof(defenceMultiplier));
 
-        if (jsonData.ContainsKey(nameof(timeDelay)))
-        {
-            timeDelay = float.Parse(jsonData[nameof(timeDelay)].ToString());
-
-            StopChangingType();
-            StartChangingType();
-        }
+        jsonData.SetupAction(ref timeDelay, nameof(timeDelay), StopChangingType, StartChangingType, jsonLoaded);
     }
 }

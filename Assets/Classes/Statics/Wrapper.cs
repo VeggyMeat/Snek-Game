@@ -16,6 +16,25 @@ public static class Wrapper
         }
     }
 
+    public static void SetupAction<T>(this Dictionary<string, object> dict, ref T variable, string name, Action actionBefore, Action actionAfter, bool doAction) where T : IConvertible
+    {
+        // if its in the dictionary
+        if (dict.ContainsKey(name))
+        {
+            if (doAction)
+            {
+                actionBefore();
+            }
+
+            variable = (T)Convert.ChangeType(dict[name], typeof(T));
+
+            if (doAction)
+            {
+                actionAfter();
+            }
+        }
+    }
+
     /// <summary>
     /// Returns a random item from the list
     /// </summary>

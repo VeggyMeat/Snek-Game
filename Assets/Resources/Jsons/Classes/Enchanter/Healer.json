@@ -5,5 +5,24 @@
     "timeDelay": 5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/HealerBody.json"
+  },
+
+  {
+    "timeDelay": 4,
+    "healthIncrease": 20
+  },
+
+  {
+    "healthIncrease": 30
+  },
+
+  {
+    "timeDelay": 3,
+    "healthIncrease": 40
+  },
+
+  {
+    "timeDelay": 2.5,
+    "healthIncrease": 50
   }
 ]

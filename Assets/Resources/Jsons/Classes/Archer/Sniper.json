@@ -6,5 +6,21 @@
     "autoFire": true,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/SniperBody.json"
+  },
+
+  {
+    "timeDelay": 1.75
+  },
+
+  {
+    "damage": 150
+  },
+
+  {
+    "timeDelay": 1.5
+  },
+
+  {
+    "damage": 200
   }
 ]

@@ -63,7 +63,7 @@ public class EnragedBerzerker : Frontline
                 }
                 else
                 {
-                    // add a knockback thing
+                    // todo: add a knockback thing
                 }
             }
         }
@@ -76,12 +76,6 @@ public class EnragedBerzerker : Frontline
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
         jsonData.Setup(ref attackSpeedBuff, nameof(attackSpeedBuff));
-
-        if (jsonData.ContainsKey(nameof(AOEEffectPath)))
-        {
-            AOEEffectPath = jsonData[nameof(AOEEffectPath)].ToString();
-
-            AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-        }
+        jsonData.SetupAction(ref AOEEffectPath, nameof(AOEEffectPath), null, () => AOEEffect = Resources.Load<GameObject>(AOEEffectPath), true);
     }
 }

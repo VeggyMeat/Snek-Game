@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,19 +37,6 @@ public class Blacksmith : Enchanter
     {
         base.InternalJsonSetup(jsonData);
 
-        if (jsonData.ContainsKey("defenceIncrease"))
-        {
-            if (jsonLoaded)
-            {
-                UnbuffAllBodies();
-            }
-
-            defenceIncrease = int.Parse(jsonData["defenceIncrease"].ToString());
-
-            if (jsonLoaded)
-            {
-                BuffAllBodies();
-            }
-        }
+        jsonData.SetupAction(ref defenceIncrease, nameof(defenceIncrease), UnbuffAllBodies, BuffAllBodies, jsonLoaded);
     }
 }

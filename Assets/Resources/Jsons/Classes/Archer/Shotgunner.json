@@ -1,7 +1,7 @@
 [
   {
-    "timeDelay": 1,
-    "projectileCount": 12,
+    "timeDelay": 2,
+    "projectileCount": 8,
     "spreadAngle": 0.3,
     "range": 10,
     "autoFire": true,
@@ -10,5 +10,24 @@
     "projectileJson": "Assets/Resources/Jsons/Projectiles/ShotgunnerProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/ShotgunnerBody.json"
+  },
+
+  {
+    "projectileCount": 10
+  },
+
+  {
+    "spreadAngle": 0.25,
+    "timeDelay": 1.5
+  },
+
+  {
+    "projectileCount": 12
+  },
+
+  {
+    "spreadAngle": 0.2,
+    "range": 15,
+    "timeDelay": 1
   }
 ]

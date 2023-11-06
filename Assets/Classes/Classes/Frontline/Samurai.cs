@@ -25,6 +25,7 @@ public class Samurai : Frontline
         bool critHit = Random.Range(0, 1) < critChance;
         int hitDamage;
 
+        // if its a crit, set the damage higher, otherwise default damage
         if (critHit)
         {
             hitDamage = (int)(critMultiplier * damage);
@@ -53,12 +54,15 @@ public class Samurai : Frontline
             // gets the hit object's gameObject
             GameObject hitObject = hit.collider.gameObject;
 
+            // if its an enemy
             if (hitObject.tag == "Enemy")
             {
-                // hit an enemy
                 EnemyController enemyController = hitObject.GetComponent<EnemyController>();
+
+                // if the enemy is not dead
                 if (!enemyController.Dead)
                 {
+                    // deals damage to the enemy
                     if (!enemyController.ChangeHealth(-(int)(hitDamage * body.DamageMultiplier)))
                     {
                         // enemy has been killed

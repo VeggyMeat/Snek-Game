@@ -93,20 +93,9 @@ public class DiscusMan : Frontline
                 RemoveDiscus();
             }
         }
-        if (jsonData.ContainsKey(nameof(orbitSpeed)))
-        {
-            orbitSpeed = float.Parse(jsonData[nameof(orbitSpeed)].ToString());
 
-            // starts rotating the snake body
-            gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed;
-        }
-        if (jsonData.ContainsKey(nameof(orbitRadius)))
-        {
-            orbitRadius = float.Parse(jsonData[nameof(orbitRadius)].ToString());
-
-            // sets the position of all the discuses
-            SetDiscusesPositions();
-        }
+        jsonData.SetupAction(ref orbitSpeed, nameof(orbitSpeed), null, () => gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed, true);
+        jsonData.SetupAction(ref orbitRadius, nameof(orbitRadius), null, SetDiscusesPositions, true);
     }
 
     private void KillAllDiscuses()

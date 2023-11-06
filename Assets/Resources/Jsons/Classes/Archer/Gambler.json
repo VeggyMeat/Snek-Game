@@ -10,5 +10,28 @@
     "projectileJson": "Assets/Resources/Jsons/Projectiles/GamblerProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/GamblerBody.json"
+  },
+
+  {
+    "minRadius": 0.15,
+    "maxDamageMultiplier": 4.5
+  },
+
+  {
+    "minRadius": 0.2,
+    "maxDamageMultiplier": 5,
+    "timeDelay": 0.2
+  },
+
+  {
+    "maxRadius": 0.55,
+    "maxDamageMultiplier": 5.5
+  },
+
+  {
+    "minRadius": 0.25,
+    "maxRadius": 0.65,
+    "maxDamageMultiplier": 6,
+    "timeDelay": 0.15
   }
 ]

@@ -54,6 +54,8 @@ public class ProjectileController : MonoBehaviour
     protected float scaleX;
     protected float scaleY;
 
+    protected bool isDead = false;
+
     protected Dictionary<string, object> variables;
 
     /// <summary>
@@ -105,6 +107,11 @@ public class ProjectileController : MonoBehaviour
     /// <param name="collision"></param>
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
@@ -128,6 +135,8 @@ public class ProjectileController : MonoBehaviour
 
             // destroy the projectile
             Die();
+
+            isDead = true;
         }
     }
 

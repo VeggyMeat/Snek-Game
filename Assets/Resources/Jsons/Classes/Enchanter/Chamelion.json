@@ -4,11 +4,43 @@
 
     "buffLength": 5,
     "timeDelay": 5,
-    "attackSpeedMultiplier": 5,
-    "damageMultiplier": 5,
-    "defenceMultiplier": 5,
-    "healthMultiplier": 5,
+    "attackSpeedMultiplier": 1.5,
+    "damageMultiplier": 1.5,
+    "defenceMultiplier": 1.5,
+    "healthMultiplier": 1.5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/ChamelionBody.json"
+  },
+
+  {
+    "attackSpeedMultiplier": 2,
+    "damageMultiplier": 2,
+    "defenceMultiplier": 2,
+    "healthMultiplier": 2
+  },
+
+  {
+    "buffLength": 10,
+    "timeDelay": 5,
+    "attackSpeedMultiplier": 2.5,
+    "damageMultiplier": 2.5,
+    "defenceMultiplier": 2.5,
+    "healthMultiplier": 2.5
+  },
+
+  {
+    "attackSpeedMultiplier": 3,
+    "damageMultiplier": 3,
+    "defenceMultiplier": 3,
+    "healthMultiplier": 3
+  },
+
+  {
+    "buffLength": 15,
+    "timeDelay": 5,
+    "attackSpeedMultiplier": 4.5,
+    "damageMultiplier": 4.5,
+    "defenceMultiplier": 4.5,
+    "healthMultiplier": 4.5
   }
 ]

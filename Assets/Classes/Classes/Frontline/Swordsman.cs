@@ -71,15 +71,7 @@ public class Swordsman : Frontline
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
 
-        if (jsonData.ContainsKey(nameof(AOEEffectPath)))
-        {
-            AOEEffectPath = jsonData[nameof(AOEEffectPath)].ToString();
-
-            if (jsonLoaded)
-            {
-                // gets the AOEEffect ready to be spawned
-                AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-            }
-        }
+        // not changed after intialisation
+        jsonData.Setup(ref AOEEffectPath, nameof(AOEEffectPath));
     }
 }

@@ -26,7 +26,7 @@ public class ShopManager : MonoBehaviour
     internal ChoiceState nextState = ChoiceState.NewBody;
 
     private static bool timeActive = true;
-
+    
     internal List<string> levelableBodies = new List<string>();
 
     public void Start()

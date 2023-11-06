@@ -6,5 +6,21 @@
     "buffsAllBodies": false,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Enchanter/PyromaniacBody.json"
+  },
+
+  {
+    "burnDamage": 10
+  },
+
+  {
+    "burnStacks": 3
+  },
+
+  {
+    "burnDamage": 15
+  },
+
+  {
+    "burnStacks": 4
   }
 ]

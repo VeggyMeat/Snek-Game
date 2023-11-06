@@ -5,11 +5,28 @@
     "maxBounces": 3,
     "damage": 25,
 
-    "r": 0.667,
-    "g": 0.659,
-    "b": 0.831,
+    "r": 0.7,
+    "g": 0.7,
+    "b": 0.8,
 
     "scaleX": 0.5,
     "scaleY": 0.5
+  },
+
+  {
+    "damage": 30
+  },
+
+  {
+    "damage": 35
+  },
+
+  {
+    "damage": 40
+  },
+
+  {
+    "damage": 50,
+    "maxBounces": 5
   }
 ]

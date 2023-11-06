@@ -81,8 +81,10 @@ public class Herbologist : Enchanter, IGroundTriggerManager
     {
         base.Setup();
 
+        // gets the healingOrb gameObject
         healingOrbPrefab = Resources.Load<GameObject>(healingOrbPath);
 
+        // starts summoning orbs
         StartSummoning();
     }
 
@@ -91,8 +93,10 @@ public class Herbologist : Enchanter, IGroundTriggerManager
         // gets a random position within the healingOrbRadius of the player's transform
         Vector2 position = Random.insideUnitCircle * healingOrbRadius + (Vector2)body.snake.head.transform.position;
 
+        // creates a new healing orb
         GameObject newHealingOrb = Instantiate(healingOrbPrefab, position, Quaternion.identity);
 
+        // sets up the healing orb
         newHealingOrb.GetComponent<GroundTrigger>().Setup(this, true, healingOrbDespawnRange, healingOrbLifeSpan);
     }
 
@@ -105,7 +109,7 @@ public class Herbologist : Enchanter, IGroundTriggerManager
         }
 
         // start summoning and note that it is summoning
-        InvokeRepeating(nameof(SummonHealingOrb), healingOrbDelay, healingOrbDelay);
+        InvokeRepeating(nameof(SummonHealingOrb), healingOrbDelay / body.attackSpeedBuff.Value, healingOrbDelay / body.attackSpeedBuff.Value);
 
         summoning = true;
     }
@@ -128,11 +132,13 @@ public class Herbologist : Enchanter, IGroundTriggerManager
     {
         base.Revived();
 
+        // continues summoning orbs
         StartSummoning();
     }
 
     internal override void OnDeath()
     {
+        // stops summoning orbs
         StopSummoning();
 
         base.OnDeath();
@@ -142,18 +148,23 @@ public class Herbologist : Enchanter, IGroundTriggerManager
     {
         base.InternalJsonSetup(jsonData);
 
+        // not allowed to change after intial setting
         jsonData.Setup(ref healingOrbPath, nameof(healingOrbPath));
+
         jsonData.Setup(ref healingOrbDespawnRange, nameof(healingOrbDespawnRange));
         jsonData.Setup(ref healingOrbLifeSpan, nameof(healingOrbLifeSpan));
         jsonData.Setup(ref healingOrbRadius, nameof(healingOrbRadius));
         jsonData.Setup(ref healingOrbHealAmount, nameof(healingOrbHealAmount));
 
-        if (jsonData.ContainsKey(nameof(healingOrbDelay)))
-        {
-            healingOrbDelay = int.Parse(jsonData[nameof(healingOrbDelay)].ToString());
+        jsonData.SetupAction(ref healingOrbDelay, nameof(healingOrbDelay), StopSummoning, StartSummoning, jsonLoaded);
+    }
 
-            StopSummoning();
-            StopSummoning();
-        }
+    internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
+    {
+        base.OnAttackSpeedBuffUpdate(amount, multiplicative);
+
+        // restarts the summoning of orbs
+        StopSummoning();
+        StartSummoning();
     }
 }

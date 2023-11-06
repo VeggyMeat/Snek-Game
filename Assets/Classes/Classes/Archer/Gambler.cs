@@ -35,15 +35,7 @@ public class Gambler : Archer
         controller.transform.localScale = new Vector3(radius, radius, 1);
     }
 
-    /// <summary>
-    /// maps one set of values to another
-    /// </summary>
-    /// <param name="OldMin"></param>
-    /// <param name="OldMax"></param>
-    /// <param name="NewMin"></param>
-    /// <param name="NewMax"></param>
-    /// <param name="OldValue"></param>
-    /// <returns></returns>
+    // maps one set of values onto another
     private float Map(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
     {
         float OldRange = (OldMax - OldMin);
@@ -57,8 +49,10 @@ public class Gambler : Archer
     {
         base.InternalJsonSetup(jsonData);
 
+        // not allowed to change after initialisation
         jsonData.Setup(ref projectilePath, nameof(projectilePath));
         jsonData.Setup(ref projectileJson, nameof(projectileJson));
+
         jsonData.Setup(ref minRadius, nameof(minRadius));
         jsonData.Setup(ref maxRadius, nameof(maxRadius));
         jsonData.Setup(ref maxDamageMultiplier, nameof(maxDamageMultiplier));
