@@ -9,5 +9,23 @@
     "regularAttack": false,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/DiscusManBody.json"
+  },
+
+  {
+    "orbitSpeed": 250
+  },
+
+  {
+    "maxDiscuses": 3
+  },
+
+  {
+    "orbitSpeed": 300,
+    "maxDiscuses": 4
+  },
+
+  {
+    "maxDiscuses": 6,
+    "orbitRadius": 4
   }
 ]

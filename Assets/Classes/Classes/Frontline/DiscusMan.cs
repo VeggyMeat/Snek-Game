@@ -26,6 +26,12 @@ public class DiscusMan : Frontline
             // levels up the discusVariable
             discusVariable.IncreaseIndex();
         }
+
+        // tell each discus that its leveled up
+        foreach (Discus discus in discuses)
+        {
+            discus.OnLevelUp();
+        }
     }
 
     internal override void ClassSetup()
@@ -94,8 +100,13 @@ public class DiscusMan : Frontline
             }
         }
 
-        jsonData.SetupAction(ref orbitSpeed, nameof(orbitSpeed), null, () => gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed, true);
+        jsonData.SetupAction(ref orbitSpeed, nameof(orbitSpeed), null, SetAngularVelocity, true);
         jsonData.SetupAction(ref orbitRadius, nameof(orbitRadius), null, SetDiscusesPositions, true);
+    }
+
+    private void SetAngularVelocity()
+    {
+        gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed;
     }
 
     private void KillAllDiscuses()

@@ -12,5 +12,22 @@
     "AOEEffectPath": "GameObjects/AOEEffect",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/EnragedBerzerkerBody.json"
+  },
+
+  {
+    "damage": 30
+  },
+
+  {
+    "attackRadius": 3.5
+  },
+
+  {
+    "damage": 40
+  },
+
+  {
+    "attackRadius": 4,
+    "attackSpeedBuff": 0.1
   }
 ]

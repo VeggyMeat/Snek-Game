@@ -8,5 +8,23 @@
     "burnRange": 5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/FurnaceBody.json"
+  },
+
+  {
+    "burnDelay": 0.8
+  },
+
+  {
+    "burnRange": 6
+  },
+
+  {
+    "burnDelay": 0.7
+  },
+
+  {
+    "burnRange": 7,
+    "burnDelay": 0.5,
+    "damage": 35
   }
 ]

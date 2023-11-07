@@ -25,6 +25,14 @@ public class Discus : MonoBehaviour
     }
 
     /// <summary>
+    /// Called when DiscusMan levels up
+    /// </summary>
+    internal void OnLevelUp()
+    {
+        LoadVariables();
+    }
+
+    /// <summary>
     /// Called when the Discus should die
     /// </summary>
     internal void Die()
@@ -55,7 +63,7 @@ public class Discus : MonoBehaviour
         }
     }
 
-    internal void LoadVariables()
+    private void LoadVariables()
     {
         jsonVariables.Variables.Setup(ref contactDamage, "contactDamage");
         jsonVariables.Variables.Setup(ref contactForce, "contactForce");

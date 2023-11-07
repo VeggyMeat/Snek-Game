@@ -16,7 +16,7 @@ public abstract class Class: MonoBehaviour
     /// <summary>
     /// The number of enemies killed by this class
     /// </summary>
-    protected int enemiesKilled;
+    protected int enemiesKilled = 0;
 
     /// <summary>
     /// The body this class is attatched to
@@ -56,8 +56,7 @@ public abstract class Class: MonoBehaviour
     /// </summary>
     internal virtual void Setup()
     {
-        // sets up starting variables
-        enemiesKilled = 0;
+
     }
 
     /// <summary>

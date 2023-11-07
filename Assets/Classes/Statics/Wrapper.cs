@@ -21,16 +21,22 @@ public static class Wrapper
         // if its in the dictionary
         if (dict.ContainsKey(name))
         {
-            if (doAction)
+            if (actionBefore is not null)
             {
-                actionBefore();
+                if (doAction)
+                {
+                    actionBefore();
+                }
             }
 
             variable = (T)Convert.ChangeType(dict[name], typeof(T));
 
-            if (doAction)
+            if (actionAfter is not null)
             {
-                actionAfter();
+                if (doAction)
+                {
+                    actionAfter();
+                }
             }
         }
     }

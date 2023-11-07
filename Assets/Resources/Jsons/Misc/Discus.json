@@ -1,6 +1,24 @@
 [
   {
     "contactDamage": 25,
-    "contactForce": 3000
+    "contactForce": 5000
+  },
+
+  {
+    
+  },
+
+  {
+    "contactDamage": 50,
+    "contactForce": 7500
+  },
+
+  {
+
+  },
+
+  {
+    "contactDamage": 75,
+    "contactForce": 10000
   }
 ]
