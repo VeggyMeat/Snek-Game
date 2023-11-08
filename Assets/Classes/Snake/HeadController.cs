@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -383,7 +384,7 @@ public class HeadController: MonoBehaviour
         return (float)XP / XPLevelUp;
     }
 
-    internal void Rearrange(List<GameObject> order)
+    internal void Rearrange(List<BodyController> order)
     {
         // makes sure there is the right number of objects in the list
         if (order.Count != currentBodies.Count)
@@ -397,62 +398,38 @@ public class HeadController: MonoBehaviour
             return;
         }
 
-        BodyController selectedBody;
+        // gets the current order of bodies
+        List<(Vector2, Vector2, Vector2, Queue<Vector2>)> previousOrder = new List<(Vector2, Vector2, Vector2, Queue<Vector2>)>();
 
-        try
+        BodyController body = head;
+        while (body is not null)
         {
-            selectedBody = order[0].GetComponent<BodyController>();
-        }
-        catch (Exception)
-        {
-            throw new Exception("list passed does not contain the right objects");
-        }
+            previousOrder.Add((new Vector2 (body.transform.position.x, body.transform.position.y),
+                               new Vector2 (body.lastMoved.x, body.lastMoved.y),
+                               new Vector2 (body.lastPosition.x, body.lastPosition.y),
+                               new Queue<Vector2> (body.PositionFollow)));
 
-        // checks if the selectedBody is the current head
-        if (selectedBody == head)
-        {
-            // if it is, then it is already in the right place
-            order.RemoveAt(0);
-            head.Rearrange(order);
-            return;
+            body = body.next;
         }
 
-        // switches their positions, positionFollow, lastMoved, lastPosition
-        Vector2 previousNextsPosition = head.transform.position;
-        Vector2 previousNextsLastMoved = head.lastMoved;
-        Vector2 previousNextsLastPosition = head.lastPosition;
-        Queue<Vector2> previousNextsPositionFollow = head.PositionFollow;
-
-        head.transform.position = selectedBody.transform.position;
-        head.lastMoved = selectedBody.lastMoved;
-        head.lastPosition = selectedBody.lastPosition;
-        head.PositionFollow = selectedBody.PositionFollow;
-
-        selectedBody.transform.position = previousNextsPosition;
-        selectedBody.lastMoved = previousNextsLastMoved;
-        selectedBody.lastPosition = previousNextsLastPosition;
-        selectedBody.PositionFollow = previousNextsPositionFollow;
-
-
-        // gets the previous head
-        BodyController previousHead = head;
-        BodyController nextHeadsNext = selectedBody.next;
-
-        // sets the new head's position in the linked list
-        head = selectedBody;
-        selectedBody.next = previousHead;
-        selectedBody.prev = null;
-
-        // sets the previous head's position in the list
-        previousHead.prev = head;
-        previousHead.next = nextHeadsNext;
-        if (nextHeadsNext is not null)
+        head = order[0];
+        order[0].prev = null;
+        order[0].next = null;
+        for (int i = 1; i < order.Count; i++)
         {
-            nextHeadsNext.prev = previousHead;
+            order[i-1].next = order[i];
+            order[i].prev = order[i - 1];
+            order[i].next = null;
         }
 
-        order.RemoveAt(0);
-        head.Rearrange(order);
-        return;
+        for (int i = 0; i < order.Count; i++)
+        {
+            var info = previousOrder[i];
+
+            order[i].transform.position = info.Item1;
+            order[i].lastMoved = info.Item2;
+            order[i].lastPosition = info.Item3;
+            order[i].PositionFollow = info.Item4;
+        }
     }
 }

@@ -248,7 +248,7 @@ public class Reorganiser : MonoBehaviour
             TriggerManager.PreBodyMoveTrigger.CallTrigger(0);
 
             // gets the current arrangment of bodies
-            List<GameObject> order = new List<GameObject>();
+            List<BodyController> order = new List<BodyController>();
 
             foreach (int hash in bodiesHashes)
             {
@@ -271,7 +271,7 @@ public class Reorganiser : MonoBehaviour
                     throw new System.Exception("Body not found with hash");
                 }
 
-                order.Add(currentBody.gameObject);
+                order.Add(currentBody);
             }
             
             ItemManager.headController.Rearrange(order);

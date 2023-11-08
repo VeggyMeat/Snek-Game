@@ -137,7 +137,10 @@ public abstract class Archer : Class
         // updates the arrow variables for the new level
         if (body.Level != 1)
         {
-            projectileVariables.IncreaseIndex();
+            if (projectileVariables is not null)
+            {
+                projectileVariables.IncreaseIndex();
+            }
         }
     }
 }

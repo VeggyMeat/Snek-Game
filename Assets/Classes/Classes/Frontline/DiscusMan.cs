@@ -112,8 +112,10 @@ public class DiscusMan : Frontline
     private void KillAllDiscuses()
     {
         // goes through each discus and kills it
-        foreach(Discus discus in discuses)
+        for (int i = discuses.Count - 1; i >= 0; i--)
         {
+            Discus discus = discuses[i];
+
             discus.Die();
         }
     }
