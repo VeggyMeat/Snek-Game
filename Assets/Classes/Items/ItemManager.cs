@@ -21,9 +21,6 @@ public static class ItemManager
             case nameof(Quiver):
                 item = new Quiver();
                 break;
-            case nameof(LuckyFlask):
-                item = new LuckyFlask();
-                break;
             case nameof(SteeringWheel):
                 item = new SteeringWheel();
                 break;
@@ -59,7 +56,7 @@ public static class ItemManager
         // removes that body from the list of available bodies
         if (headController.shopManager.remove)
         {
-            headController.shopManager.bodies.Remove(itemName);
+            headController.shopManager.powerfulItems.Remove(itemName);
         }
 
         item.Setup();

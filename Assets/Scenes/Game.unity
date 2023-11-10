@@ -567,6 +567,10 @@ PrefabInstance:
       value: Cannoneer
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: smallItems.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: powerfulItems.Array.size
       value: 10
       objectReference: {fileID: 0}

@@ -39,8 +39,6 @@ public class SwashbucklerArcher : Archer
 
     internal override void LaunchProjectile()
     {
-        Debug.Log(archerNumber);
-
         float archerDamageIncrease = 1 + archerNumber * perArcherDamageIncrease;
         float archerSpeedIncrease = 1 + archerNumber * perArcherSpeedIncrease;
 

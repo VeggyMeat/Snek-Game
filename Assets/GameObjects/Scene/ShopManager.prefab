@@ -85,8 +85,7 @@ MonoBehaviour:
   - ArcaneFlower
   - Swashbuckler
   - Cannoneer
-  smallItems:
-  - LuckyFlask
+  smallItems: []
   powerfulItems:
   - Quiver
   - SteeringWheel
