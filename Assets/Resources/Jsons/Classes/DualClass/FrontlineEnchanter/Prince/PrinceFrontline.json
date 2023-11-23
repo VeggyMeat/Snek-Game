@@ -7,8 +7,7 @@
     "regularAttack": true,
     "attackRadius": 3,
     "AOEEffectTime": 0.75,
-
-    "AOEEffectPath": "GameObjects/AOEEffect2",
+    "AOEEffectDecay": true,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceBody.json"
   }

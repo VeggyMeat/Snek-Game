@@ -13,7 +13,7 @@ public class SpikeLauncherFrontline : Frontline
         base.ClassSetup();
     }
 
-    internal override float OnDamageTaken(float amount)
+    internal override int OnDamageTaken(int amount)
     {
         // launches spikes
         ((SpikeLauncherArcher)body.classes[0]).LaunchSpikes();

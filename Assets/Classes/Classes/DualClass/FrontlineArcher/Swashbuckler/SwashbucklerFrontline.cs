@@ -11,10 +11,9 @@ public class SwashbucklerFrontline : Frontline
 
     private float attackRadius;
     private float AOEEffectTime;
-
-    private string AOEEffectPath;
-
-    private GameObject AOEEffect;
+    private bool AOEEffectDecay;
+    private float[] AOEEffectColours;
+    private Color AOEEffectColour;
 
     internal override void ClassSetup()
     {
@@ -28,9 +27,6 @@ public class SwashbucklerFrontline : Frontline
     {
         base.Setup();
 
-        // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-
         // initial count for the number of frontlines
         BodyController bodyController = body.snake.head;
         while (bodyController is not null)
@@ -42,6 +38,8 @@ public class SwashbucklerFrontline : Frontline
 
             bodyController = bodyController.next;
         }
+
+        AOEEffectColour = new Color(AOEEffectColours[0], AOEEffectColours[1], AOEEffectColours[2], AOEEffectColours[3]);
 
         TriggerManager.BodySpawnTrigger.AddTrigger(IncreaseFrontline);
         TriggerManager.BodyDeadTrigger.AddTrigger(DecreaseFrontline);
@@ -56,8 +54,7 @@ public class SwashbucklerFrontline : Frontline
         float frontlineAreaIncrease = 1 + frontlineNumber * perFrontlineAreaIncrease;
 
         // spawns in the AOEEffect
-        GameObject AOEEffectInstance = Instantiate(AOEEffect, position, Quaternion.identity);
-        AOEEffectInstance.GetComponent<AOEEffectController>().Setup(AOEEffectTime, attackRadius * frontlineAreaIncrease);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, Color.red, attackRadius * frontlineAreaIncrease);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius * frontlineAreaIncrease);
@@ -97,17 +94,8 @@ public class SwashbucklerFrontline : Frontline
 
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
-
-        if (jsonData.ContainsKey(nameof(AOEEffectPath)))
-        {
-            AOEEffectPath = jsonData[nameof(AOEEffectPath)].ToString();
-
-            if (jsonLoaded)
-            {
-                // gets the AOEEffect ready to be spawned
-                AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-            }
-        }
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColours, nameof(AOEEffectColours));
     }
 
     private BodyController IncreaseFrontline(BodyController bodyController)

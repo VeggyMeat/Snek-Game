@@ -22,7 +22,8 @@ public class Samurai : Frontline
 
     internal override void Attack(Vector3 position)
     {
-        bool critHit = Random.Range(0, 1) < critChance;
+        // gets a random number between 0 and 1, if its less than the crit chance, its a crit
+        bool critHit = Random.Range(0f, 1f) <= critChance;
         int hitDamage;
 
         // if its a crit, set the damage higher, otherwise default damage

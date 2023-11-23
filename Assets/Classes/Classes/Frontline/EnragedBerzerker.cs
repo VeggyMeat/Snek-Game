@@ -20,7 +20,7 @@ public class EnragedBerzerker : Frontline
         base.ClassSetup();
     }
 
-    internal override float OnDamageTaken(float amount)
+    internal override int OnDamageTaken(int amount)
     {
         // adds the buff to the body
         body.attackSpeedBuff.AddBuff(attackSpeedBuff, false, null);

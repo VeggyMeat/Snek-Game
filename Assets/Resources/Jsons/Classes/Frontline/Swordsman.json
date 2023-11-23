@@ -1,15 +1,37 @@
 [
   {
     "attackDelay": 1,
-    "scanRadius": 5,
-    "damage": 50,
+    "scanRadius": 3,
+    "damage": 20,
     "force": 50000,
     "regularAttack": true,
-    "attackRadius": 4,
+    "attackRadius": 2,
     "AOEEffectTime": 0.5,
 
     "AOEEffectPath": "GameObjects/AOEEffect",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SwordsmanBody.json"
+  },
+
+  {
+    "damage": 25
+  },
+
+  {
+    "attackDelay": 0.8,
+    "attackRadius": 2.5,
+    "scanRadius": 3.5
+  },
+
+  {
+    "attackRadius": 3,
+    "damage": 35
+  },
+
+  {
+    "attackDelay": 0.6,
+    "attackRadius": 3.5,
+    "damage": 45,
+    "scanRadius": 4
   }
 ]

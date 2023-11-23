@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4769302529932389134}
   - component: {fileID: 3097929996081691773}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: AOEEffectCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

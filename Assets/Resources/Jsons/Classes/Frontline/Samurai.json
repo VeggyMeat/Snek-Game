@@ -1,14 +1,38 @@
 [
   {
-    "attackDelay": 0.5,
+    "attackDelay": 1,
     "scanRadius": 5,
-    "damage": 75,
+    "damage": 40,
     "force": 50000,
     "regularAttack": true,
-    "attackLength": 6,
-    "critChance": 0.2,
-    "critMultiplier": 3,
+    "attackLength": 3,
+    "critChance": 0.25,
+    "critMultiplier": 2.5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SamuraiBody.json"
+  },
+
+  {
+    "attackDelay": 0.8,
+    "damage": 45,
+    "critChance": 0.3
+  },
+
+  {
+    "critMultiplier": 3,
+    "damage": 50
+  },
+
+  {
+    "damage": 60,
+    "attackLength": 4
+  },
+
+  {
+    "critChance": 0.5,
+    "critMultiplier": 4,
+    "attackLength": 5,
+    "damage": 75,
+    "attackDelay": 0.6
   }
 ]

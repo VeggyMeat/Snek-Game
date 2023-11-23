@@ -444,6 +444,36 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns the number of alive bodies from it
+    /// </summary>
+    /// <returns></returns>
+    internal int AliveBodies()
+    {
+        if (next is null)
+        {
+            if (isDead)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            if (isDead)
+            {
+                return next.AliveBodies();
+            }
+            else
+            {
+                return 1 + next.AliveBodies();
+            }
+        }
+    }
+
+    /// <summary>
     /// Gives the position of the tail of the snake
     /// </summary>
     /// <returns></returns>
@@ -501,7 +531,7 @@ public class BodyController : MonoBehaviour
             // calls each class for taking damage
             foreach (Class clas in classes)
             {
-                clas.OnDamageTaken(quantity);
+                quantity = clas.OnDamageTaken(quantity);
             }
 
             // reduce the damage taken by the defence
@@ -547,6 +577,9 @@ public class BodyController : MonoBehaviour
         // makes the body revive in timeDead seconds
         Invoke(nameof(Revived), timeDead);
 
+        // stops regenerating
+        StopRegenerating();
+
         // calls the OnDeath for all classes attatched
         foreach (Class c in classes)
         {
@@ -567,6 +600,9 @@ public class BodyController : MonoBehaviour
 
         // updates the total mass of the snake
         snake.velocity += VelocityContribution;
+        Debug.Log(VelocityContribution);
+        Debug.Log(velocityContribution);
+
         health = MaxHealth;
         healthBarController.SetBar(PercentageHealth);
 
@@ -583,7 +619,10 @@ public class BodyController : MonoBehaviour
             c.Revived();
         }
 
-        // stops it from being revived again if its a premature revive (not implemented yet)
+        // restarts regenerating
+        StartRegenerating();
+
+        // stops it from being revived again if its a premature revive
         CancelInvoke(nameof(Revived));
 
         // body revived trigger
@@ -628,7 +667,7 @@ public class BodyController : MonoBehaviour
         if (IsHead())
         {
             // get the vector its moved in the last frame
-            Vector2 movement = snake.velocityVector * Time.deltaTime / snake.Length();
+            Vector2 movement = snake.velocityVector * Time.deltaTime;
 
             // add it to the list for the next snake to follow, if there is one
             if (next is not null)

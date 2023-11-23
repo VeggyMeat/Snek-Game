@@ -9,5 +9,27 @@
     "orbJson": "Assets/Resources/Jsons/Projectiles/CeramicAutomatonProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Mage/CeramicAutomatonBody.json"
+  },
+
+  {
+    "maxShield": 2,
+    "shieldRegenDelay": 7.5
+  },
+
+  {
+    "maxShield": 3,
+    "shieldRegenDelay": 5.5,
+    "timeDelay": 0.35
+  },
+
+  {
+    "maxShield": 4,
+    "shieldRegenDelay": 4
+  },
+
+  {
+    "maxShield": 5,
+    "shieldRegenDelay": 2.5,
+    "timeDelay": 0.25
   }
 ]

@@ -6,6 +6,8 @@
     "regularAttack": true,
     "attackRadius": 3,
     "AOEEffectTime": 1,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [0.7, 0.1, 0.2, 0.5],
 
     "perFrontlineDamageIncrease": 0.2,
     "perFrontlineAreaIncrease": 0.2,

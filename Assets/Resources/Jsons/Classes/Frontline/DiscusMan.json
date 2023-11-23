@@ -5,27 +5,29 @@
     "maxDiscuses": 2,
     "discusDelay": 2,
     "orbitRadius": 3.5,
-    "orbitSpeed": 180,
+    "orbitSpeed": 90,
     "regularAttack": false,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/DiscusManBody.json"
   },
 
   {
-    "orbitSpeed": 250
+    "orbitSpeed": 125
   },
 
   {
-    "maxDiscuses": 3
+    "maxDiscuses": 3,
+    "orbitRadius": 4
   },
 
   {
-    "orbitSpeed": 300,
-    "maxDiscuses": 4
+    "orbitSpeed": 150,
+    "maxDiscuses": 4,
+    "orbitRadius": 4.5
   },
 
   {
     "maxDiscuses": 6,
-    "orbitRadius": 4
+    "orbitRadius": 5
   }
 ]

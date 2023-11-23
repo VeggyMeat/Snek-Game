@@ -179,7 +179,7 @@ public abstract class Class: MonoBehaviour
     /// </summary>
     /// <param name="amount">The damage taken</param>
     /// <returns>Return the new damage value</returns>
-    internal virtual float OnDamageTaken(float amount)
+    internal virtual int OnDamageTaken(int amount)
     {
         return amount;
     }

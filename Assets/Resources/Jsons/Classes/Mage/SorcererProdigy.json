@@ -7,5 +7,22 @@
     "beamLength": 100,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
+  },
+
+  {
+    "damage": 60
+  },
+
+  {
+    "timeDelay": 0.5
+  },
+
+  {
+    "damage": 75
+  },
+
+  {
+    "beamThickness": 0.75,
+    "damage": 100
   }
 ]

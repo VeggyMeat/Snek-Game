@@ -6,10 +6,7 @@ public class PrinceFrontline : Frontline
 {
     private float attackRadius;
     private float AOEEffectTime;
-
-    private string AOEEffectPath;
-
-    private GameObject AOEEffect;
+    private bool AOEEffectDecay;
 
     internal override void ClassSetup()
     {
@@ -20,17 +17,13 @@ public class PrinceFrontline : Frontline
 
     internal override void Setup()
     {
-        // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-
         base.Setup();
     }
 
     internal override void Attack(Vector3 position)
     {
         // spawns in the AOEEffect
-        GameObject AOEEffectInstance = Instantiate(AOEEffect, position, Quaternion.identity);
-        AOEEffectInstance.GetComponent<AOEEffectController>().Setup(AOEEffectTime, attackRadius);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, Color.red, attackRadius);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius);
@@ -67,16 +60,6 @@ public class PrinceFrontline : Frontline
 
         jsonData.Setup(ref attackRadius, "attackRadius");
         jsonData.Setup(ref AOEEffectTime, "AOEEffectTime");
-
-        if (jsonData.ContainsKey("AOEEffectPath"))
-        {
-            AOEEffectPath = jsonData["AOEEffectPath"].ToString();
-
-            if (jsonLoaded)
-            {
-                // gets the AOEEffect ready to be spawned
-                AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-            }
-        }
+        jsonData.Setup(ref AOEEffectDecay, "AOEEffectDecay");
     }
 }

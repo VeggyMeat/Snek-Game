@@ -28,7 +28,7 @@ public class CeramicAutomaton : Mage
         base.Setup();
     }
 
-    internal override float OnDamageTaken(float amount)
+    internal override int OnDamageTaken(int amount)
     {
         // if there is a shield left, it ignores damage
         if (shield > 0)
@@ -57,14 +57,18 @@ public class CeramicAutomaton : Mage
     // regens one layer of shield
     internal void RegenShield()
     {
+        // if the shield is not full
         if (shield < maxShield)
         {
+            // regen one layer
             shield++;
 
+            // if its still not full, regen more shield later
             if (shield < maxShield)
             {
                 Invoke(nameof(RegenShield), shieldRegenDelay);
             }
+            // otherwise stop regenerating shield, and note that
             else
             {
                 shieldRegenActive = false;
@@ -79,6 +83,21 @@ public class CeramicAutomaton : Mage
 
         // creates and sets up a new projectile
         Projectile.Shoot(orbTemplate, transform.position, angle, orbVariables.Variables, this, body.DamageMultiplier);
+    }
+
+    internal override void OnDeath()
+    {
+        base.OnDeath();
+
+        CancelInvoke(nameof(RegenShield));
+    }
+
+    internal override void Revived()
+    {
+        base.Revived();
+
+        // sets the shield number to the maxShield number
+        shield = maxShield;
     }
 
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)

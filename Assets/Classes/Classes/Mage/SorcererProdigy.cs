@@ -26,15 +26,10 @@ public class SorcererProdigy : Mage
         float angle = Random.Range(0, Mathf.PI * 2);
         Vector2 angleVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-        // gets objects hit by the 3 rays
-        List<RaycastHit2D> objectsHit = Physics2D.RaycastAll((Vector2)transform.position + (Vector2.Perpendicular(angleVector) * beamThickness / 2), angleVector).ToList();
-        objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position + Vector2.Perpendicular(angleVector) * -beamThickness / 2, angleVector));
-        objectsHit.AddRange(Physics2D.RaycastAll((Vector2)transform.position, angleVector));
-
         // TODO: CHANGE TO BOX, AND DRAW BOX ON SCREEN
 
         // gets objects hit by the box instead
-        // RaycastHit2D[] objectsHit = Physics2D.BoxCastAll((Vector2)transform.position + angleVector * beamLength / 2, new Vector2(beamThickness, beamLength), angle, angleVector);
+        RaycastHit2D[] objectsHit = Physics2D.BoxCastAll((Vector2)transform.position + angleVector * beamLength / 2, new Vector2(beamThickness, beamLength), angle, angleVector);
 
         foreach (RaycastHit2D hit in objectsHit)
         {

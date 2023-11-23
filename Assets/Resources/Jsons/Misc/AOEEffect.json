@@ -1,0 +1,4 @@
+{
+  "circle": "GameObjects/Circle",
+  "rectangle": "GameObjects/Rectangle"
+}

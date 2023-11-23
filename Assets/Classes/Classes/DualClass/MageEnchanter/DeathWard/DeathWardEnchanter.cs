@@ -7,6 +7,7 @@ public class DeathWardEnchanter : Enchanter
     private int maxHealthIncrease;
     private float reviveHealthPercentage;
 
+    private int selfDamage = 0;
 
     internal override void ClassSetup()
     {
@@ -58,11 +59,19 @@ public class DeathWardEnchanter : Enchanter
         }
         else
         {
-            // kills the body
-            body.ChangeHealth(-health);
+            selfDamage = health;
+
+            // kills self soon after
+            Invoke(nameof(DamageSelf), 0.05f);
         }
 
         return bodyController;
+    }
+
+    private void DamageSelf()
+    {
+        // kills the body
+        body.ChangeHealth(-selfDamage);
     }
 
     internal override void OnDeath()

@@ -67,6 +67,9 @@ public class HeadController: MonoBehaviour
         // sets up the item manager
         ItemManager.Setup(this);
 
+        // sets up the AOEEffect
+        AOEEffect.Setup();
+
         XPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0, velocity);
         
@@ -76,6 +79,12 @@ public class HeadController: MonoBehaviour
 
     private void FixedUpdate()
     {
+        // temp, ends game when all bodies are dead
+        if (AliveBodies() == 0 && Length() > 0)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         // gets information on the key presses
         bool rightPress = Input.GetKey(KeyCode.RightArrow);
         bool leftPress = Input.GetKey(KeyCode.LeftArrow);
@@ -122,11 +131,10 @@ public class HeadController: MonoBehaviour
             turning = false;
         }
 
-        velocityVector = new Vector2((float)(velocity * Math.Sin(angle)), (float)(velocity * Math.Cos(angle)));
+        velocityVector = new Vector2((float)(velocity * Math.Sin(angle) / AliveBodies()), (float)(velocity * Math.Cos(angle) / AliveBodies()));
 
         if (head) 
         {
-
             // moves the whole snake
             head.Move();
 
@@ -372,6 +380,22 @@ public class HeadController: MonoBehaviour
         else
         {
             return head.Length();
+        }
+    }
+
+    /// <summary>
+    /// Returns the number of alive bodies
+    /// </summary>
+    /// <returns></returns>
+    internal int AliveBodies()
+    {
+        if (head is null)
+        {
+            return 0;
+        }
+        else
+        {
+            return head.AliveBodies();
         }
     }
 
