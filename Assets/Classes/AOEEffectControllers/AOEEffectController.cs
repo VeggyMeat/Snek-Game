@@ -31,7 +31,7 @@ public abstract class AOEEffectController : MonoBehaviour
         startTime = DateTime.Now;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = startColour;
+        spriteRenderer.color = colour;
     }
 
     // Start is called before the first frame update
@@ -57,7 +57,7 @@ public abstract class AOEEffectController : MonoBehaviour
             TimeSpan difference = DateTime.Now - startTime;
             
             // gets the percentage of life lived
-            float lifePercentage = (difference.Milliseconds / 1000) / timeAlive;
+            float lifePercentage = ((float)difference.Milliseconds / 1000) / timeAlive;
 
             // gets the new opacity of the AOEEffect
             float newOpacity = (1 - lifePercentage) * startColour.a;

@@ -1,6 +1,8 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,7 +18,41 @@ public static class Wrapper
         }
     }
 
-    public static void SetupAction<T>(this Dictionary<string, object> dict, ref T variable, string name, Action actionBefore, Action actionAfter, bool doAction) where T : IConvertible
+    public static void Setup(this Dictionary<string, object> dict, ref Color variable, string name)
+    {
+        // if its in the dictionary
+        if (dict.ContainsKey(name))
+        {
+            string text = dict[name].ToString();
+
+            // get rid of open and close brackets
+            text = text.Replace("[", "");
+            text = text.Replace("]", "");
+
+            // get rid of all whitespace
+            text = text.Replace(" ", "");
+
+            // split by ',' seperator
+            string[] split = text.Split(',');
+
+            // if the array is not 3 or 4 items long
+            if (split.Count() == 3)
+            {
+                variable = new Color(float.Parse(split[0]), float.Parse(split[1]), float.Parse(split[2]));
+            }
+            else if (split.Count() == 4)
+            {
+                variable = new Color(float.Parse(split[0]), float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3]));
+            }
+            else 
+            {
+                throw new Exception("Not a valid length for a colour");
+            }
+            
+        }
+    }
+
+    public static void SetupAction<T>(this Dictionary<string, object> dict, ref T variable, string name, Action actionBefore, Action actionAfter, bool doAction)
     {
         // if its in the dictionary
         if (dict.ContainsKey(name))

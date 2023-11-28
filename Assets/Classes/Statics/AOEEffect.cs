@@ -23,11 +23,11 @@ public static class AOEEffect
         reader.Close();
 
         // gets the data from the json
-        Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+        Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(text);
 
         // gets the objects for the circle and rectangle
-        circle = Resources.Load<GameObject>(data["AOEEffectCircle"]);
-        rectangle = Resources.Load<GameObject>(data["AOEEffectRectangle"]);
+        circle = Resources.Load<GameObject>(data["AOEEffectCircle"].ToString());
+        rectangle = Resources.Load<GameObject>(data["AOEEffectRectangle"].ToString());
     }
 
     public static void CreateCircle(Vector2 position, float timeAlive, bool decay, Color colour, float radius)

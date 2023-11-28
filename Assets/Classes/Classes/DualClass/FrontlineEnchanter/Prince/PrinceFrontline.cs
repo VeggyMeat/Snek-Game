@@ -8,6 +8,8 @@ public class PrinceFrontline : Frontline
     private float AOEEffectTime;
     private bool AOEEffectDecay;
 
+    private Color AOEEffectColour;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceFrontline.json";
@@ -23,7 +25,7 @@ public class PrinceFrontline : Frontline
     internal override void Attack(Vector3 position)
     {
         // spawns in the AOEEffect
-        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, Color.red, attackRadius);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, attackRadius);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius);
@@ -58,8 +60,9 @@ public class PrinceFrontline : Frontline
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref attackRadius, "attackRadius");
-        jsonData.Setup(ref AOEEffectTime, "AOEEffectTime");
-        jsonData.Setup(ref AOEEffectDecay, "AOEEffectDecay");
+        jsonData.Setup(ref attackRadius, nameof(attackRadius));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
     }
 }

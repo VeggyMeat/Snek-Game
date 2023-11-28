@@ -8,11 +8,10 @@ using static UnityEditor.Progress;
 public class Swordsman : Frontline
 {
     private float attackRadius;
+
     private float AOEEffectTime;
-
-    private string AOEEffectPath;
-
-    private GameObject AOEEffect;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
 
     internal override void ClassSetup()
     {
@@ -21,19 +20,10 @@ public class Swordsman : Frontline
         base.ClassSetup();
     }
 
-    internal override void Setup()  
-    {
-        // gets the AOEEffect ready to be spawned
-        AOEEffect = Resources.Load<GameObject>(AOEEffectPath);
-
-        base.Setup();
-    }
-
     internal override void Attack(Vector3 position)
     {
         // spawns in the AOEEffect
-        GameObject AOEEffectInstance = Instantiate(AOEEffect, position, Quaternion.identity);
-        AOEEffectInstance.GetComponent<AOEEffectController>().Setup(AOEEffectTime, attackRadius);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, attackRadius);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius);
@@ -70,8 +60,7 @@ public class Swordsman : Frontline
 
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
-
-        // not changed after intialisation
-        jsonData.Setup(ref AOEEffectPath, nameof(AOEEffectPath));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
     }
 }

@@ -12,7 +12,6 @@ public class SwashbucklerFrontline : Frontline
     private float attackRadius;
     private float AOEEffectTime;
     private bool AOEEffectDecay;
-    private float[] AOEEffectColours;
     private Color AOEEffectColour;
 
     internal override void ClassSetup()
@@ -39,8 +38,6 @@ public class SwashbucklerFrontline : Frontline
             bodyController = bodyController.next;
         }
 
-        AOEEffectColour = new Color(AOEEffectColours[0], AOEEffectColours[1], AOEEffectColours[2], AOEEffectColours[3]);
-
         TriggerManager.BodySpawnTrigger.AddTrigger(IncreaseFrontline);
         TriggerManager.BodyDeadTrigger.AddTrigger(DecreaseFrontline);
         TriggerManager.BodyRevivedTrigger.AddTrigger(IncreaseFrontline);
@@ -48,13 +45,11 @@ public class SwashbucklerFrontline : Frontline
 
     internal override void Attack(Vector3 position)
     {
-        Debug.Log(frontlineNumber);
-
         float frontlineDamageIncrease = 1 + frontlineNumber * perFrontlineDamageIncrease;
         float frontlineAreaIncrease = 1 + frontlineNumber * perFrontlineAreaIncrease;
 
         // spawns in the AOEEffect
-        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, Color.red, attackRadius * frontlineAreaIncrease);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, attackRadius * frontlineAreaIncrease);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius * frontlineAreaIncrease);
@@ -95,7 +90,7 @@ public class SwashbucklerFrontline : Frontline
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
         jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
-        jsonData.Setup(ref AOEEffectColours, nameof(AOEEffectColours));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
     }
 
     private BodyController IncreaseFrontline(BodyController bodyController)

@@ -5,11 +5,10 @@ using UnityEngine;
 public class EnragedBerzerker : Frontline
 {
     private float attackRadius;
+
     private float AOEEffectTime;
-
-    private string AOEEffectPath;
-
-    private GameObject AOEEffect;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
 
     private float attackSpeedBuff;
 
@@ -37,8 +36,7 @@ public class EnragedBerzerker : Frontline
     internal override void Attack(Vector3 position)
     {
         // spawns in the AOEEffect
-        GameObject AOEEffectInstance = Instantiate(AOEEffect, position, Quaternion.identity);
-        AOEEffectInstance.GetComponent<AOEEffectController>().Setup(AOEEffectTime, attackRadius);
+        AOEEffect.CreateCircle(position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, attackRadius);
 
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(position, attackRadius);
@@ -75,7 +73,8 @@ public class EnragedBerzerker : Frontline
 
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
         jsonData.Setup(ref attackSpeedBuff, nameof(attackSpeedBuff));
-        jsonData.SetupAction(ref AOEEffectPath, nameof(AOEEffectPath), null, () => AOEEffect = Resources.Load<GameObject>(AOEEffectPath), true);
     }
 }

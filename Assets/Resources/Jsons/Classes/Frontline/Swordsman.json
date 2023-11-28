@@ -6,9 +6,10 @@
     "force": 50000,
     "regularAttack": true,
     "attackRadius": 2,
-    "AOEEffectTime": 0.5,
 
-    "AOEEffectPath": "GameObjects/AOEEffect",
+    "AOEEffectTime": 0.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 1, 1, 0.6, 0.5 ],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SwordsmanBody.json"
   },

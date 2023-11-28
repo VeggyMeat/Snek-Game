@@ -1,4 +1,4 @@
 {
-  "circle": "GameObjects/Circle",
-  "rectangle": "GameObjects/Rectangle"
+  "AOEEffectCircle": "GameObjects/AOEEffectCircle",
+  "AOEEffectRectangle": "GameObjects/AOEEffectRectangle"
 }

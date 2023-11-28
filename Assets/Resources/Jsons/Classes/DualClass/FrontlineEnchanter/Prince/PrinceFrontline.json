@@ -6,8 +6,10 @@
     "force": 30000,
     "regularAttack": true,
     "attackRadius": 3,
+
     "AOEEffectTime": 0.75,
     "AOEEffectDecay": true,
+    "AOEEffectColour": [0.7, 0.3, 0.6, 0.5],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceBody.json"
   }

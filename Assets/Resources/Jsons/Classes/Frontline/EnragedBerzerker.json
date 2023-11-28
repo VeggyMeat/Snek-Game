@@ -6,10 +6,11 @@
     "force": 50000,
     "regularAttack": true,
     "attackRadius": 3,
-    "AOEEffectTime": 0.5,
     "attackSpeedBuff": 0.05,
 
-    "AOEEffectPath": "GameObjects/AOEEffect",
+    "AOEEffectTime": 0.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 0.3, 0.7, 0.2, 0.5 ],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/EnragedBerzerkerBody.json"
   },
