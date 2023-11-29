@@ -4,6 +4,10 @@
     "scanRadius": 20,
     "damage": 100,
     "autoFire": true,
+    "AOEEffectColour": [ 0.4, 0.4, 0.4, 0.5 ],
+    "AOEEffectTime": 2.5,
+    "AOEEffectDecay": true,
+    "AOEEffectWidth": 0.5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Archer/SniperBody.json"
   },

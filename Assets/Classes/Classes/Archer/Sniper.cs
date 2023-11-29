@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
 
 public class Sniper : Archer
 {
     private float scanRadius;
     private int damage;
+
+    private float AOEEffectTime;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
+    private float AOEEffectWidth;
+
+    private const float AOEEffectHeight = 100;
 
     internal override void ClassSetup()
     {
@@ -28,9 +36,9 @@ public class Sniper : Archer
         {
             // picks a random enemy
             GameObject enemyObj = enemiesInCircle[Random.Range(0, enemiesInCircle.Length)].gameObject;
-            Debug.DrawLine(transform.position, enemyObj.transform.position, Color.white, 3);
 
             // draw a tracer line indicating the shot (TODO)
+            AOEEffect.CreateRectangle(transform.position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, Mathf.Rad2Deg * ((Vector2)transform.position).AngleTo((Vector2)enemyObj.transform.position), AOEEffectHeight, AOEEffectWidth);
 
             // gets the vector between the enemy and the sniper
             UnityEngine.Vector2 dif = enemyObj.transform.position - transform.position;
@@ -70,5 +78,9 @@ public class Sniper : Archer
 
         jsonData.Setup(ref scanRadius, nameof(scanRadius));
         jsonData.Setup(ref damage, nameof(damage));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectWidth, nameof(AOEEffectWidth));
     }
 }

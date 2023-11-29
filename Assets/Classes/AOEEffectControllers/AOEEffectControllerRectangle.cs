@@ -17,7 +17,8 @@ public class AOEEffectControllerRectangle : AOEEffectController
     {
         transform.localScale = new Vector3 (height, width, 1);
 
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        // sets the rotation, + 90 in order to make it perpendicular to the angle
+        transform.rotation = Quaternion.Euler(0, 0, angle + 90);
 
         Setup(timeAlive, decay, colour);
     }

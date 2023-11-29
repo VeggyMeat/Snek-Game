@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -53,6 +54,8 @@ public static class AOEEffect
         {
             throw new Exception("AOEEffect not setup");
         }
+
+        Debug.Log("created");
 
         // gets the rectangle object that has been created
         GameObject rectangleCreated = Object.Instantiate(rectangle, position, Quaternion.identity);

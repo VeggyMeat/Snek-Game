@@ -7,7 +7,7 @@
     "regularAttack": true,
     "attackRadius": 2,
 
-    "AOEEffectTime": 0.5,
+    "AOEEffectTime": 2.5,
     "AOEEffectDecay": true,
     "AOEEffectColour": [ 1, 1, 0.6, 0.5 ],
 
