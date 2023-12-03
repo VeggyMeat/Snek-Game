@@ -2,9 +2,13 @@
   {
     "timeDelay": 0.75,
     "regularAttack": true,
-    "damage": 50,
+    "damage": 0,
     "beamThickness": 0.5,
     "beamLength": 100,
+
+    "AOEEffectDecay": true,
+    "AOEEffectTime": 0.3,
+    "AOEEffectColour": [ 0.7, 0.2, 0.4, 0.5 ],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SorcererProdigyBody.json"
   },

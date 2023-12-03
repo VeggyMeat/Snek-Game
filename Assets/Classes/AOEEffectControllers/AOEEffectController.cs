@@ -57,9 +57,7 @@ public abstract class AOEEffectController : MonoBehaviour
             TimeSpan difference = DateTime.Now - startTime;
             
             // gets the percentage of life lived
-            float lifePercentage = ((float)difference.Milliseconds / 1000) / timeAlive;
-
-            Debug.Log(lifePercentage);
+            float lifePercentage = (float)difference.TotalSeconds / timeAlive;
 
             // gets the new opacity of the AOEEffect
             float newOpacity = (1 - lifePercentage) * startColour.a;

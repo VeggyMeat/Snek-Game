@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ public class SorcererProdigy : Mage
     private float beamThickness;
     private float beamLength;
 
+    private float AOEEffectTime;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
+
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Mage/SorcererProdigy.json";
@@ -23,13 +29,16 @@ public class SorcererProdigy : Mage
     internal override void Attack()
     {
         // gets a random angle
-        float angle = Random.Range(0, Mathf.PI * 2);
-        Vector2 angleVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
 
         // TODO: CHANGE TO BOX, AND DRAW BOX ON SCREEN
+        Vector2 AOEPosition = new Vector2(transform.position.x + beamLength / 2 * (float)Math.Cos(angle * Mathf.Deg2Rad), transform.position.y + beamLength / 2 * (float)Math.Sin(angle * Mathf.Deg2Rad));
+
+
+        AOEEffect.CreateRectangle(AOEPosition, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle * Mathf.Rad2Deg, beamLength, beamThickness);
 
         // gets objects hit by the box instead
-        RaycastHit2D[] objectsHit = Physics2D.BoxCastAll((Vector2)transform.position + angleVector * beamLength / 2, new Vector2(beamThickness, beamLength), angle, angleVector);
+        RaycastHit2D[] objectsHit = Physics2D.BoxCastAll(AOEPosition, new Vector2 (beamThickness, beamLength), angle, (Vector2)transform.position - AOEPosition);
 
         foreach (RaycastHit2D hit in objectsHit)
         {
@@ -61,5 +70,8 @@ public class SorcererProdigy : Mage
         jsonData.Setup(ref damage, nameof(damage));
         jsonData.Setup(ref beamThickness, nameof(beamThickness));
         jsonData.Setup(ref beamLength, nameof(beamLength));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
     }
 }

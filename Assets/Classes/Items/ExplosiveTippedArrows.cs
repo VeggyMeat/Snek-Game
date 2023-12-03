@@ -19,8 +19,6 @@ public class ExplosiveTippedArrows : Item
 
     private GameObject OnHit(GameObject projectileObject)
     {
-        Debug.Log("blow");
-
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(projectileObject.transform.position, radius);
 

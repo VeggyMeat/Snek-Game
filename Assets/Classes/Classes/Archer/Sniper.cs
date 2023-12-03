@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
 
@@ -30,18 +32,21 @@ public class Sniper : Archer
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, scanRadius);
 
         // gets all of the enemies within the range
-        Collider2D[] enemiesInCircle = System.Array.FindAll(objectsInCircle, obj => obj.CompareTag("Enemy"));
+        Collider2D[] enemiesInCircle = Array.FindAll(objectsInCircle, obj => obj.CompareTag("Enemy"));
 
         if (enemiesInCircle.Length > 0)
         {
             // picks a random enemy
             GameObject enemyObj = enemiesInCircle[Random.Range(0, enemiesInCircle.Length)].gameObject;
 
-            // draw a tracer line indicating the shot (TODO)
-            AOEEffect.CreateRectangle(transform.position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, Mathf.Rad2Deg * ((Vector2)transform.position).AngleTo((Vector2)enemyObj.transform.position), AOEEffectHeight, AOEEffectWidth);
+            // draw a tracer line indicating the shot
+            float angle = Mathf.Rad2Deg * ((Vector2)transform.position).AngleTo((Vector2)enemyObj.transform.position) + 90;
+            Vector2 AOEPosition = new Vector2(transform.position.x + AOEEffectHeight / 2 * (float)Math.Cos(angle * Mathf.Deg2Rad), transform.position.y + AOEEffectHeight / 2 * (float)Math.Sin(angle * Mathf.Deg2Rad));
+            
+            AOEEffect.CreateRectangle(AOEPosition, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle, AOEEffectHeight, AOEEffectWidth);
 
             // gets the vector between the enemy and the sniper
-            UnityEngine.Vector2 dif = enemyObj.transform.position - transform.position;
+            Vector2 dif = enemyObj.transform.position - transform.position;
 
             // casts a ray from the sniper to the enemy (and through) getting all things hit
             RaycastHit2D[] objectsHit = Physics2D.RaycastAll(transform.position, dif.normalized);

@@ -39,7 +39,7 @@ public static class AOEEffect
         }
 
         // gets the circle that has been created
-        GameObject circleCreated = Object.Instantiate(circle, position, Quaternion.identity);
+        GameObject circleCreated = Object.Instantiate(circle, new Vector3(position.x, position.y, 5), Quaternion.identity);
 
         // gets the AOEEffectController
         AOEEffectControllerCircle controller = circleCreated.GetComponent<AOEEffectControllerCircle>();
@@ -55,10 +55,8 @@ public static class AOEEffect
             throw new Exception("AOEEffect not setup");
         }
 
-        Debug.Log("created");
-
         // gets the rectangle object that has been created
-        GameObject rectangleCreated = Object.Instantiate(rectangle, position, Quaternion.identity);
+        GameObject rectangleCreated = Object.Instantiate(rectangle, new Vector3(position.x, position.y, 5), Quaternion.identity);
 
         // gets the AOEEffectController
         AOEEffectControllerRectangle controller = rectangleCreated.GetComponent<AOEEffectControllerRectangle>();
