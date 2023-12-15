@@ -96,7 +96,7 @@ public static class Wrapper
     /// <returns>Angle in radians between them</returns>
     public static float AngleTo(this Vector2 fromPos, Vector2 toPos)
     {
-        float angle = 0f;
+        float angle;
 
         // arctan of the triangle between the tower and the enemy
         float sine = Mathf.Atan2(Mathf.Abs(fromPos.y - toPos.y), Mathf.Abs(fromPos.x - toPos.x));
@@ -131,5 +131,15 @@ public static class Wrapper
         }
 
         return angle;
+    }
+
+    /// <summary>
+    /// knocks back an enemy away from a position
+    /// </summary>
+    /// <param name="enemy">The enemy to knockback</param>
+    /// <param name="positionFrom">The origin of the knockback force</param>
+    static public void KnockbackEnemy(EnemyController enemy, Transform positionFrom, float forceMultiplier)
+    {
+        enemy.selfRigid.AddForce((enemy.transform.position - positionFrom.position).normalized * forceMultiplier, ForceMode2D.Impulse);
     }
 }
