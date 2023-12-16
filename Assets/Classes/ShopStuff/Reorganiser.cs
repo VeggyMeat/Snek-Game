@@ -71,8 +71,6 @@ public class Reorganiser : MonoBehaviour
             // creates a new body object
             GameObject bodyObject = Instantiate(body);
 
-            Debug.Log("x3 nuzzles owo your so warm");
-
             // sets its color
             bodyObject.GetComponent<SpriteRenderer>().color = bodyController.Color;
 
@@ -95,8 +93,6 @@ public class Reorganiser : MonoBehaviour
 
     private void CheckMousePos()
     {
-        Debug.Log("hello");
-
         // no gap is currently selected
         bodyGapPosition = -1;
 

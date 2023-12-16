@@ -140,6 +140,6 @@ public static class Wrapper
     /// <param name="positionFrom">The origin of the knockback force</param>
     static public void KnockbackEnemy(EnemyController enemy, Transform positionFrom, float forceMultiplier)
     {
-        enemy.selfRigid.AddForce((enemy.transform.position - positionFrom.position).normalized * forceMultiplier, ForceMode2D.Impulse);
+        enemy.selfRigid.AddForce((enemy.transform.position - positionFrom.position).normalized * forceMultiplier);
     }
 }

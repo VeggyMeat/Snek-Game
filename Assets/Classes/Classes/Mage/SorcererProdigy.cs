@@ -29,16 +29,19 @@ public class SorcererProdigy : Mage
     internal override void Attack()
     {
         // gets a random angle
-        float angle = UnityEngine.Random.Range(0, Mathf.PI * 2);
+        float angle = UnityEngine.Random.Range(0, Mathf.PI * 2) * Mathf.Rad2Deg;
 
-        // TODO: CHANGE TO BOX, AND DRAW BOX ON SCREEN
+        // Get the direction of the beam based on the angle
+        Vector2 beamDirection = Quaternion.Euler(0, 0, angle) * transform.right;
+
         Vector2 AOEPosition = new Vector2(transform.position.x + beamLength / 2 * (float)Math.Cos(angle * Mathf.Deg2Rad), transform.position.y + beamLength / 2 * (float)Math.Sin(angle * Mathf.Deg2Rad));
 
+        AOEEffect.CreateRectangle(AOEPosition, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle, beamLength, beamThickness);
 
-        AOEEffect.CreateRectangle(AOEPosition, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle * Mathf.Rad2Deg, beamLength, beamThickness);
+        // Cast a box-shaped ray in the specified direction
+        RaycastHit2D[] objectsHit = Physics2D.BoxCastAll(transform.position, new Vector2(beamThickness, 0.1f), angle, beamDirection, beamLength);
 
-        // gets objects hit by the box instead
-        RaycastHit2D[] objectsHit = Physics2D.BoxCastAll(AOEPosition, new Vector2 (beamThickness, beamLength), angle, (Vector2)transform.position - AOEPosition);
+        Debug.Log(objectsHit.Length);
 
         foreach (RaycastHit2D hit in objectsHit)
         {

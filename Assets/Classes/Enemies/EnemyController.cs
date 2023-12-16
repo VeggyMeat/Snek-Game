@@ -332,7 +332,7 @@ public class EnemyController : MonoBehaviour
             }
             
             // get hit away from the player
-            selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce, ForceMode2D.Impulse);
+            selfRigid.AddForce((selfRigid.position - (Vector2)player.position).normalized * body.ContactForce);
         }
 
     }
