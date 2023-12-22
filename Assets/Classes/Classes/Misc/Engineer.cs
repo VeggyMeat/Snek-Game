@@ -27,7 +27,7 @@ public class Engineer : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("misc");
+        body.classNames.Add("Misc");
 
         base.Setup();
 

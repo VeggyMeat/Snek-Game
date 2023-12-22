@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.7,
-    "g": 0.1,
-    "b": 0.4,
+    "colour": [ 0.7, 0.1, 0.4 ],
 
     "defence": 4,
     "maxHealth": 125,
@@ -11,5 +9,21 @@
     "velocityContribution": 7,
 
     "name": "Prince"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

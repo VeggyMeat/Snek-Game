@@ -5,5 +5,21 @@
     "projectilePath": "GameObjects/ShurikenProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/SpikeLauncherProjectile.json",
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineArcher/SpikeLauncher/SpikeLauncherBody.json"
+  },
+
+  {
+    "spikes": 5
+  },
+
+  {
+    "spikes": 6
+  },
+
+  {
+    "spikes": 7
+  },
+
+  {
+    "spikes": 8
   }
 ]

@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.7,
-    "g": 0.2,
-    "b": 0.7,
+    "colour": [ 0.7, 0.2, 0.7 ],
 
     "defence": 0,
     "maxHealth": 80,
@@ -11,5 +9,21 @@
     "velocityContribution": 6.5,
 
     "name": "Engineer"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

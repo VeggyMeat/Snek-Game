@@ -1,11 +1,26 @@
 [
   {
-    "maxSummoned": 10,
-    "lifeSpan": 30,
+    "maxSummoned": 5,
 
     "zombiePath": "GameObjects/Zombie1",
     "zombieJson": "Assets/Resources/Jsons/Misc/NecroZombie.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Misc/NecroBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "maxSummoned": 9
+  },
+
+  {
+
+  },
+
+  {
+    "maxSummoned": 15
   }
 ]

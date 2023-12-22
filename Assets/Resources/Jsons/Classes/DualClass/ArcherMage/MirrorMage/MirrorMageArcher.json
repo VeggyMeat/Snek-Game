@@ -4,5 +4,21 @@
 
     "projectilePath": "GameObjects/CapsuleProjectile",
     "projectileJson": "Assets/Resources/Jsons/Projectiles/MirrorMageProjectile.json"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

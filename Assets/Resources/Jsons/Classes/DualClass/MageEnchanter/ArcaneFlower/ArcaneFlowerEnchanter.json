@@ -3,7 +3,23 @@
     "buffsAllBodies": true,
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/MageEnchanter/ArcaneFlower/ArcaneFlowerBody.json",
 
-    "damageModifier": 0.8,
+    "damageModifier": 0.6,
     "healingModifier": 2
+  },
+
+  {
+    "damageModifier": 0.7
+  },
+
+  {
+    "damageModifier": 0.8
+  },
+
+  {
+    "damageModifier": 0.85
+  },
+
+  {
+    "damageModifier": 0.95
   }
 ]

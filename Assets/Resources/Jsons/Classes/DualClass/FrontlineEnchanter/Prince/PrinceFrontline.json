@@ -9,8 +9,28 @@
 
     "AOEEffectTime": 0.75,
     "AOEEffectDecay": true,
-    "AOEEffectColour": [0.7, 0.3, 0.6, 0.5],
+    "AOEEffectColour": [ 0.7, 0.3, 0.6, 0.5 ],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceBody.json"
+  },
+
+  {
+    "damage": 60
+  },
+
+  {
+    "damage": 70,
+    "attackDelay": 1.25,
+    "attackRadius": 3.75
+  },
+
+  {
+    "damage": 80
+  },
+
+  {
+    "damage": 100,
+    "attackDelay": 0.75,
+    "attackRadius": 4.5
   }
 ]

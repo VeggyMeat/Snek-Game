@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.7,
-    "g": 0.6,
-    "b": 1,
+    "colour": [ 0.7, 0.6, 1 ],
 
     "defence": 2,
     "maxHealth": 110,
@@ -11,5 +9,21 @@
     "velocityContribution": 4.5,
 
     "name": "Swashbuckler"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

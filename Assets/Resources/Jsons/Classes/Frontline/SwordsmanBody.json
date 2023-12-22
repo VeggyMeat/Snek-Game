@@ -1,8 +1,6 @@
 [
   {
-    "r": 1,
-    "g": 1,
-    "b": 0,
+    "colour": [ 1, 1, 0 ],
 
     "defence": 5,
     "maxHealth": 200,

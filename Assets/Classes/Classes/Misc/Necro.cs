@@ -14,6 +14,8 @@ public class Necro : Class
     // currently unused (mostly) should be replaced or utilised in the future
     internal List<NecromancerZombieController> summonedZombies;
 
+    private JsonVariable necroZombieVariables;
+
     private GameObject zombie;
 
     internal override void ClassSetup()
@@ -25,7 +27,7 @@ public class Necro : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("misc");
+        body.classNames.Add("Misc");
 
         // sets up a list of the controlled zombies
         summonedZombies = new List<NecromancerZombieController>();
@@ -36,11 +38,18 @@ public class Necro : Class
         // gets the zombie asset ready
         zombie = Resources.Load<GameObject>(zombiePath);
 
+        necroZombieVariables = new JsonVariable(zombieJson);
+
         base.Setup();
     }
 
     internal GameObject EnemyKilledTrigger(GameObject enemy)
     {
+        if (body.IsDead)
+        {
+            return enemy;
+        }
+
         // if there is capacity for another zombie spawn it
         if (summonedZombies.Count < maxSummoned)
         {
@@ -58,10 +67,7 @@ public class Necro : Class
         
         // sets up the zombie
         NecromancerZombieController controller = summonedZombie.GetComponent<NecromancerZombieController>();
-        controller.Setup(zombieJson, this);
-
-        // resets the damage to add in the DamageMultiplier
-        controller.contactDamage = (int)(controller.contactDamage * body.DamageMultiplier);
+        controller.Setup(necroZombieVariables.Variables, this, body.DamageMultiplier);
 
         // adds the zombie to the list of controlled zombies
         summonedZombies.Add(controller);
@@ -104,6 +110,17 @@ public class Necro : Class
             {
                 zombie = Resources.Load<GameObject>(zombiePath);
             }
+        }
+    }
+
+    internal override void LevelUp()
+    {        
+        base.LevelUp();
+
+        // levels up the necro zombies
+        if (!jsonLoaded)
+        {
+            necroZombieVariables.IncreaseIndex();
         }
     }
 }

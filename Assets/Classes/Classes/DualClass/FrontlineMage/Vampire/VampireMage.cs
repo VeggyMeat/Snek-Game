@@ -40,7 +40,7 @@ public class VampireMage : Mage
             if (body.Level != 1)
             {
                 StopSuckingLife();
-                StopSuckingLife();
+                StartSuckingLife();
             }
         }
     }

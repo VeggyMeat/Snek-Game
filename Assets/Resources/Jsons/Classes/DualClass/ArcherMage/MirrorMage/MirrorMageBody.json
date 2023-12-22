@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.9,
-    "g": 0.9,
-    "b": 0.9,
+    "colour": [ 0.9, 0.9, 0.9 ],
 
     "defence": 0,
     "maxHealth": 75,
@@ -11,5 +9,21 @@
     "velocityContribution": 5,
 
     "name": "MirrorMage"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

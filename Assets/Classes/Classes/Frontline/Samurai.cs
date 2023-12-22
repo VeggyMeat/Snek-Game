@@ -13,6 +13,11 @@ public class Samurai : Frontline
 
     private float attackLength;
 
+    private float AOEEffectTime;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
+    private float AOEEffectWidth;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Samurai.json";
@@ -46,9 +51,7 @@ public class Samurai : Frontline
         // gets all the objects within the range
         RaycastHit2D[] objectsInLine = Physics2D.LinecastAll(point1, point2);
 
-        // TODO draws a line showing the attack
-        // temp solution (only works in scene view)
-        Debug.DrawLine(point1, point2, Color.white, 0.5f, false);
+        AOEEffect.CreateRectangle(position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle * Mathf.Rad2Deg, attackLength, AOEEffectWidth);
 
         foreach (RaycastHit2D hit in objectsInLine)
         {
@@ -81,5 +84,9 @@ public class Samurai : Frontline
         jsonData.Setup(ref critChance, nameof(critChance));
         jsonData.Setup(ref critMultiplier, nameof(critMultiplier));
         jsonData.Setup(ref attackLength, nameof(attackLength));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
+        jsonData.Setup(ref AOEEffectWidth, nameof(AOEEffectWidth));
     }
 }

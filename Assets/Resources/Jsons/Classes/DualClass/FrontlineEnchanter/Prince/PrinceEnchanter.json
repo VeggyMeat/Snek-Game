@@ -2,5 +2,21 @@
   {
     "buffsAllBodies": true,
     "damageIncrease": 1.15
+  },
+
+  {
+    "damageIncrease": 1.2
+  },
+
+  {
+    "damageIncrease": 1.25
+  },
+
+  {
+    "damageIncrease": 1.3
+  },
+
+  {
+    "damageIncrease": 1.4
   }
 ]

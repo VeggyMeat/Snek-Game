@@ -6,5 +6,21 @@
 
     "bulletPath": "GameObjects/Bullet",
     "bulletJson": "Assets/Resources/Jsons/Misc/TurretBullet.json"
+  },
+
+  {
+    "lifeSpan": 12.5
+  },
+
+  {
+    "timeDelay": 0.4
+  },
+
+  {
+    "lifeSpan": 15
+  },
+
+  {
+    "timeDelay": 0.3
   }
 ]

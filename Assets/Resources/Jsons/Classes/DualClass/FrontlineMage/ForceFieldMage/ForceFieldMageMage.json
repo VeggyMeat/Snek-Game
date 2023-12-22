@@ -3,5 +3,23 @@
     "regularAttack": false,
     "buffHealth": 20,
     "buffTime": 5
+  },
+
+  {
+    "buffHealth": 25
+  },
+
+  {
+    "buffHealth": 30,
+    "buffTime": 6
+  },
+
+  {
+    "buffHealth": 35
+  },
+
+  {
+    "buffHealth": 40,
+    "buffTime": 7.5
   }
 ]

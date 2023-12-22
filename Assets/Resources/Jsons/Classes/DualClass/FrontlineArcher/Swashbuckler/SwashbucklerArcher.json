@@ -10,5 +10,23 @@
     "projectilePath": "GameObjects/CircleProjectile",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineArcher/Swashbuckler/SwashbucklerBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "perArcherDamageIncrease": 0.3,
+    "perArcherSpeedIncrease": 0.3
+  },
+
+  {
+
+  },
+
+  {
+    "perArcherDamageIncrease": 0.4,
+    "perArcherSpeedIncrease": 0.4
   }
 ]

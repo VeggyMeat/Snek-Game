@@ -10,5 +10,21 @@
 
     "scaleX": 0.25,
     "scaleY": 0.25
+  },
+
+  {
+    "velocity": 8.5
+  },
+
+  {
+    "damage": 25
+  },
+
+  {
+    "velocity": 10
+  },
+
+  {
+    "damage": 30
   }
 ]

@@ -1,8 +1,6 @@
 [
   {
-    "r": 1,
-    "g": 0.4,
-    "b": 0.8,
+    "colour": [ 1, 0.4, 0.8 ],
 
     "defence": 2,
     "maxHealth": 75,
@@ -11,5 +9,21 @@
     "velocityContribution": 7,
 
     "name": "FairyWithAGun"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

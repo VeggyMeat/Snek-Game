@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.3,
-    "g": 0.2,
-    "b": 0.6,
+    "colour": [ 0.3, 0.2, 0.6 ],
 
     "defence": 5,
     "maxHealth": 125,
@@ -11,5 +9,21 @@
     "velocityContribution": 5,
 
     "name": "Shieldman"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

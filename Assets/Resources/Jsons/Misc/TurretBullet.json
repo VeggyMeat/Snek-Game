@@ -3,5 +3,21 @@
     "velocity": 10,
     "lifeSpan": 5,
     "damage": 50
+  },
+
+  {
+
+  },
+
+  {
+    "damage": 75
+  },
+
+  {
+
+  },
+
+  {
+    "damage": 100
   }
 ]

@@ -5,5 +5,21 @@
 
     "orbPath": "GameObjects/CircleProjectile",
     "orbJson": "Assets/Resources/Jsons/Projectiles/MagicArcherMageProjectile.json"
+  },
+
+  {
+    "orbs": 6
+  },
+
+  {
+    
+  },
+
+  {
+    "orbs": 8
+  },
+
+  {
+
   }
 ]

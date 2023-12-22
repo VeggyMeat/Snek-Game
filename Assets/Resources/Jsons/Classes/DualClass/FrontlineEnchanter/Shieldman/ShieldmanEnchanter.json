@@ -4,5 +4,21 @@
     "healthIncrease": 25,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Shieldman/ShieldmanBody.json"
+  },
+
+  {
+    
+  },
+
+  {
+    "healthIncrease": 30
+  },
+
+  {
+    "healthIncrease": 40
+  },
+
+  {
+    "healthIncrease": 50
   }
 ]

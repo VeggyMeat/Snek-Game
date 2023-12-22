@@ -170,21 +170,19 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal Buff attackSpeedBuff;
 
+    // rgb colours of the body
+    private Color colour;
+
     /// <summary>
     /// The color of the body
     /// </summary>
-    public Color Color
+    public Color Colour
     {
         get
         {
-            return spriteRenderer.color;
+            return colour;
         }
     }
-
-    // rgb colours of the body
-    private float r;
-    private float g;
-    private float b;
 
     /// <summary>
     /// The length of time the body is dead for before automatically being revived
@@ -800,7 +798,7 @@ public class BodyController : MonoBehaviour
     internal void ResetColour()
     {
         // displays that colour to the renderer
-        spriteRenderer.color = new Color (r, g, b);
+        spriteRenderer.color = colour;
     }
 
     /// <summary>
@@ -861,9 +859,7 @@ public class BodyController : MonoBehaviour
         // sets up the other variables
         values.Setup(ref contactDamage, nameof(contactDamage));
         values.Setup(ref contactForce, nameof(contactForce));
-        values.Setup(ref r, nameof(r));
-        values.Setup(ref g, nameof(g));
-        values.Setup(ref b, nameof(b));
+        values.Setup(ref colour, nameof(colour));
         values.Setup(ref maxLevel, nameof(maxLevel));
         values.Setup(ref name, nameof(name));
         values.Setup(ref naturalRegen, nameof(naturalRegen));

@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.2,
-    "g": 0.3,
-    "b": 0.9,
+    "colour": [ 0.2, 0.3, 0.9 ],
 
     "defence": 0,
     "maxHealth": 75,
@@ -11,5 +9,21 @@
     "velocityContribution": 8,
 
     "name": "MagicArcher"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

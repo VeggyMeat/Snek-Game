@@ -5,5 +5,22 @@
     "reviveHealthPercentage": 0.2,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/MageEnchanter/DeathWard/DeathWardBody.json"
+  },
+
+  {
+    "reviveHealthPercentage": 0.25
+  },
+
+  {
+    "maxHealthIncrease": 2
+  },
+
+  {
+    "reviveHealthPercentage": 0.3
+  },
+
+  {
+    "maxHealthIncrease": 4,
+    "reviveHealthPercentage": 0.35
   }
 ]

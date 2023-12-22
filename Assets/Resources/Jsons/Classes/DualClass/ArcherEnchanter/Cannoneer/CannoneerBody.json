@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.2,
-    "g": 0,
-    "b": 0,
+    "colour": [ 0.2, 0, 0 ],
 
     "defence": 2,
     "maxHealth": 75,
@@ -11,5 +9,21 @@
     "velocityContribution": 5.5,
 
     "name": "Cannoneer"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

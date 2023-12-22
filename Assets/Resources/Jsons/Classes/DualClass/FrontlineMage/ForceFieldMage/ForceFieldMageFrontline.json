@@ -8,5 +8,25 @@
     "attackRadius": 4,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/ForceFieldMage/ForceFieldMageBody.json"
+  },
+
+  {
+    "damage": 60
+  },
+
+  {
+    "attackRadius": 4.5,
+    "damage": 70,
+    "timeDelay": 1.5
+  },
+
+  {
+    "damage": 80
+  },
+
+  {
+    "attackRadius": 5,
+    "damage": 100,
+    "timeDelay": 1
   }
 ]

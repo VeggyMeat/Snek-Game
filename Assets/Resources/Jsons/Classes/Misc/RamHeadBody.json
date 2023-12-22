@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.75,
-    "g": 0.1,
-    "b": 0.25,
+    "colour": [ 0.75, 0.1, 0.25 ],
 
     "defence": 2,
     "maxHealth": 90,
@@ -11,5 +9,21 @@
     "velocityContribution": 6.5,
 
     "name": "RamHead"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

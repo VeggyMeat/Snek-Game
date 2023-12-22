@@ -7,33 +7,35 @@ using UnityEngine;
 
 public class NecromancerZombieController : MonoBehaviour
 {
-    public float speed;
-    public float maxHealth;
-    public int contactDamage;
-    public int despawnRadius;
-    public float angularVelocity;
-    public int timeAlive;
+    private float speed;
+    private float maxHealth;
+    private int contactDamage;
+    private int despawnRadius;
+    private float angularVelocity;
+    private int timeAlive;
+    private float contactForce;
 
-    internal float health;
+    private float health;
+
     internal Rigidbody2D selfRigid;
     internal Necro parent;
+
+    private Dictionary<string, object> jsonVariables;
 
     private GameObject target = null;
     private EnemyController targetScript = null;
     private Transform targetPos = null;
 
     // Called just after creation, by whatever created the object
-    internal void Setup(string jsonPath, Necro necro)
+    internal void Setup(Dictionary<string, object> jsonData, Necro necro, float damageMultiplier)
     {
-        // loads in all the variables from the json
-        StreamReader reader = new StreamReader(jsonPath);
-        string text = reader.ReadToEnd();
-        reader.Close();
-
-        JsonUtility.FromJsonOverwrite(text, this);
-
-        // sets the parent variable up
         parent = necro;
+
+        jsonVariables = jsonData;
+
+        JsonSetup();
+
+        contactDamage = (int)(damageMultiplier * contactDamage);
     }
 
     void Start()
@@ -41,13 +43,12 @@ public class NecromancerZombieController : MonoBehaviour
         // sets up the rigid body
         selfRigid = GetComponent<Rigidbody2D>();
 
-        // sets the health to the max health
         health = maxHealth;
 
         // sets the body mildly rotating
         selfRigid.angularVelocity = angularVelocity;
 
-        // kills the projectile in lifeSpan seconds
+        // kills the projectile in timeAlive seconds
         Invoke(nameof(Die), timeAlive);
     }
 
@@ -132,7 +133,6 @@ public class NecromancerZombieController : MonoBehaviour
 
             if (health <= 0)
             {
-
                 health = 0;
                 Die();
 
@@ -160,23 +160,35 @@ public class NecromancerZombieController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             // get the enemy controller
-            EnemyController body = collision.gameObject.GetComponent<EnemyController>();
+            EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
 
             // take damage from the body
-            ChangeHealth(body.ContactDamage);
+            ChangeHealth(enemy.ContactDamage);
 
             // apply damage to the enemy
-            if (!body.ChangeHealth(-contactDamage))
+            if (!enemy.ChangeHealth(-contactDamage))
             {
                 // killed an enemy
                 parent.EnemyKilled(collision.gameObject);
             }
 
-            if (!body.Dead)
+            if (!enemy.Dead)
             {
                 // get hit away from the enemy
-                selfRigid.AddForce((selfRigid.position - (Vector2)body.transform.position).normalized * body.ContactDamage);
+                selfRigid.AddForce((selfRigid.position - (Vector2)enemy.transform.position).normalized * contactForce);
             }
         }
+    }
+
+    private void JsonSetup()
+    {
+        // sets up the varibales
+        jsonVariables.Setup(ref speed, nameof(speed));
+        jsonVariables.Setup(ref maxHealth, nameof(maxHealth));
+        jsonVariables.Setup(ref contactDamage, nameof(contactDamage));
+        jsonVariables.Setup(ref despawnRadius, nameof(despawnRadius));
+        jsonVariables.Setup(ref timeAlive, nameof(timeAlive));
+        jsonVariables.Setup(ref angularVelocity, nameof(angularVelocity));
+        jsonVariables.Setup(ref contactForce, nameof(contactForce));
     }
 }

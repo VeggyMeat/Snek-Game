@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.3,
-    "g": 0.3,
-    "b": 0.4,
+    "colour": [ 0.3, 0.3, 0.4 ],
 
     "defence": 0,
     "maxHealth": 100,
@@ -11,5 +9,21 @@
     "velocityContribution": 6,
 
     "name": "SpikeLauncher"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

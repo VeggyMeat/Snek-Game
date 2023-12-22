@@ -7,5 +7,21 @@
     "projectileJson": "Assets/Resources/Jsons/Projectiles/MagicArcherArcherProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherMage/MagicArcher/MagicArcherBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "timeDelay": 0.75
+  },
+
+  {
+
+  },
+
+  {
+    "timeDelay": 0.5
   }
 ]

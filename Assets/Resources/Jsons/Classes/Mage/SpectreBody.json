@@ -1,8 +1,6 @@
 [
   {
-    "r": 0.75,
-    "g": 0.75,
-    "b": 0.8,
+    "colour": [ 0.75, 0.75, 0.8 ],
 
     "defence": 0,
     "maxHealth": 50,
@@ -11,5 +9,21 @@
     "velocityContribution": 7.5,
 
     "name": "Spectre"
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
+  },
+
+  {
+
   }
 ]

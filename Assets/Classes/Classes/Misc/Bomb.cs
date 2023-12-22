@@ -18,7 +18,7 @@ public class Bomb : Class
 
     internal override void Setup()
     {
-        body.classNames.Add("misc");
+        body.classNames.Add("Misc");
 
         base.Setup();
 
@@ -83,6 +83,7 @@ public class Bomb : Class
             {
                 // kills the enemy
                 enemyController.Die();
+                EnemyKilled(enemyObj);
             }
         }
     }

@@ -6,5 +6,21 @@
     "turretJson": "Assets/Resources/Jsons/Misc/EngineerTurret.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "spawnDelay": 1.75
+  },
+
+  {
+
+  },
+
+  {
+    "spawnDelay": 1.25
   }
 ]

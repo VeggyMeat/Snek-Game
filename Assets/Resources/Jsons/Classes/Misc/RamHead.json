@@ -6,5 +6,23 @@
     "defenceAdded": 3,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Misc/RamHeadBody.json"
+  },
+
+  {
+    "healthAdded": 50
+  },
+
+  {
+    "healthAdded": 75,
+    "defenceAdded": 5
+  },
+
+  {
+    "healthAdded": 100
+  },
+
+  {
+    "healthAdded": 150,
+    "defenceAdded": 10
   }
 ]

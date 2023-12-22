@@ -8,11 +8,34 @@
 
     "AOEEffectTime": 1,
     "AOEEffectDecay": true,
-    "AOEEffectColour": [0.7, 0.1, 0.2, 0.5],
+    "AOEEffectColour": [ 0.7, 0.1, 0.2, 0.5 ],
 
     "perFrontlineDamageIncrease": 0.2,
     "perFrontlineAreaIncrease": 0.2,
 
     "AOEEffectPath": "GameObjects/AOEEffect"
+  },
+
+  {
+    "damage": 45
+  },
+
+  {
+    "damage": 50,
+    "attackDelay": 1.75,
+    "perFrontlineDamageIncrease": 0.3,
+    "perFrontlineAreaIncrease": 0.3
+  },
+
+  {
+    "damage": 60
+  },
+
+  {
+    "damage": 75,
+    "attackDelay": 1.5,
+    "attackRadius": 4,
+    "perFrontlineDamageIncrease": 0.4,
+    "perFrontlineAreaIncrease": 0.4
   }
 ]

@@ -10,5 +10,23 @@
     "orbJson": "Assets/Resources/Jsons/Projectiles/SpectreProjectile.json",
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Mage/SpectreBody.json"
+  },
+
+  {
+    "timeDelay": 0.5
+  },
+
+  {
+    "orbNumber": 3
+  },
+
+  {
+    "speedMult": 4
+  },
+
+  {
+    "orbNumber": 5,
+    "damageMult": 4,
+    "speedMult": 5
   }
 ]

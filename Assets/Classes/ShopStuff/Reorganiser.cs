@@ -72,7 +72,7 @@ public class Reorganiser : MonoBehaviour
             GameObject bodyObject = Instantiate(body);
 
             // sets its color
-            bodyObject.GetComponent<SpriteRenderer>().color = bodyController.Color;
+            bodyObject.GetComponent<SpriteRenderer>().color = bodyController.Colour;
 
             // adds it to the body list
             bodies.Add(bodyObject);

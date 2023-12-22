@@ -5,9 +5,14 @@
     "damage": 40,
     "force": 50000,
     "regularAttack": true,
-    "attackLength": 3,
+    "attackLength": 5,
     "critChance": 0.25,
     "critMultiplier": 2.5,
+
+    "AOEEffectTime": 1.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 0, 0, 0, 0.5 ],
+    "AOEEffectWidth": 0.25,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/SamuraiBody.json"
   },
@@ -25,13 +30,13 @@
 
   {
     "damage": 60,
-    "attackLength": 4
+    "attackLength": 7
   },
 
   {
     "critChance": 0.5,
     "critMultiplier": 4,
-    "attackLength": 5,
+    "attackLength": 9,
     "damage": 75,
     "attackDelay": 0.6
   }

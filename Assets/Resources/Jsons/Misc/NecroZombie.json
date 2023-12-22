@@ -1,8 +1,28 @@
-{
-  "speed": 3,
-  "maxHealth": 50,
-  "contactDamage": 20,
-  "despawnRadius": 50,
-  "angularVelocity": 120,
-  "timeAlive": 30
-}
+[
+  {
+    "speed": 3,
+    "maxHealth": 50,
+    "contactDamage": 20,
+    "contactForce": 2000,
+    "despawnRadius": 50,
+    "angularVelocity": 360,
+    "timeAlive": 15
+  },
+
+  {
+    "speed": 3.5
+  },
+
+  {
+    "timeAlive": 20,
+    "contactDamage": 35
+  },
+
+  {
+    "speed": 4
+  },
+
+  {
+    "contactDamage": 50
+  }
+]

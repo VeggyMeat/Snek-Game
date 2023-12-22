@@ -5,5 +5,23 @@
     "damageMultiplier": 1.2,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherEnchanter/Cannoneer/CannoneerBody.json"
+  },
+
+  {
+    "damageMultiplier": 1.4,
+    "scaleFactor": 1.75
+  },
+
+  {
+    "scaleFactor": 2,
+  },
+
+  {
+    "damageMultiplier": 1.6
+  },
+
+  {
+    "scaleFactor": 2.5,
+    "damageMultiplier": 10
   }
 ]

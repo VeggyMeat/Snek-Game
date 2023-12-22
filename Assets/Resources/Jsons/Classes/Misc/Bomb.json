@@ -1,6 +1,6 @@
 [
   {
-    "timeDelay": 30,
+    "timeDelay": 60,
     "radius": 30,
     "XPChance": 0.1,
 
@@ -11,5 +11,23 @@
     "velocityContribution": 5,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
+  },
+
+  {
+    "XPChance": 0.2
+  },
+
+  {
+    "XPChance": 0.3,
+    "timeDelay": 45
+  },
+
+  {
+    "XPChance": 0.4
+  },
+
+  {
+    "XPChance": 0.5,
+    "timeDelay": 30
   }
 ]

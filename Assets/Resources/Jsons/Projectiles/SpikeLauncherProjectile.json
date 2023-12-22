@@ -10,5 +10,21 @@
 
     "scaleX": 0.5,
     "scaleY": 0.5
+  },
+
+  {
+    "damage": 30
+  },
+
+  {
+    "damage": 35
+  },
+
+  {
+    "damage": 40
+  },
+
+  {
+    "damage": 50
   }
 ]

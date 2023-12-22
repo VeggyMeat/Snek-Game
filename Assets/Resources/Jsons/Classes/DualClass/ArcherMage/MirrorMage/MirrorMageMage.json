@@ -4,5 +4,21 @@
     "speedBuff": 0.75,
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/ArcherMage/MirrorMage/MirrorMageBody.json"
+  },
+
+  {
+
+  },
+
+  {
+    "speedBuff": 0.8
+  },
+
+  {
+
+  },
+
+  {
+    "speedBuff": 0.85
   }
 ]
