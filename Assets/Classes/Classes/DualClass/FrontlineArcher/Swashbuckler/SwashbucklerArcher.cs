@@ -7,6 +7,9 @@ public class SwashbucklerArcher : Archer
     private int perArcherDamageIncrease;
     private int perArcherSpeedIncrease;
 
+    /// <summary>
+    /// Holds the number of archers in the snake other than this one
+    /// </summary>
     private int archerNumber = -1;
 
     internal override void ClassSetup()

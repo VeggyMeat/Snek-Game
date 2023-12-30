@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayScreenController : MonoBehaviour
 {
@@ -15,6 +15,11 @@ public class PlayScreenController : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void LeaderboardButtonClicked()
+    {
+        SceneManager.LoadScene("Leaderboard");
+    }
+
     public void Start()
     {
         backgroundSprite = background.GetComponent<Image>();
@@ -22,6 +27,6 @@ public class PlayScreenController : MonoBehaviour
 
     public void Update()
     {
-
+        backgroundSprite.color = new Color(Mathf.PingPong(Time.time / 2, 0.5f) + 0.5f, Mathf.PingPong(Time.time / 3, 0.5f) + 0.5f, Mathf.PingPong(Time.time / 5, 0.5f) + 0.5f, 1);
     }
 }

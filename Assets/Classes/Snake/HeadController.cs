@@ -33,11 +33,14 @@ public class HeadController: MonoBehaviour
     internal Vector2 velocityVector;
     internal float velocity = 0;
 
-    private int XP = 0;
-    private int Level = 0;
-    private int XPLevelUp;
+    private int xP = 0;
+    private int level = 0;
+    private int xPLevelUp;
 
     private bool turning = false;
+
+    private int score = 0;
+    private float time = 0;
 
     public bool Turning
     {
@@ -51,6 +54,7 @@ public class HeadController: MonoBehaviour
 
     public ShopManager shopManager;
     public EnemySummonerController enemySummonerController;
+    public DeathScreenController deathScreenController;
 
     private List<string> currentBodies = new List<string>();
 
@@ -64,13 +68,16 @@ public class HeadController: MonoBehaviour
 
     void Start()
     {
+        // sets up the databse handler
+        DatabaseHandler.Setup();
+
         // sets up the item manager
         ItemManager.Setup(this);
 
-        // sets up the AOEEffect
+        // sets up the AOEEffect system
         AOEEffect.Setup();
 
-        XPLevelUp = BaseXPLevelRequirement;
+        xPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0, velocity);
         
         // calls an initial body selection
@@ -79,12 +86,37 @@ public class HeadController: MonoBehaviour
 
     private void FixedUpdate()
     {
-        // temp, ends game when all bodies are dead
-        if (AliveBodies() == 0 && Length() > 0)
+        if (DeathCheck())
         {
-            SceneManager.LoadScene("MainMenu");
+            return;
         }
 
+        UpdateTurning();
+
+        if (head) 
+        {
+            // moves the whole snake
+            head.Move();
+
+            // updates the voids position
+            transform.position = HeadPos();
+        }
+    }
+
+    private void Update()
+    {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
+        // updates the time
+        time += Time.deltaTime;
+
+    }
+
+    private void UpdateTurning()
+    {
         // gets information on the key presses
         bool rightPress = Input.GetKey(KeyCode.RightArrow);
         bool leftPress = Input.GetKey(KeyCode.LeftArrow);
@@ -132,16 +164,43 @@ public class HeadController: MonoBehaviour
         }
 
         velocityVector = new Vector2((float)(velocity * Math.Sin(angle) / AliveBodies()), (float)(velocity * Math.Cos(angle) / AliveBodies()));
-
-        if (head) 
-        {
-            // moves the whole snake
-            head.Move();
-
-            // updates the voids position
-            transform.position = HeadPos();
-        }
     }
+
+    private bool DeathCheck()
+    {
+        if (AliveBodies() == 0 && Length() > 0)
+        {
+            OnDeath();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public List<string> FinishRun(string name)
+    {
+        Run run = new Run
+        {
+            PlayerName = name,
+            Score = score,
+            Time = (int)time,
+            Date = DateTime.Now
+        };
+
+        DatabaseHandler.AddRun(run);
+
+        return new List<string> { name, score.ToString(), ((int)time).ToString(), DateTime.Now.ToString() };
+    }
+
+    private void OnDeath()
+    {
+        shopManager.PauseTime();
+
+        deathScreenController.OnDeath();
+    }
+
+
 
     /// <summary>
     /// Increases the XP of the snake and levels up if necessary
@@ -150,10 +209,10 @@ public class HeadController: MonoBehaviour
     internal void IncreaseXP(int amount)
     {
         // increases the xp
-        XP += amount;
+        xP += amount;
 
         // levels it up if it has enough
-        if (XP >= XPLevelUp)
+        if (xP >= xPLevelUp)
         {
             LevelUp();
         }
@@ -165,14 +224,14 @@ public class HeadController: MonoBehaviour
     private void LevelUp()
     {
         // resets xp
-        XP = 0;
+        xP = 0;
 
         // increases level, increases next xp requirement
-        XPLevelUp += XPIncreaseLevel;
-        Level++;
+        xPLevelUp += XPIncreaseLevel;
+        level++;
 
         // level up trigger
-        TriggerManager.BodyLevelUpTrigger.CallTrigger(Level);
+        TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
 
         // bring to the level up scene
         shopManager.OnLevelUp();
@@ -405,7 +464,7 @@ public class HeadController: MonoBehaviour
     /// <returns></returns>
     public float GetXPPercentage()
     {
-        return (float)XP / XPLevelUp;
+        return (float)xP / xPLevelUp;
     }
 
     internal void Rearrange(List<BodyController> order)
