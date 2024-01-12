@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Item
+public abstract class Item
 {
     protected string itemName;
     protected string itemDescription;
