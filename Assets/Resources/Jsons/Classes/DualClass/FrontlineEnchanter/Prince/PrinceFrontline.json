@@ -6,6 +6,7 @@
     "force": 30000,
     "regularAttack": true,
     "attackRadius": 3,
+    "attackForce": 5000,
 
     "AOEEffectTime": 0.75,
     "AOEEffectDecay": true,
@@ -21,7 +22,8 @@
   {
     "damage": 70,
     "attackDelay": 1.25,
-    "attackRadius": 3.75
+    "attackRadius": 3.75,
+    "attackForce": 7500
   },
 
   {
@@ -31,6 +33,7 @@
   {
     "damage": 100,
     "attackDelay": 0.75,
-    "attackRadius": 4.5
+    "attackRadius": 4.5,
+    "attackForce": 10000
   }
 ]

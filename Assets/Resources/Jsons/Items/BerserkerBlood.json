@@ -4,7 +4,36 @@
     "itemDescription": "frontlines get ~% damage and ~% attack speed boost when beneath ~% hp (powerful)",
 
     "healthThreshold": 0.3,
-    "damageMultiplier": 5,
-    "attackSpeedMultiplier": 5
+    "damageMultiplier": 1.3,
+    "attackSpeedMultiplier": 1.3,
+    "buffedBodiesKillsLevelUp": 10
+  },
+
+  {
+    "healthThreshold": 0.35,
+    "damageMultiplier": 1.4,
+    "attackSpeedMultiplier": 1.4,
+    "buffedBodiesKillsLevelUp": 30
+  },
+
+  {
+    "healthThreshold": 0.4,
+    "damageMultiplier": 1.6,
+    "attackSpeedMultiplier": 1.6,
+    "buffedBodiesKillsLevelUp": 60
+  },
+
+  {
+    "healthThreshold": 0.45,
+    "damageMultiplier": 1.8,
+    "attackSpeedMultiplier": 1.8,
+    "buffedBodiesKillsLevelUp": 100
+  },
+
+  {
+    "healthThreshold": 0.5,
+    "damageMultiplier": 2,
+    "attackSpeedMultiplier": 2,
+    "buffedBodiesKillsLevelUp": 150
   }
 ]

@@ -5,6 +5,28 @@
 
     "projectiles": 8,
     "projectilePath": "GameObjects/CapsuleProjectile",
-    "projectileJson": "Assets/Resources/Jsons/Projectiles/CactusHelmetProjectile.json"
+    "projectileJson": "Assets/Resources/Jsons/Projectiles/CactusHelmetProjectile.json",
+
+    "projectileHitsLevelUp": 100
+  },
+
+  {
+    "projectileHitsLevelUp": 150,
+    "projectiles": 10
+  },
+
+  {
+    "projectileHitsLevelUp": 250,
+    "projectiles": 12
+  },
+
+  {
+    "projectileHitsLevelUp": 350,
+    "projectiles": 14
+  },
+
+  {
+    "projectileHitsLevelUp": 500,
+    "projectiles": 16
   }
 ]

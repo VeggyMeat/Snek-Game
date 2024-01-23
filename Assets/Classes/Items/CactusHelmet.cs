@@ -11,6 +11,11 @@ public class CactusHelmet : Item
     private JsonVariable projectileVariables;
     private GameObject projectileObject;
 
+    private int projectileHits = 0;
+    private int projectileHitsLevelUp;
+
+    private int id;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/CactusHelmet.json";
@@ -25,6 +30,9 @@ public class CactusHelmet : Item
 
         // adds the OnHit trigger
         TriggerManager.BodyLostHealthTrigger.AddTrigger(OnHit);
+        TriggerManager.ProjectileHitTrigger.AddTrigger(OnProjectileHit); ;
+
+        id = int.Parse(projectileVariables.Variables["id"].ToString());
     }
 
     private (BodyController, int) OnHit((BodyController, int) info)
@@ -47,8 +55,32 @@ public class CactusHelmet : Item
         return info;
     }
 
+    private GameObject OnProjectileHit(GameObject projectileObject)
+    {
+        // gets the projectileController
+        ProjectileController projectileController = projectileObject.GetComponent<ProjectileController>();
+
+        // if the projectile is from the cactus helmet
+        if (projectileController.ID == id)
+        {
+            projectileHits++;
+
+            if (projectileHits >= projectileHitsLevelUp && Levelable)
+            {
+                LevelUp();
+            }
+        }
+
+        return projectileObject;
+    }
+
     protected override void LevelUp()
     {
+        if (jsonLoaded)
+        {
+            projectileHits -= projectileHitsLevelUp;
+        }
+
         base.LevelUp();
 
         if (level != 1)
@@ -65,5 +97,6 @@ public class CactusHelmet : Item
         jsonVariables.Setup(ref projectiles, nameof(projectiles));
         jsonVariables.Setup(ref projectileJson, nameof(projectileJson));
         jsonVariables.Setup(ref projectilePath, nameof(projectilePath));
+        jsonVariables.Setup(ref projectileHitsLevelUp, nameof(projectileHitsLevelUp));
     }
 }

@@ -10,6 +10,8 @@ public class PrinceFrontline : Frontline
 
     private Color AOEEffectColour;
 
+    private float attackForce;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/DualClass/FrontlineEnchanter/Prince/PrinceFrontline.json";
@@ -50,7 +52,7 @@ public class PrinceFrontline : Frontline
                 }
                 else
                 {
-                    // add a knockback thing
+                    enemyController.selfRigid.AddForce((enemyObj.transform.position - transform.position).normalized * attackForce);
                 }
             }
         }
@@ -64,5 +66,6 @@ public class PrinceFrontline : Frontline
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
         jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
         jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
+        jsonData.Setup(ref attackForce, nameof(attackForce));
     }
 }

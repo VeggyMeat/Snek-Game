@@ -3,6 +3,27 @@
     "itemName": "BigBullet",
     "itemDescription": "Projectiles are ~% bigger",
 
-    "projectileSizeModifier": 1.3
+    "projectileSizeModifier": 1.3,
+    "projectilesHitLevelUp": 100
+  },
+
+  {
+    "projectileSizeModifier": 1.4,
+    "projectilesHitLevelUp": 150
+  },
+
+  {
+    "projectileSizeModifier": 1.6,
+    "projectilesHitLevelUp": 250
+  },
+
+  {
+    "projectileSizeModifier": 1.8,
+    "projectilesHitLevelUp": 350
+  },
+
+  {
+    "projectileSizeModifier": 2,
+    "projectilesHitLevelUp": 500
   }
 ]

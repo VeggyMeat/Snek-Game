@@ -6,6 +6,12 @@ public class ForceFieldMageFrontline : Frontline
 {
     private float attackRadius;
 
+    private float AOEEffectTime;
+    private bool AOEEffectDecay;
+    private Color AOEEffectColour;
+
+    private float attackForce;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/ForceFieldMage/ForceFieldMageFrontline.json";
@@ -15,6 +21,9 @@ public class ForceFieldMageFrontline : Frontline
 
     internal override void Attack(Vector3 position)
     {
+        // creates the AOE effect
+        AOEEffect.CreateCircle(transform.position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, attackRadius);
+
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, attackRadius);
 
@@ -23,11 +32,18 @@ public class ForceFieldMageFrontline : Frontline
 
         foreach (Collider2D collider in enemiesInCircle)
         {
-            EnemyController enemy = collider.gameObject.GetComponent<EnemyController>();
+            EnemyController enemyController = collider.gameObject.GetComponent<EnemyController>();
 
-            if (!enemy.ChangeHealth(-damage))
+            if (!enemyController.Dead)
             {
-                EnemyKilled(enemy.gameObject);
+                if (!enemyController.ChangeHealth(-damage))
+                {
+                    EnemyKilled(enemyController.gameObject);
+                }
+                else
+                {
+                    enemyController.selfRigid.AddForce((collider.transform.position - transform.position).normalized * attackForce);
+                }
             }
         }
     }
@@ -44,5 +60,9 @@ public class ForceFieldMageFrontline : Frontline
         base.InternalJsonSetup(jsonData);
 
         jsonData.Setup(ref attackRadius, nameof(attackRadius));
+        jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
+        jsonData.Setup(ref attackForce, nameof(attackForce));
     }
 }

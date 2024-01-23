@@ -8,6 +8,9 @@ public class EnchantersTome : Item
     private float enchanterHPMultiplier;
     private float enchanterDamageMultiplier;
 
+    private float enemiesKilled = 0;
+    private float enemiesKilledLevelUp;
+
     private float HPBuff
     {
         get
@@ -49,6 +52,8 @@ public class EnchantersTome : Item
         TriggerManager.BodySpawnTrigger.AddTrigger(IncreaseEnchanters);
         TriggerManager.BodyRevivedTrigger.AddTrigger(IncreaseEnchanters);
         TriggerManager.BodyDeadTrigger.AddTrigger(DecreaseEnchanters);
+
+        TriggerManager.BodyKilledTrigger.AddTrigger(OnEnemyKilled);
     }
 
     private BodyController BuffBody(BodyController bodyController)
@@ -160,5 +165,32 @@ public class EnchantersTome : Item
                 BuffAllBodies();
             }
         }
+
+        jsonVariables.Setup(ref enemiesKilledLevelUp, nameof(enemiesKilledLevelUp));
+    }
+
+    private GameObject OnEnemyKilled(GameObject body)
+    {
+        if (enchanters > 0)
+        {
+            enemiesKilled++;
+
+            if (enemiesKilled >= enemiesKilledLevelUp)
+            {
+                LevelUp();
+            }
+        }
+
+        return body;
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            enemiesKilled -= enemiesKilledLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

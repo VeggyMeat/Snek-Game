@@ -58,6 +58,16 @@ public class ProjectileController : MonoBehaviour
 
     protected Dictionary<string, object> variables;
 
+    protected int id;
+
+    public int ID
+    {
+        get
+        {
+            return id;
+        }
+    }
+
     /// <summary>
     /// Called by the body to set the projectile up
     /// </summary>
@@ -174,6 +184,7 @@ public class ProjectileController : MonoBehaviour
         variables.Setup(ref b, nameof(b));
         variables.Setup(ref scaleX, nameof(scaleX));
         variables.Setup(ref scaleY, nameof(scaleY));
+        variables.Setup(ref id, nameof(id));
     }
 
     internal void Scale(float factor)

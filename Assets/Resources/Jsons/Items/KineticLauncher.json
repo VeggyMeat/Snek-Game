@@ -3,6 +3,27 @@
     "itemName": "KineticLauncher",
     "itemDescription": "Deal ~% more damage while you're turning",
 
-    "damageModifier": 10
+    "damageModifier": 1.2,
+    "timeTurningLevelUp": 45
+  },
+
+  {
+    "damageModifier": 1.3,
+    "timeTurningLevelUp": 75
+  },
+
+  {
+    "damageModifier": 1.4,
+    "timeTurningLevelUp": 105
+  },
+
+  {
+    "damageModifier": 1.5,
+    "timeTurningLevelUp": 135
+  },
+
+  {
+    "damageModifier": 1.6,
+    "timeTurningLevelUp": 165
   }
 ]

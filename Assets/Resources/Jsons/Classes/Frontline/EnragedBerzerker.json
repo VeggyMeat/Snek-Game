@@ -3,10 +3,10 @@
     "attackDelay": 1,
     "scanRadius": 6,
     "damage": 25,
-    "force": 50000,
     "regularAttack": true,
     "attackRadius": 3,
     "attackSpeedBuff": 0.05,
+    "attackForce": 5000,
 
     "AOEEffectTime": 0.5,
     "AOEEffectDecay": true,
@@ -20,7 +20,8 @@
   },
 
   {
-    "attackRadius": 3.5
+    "attackRadius": 3.5,
+    "attackForce": 7500
   },
 
   {
@@ -29,6 +30,7 @@
 
   {
     "attackRadius": 4,
-    "attackSpeedBuff": 0.1
+    "attackSpeedBuff": 0.1,
+    "attackForce": 10000
   }
 ]

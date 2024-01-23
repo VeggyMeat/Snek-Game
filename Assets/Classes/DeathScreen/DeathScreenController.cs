@@ -44,8 +44,6 @@ public class DeathScreenController : MonoBehaviour
     {
         string name = nameBox.GetComponent<TMP_InputField>().text;
 
-        Debug.Log(name);
-
         if (name.Length > 0)
         {
             List<string> runInformationData = headController.FinishRun(name);

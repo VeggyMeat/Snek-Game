@@ -6,12 +6,17 @@ public class Quiver : Item
 {
     private float attackSpeedModifier;
 
+    private int archerKillsLevelUp;
+    private int archerKills = 0;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
 
         base.Setup();
-        
+
+        TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKilled);
+
         // when a new body is added calls the AddArcherBuff function on it
         TriggerManager.BodySpawnTrigger.AddTrigger(AddArcherBuff);
 
@@ -48,10 +53,43 @@ public class Quiver : Item
         }
     }
 
+    private GameObject OnBodyKilled(GameObject body)
+    {
+        // gets the bodyController from the body
+        BodyController bodyClass = body.GetComponent<BodyController>();
+
+        if (bodyClass.classNames.Contains(nameof(Archer)))
+        {
+            // its an archer, so add to the archer kills
+            archerKills++;
+        }
+
+        // if the archer kills is greater than the level up amount
+        if (archerKills >= archerKillsLevelUp && Levelable)
+        {
+            // level up
+            LevelUp();
+        }
+
+        return body;
+    }
+
     protected override void JsonSetup()
     {
         base.JsonSetup();
 
         jsonVariables.Setup(ref attackSpeedModifier, nameof(attackSpeedModifier));
+        jsonVariables.Setup(ref archerKillsLevelUp, nameof(archerKillsLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            // resets the archer kills
+            archerKills -= archerKillsLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

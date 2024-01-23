@@ -8,6 +8,9 @@ public class HeadstoneHelmet : Item
 
     private int deadBodies = 0;
 
+    protected int bodiesDeadCount = 0;
+    protected int bodiesDeadLevelUp;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/HeadstoneHelmet.json";
@@ -37,8 +40,14 @@ public class HeadstoneHelmet : Item
         RemoveBuff();
 
         deadBodies++;
+        bodiesDeadCount++;
 
         AddBuff();
+
+        if (bodiesDeadCount >= bodiesDeadLevelUp && Levelable)
+        {
+            LevelUp();
+        }
 
         return bodyController;
     }
@@ -76,5 +85,17 @@ public class HeadstoneHelmet : Item
 
             AddBuff();
         }
+
+        jsonVariables.Setup(ref bodiesDeadLevelUp, nameof(bodiesDeadLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            base.LevelUp();
+        }
+
+        bodiesDeadCount = 0;
     }
 }

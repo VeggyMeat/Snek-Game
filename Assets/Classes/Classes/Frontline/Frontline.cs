@@ -172,4 +172,9 @@ public abstract class Frontline : Class
             }
         }
     }
+
+    protected void Knockback(GameObject enemy, Vector2 origin)
+    {
+
+    }
 }

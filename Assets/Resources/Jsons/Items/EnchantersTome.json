@@ -4,6 +4,36 @@
     "itemDescription": "For every enchanter you have, give all bodies ~% extra damage, ~% extra hp",
 
     "enchanterHPMultiplier": 0.1,
-    "enchanterDamageMultiplier": 0.1
+    "enchanterDamageMultiplier": 0.1,
+
+    "enemiesKilledLevelUp": 40
+  },
+
+  {
+    "enchanterHPMultiplier": 0.2,
+    "enchanterDamageMultiplier": 0.2,
+
+    "enemiesKilledLevelUp": 60
+  },
+
+  {
+    "enchanterHPMultiplier": 0.3,
+    "enchanterDamageMultiplier": 0.3,
+
+    "enemiesKilledLevelUp": 100
+  },
+
+  {
+    "enchanterHPMultiplier": 0.4,
+    "enchanterDamageMultiplier": 0.4,
+
+    "enemiesKilledLevelUp": 140
+  },
+
+  {
+    "enchanterHPMultiplier": 0.5,
+    "enchanterDamageMultiplier": 0.5,
+
+    "enemiesKilledLevelUp": 200
   }
 ]

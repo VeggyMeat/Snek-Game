@@ -83,6 +83,8 @@ public abstract class Class: MonoBehaviour
         enemiesKilled++;
 
         body.snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
+
+        TriggerManager.BodyKilledTrigger.CallTrigger(body.gameObject);
     }
 
     /// <summary>
@@ -97,7 +99,7 @@ public abstract class Class: MonoBehaviour
     /// Takes json data and turns it into a dictionary, calling InternalJsonSetup
     /// </summary>
     /// <param name="data">The data in a dictionary format</param>
-    internal void JsonSetup(Dictionary<string, object> data)
+    private void JsonSetup(Dictionary<string, object> data)
     {
         // overwrites the values in the classes json
         InternalJsonSetup(data);

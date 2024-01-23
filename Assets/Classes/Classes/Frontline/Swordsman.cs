@@ -13,6 +13,8 @@ public class Swordsman : Frontline
     private bool AOEEffectDecay;
     private Color AOEEffectColour;
 
+    private float attackForce;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Swordsman.json";
@@ -48,7 +50,7 @@ public class Swordsman : Frontline
                 }
                 else
                 {
-                    // add a knockback thing
+                    enemyController.selfRigid.AddForce((enemyObj.transform.position - transform.position).normalized * attackForce);
                 }
             }
         }
@@ -62,5 +64,6 @@ public class Swordsman : Frontline
         jsonData.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
         jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
         jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
+        jsonData.Setup(ref attackForce, nameof(attackForce));
     }
 }

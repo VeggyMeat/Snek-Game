@@ -61,6 +61,8 @@ public class ShopManager : MonoBehaviour
         {
             timeActive = false;
             Time.timeScale = 0;
+
+            TriggerManager.PauseTimeTrigger.CallTrigger(0);
         }
     }
 
@@ -70,6 +72,8 @@ public class ShopManager : MonoBehaviour
         {
             timeActive = true;
             Time.timeScale = 1;
+
+            TriggerManager.ResumeTimeTrigger.CallTrigger(0);
         }
     }
 }

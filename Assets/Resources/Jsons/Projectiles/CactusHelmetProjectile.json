@@ -9,6 +9,26 @@
     "b": 0,
 
     "scaleX": 0.2,
-    "scaleY": 0.2
+    "scaleY": 0.2,
+
+    "id": 1
+  },
+
+  {
+    "lifeSpan": 2.5
+  },
+
+  {
+    "damage": 7,
+    "velocity": 20
+  },
+
+  {
+    "lifeSpan": 3
+  },
+
+  {
+    "damage": 10,
+    "velocity": 25
   }
 ]

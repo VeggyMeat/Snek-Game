@@ -8,6 +8,9 @@ public class ExplosiveTippedArrows : Item
     private float radius;
     private int damage;
 
+    private int archerKillsLevelUp;
+    private int archerKills = 0;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/ExplosiveTippedArrows.json";
@@ -15,6 +18,8 @@ public class ExplosiveTippedArrows : Item
         base.Setup();
 
         TriggerManager.ProjectileHitTrigger.AddTrigger(OnHit);
+
+        TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKilled);
     }
 
     private GameObject OnHit(GameObject projectileObject)
@@ -41,11 +46,44 @@ public class ExplosiveTippedArrows : Item
         return projectileObject;
     }
 
+    private GameObject OnBodyKilled(GameObject body)
+    {
+        // gets the bodyController from the body
+        BodyController bodyClass = body.GetComponent<BodyController>();
+
+        if (bodyClass.classNames.Contains(nameof(Archer)))
+        {
+            // its an archer, so add to the archer kills
+            archerKills++;
+        }
+
+        // if the archer kills is greater than the level up amount
+        if (archerKills >= archerKillsLevelUp && Levelable)
+        {
+            // level up
+            LevelUp();
+        }
+
+        return body;
+    }
+
     protected override void JsonSetup()
     {
         base.JsonSetup();
 
         jsonVariables.Setup(ref radius, nameof(radius));
         jsonVariables.Setup(ref damage, nameof(damage));
+        jsonVariables.Setup(ref archerKillsLevelUp, nameof(archerKillsLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            // resets the archer kills
+            archerKills -= archerKillsLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

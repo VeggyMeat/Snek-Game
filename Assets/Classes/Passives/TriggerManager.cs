@@ -35,4 +35,10 @@ public static class TriggerManager
     public readonly static BodyTrigger<int> PostBodyMoveTrigger = new BodyTrigger<int>();
 
     public readonly static BodyTrigger<GameObject> ProjectileHitTrigger = new BodyTrigger<GameObject>();
+
+    public readonly static BodyTrigger<int> PauseTimeTrigger = new BodyTrigger<int>();
+
+    public readonly static BodyTrigger<int> ResumeTimeTrigger = new BodyTrigger<int>();
+
+    public readonly static BodyTrigger<GameObject> BodyKilledTrigger = new BodyTrigger<GameObject>();
 }

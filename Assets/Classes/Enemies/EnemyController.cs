@@ -351,6 +351,19 @@ public class EnemyController : MonoBehaviour
 
         if (health <= 0)
         {
+            // if it has an extra life
+            if (extraLives > 0)
+            {
+                // remove one extra life, set the health to max health and return saying it survived
+                extraLives--;
+                health = maxHealth;
+
+                // update the healthBar
+                healthBar.SetBar((float)health / maxHealth);
+
+                return true;
+            }
+
             health = 0;
             Die();
 

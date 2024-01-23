@@ -4,8 +4,12 @@
     "scanAttack": false,
     "attackDelay": 2,
     "damage": 50,
-    "force": 0,
-    "attackRadius": 4,
+    "attackRadius": 2.5,
+    "attackForce": 2500,
+
+    "AOEEffectTime": 2.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 1, 0.75, 0.8, 0.5 ],
 
     "bodyJson": "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/ForceFieldMage/ForceFieldMageBody.json"
   },
@@ -15,9 +19,10 @@
   },
 
   {
-    "attackRadius": 4.5,
+    "attackRadius": 4,
     "damage": 70,
-    "timeDelay": 1.5
+    "timeDelay": 1.5,
+    "attackForce": 5000
   },
 
   {
@@ -25,8 +30,9 @@
   },
 
   {
-    "attackRadius": 5,
+    "attackRadius": 5.5,
     "damage": 100,
-    "timeDelay": 1
+    "timeDelay": 1,
+    "attackForce": 7500
   }
 ]

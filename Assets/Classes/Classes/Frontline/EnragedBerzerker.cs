@@ -10,6 +10,8 @@ public class EnragedBerzerker : Frontline
     private bool AOEEffectDecay;
     private Color AOEEffectColour;
 
+    private float attackForce;
+
     private float attackSpeedBuff;
 
     internal override void ClassSetup()
@@ -61,7 +63,7 @@ public class EnragedBerzerker : Frontline
                 }
                 else
                 {
-                    // todo: add a knockback thing
+                    enemyController.selfRigid.AddForce((enemy.transform.position - transform.position).normalized * attackForce);
                 }
             }
         }
@@ -76,5 +78,6 @@ public class EnragedBerzerker : Frontline
         jsonData.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
         jsonData.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
         jsonData.Setup(ref attackSpeedBuff, nameof(attackSpeedBuff));
+        jsonData.Setup(ref attackForce, nameof(attackForce));
     }
 }

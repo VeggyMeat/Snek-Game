@@ -40,7 +40,6 @@ public class HeadController: MonoBehaviour
     private bool turning = false;
 
     private int score = 0;
-    private float time = 0;
 
     public bool Turning
     {
@@ -77,6 +76,9 @@ public class HeadController: MonoBehaviour
         // sets up the AOEEffect system
         AOEEffect.Setup();
 
+        // sets up the time manager
+        TimeManager.Setup();
+
         xPLevelUp = BaseXPLevelRequirement;
         velocityVector = new Vector2(0, velocity);
         
@@ -109,10 +111,6 @@ public class HeadController: MonoBehaviour
         {
             return;
         }
-
-        // updates the time
-        time += Time.deltaTime;
-
     }
 
     private void UpdateTurning()
@@ -178,19 +176,19 @@ public class HeadController: MonoBehaviour
         return false;
     }
 
-    public List<string> FinishRun(string name)
+    internal List<string> FinishRun(string name)
     {
         Run run = new Run
         {
             PlayerName = name,
             Score = score,
-            Time = (int)time,
+            Time = (int)TimeManager.GetElapsedTimeSince(TimeManager.StartTime).TotalSeconds,
             Date = DateTime.Now
         };
 
         DatabaseHandler.AddRun(run);
 
-        return new List<string> { name, score.ToString(), ((int)time).ToString(), DateTime.Now.ToString() };
+        return new List<string> { name, score.ToString(), ((int)TimeManager.GetElapsedTimeSince(TimeManager.StartTime).TotalSeconds).ToString(), DateTime.Now.ToString() };
     }
 
     private void OnDeath()

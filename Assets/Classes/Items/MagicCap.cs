@@ -6,11 +6,16 @@ public class MagicCap : Item
 {
     private float damageMultiplier;
 
+    private int mageKillsLevelUp;
+    private int mageKills = 0;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/MagicCap.json";
 
         base.Setup();
+
+        TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKilled);
 
         TriggerManager.BodySpawnTrigger.AddTrigger(BuffBody);
 
@@ -39,10 +44,42 @@ public class MagicCap : Item
         }
     }
 
+    private GameObject OnBodyKilled(GameObject body)
+    {
+        // gets the bodyController from the body
+        BodyController bodyClass = body.GetComponent<BodyController>();
+
+        if (bodyClass.classNames.Contains(nameof(Archer)))
+        {
+            // its an archer, so add to the archer kills
+            mageKills++;
+        }
+
+        // if the archer kills is greater than the level up amount
+        if (mageKills >= mageKillsLevelUp && Levelable)
+        {
+            // level up
+            LevelUp();
+        }
+
+        return body;
+    }
+
     protected override void JsonSetup()
     {
         base.JsonSetup();
 
         jsonVariables.Setup(ref damageMultiplier, nameof(damageMultiplier));
+        jsonVariables.Setup(ref mageKillsLevelUp, nameof(mageKillsLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            mageKills -= mageKillsLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

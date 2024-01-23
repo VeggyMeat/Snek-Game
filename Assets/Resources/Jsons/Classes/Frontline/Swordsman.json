@@ -3,7 +3,7 @@
     "attackDelay": 1,
     "scanRadius": 3,
     "damage": 20,
-    "force": 50000,
+    "attackForce": 5000,
     "regularAttack": true,
     "attackRadius": 2,
 
@@ -21,7 +21,8 @@
   {
     "attackDelay": 0.8,
     "attackRadius": 2.5,
-    "scanRadius": 3.5
+    "scanRadius": 3.5,
+    "attackForce": 7500
   },
 
   {
@@ -33,6 +34,7 @@
     "attackDelay": 0.6,
     "attackRadius": 3.5,
     "damage": 45,
-    "scanRadius": 4
+    "scanRadius": 4,
+    "attackForce": 10000
   }
 ]

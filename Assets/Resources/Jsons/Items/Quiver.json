@@ -3,18 +3,27 @@
     "itemName": "Quiver",
     "itemDescription": "Increases the damage of archers by ~%",
 
-    "attackSpeedModifier": 1.1
+    "attackSpeedModifier": 1.1,
+    "archerKillsLevelUp": 20
   },
+
   {
-    "attackSpeedModifier": 1.2
+    "attackSpeedModifier": 1.2,
+    "archerKillsLevelUp": 30
   },
+
   {
-    "attackSpeedModifier": 1.3
+    "attackSpeedModifier": 1.3,
+    "archerKillsLevelUp": 50
   },
+
   {
-    "attackSpeedModifier": 1.4
+    "attackSpeedModifier": 1.4,
+    "archerKillsLevelUp": 70
   },
+
   {
-    "attackSpeedModifier": 1.5
+    "attackSpeedModifier": 1.5,
+    "archerKillsLevelUp": 100
   }
 ]

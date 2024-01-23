@@ -945,4 +945,9 @@ public class BodyController : MonoBehaviour
         // calls the level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
     }
+
+    public override string ToString()
+    {
+        return $"BodyController; Position: {Position()}, Name: {name}, Health: {health}";
+    }
 }

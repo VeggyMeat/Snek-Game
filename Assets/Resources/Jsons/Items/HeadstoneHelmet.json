@@ -3,6 +3,27 @@
     "itemName": "HeadstoneHelmet",
     "itemDescription": "The head of your snake has ~% extra hp per dead body",
 
-    "healthPercentagePerBody": 0.25
+    "healthPercentagePerBody": 0.25,
+    "bodiesDeadLevelUp": 2
+  },
+
+  {
+    "healthPercentagePerBody": 0.4,
+    "bodiesDeadLevelUp": 3
+  },
+
+  {
+    "healthPercentagePerBody": 0.5,
+    "bodiesDeadLevelUp": 4
+  },
+
+  {
+    "healthPercentagePerBody": 0.6,
+    "bodiesDeadLevelUp": 5
+  },
+
+  {
+    "healthPercentagePerBody": 0.75,
+    "bodiesDeadLevelUp": 6
   }
 ]

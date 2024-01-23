@@ -2,18 +2,27 @@
   {
     "itemName": "SteeringWheel",
     "itemDescription": "Turn ~% faster",
-    "turningRateMultiplier": 1.1
+    "turningRateMultiplier": 1.1,
+    "timeTurningLevelUp": 45
   },
+
   {
-    "turningRateMultiplier": 1.2
+    "turningRateMultiplier": 1.2,
+    "timeTurningLevelUp": 75
   },
+
   {
-    "turningRateMultiplier": 1.3
+    "turningRateMultiplier": 1.3,
+    "timeTurningLevelUp": 105
   },
+
   {
-    "turningRateMultiplier": 1.4
+    "turningRateMultiplier": 1.4,
+    "timeTurningLevelUp": 135
   },
+
   {
-    "turningRateMultiplier": 1.5
+    "turningRateMultiplier": 1.5,
+    "timeTurningLevelUp": 165
   }
 ]

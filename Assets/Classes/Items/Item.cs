@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -75,6 +76,8 @@ public abstract class Item
     /// </summary>
     protected virtual void LevelUp()
     {
+        Debug.Log("level Up");
+
         // increases the level
         level++;
 

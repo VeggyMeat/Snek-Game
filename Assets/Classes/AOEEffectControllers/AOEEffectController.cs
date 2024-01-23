@@ -9,7 +9,7 @@ public abstract class AOEEffectController : MonoBehaviour
 
     protected SpriteRenderer spriteRenderer;
 
-    protected DateTime startTime;
+    protected float elapedTime = 0;
 
     protected Color startColour;
 
@@ -27,8 +27,6 @@ public abstract class AOEEffectController : MonoBehaviour
         this.timeAlive = timeAlive;
         this.decay = decay;
         startColour = colour;
-
-        startTime = DateTime.Now;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = colour;
@@ -50,14 +48,18 @@ public abstract class AOEEffectController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
         // if the object is decaying
         if (decay)
-        {
-            // gets the time alive so far
-            TimeSpan difference = DateTime.Now - startTime;
-            
+        {   
+            elapedTime += Time.deltaTime;
+
             // gets the percentage of life lived
-            float lifePercentage = (float)difference.TotalSeconds / timeAlive;
+            float lifePercentage = (float)elapedTime / timeAlive;
 
             // gets the new opacity of the AOEEffect
             float newOpacity = (1 - lifePercentage) * startColour.a;

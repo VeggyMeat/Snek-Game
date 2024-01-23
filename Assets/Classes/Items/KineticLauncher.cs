@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -9,11 +10,18 @@ public class KineticLauncher : Item
 
     private bool buffing = false;
 
+    private float timeTurning = 0;
+    private float timeTurningLevelUp;
+
+    private DateTime startedTurning;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/KineticLauncher.json";
 
         base.Setup();
+
+        startedTurning = DateTime.Now;
 
         if (ItemManager.headController.Turning)
         {
@@ -26,12 +34,12 @@ public class KineticLauncher : Item
 
     private int StartBuffing(int value = 0)
     {
-        Debug.Log("buffing");
-
         if (buffing)
         {
             return value;
         }
+
+        startedTurning = DateTime.Now;
 
         BuffAllBodies(false);
 
@@ -42,11 +50,16 @@ public class KineticLauncher : Item
 
     private int StopBuffing(int value = 0)
     {
-        Debug.Log("not buffing");
-
         if (!buffing)
         {
             return value;
+        }
+
+        timeTurning += (float)TimeManager.GetElapsedTimeSince(startedTurning).TotalSeconds;
+
+        if (timeTurning >= timeTurningLevelUp && Levelable)
+        {
+            LevelUp();
         }
 
         BuffAllBodies(true);
@@ -107,5 +120,17 @@ public class KineticLauncher : Item
                 }
             }
         }
+
+        jsonVariables.Setup(ref timeTurningLevelUp, nameof(timeTurningLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            timeTurning -= timeTurningLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

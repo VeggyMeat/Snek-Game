@@ -20,8 +20,8 @@ public class LeaderboardManager : MonoBehaviour
 
     private List<Run> currentData;
 
-    private SortType sortType;
-    private bool asc = true;
+    private SortType sortType = SortType.Date;
+    private bool asc = false;
 
     private int page = 0;
 
@@ -40,7 +40,6 @@ public class LeaderboardManager : MonoBehaviour
     private void Awake()
     {
         DatabaseHandler.Setup();
-        // DatabaseHandler.CreateSampleData();
 
         namePicker.SetActive(false);
 
@@ -56,13 +55,8 @@ public class LeaderboardManager : MonoBehaviour
             splitRows.Add(newRow);
         }
 
-        currentData = DatabaseHandler.GetRuns();
+        currentData = DatabaseHandler.GetSortedRuns(sortType, asc);
         Reorder();
-    }
-
-    private void Update()
-    {
-        
     }
 
     public void SortBy(int sortNum)
@@ -81,7 +75,7 @@ public class LeaderboardManager : MonoBehaviour
         else
         {
             this.sortType = sortType;
-            asc = true;
+            asc = false;
         }
 
         page = 0;

@@ -37,12 +37,6 @@ public static class DatabaseHandler
         dbConnection.Insert(run);
     }
 
-    public static List<Run> GetRuns()
-    {
-        // return all runs
-        return dbConnection.Query<Run>(SortBy("SELECT * FROM Runs", SortType.Score, true));
-    }
-
     public static List<Run> GetPlayerRuns(string playerName, SortType sortType, bool ascending)
     {
         // return all runs with the given player name

@@ -10,6 +10,9 @@ public class BerserkerBlood : Item
 
     private List<BodyController> buffedBodies = new List<BodyController>();
 
+    private int buffedBodiesKills = 0;
+    private int buffedBodiesKillsLevelUp;
+
     internal override void Setup()
     {
         jsonPath = "Assets/Resources/Jsons/Items/BerserkerBlood.json";
@@ -24,6 +27,8 @@ public class BerserkerBlood : Item
         TriggerManager.BodyRevivedTrigger.AddTrigger(BodyRevived);
         TriggerManager.BodyGainedHealthTrigger.AddTrigger(BodyGainedHealth);
         TriggerManager.BodyLostHealthTrigger.AddTrigger(BodyLostHealth);
+
+        TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKill);
     }
 
     private bool CheckBodyCondition(BodyController bodyController)
@@ -153,6 +158,21 @@ public class BerserkerBlood : Item
         }
     }
 
+    private GameObject OnBodyKill(GameObject body)
+    {
+        if (buffedBodies.Contains(body.GetComponent<BodyController>()))
+        {
+            buffedBodiesKills++;
+
+            if (buffedBodiesKills >= buffedBodiesKillsLevelUp)
+            {
+                LevelUp();
+            }
+        }
+
+        return body;
+    }
+
     protected override void JsonSetup()
     {
         base.JsonSetup();
@@ -201,5 +221,17 @@ public class BerserkerBlood : Item
                 BuffAllBodies();
             }
         }
+
+        jsonVariables.Setup(ref buffedBodiesKillsLevelUp, nameof(buffedBodiesKillsLevelUp));
+    }
+
+    protected override void LevelUp()
+    {
+        if (jsonLoaded)
+        {
+            buffedBodiesKills -= buffedBodiesKillsLevelUp;
+        }
+
+        base.LevelUp();
     }
 }

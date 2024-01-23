@@ -5,6 +5,7 @@
     "damage": 40,
     "regularAttack": true,
     "attackRadius": 3,
+    "attackForce": 5000,
 
     "AOEEffectTime": 1,
     "AOEEffectDecay": true,
@@ -24,7 +25,8 @@
     "damage": 50,
     "attackDelay": 1.75,
     "perFrontlineDamageIncrease": 0.3,
-    "perFrontlineAreaIncrease": 0.3
+    "perFrontlineAreaIncrease": 0.3,
+    "attackForce": 7500
   },
 
   {
@@ -36,6 +38,7 @@
     "attackDelay": 1.5,
     "attackRadius": 4,
     "perFrontlineDamageIncrease": 0.4,
-    "perFrontlineAreaIncrease": 0.4
+    "perFrontlineAreaIncrease": 0.4,
+    "attackForce": 10000
   }
 ]
