@@ -76,8 +76,6 @@ public abstract class Item
     /// </summary>
     protected virtual void LevelUp()
     {
-        Debug.Log("level Up");
-
         // increases the level
         level++;
 
