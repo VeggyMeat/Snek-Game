@@ -155,9 +155,12 @@ public abstract class Mage : Class
     {
         base.LevelUp();
 
-        if (body.Level != 1)
+        if (orbPath is not null)
         {
-            orbVariables.IncreaseIndex();
+            if (body.Level != 1)
+            {
+                orbVariables.IncreaseIndex();
+            }
         }
     }
 }

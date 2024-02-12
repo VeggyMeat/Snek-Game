@@ -13,7 +13,7 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField]
     private GameObject namePicker;
 
-    private const int ROWS_PER_PAGE = 10;
+    private int ROWS_PER_PAGE;
     private const int COLUMNS = 4;
 
     private List<List<TextMeshProUGUI>> splitRows;
@@ -38,7 +38,9 @@ public class LeaderboardManager : MonoBehaviour
     }
 
     private void Awake()
-    {
+    {   
+        ROWS_PER_PAGE = rows.Count;
+
         DatabaseHandler.Setup();
 
         namePicker.SetActive(false);

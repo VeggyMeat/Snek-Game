@@ -10,7 +10,7 @@ public static class TimeManager
     private static List<(DateTime, DateTime)> pausedPairs = new List<(DateTime, DateTime)>();
     private static List<TimeSpan> pausedTimes = new List<TimeSpan>();
 
-    private static DateTime? lastPausedTime = null;
+    private static DateTime? lastPausedTime = DateTime.Now;
 
     private readonly static DateTime startTime = DateTime.Now;
 
