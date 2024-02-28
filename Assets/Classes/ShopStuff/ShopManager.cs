@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,6 +11,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Random = UnityEngine.Random;
+
+[assembly: InternalsVisibleTo("EditorTests")]
 
 public class ShopManager : MonoBehaviour
 {

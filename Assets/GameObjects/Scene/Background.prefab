@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1043120970778701596
+--- !u!1 &2220766367218110639
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1043120970778701586}
-  - component: {fileID: 1043120970778701597}
+  - component: {fileID: 2220766367218110637}
+  - component: {fileID: 2220766367218110636}
   m_Layer: 0
-  m_Name: TestManager
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1043120970778701586
+--- !u!4 &2220766367218110637
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043120970778701596}
+  m_GameObject: {fileID: 2220766367218110639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.20124528, y: 0.6384422, z: 66.57536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1043120970778701597
+--- !u!114 &2220766367218110636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043120970778701596}
+  m_GameObject: {fileID: 2220766367218110639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e177f9f43d690c4d87a796a7a1ee38c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7751ab8b90d13524589bbdfe2506efd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headControllerPrefab: {fileID: 0}
-  runTests: 0
+  backgroundPrefab: {fileID: 6944819879651375918, guid: b5a9a79769207fd4194044598335b8a9, type: 3}
+  headController: {fileID: 0}
+  tilesAroundX: 8
+  tilesAroundY: 4
+  tileSize: 3.2

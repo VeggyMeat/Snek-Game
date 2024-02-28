@@ -10,5 +10,23 @@
 
     "scaleX": 0.15,
     "scaleY": 0.60
+  },
+
+  {
+    "damage": 100
+  },
+
+  {
+    "velocity": 17.5
+  },
+
+  {
+    "damage": 125
+  },
+
+  {
+    "lifeSpan": 2.5,
+    "velocity": 20,
+    "damage": 150
   }
 ]
