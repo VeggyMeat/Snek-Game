@@ -598,8 +598,6 @@ public class BodyController : MonoBehaviour
 
         // updates the total mass of the snake
         snake.velocity += VelocityContribution;
-        Debug.Log(VelocityContribution);
-        Debug.Log(velocityContribution);
 
         health = MaxHealth;
         healthBarController.SetBar(PercentageHealth);

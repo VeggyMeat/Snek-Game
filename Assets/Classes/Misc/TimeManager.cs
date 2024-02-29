@@ -22,14 +22,14 @@ public static class TimeManager
         TriggerManager.ResumeTimeTrigger.AddTrigger(OnResumedTime);
     }
 
-    private static int OnPausedTime(int _)
+    internal static int OnPausedTime(int _)
     {
         lastPausedTime = DateTime.Now;
 
         return _;
     }
 
-    private static int OnResumedTime(int _)
+    internal static int OnResumedTime(int _)
     {
         pausedPairs.Add(((DateTime)lastPausedTime, DateTime.Now));
         pausedTimes.Add((DateTime.Now - (DateTime)lastPausedTime));
