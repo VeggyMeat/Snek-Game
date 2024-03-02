@@ -12,13 +12,13 @@ public class SteeringWheel : Item
 
     private DateTime startedTurning;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/SteeringWheel.json";
 
         startedTurning = DateTime.Now;
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.StopTurningTrigger.AddTrigger(OnTurnStop);
         TriggerManager.StartTurningTrigger.AddTrigger(OnTurnStart);
@@ -34,14 +34,14 @@ public class SteeringWheel : Item
             if (level > 1)
             {
                 // remove the current multiplier from the snake
-                ItemManager.headController.turningRate *= 1 / turningRateMultiplier;
+                gameSetup.HeadController.TurningRate *= 1 / turningRateMultiplier;
             }
 
             // load the new multiplier in
             turningRateMultiplier = float.Parse(jsonVariables["turningRateMultiplier"].ToString());
 
             // add the new multiplier to the snake
-            ItemManager.headController.turningRate *= turningRateMultiplier;
+            gameSetup.HeadController.TurningRate *= turningRateMultiplier;
         }
 
         jsonVariables.Setup(ref timeTurningLevelUp, nameof(timeTurningLevelUp));

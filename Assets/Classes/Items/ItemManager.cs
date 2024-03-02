@@ -5,11 +5,12 @@ using UnityEngine;
 public static class ItemManager
 {
     internal static List<Item> items = new List<Item>();
-    internal static HeadController headController;
 
-    internal static void Setup(HeadController headController)
+    internal static IGameSetup gameSetup;
+
+    internal static void Setup(IGameSetup gameSetup)
     {
-        ItemManager.headController = headController;
+        ItemManager.gameSetup = gameSetup;
     }
 
     internal static void AddItem(string itemName)
@@ -54,12 +55,12 @@ public static class ItemManager
         }
 
         // removes that body from the list of available bodies
-        if (headController.shopManager.remove)
+        if (gameSetup.ShopManager.Remove)
         {
-            headController.shopManager.powerfulItems.Remove(itemName);
+            gameSetup.ShopManager.RemoveItem(itemName);
         }
 
-        item.Setup();
+        item.Setup(gameSetup);
         items.Add(item);
     }
 }

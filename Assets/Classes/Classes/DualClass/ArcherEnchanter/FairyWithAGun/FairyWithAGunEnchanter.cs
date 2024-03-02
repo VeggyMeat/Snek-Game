@@ -77,7 +77,7 @@ public class FairyWithAGunEnchanter : Enchanter
         if (body.Level != 1)
         {
             // starts at the head
-            BodyController gunBody = body.snake.head;
+            BodyController gunBody = body.snake.Head;
 
             while (gunBody is not null)
             {

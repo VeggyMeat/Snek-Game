@@ -8,11 +8,11 @@ public class LuckyFlask : Item
 
     private float dodgeChance;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/LuckyFlask.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.BodyLostHealthTrigger.AddTrigger(OnBodyHit);
     }

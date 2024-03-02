@@ -11,11 +11,11 @@ public class ExplosiveTippedArrows : Item
     private int archerKillsLevelUp;
     private int archerKills = 0;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/ExplosiveTippedArrows.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.ProjectileHitTrigger.AddTrigger(OnHit);
 
@@ -38,7 +38,7 @@ public class ExplosiveTippedArrows : Item
             {
                 if (!enemyController.ChangeHealth(-damage))
                 {
-                    ItemManager.headController.IncreaseXP(enemyController.XPDrop);
+                    gameSetup.HeadController.IncreaseXP(enemyController.XPDrop);
                 }
             }
         }

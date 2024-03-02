@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class KineticLauncher : Item
@@ -15,15 +14,15 @@ public class KineticLauncher : Item
 
     private DateTime startedTurning;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/KineticLauncher.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         startedTurning = DateTime.Now;
 
-        if (ItemManager.headController.Turning)
+        if (gameSetup.HeadController.Turning)
         {
             StartBuffing();
         }
@@ -71,7 +70,7 @@ public class KineticLauncher : Item
 
     private void BuffAllBodies(bool unbuff)
     {
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
         while (bodyController is not null)
         {
             if (unbuff)
@@ -114,7 +113,7 @@ public class KineticLauncher : Item
 
             if (jsonLoaded)
             {
-                if (ItemManager.headController.Turning)
+                if (gameSetup.HeadController.Turning)
                 {
                     StartBuffing();
                 }

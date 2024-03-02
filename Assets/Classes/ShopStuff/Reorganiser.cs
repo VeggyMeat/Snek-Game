@@ -4,28 +4,34 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class Reorganiser : MonoBehaviour
+public class Reorganiser : MonoBehaviour, IReorganiser
 {
-    List<GameObject> bodies = new List<GameObject>();
-    List<int> bodiesHashes = new List<int>();
+    private List<GameObject> bodies = new List<GameObject>();
+    private List<int> bodiesHashes = new List<int>();
 
-    [SerializeField] private HeadController headController;
     [SerializeField] private GameObject body;
-    [SerializeField] private Camera mainCamera;
 
-    [SerializeField] private float seperationValue;
-    [SerializeField] private Vector2 startingSpot;
+    [SerializeField] private float serparationValue;
+    [SerializeField] private Vector3 startingSpot;
 
-    private Vector2 StartingSpot
+    [SerializeField] private float zValue;
+
+    private Vector3 StartingSpot
     {
         get
         {
-            return startingSpot + (Vector2)headController.enemySummonerController.CameraTransform.position;
+            return startingSpot + gameSetup.CameraController.Transform.position;
         }
     }
 
-    [SerializeField] private float mouseDistanceValue;
+    private IGameSetup gameSetup;
 
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
+    }
+
+    [SerializeField] private float mouseDistanceValue;
 
     private bool active = false;
 
@@ -63,7 +69,7 @@ public class Reorganiser : MonoBehaviour
     private void Setup()
     {
         // grabs the head
-        BodyController bodyController = headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake
         while (bodyController is not null)
@@ -111,8 +117,6 @@ public class Reorganiser : MonoBehaviour
         
         for (int i = 0; i <= bodies.Count; i++)
         {
-            // Debug.Log(Vector2.Distance(mousePosCoords, new Vector2(x, y)));
-
             if (!selectedBody && i < bodies.Count)
             {
                 // makes the body opaque again
@@ -182,7 +186,7 @@ public class Reorganiser : MonoBehaviour
             }
 
             // increases the value of the x for the next space
-            x += seperationValue;
+            x += serparationValue;
         }
 
         // if a body is selected
@@ -207,7 +211,7 @@ public class Reorganiser : MonoBehaviour
 
     private void SetBodiesPositions()
     {
-        Vector2 position = StartingSpot;
+        Vector3 position = StartingSpot;
 
         // goes through each body
         int i = -1;
@@ -217,18 +221,18 @@ public class Reorganiser : MonoBehaviour
 
             if (i == bodyGapPosition && selectedBody is not null)
             {
-                position.x += seperationValue;
+                position.x += serparationValue;
             }
 
             body.transform.position = position;
 
-            position.x += seperationValue;
+            position.x += serparationValue;
         }
 
         // if there is a selected body, draws it at the mouse position
         if (selectedBody is not null)
         {
-            selectedBody.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            selectedBody.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, zValue);
         }
     }
 
@@ -252,7 +256,7 @@ public class Reorganiser : MonoBehaviour
 
             foreach (int hash in bodiesHashes)
             {
-                BodyController currentBody = ItemManager.headController.head;
+                BodyController currentBody = gameSetup.HeadController.Head;
                 bool found = false;
 
                 while (currentBody is not null)
@@ -274,7 +278,7 @@ public class Reorganiser : MonoBehaviour
                 order.Add(currentBody);
             }
             
-            ItemManager.headController.Rearrange(order);
+            gameSetup.HeadController.Rearrange(order);
 
             TriggerManager.PostBodyMoveTrigger.CallTrigger(0);
         }

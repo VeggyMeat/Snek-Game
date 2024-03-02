@@ -13,11 +13,11 @@ public class BerserkerBlood : Item
     private int buffedBodiesKills = 0;
     private int buffedBodiesKillsLevelUp;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/BerserkerBlood.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         // intially buffs the bodies
         BuffAllBodies();
@@ -131,7 +131,7 @@ public class BerserkerBlood : Item
     private void BuffAllBodies()
     {
         // gets the head
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake
         while (bodyController is not null)

@@ -29,14 +29,14 @@ public class EnchantersTome : Item
 
     private int enchanters = 0;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/EnchantersTome.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         // counts the number of enchanters
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
         while (bodyController is not null)
         {
             IncreaseEnchanters(bodyController);
@@ -107,7 +107,7 @@ public class EnchantersTome : Item
     private void BuffAllBodies()
     {
         // gets the head of the snake
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake buffing it
         while (bodyController is not null)
@@ -121,7 +121,7 @@ public class EnchantersTome : Item
     private void UnBuffAllBodies()
     {
         // gets the head of the snake
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake, removing the buff from it
         while (bodyController is not null)

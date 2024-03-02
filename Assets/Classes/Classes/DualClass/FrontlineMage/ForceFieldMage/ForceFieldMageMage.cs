@@ -21,7 +21,7 @@ public class ForceFieldMageMage : Mage
         // get a random body from the snake
         List<BodyController> bodyControllers = new List<BodyController>();
 
-        BodyController currentBody = body.snake.head;
+        BodyController currentBody = body.snake.Head;
         while (currentBody is not null)
         {
             bodyControllers.Add(currentBody);

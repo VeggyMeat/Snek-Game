@@ -4,37 +4,42 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UIController : MonoBehaviour, IUIController
 {
-    public HeadController headController;
+    [SerializeField] private Canvas uICanvas;
 
-    public Canvas ui;
-
-    public int xpBarLength;
+    [SerializeField] private int xPBarLength;
 
     private TextMeshProUGUI xpText;
     private TextMeshProUGUI killCount;
     private TextMeshProUGUI timer;
 
-    void Start()
-    {
-        xpText = ui.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    private IGameSetup gameSetup;
 
-        killCount = ui.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-    
-        timer = ui.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
     }
 
-   void Update()
+    private void Start()
+    {
+        xpText = uICanvas.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        killCount = uICanvas.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+    
+        timer = uICanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+    }
+
+   private void Update()
    {
         // dealing with the XP bar
-        float percentageFull = headController.GetXPPercentage();
+        float percentageFull = gameSetup.HeadController.XPPercentage;
 
-        int full = (int)(percentageFull * xpBarLength);
-        xpText.text = $"[{new string('#', full) + new string('-', xpBarLength - full)}]";
+        int full = (int)(percentageFull * xPBarLength);
+        xpText.text = $"[{new string('#', full) + new string('-', xPBarLength - full)}]";
 
         // dealing with the kill count
-        killCount.text = $"Kills: {headController.enemySummonerController.enemiesDead}";
+        killCount.text = $"Kills: {gameSetup.EnemySummonerController.EnemiesDead}";
 
         // dealing with the timer
         timer.text = $"Time: {TimeManager.GetElapsedTime().ToString("mm':'ss")}";

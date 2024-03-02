@@ -10,11 +10,11 @@ public class BigBullet : Item
     private float projectilesHitCount = 0;
     private float projectilesHitLevelUp;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/BigBullet.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.ProjectileShotTrigger.AddTrigger(IncreaseProjectileSize);
         TriggerManager.ProjectileHitTrigger.AddTrigger(ProjectileHit);

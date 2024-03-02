@@ -29,7 +29,7 @@ public class SwashbucklerFrontline : Frontline
         base.Setup();
 
         // initial count for the number of frontlines
-        BodyController bodyController = body.snake.head;
+        BodyController bodyController = body.snake.Head;
         while (bodyController is not null)
         {
             if (bodyController.classNames.Contains(nameof(Frontline)))

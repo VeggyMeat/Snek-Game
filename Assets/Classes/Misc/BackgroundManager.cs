@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundManager : MonoBehaviour
+public class BackgroundManager : MonoBehaviour, IBackgroundManager
 {
     [SerializeField] private GameObject backgroundPrefab;
-    [SerializeField] private HeadController headController;
 
     private Transform follow;
 
-    public Dictionary<(int, int), GameObject> sprites = new Dictionary<(int, int), GameObject>();
+    private IGameSetup gameSetup;
+
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
+    }
+
+    private readonly Dictionary<(int, int), GameObject> sprites = new Dictionary<(int, int), GameObject>();
 
     [SerializeField] private int tilesAroundX = 7;
     [SerializeField] private int tilesAroundY = 5;
 
     [SerializeField] private float tileSize = 1;
 
-    private void Awake()
+    private void Start()
     {
-        follow = headController.transform;
+        follow = gameSetup.HeadController.Transform;
     }
 
     private List<(int, int)> GetTuples()

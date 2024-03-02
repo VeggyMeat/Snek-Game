@@ -23,7 +23,7 @@ public class Herbologist : Enchanter, IGroundTriggerManager
     {
         get
         {
-            return body.snake.head.transform.position;
+            return body.snake.Head.transform.position;
         }
     }
 
@@ -46,7 +46,7 @@ public class Herbologist : Enchanter, IGroundTriggerManager
         List<BodyController> bodies = new List<BodyController>();
 
         // gets the head of the snake
-        BodyController currentBody = body.snake.head;
+        BodyController currentBody = body.snake.Head;
 
         // goes through all the bodies in the snake
         while (currentBody is not null)
@@ -91,7 +91,7 @@ public class Herbologist : Enchanter, IGroundTriggerManager
     private void SummonHealingOrb()
     {
         // gets a random position within the healingOrbRadius of the player's transform
-        Vector2 position = Random.insideUnitCircle * healingOrbRadius + (Vector2)body.snake.head.transform.position;
+        Vector2 position = Random.insideUnitCircle * healingOrbRadius + (Vector2)body.snake.Head.transform.position;
 
         // creates a new healing orb
         GameObject newHealingOrb = Instantiate(healingOrbPrefab, position, Quaternion.identity);

@@ -16,11 +16,11 @@ public class CactusHelmet : Item
 
     private int id;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/CactusHelmet.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         // sets up the projectileVariables
         projectileVariables = new JsonVariable(projectileJson);

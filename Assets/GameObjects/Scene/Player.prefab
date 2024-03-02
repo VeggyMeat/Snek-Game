@@ -46,11 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turningRate: 2
   frameDelay: 7
-  circle: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
+  bodyObject: {fileID: 2962869946878335705, guid: 371186b093d8c5844861e4a49af7a3d7, type: 3}
   BaseXPLevelRequirement: 50
   XPIncreaseLevel: 25
   bodyHealthBarScaleX: 0.2
   bodyHealthBarScaleY: 0.2
   healthBarPrefab: {fileID: 634545999819481101, guid: ce1b33754e2a8b144986e32745e79c04, type: 3}
-  shopManager: {fileID: 0}
-  enemySummonerController: {fileID: 0}

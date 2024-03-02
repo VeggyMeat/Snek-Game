@@ -11,14 +11,14 @@ public class HeadstoneHelmet : Item
     protected int bodiesDeadCount = 0;
     protected int bodiesDeadLevelUp;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/HeadstoneHelmet.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         // counts the number of dead bodies
-        BodyController currentBody = ItemManager.headController.head;
+        BodyController currentBody = gameSetup.HeadController.Head;
         while (currentBody is not null)
         {
             if (currentBody.IsDead)
@@ -65,12 +65,12 @@ public class HeadstoneHelmet : Item
 
     private void AddBuff()
     {
-        ItemManager.headController.head.healthBuff.AddBuff(1 + healthPercentagePerBody * deadBodies, true, null);
+        gameSetup.HeadController.Head.healthBuff.AddBuff(1 + healthPercentagePerBody * deadBodies, true, null);
     }
 
     private void RemoveBuff()
     {
-        ItemManager.headController.head.healthBuff.AddBuff(1 / (1 + healthPercentagePerBody * deadBodies), true, null);
+        gameSetup.HeadController.Head.healthBuff.AddBuff(1 / (1 + healthPercentagePerBody * deadBodies), true, null);
     }
 
     protected override void JsonSetup()

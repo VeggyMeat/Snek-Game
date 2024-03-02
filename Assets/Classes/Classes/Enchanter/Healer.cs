@@ -30,7 +30,7 @@ public class Healer : Enchanter
         List<BodyController> healable = new List<BodyController>();
 
         // goes through each body in the snake and checks if its healable
-        BodyController currentBody = body.snake.head;
+        BodyController currentBody = body.snake.Head;
         while (currentBody is not null)
         {
             if (currentBody.health < currentBody.MaxHealth)

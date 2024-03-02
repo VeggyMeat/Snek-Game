@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class EnemySummonerController : MonoBehaviour
+public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
 {
     /// <summary>
     /// All the enemy games objects to be spawned
@@ -28,22 +28,26 @@ public class EnemySummonerController : MonoBehaviour
     /// </summary>
     [SerializeField] private float radius;
 
-    internal string jsonPath = "Assets/Resources/Jsons/Enemies/EnemyWaves.json";
+    private string jsonPath = "Assets/Resources/Jsons/Enemies/EnemyWaves.json";
 
-    [SerializeField] private Transform cameraTransform;
+    private IGameSetup gameSetup;
 
-    public Transform CameraTransform
+    public void SetGameSetup(IGameSetup gameSetup)
     {
-        get
-        {
-            return cameraTransform;
-        }
+        this.gameSetup = gameSetup;
     }
 
     /// <summary>
     /// The number of enemies that have died
     /// </summary>
-    internal int enemiesDead = 0;
+    private int enemiesDead = 0;
+
+    public int EnemiesDead => enemiesDead;
+
+    public void EnemyDied()
+    {
+        enemiesDead++;
+    }
 
     private List<Dictionary<string, int>> enemyData = new List<Dictionary<string, int>>();
 
@@ -59,7 +63,7 @@ public class EnemySummonerController : MonoBehaviour
 
     private int enemiesSpawned = 0;
 
-    void Start()
+    private void Start()
     {
         // gets enemyData from the json file
         StreamReader reader = new StreamReader(jsonPath);
@@ -127,7 +131,7 @@ public class EnemySummonerController : MonoBehaviour
             Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 2);
 
             // spawns an enemy at that random position
-            GameObject enemy = Instantiate(enemyPrefab, pos + cameraTransform.position + new Vector3 (0, 0, 6), Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, pos + gameSetup.CameraController.Transform.position + new Vector3 (0, 0, 6), Quaternion.identity);
 
             // sets up the enemy
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();
@@ -142,9 +146,9 @@ public class EnemySummonerController : MonoBehaviour
     /// Called by enemies when the enemy despawns
     /// </summary>
     /// <param name="enemy">The enemy that despawned</param>
-    internal void EnemyDespawned(EnemyController enemy)
+    public void EnemyDespawned(EnemyController enemyController)
     {
         // spawns an enemy to replace it
-        SpawnEnemies(enemyPrefabs[enemy.EnemyType][Random.Range(0, enemyPrefabs[enemy.EnemyType].Count)], 1);
+        SpawnEnemies(enemyPrefabs[enemyController.EnemyType][Random.Range(0, enemyPrefabs[enemyController.EnemyType].Count)], 1);
     }
 }

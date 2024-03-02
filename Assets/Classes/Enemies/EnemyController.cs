@@ -289,7 +289,7 @@ public class EnemyController : MonoBehaviour
         dead = true;
 
         // increases the count of dead enemies for the summoner
-        summoner.enemiesDead++;
+        summoner.EnemyDied();
 
         // makes a trigger to the trigger controller that this has died
         TriggerManager.EnemyDeadTrigger.CallTrigger(gameObject);

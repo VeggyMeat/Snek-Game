@@ -2,24 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, ICameraController
 {
-
-    [SerializeField] private GameObject snakeHead;
-    internal static Transform cameraTransform;
     [SerializeField] private double followSpeed = 5;
 
-    void Start()
+    private IGameSetup gameSetup;
+
+    public Transform Transform => transform;
+
+    public void SetGameSetup(IGameSetup gameSetup)
     {
-        cameraTransform = transform;
+        this.gameSetup = gameSetup;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // camera LERP
-
-        transform.position = Vector3.Lerp(cameraTransform.position, new Vector3(snakeHead.transform.position.x, snakeHead.transform.position.y, cameraTransform.position.z), (float)(followSpeed * Time.deltaTime));
+        transform.position = Vector3.Lerp(transform.position, new Vector3(gameSetup.HeadController.Transform.position.x, gameSetup.HeadController.Transform.position.y, transform.position.z), (float)(followSpeed * Time.deltaTime));
 
     }
 }

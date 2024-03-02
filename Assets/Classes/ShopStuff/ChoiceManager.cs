@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class ChoiceManager : CanvasManager
+public class ChoiceManager : CanvasManager, IChoiceManager
 {
     // this is attatched to the OptionChoices canvas
     // this is the canvas that shows the options for the player to choose from
@@ -13,7 +13,12 @@ public class ChoiceManager : CanvasManager
     private ChoiceState state = ChoiceState.None;
     private List<string> options;
 
-    public ShopManager shopManager;
+    private IGameSetup gameSetup;
+
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
+    }
 
     /// <summary>
     /// Sets the state of the choice manager and creates the choices, freezing time
@@ -52,14 +57,14 @@ public class ChoiceManager : CanvasManager
             switch (state)
             {
                 case ChoiceState.NewBody:
-                    headController.AddBody(options[button]);
+                    gameSetup.HeadController.AddBody(options[button]);
                     break;
 
                 case ChoiceState.BodyUpgrade:
                     // levels up a body
 
                     // gets the body
-                    BodyController body = headController.head;
+                    BodyController body = gameSetup.HeadController.Head;
                     while (body.Name != options[button])
                     {
                         body = body.next;
@@ -71,7 +76,7 @@ public class ChoiceManager : CanvasManager
                     // if the body is no longer levelable, remove it from the list
                     if (!body.levelable)
                     {
-                        shopManager.levelableBodies.Remove(body.Name);
+                        gameSetup.ShopManager.RemoveLevelableBody(body.Name);
                     }
                     break;
 
@@ -92,7 +97,7 @@ public class ChoiceManager : CanvasManager
 
         state = ChoiceState.None;
 
-        shopManager.AfterLevelUp();
+        gameSetup.ShopManager.AfterLevelUp();
     }
 
     private void GenerateOptions()
@@ -100,16 +105,13 @@ public class ChoiceManager : CanvasManager
         switch (state)
         {
             case ChoiceState.NewBody:
-                options = PickAmount(shopManager.bodies, optionsNum);
+                options = PickAmount(gameSetup.ShopManager.Bodies, optionsNum);
                 break;
             case ChoiceState.BodyUpgrade:
-                options = PickAmount(shopManager.levelableBodies, optionsNum);
-                break;
-            case ChoiceState.Small_Item:
-                options = PickAmount(shopManager.smallItems, optionsNum);
+                options = PickAmount(gameSetup.ShopManager.LevelableBodies, optionsNum);
                 break;
             case ChoiceState.Powerful_Item:
-                options = PickAmount(shopManager.powerfulItems, optionsNum);
+                options = PickAmount(gameSetup.ShopManager.Items, optionsNum);
                 break;
             case ChoiceState.None:
                 throw new Exception();
@@ -143,7 +145,7 @@ public class ChoiceManager : CanvasManager
         base.HideButtons();
 
         // resumes time
-        shopManager.ResumeTime();
+        gameSetup.ShopManager.ResumeTime();
     }
 
     public override void ShowButtons()
@@ -151,7 +153,7 @@ public class ChoiceManager : CanvasManager
         base.ShowButtons();
 
         // pauses time
-        shopManager.PauseTime();
+        gameSetup.ShopManager.PauseTime();
     }
 
     private void Update()

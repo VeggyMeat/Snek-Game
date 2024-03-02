@@ -307,7 +307,7 @@ public class BodyController : MonoBehaviour
         LevelUp();
 
         // updates the total mass of the snake
-        snake.velocity += velocityContribution;
+        snake.Velocity += velocityContribution;
         health = maxHealth;
 
         // sets the color of the object
@@ -563,7 +563,7 @@ public class BodyController : MonoBehaviour
         isDead = true;
 
         // reverts the original additions from the body
-        snake.velocity -= VelocityContribution;
+        snake.Velocity -= VelocityContribution;
 
         // changes the tag so enemies wont interact with it
         gameObject.tag = "Dead";
@@ -597,7 +597,7 @@ public class BodyController : MonoBehaviour
         isDead = false;
 
         // updates the total mass of the snake
-        snake.velocity += VelocityContribution;
+        snake.Velocity += VelocityContribution;
 
         health = MaxHealth;
         healthBarController.SetBar(PercentageHealth);
@@ -643,11 +643,11 @@ public class BodyController : MonoBehaviour
         else
         {
             // if it is the head, makes sure the snake's head is updated on the snake script
-            snake.head = next;
+            snake.SetHead(next);
         }
 
         // reverts the original additions from the body
-        snake.velocity -= VelocityContribution;
+        snake.Velocity -= VelocityContribution;
 
         // destroys this body
         Destroy(gameObject);
@@ -663,7 +663,7 @@ public class BodyController : MonoBehaviour
         if (IsHead())
         {
             // get the vector its moved in the last frame
-            Vector2 movement = snake.velocityVector * Time.deltaTime;
+            Vector2 movement = snake.VelocityVector * Time.deltaTime;
 
             // add it to the list for the next snake to follow, if there is one
             if (next is not null)
@@ -678,7 +678,7 @@ public class BodyController : MonoBehaviour
             if (next is not null)
             {
                 // if it is ready to move, move it, and remove the spot from the queue
-                if (positionFollow.Count > snake.frameDelay)
+                if (positionFollow.Count > snake.FrameDelay)
                 {
                     next.Move(positionFollow.Dequeue());
                 }
@@ -697,7 +697,7 @@ public class BodyController : MonoBehaviour
                 positionFollow.Enqueue(place);
 
                 // if it is ready to move, move it, and remove the spot from the queue
-                if (positionFollow.Count > snake.frameDelay)
+                if (positionFollow.Count > snake.FrameDelay)
                 {
                     next.Move(positionFollow.Dequeue());
                 }
@@ -712,8 +712,8 @@ public class BodyController : MonoBehaviour
     private void UpdateVelocityContribution(float prev)
     {
         // removes the previous velocity amount, and adds the new amount
-        snake.velocity -= prev;
-        snake.velocity += VelocityContribution;
+        snake.Velocity -= prev;
+        snake.Velocity += VelocityContribution;
     }
 
     /// <summary>

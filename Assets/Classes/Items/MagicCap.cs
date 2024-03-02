@@ -9,11 +9,11 @@ public class MagicCap : Item
     private int mageKillsLevelUp;
     private int mageKills = 0;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/MagicCap.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKilled);
 
@@ -34,7 +34,7 @@ public class MagicCap : Item
 
     private void BuffAllBodies()
     {
-        BodyController bodyController = ItemManager.headController.head;
+        BodyController bodyController = gameSetup.HeadController.Head;
 
         while (bodyController is not null)
         {

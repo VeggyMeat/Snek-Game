@@ -44,7 +44,7 @@ public class MirrorMageMage : Mage
 
     private void BuffAllBodies()
     {
-        BodyController currentBody = body.snake.head;
+        BodyController currentBody = body.snake.Head;
         while (currentBody is not null)
         {
             BuffBody(currentBody);
@@ -55,7 +55,7 @@ public class MirrorMageMage : Mage
 
     private void UnBuffAllBodies() 
     {
-        BodyController currentBody = body.snake.head;
+        BodyController currentBody = body.snake.Head;
         while (currentBody is not null)
         {
             UnBuffBody(currentBody);

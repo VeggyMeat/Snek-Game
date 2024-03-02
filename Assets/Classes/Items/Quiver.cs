@@ -9,11 +9,11 @@ public class Quiver : Item
     private int archerKillsLevelUp;
     private int archerKills = 0;
 
-    internal override void Setup()
+    internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/Quiver.json";
 
-        base.Setup();
+        base.Setup(gameSetup);
 
         TriggerManager.BodyKilledTrigger.AddTrigger(OnBodyKilled);
 
@@ -41,7 +41,7 @@ public class Quiver : Item
     private void BuffArchers()
     {
         // gets the head of the snake
-        BodyController body = ItemManager.headController.head;
+        BodyController body = gameSetup.HeadController.Head;
 
         while (body is not null)
         {

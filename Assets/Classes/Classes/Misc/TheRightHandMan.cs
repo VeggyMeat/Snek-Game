@@ -33,9 +33,9 @@ public class TheRightHandMan : Class
     private int BuffHead(int _)
     {
         // adds the buffs
-        body.snake.head.damageBuff.AddBuff(headDamageMultiplier, true, null);
-        body.snake.head.speedBuff.AddBuff(headSpeedMultiplier, true, null);
-        body.snake.head.attackSpeedBuff.AddBuff(headAttackSpeedMultiplier, true, null);
+        body.snake.Head.damageBuff.AddBuff(headDamageMultiplier, true, null);
+        body.snake.Head.speedBuff.AddBuff(headSpeedMultiplier, true, null);
+        body.snake.Head.attackSpeedBuff.AddBuff(headAttackSpeedMultiplier, true, null);
 
         return _;
     }
@@ -46,9 +46,9 @@ public class TheRightHandMan : Class
     private int UnBuffHead(int _)
     {
         // removes the buffs
-        body.snake.head.damageBuff.AddBuff(1 / headDamageMultiplier, true, null);
-        body.snake.head.speedBuff.AddBuff(1 / headSpeedMultiplier, true, null);
-        body.snake.head.attackSpeedBuff.AddBuff(1 / headAttackSpeedMultiplier, true, null);
+        body.snake.Head.damageBuff.AddBuff(1 / headDamageMultiplier, true, null);
+        body.snake.Head.speedBuff.AddBuff(1 / headSpeedMultiplier, true, null);
+        body.snake.Head.attackSpeedBuff.AddBuff(1 / headAttackSpeedMultiplier, true, null);
 
         return _;
     }

@@ -48,7 +48,7 @@ public class VampireMage : Mage
     internal override int OnDamageTaken(int amount)
     {
         // heal the entire body a certain amount of hp
-        BodyController healBody = body.snake.head;
+        BodyController healBody = body.snake.Head;
 
         while (healBody is not null)
         {

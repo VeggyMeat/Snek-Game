@@ -14,32 +14,94 @@ using Random = UnityEngine.Random;
 
 [assembly: InternalsVisibleTo("EditorTests")]
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : MonoBehaviour, IShopManager
 {
-    public HeadController head;
-    public ChoiceManager choiceManager;
-    public SelectionManager selectionManager;
+    [SerializeField] private List<string> bodies;
 
-    public List<string> bodies;
-    public List<string> smallItems;
-    public List<string> powerfulItems;
+    public List<string> Bodies
+    {
+        get
+        {
+            return bodies;
+        }
+    }
 
-    public bool remove;
+    public void RemoveBody(string body)
+    {
+        bodies.Remove(body);
+    }
 
-    internal ChoiceState nextState = ChoiceState.NewBody;
+    [SerializeField] private List<string> items;
+
+    public List<string> Items
+    {
+        get
+        {
+            return items;
+        }
+    }
+
+    public void RemoveItem(string item)
+    {
+        items.Remove(item);
+    }
+
+    private bool remove;
+
+    public bool Remove
+    {
+        get
+        {
+            return remove;
+        }
+    }
+
+    private ChoiceState nextState = ChoiceState.NewBody;
+
+    public ChoiceState NextState
+    {
+        get
+        {
+            return nextState;
+        }
+        set
+        {
+            nextState = value;
+        }
+    }
 
     private static bool timeActive = true;
-    
-    internal List<string> levelableBodies = new List<string>();
 
-    public void Start()
+    private List<string> levelableBodies = new List<string>();
+
+    public List<string> LevelableBodies
+    {
+        get
+        {
+            return levelableBodies;
+        }
+    }
+
+    public void RemoveLevelableBody(string body)
+    {
+        levelableBodies.Remove(body);
+    }
+
+    private IGameSetup gameSetup;
+
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
+    }
+
+    private void Start()
     {
         TriggerManager.BodySpawnTrigger.AddTrigger(OnAddedBody);
     }
 
     public void OnLevelUp()
     {
-        choiceManager.StartSet(nextState);
+        gameSetup.ChoiceManager.StartSet(nextState);
     }
 
     private BodyController OnAddedBody(BodyController body)
@@ -55,7 +117,7 @@ public class ShopManager : MonoBehaviour
 
     public void AfterLevelUp()
     {
-        selectionManager.ShowButtons();
+        gameSetup.SelectionManager.ShowButtons();
     }
 
     public void PauseTime()

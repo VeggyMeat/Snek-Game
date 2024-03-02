@@ -16,6 +16,8 @@ public abstract class Item
 
     protected bool jsonLoaded = false;
 
+    protected IGameSetup gameSetup;
+
     protected int level = 0;
     protected int maxLevel;
 
@@ -42,8 +44,10 @@ public abstract class Item
     /// <summary>
     /// Sets up the item initially
     /// </summary>
-    internal virtual void Setup()
+    internal virtual void Setup(IGameSetup gameSetup)
     {
+        this.gameSetup = gameSetup;
+
         // loads in the data from the json
         LoadJson();
 

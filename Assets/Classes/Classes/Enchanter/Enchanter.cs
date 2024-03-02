@@ -34,7 +34,7 @@ public abstract class Enchanter : Class
     protected virtual void BuffAllBodies(bool first)
     {
         // gets the head
-        BodyController bodyBuffed = body.snake.head;
+        BodyController bodyBuffed = body.snake.Head;
 
         while (bodyBuffed is not null)
         {
@@ -72,7 +72,7 @@ public abstract class Enchanter : Class
     protected virtual void UnbuffAllBodies()
     {
         // gets the head
-        BodyController bodyBuffed = body.snake.head;
+        BodyController bodyBuffed = body.snake.Head;
 
         while (bodyBuffed is not null)
         {

@@ -7,6 +7,8 @@ using UnityEngine;
 
 public static class Projectile 
 {
+    private const int zValue = 4;
+
     /// <summary>
     /// Creates a new projectile controller and sets it up
     /// </summary>
@@ -22,7 +24,7 @@ public static class Projectile
     public static ProjectileController Shoot(GameObject projectile, Vector3 position, float angle, Dictionary<string, object> jsonVariables, Class controller, float damageMultiplier, bool addOwnerVelocity = true)
     {
         // create the projectile
-        GameObject proj = Object.Instantiate(projectile, position, Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg));
+        GameObject proj = Object.Instantiate(projectile, new Vector3(position.x, position.y, zValue), Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg));
 
         // grabs the projectile controller
         ProjectileController projController = proj.GetComponent<ProjectileController>();

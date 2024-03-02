@@ -34,16 +34,16 @@ public class RamHead : Class
     private int BuffHead(int _)
     {
         // adds a health buff to the head
-        body.snake.head.healthBuff.AddBuff(healthAdded, false, null);
+        body.snake.Head.healthBuff.AddBuff(healthAdded, false, null);
 
         // adds a defence buff to the head
-        body.snake.head.defenceBuff.AddBuff(defenceAdded, false, null);
+        body.snake.Head.defenceBuff.AddBuff(defenceAdded, false, null);
 
         // increases the contactDamage
-        body.snake.head.ContactDamage = (int)(body.snake.head.ContactDamage * contactDamageMultiplier);
+        body.snake.Head.ContactDamage = (int)(body.snake.Head.ContactDamage * contactDamageMultiplier);
 
         // increases the contactForce
-        body.snake.head.ContactForce = (int)(body.snake.head.ContactForce * contactForceMultiplier);
+        body.snake.Head.ContactForce = (int)(body.snake.Head.ContactForce * contactForceMultiplier);
 
         return _;
     }
@@ -54,16 +54,16 @@ public class RamHead : Class
     private int UnBuffHead(int _)
     {
         // adds a negative health buff to the head
-        body.snake.head.healthBuff.AddBuff(-healthAdded, false, null);
+        body.snake.Head.healthBuff.AddBuff(-healthAdded, false, null);
 
         // adds a negative defence buff to the head
-        body.snake.head.defenceBuff.AddBuff(-defenceAdded, false, null);
+        body.snake.Head.defenceBuff.AddBuff(-defenceAdded, false, null);
 
         // decreases the contactDamage
-        body.snake.head.ContactDamage = (int)(body.snake.head.ContactDamage / contactDamageMultiplier);
+        body.snake.Head.ContactDamage = (int)(body.snake.Head.ContactDamage / contactDamageMultiplier);
 
         // decreases the contactForce
-        body.snake.head.ContactForce = (int)(body.snake.head.ContactForce / contactForceMultiplier);
+        body.snake.Head.ContactForce = (int)(body.snake.Head.ContactForce / contactForceMultiplier);
 
         return _;
     }

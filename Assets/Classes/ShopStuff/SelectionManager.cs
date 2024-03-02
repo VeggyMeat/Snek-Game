@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectionManager : CanvasManager
+public class SelectionManager : CanvasManager, ISelectionManager
 {
-    public ShopManager shopManager;
-    public Reorganiser reorganiser;
+    private IGameSetup gameSetup;
 
+    public void SetGameSetup(IGameSetup gameSetup)
+    {
+        this.gameSetup = gameSetup;
+    }
+
+    /// <summary>
+    /// Called when the user clicks on a button (only called by unity button)
+    /// </summary>
+    /// <param name="button">The number corresponding to which button was clicked</param>
     public override void ButtonClicked(int button)
     {
         HideButtons();
@@ -15,19 +23,19 @@ public class SelectionManager : CanvasManager
         {
             case 0:
                 // new body
-                shopManager.nextState = ChoiceState.NewBody;
+                gameSetup.ShopManager.NextState = ChoiceState.NewBody;
                 break;
             case 1:
                 // level up body
-                shopManager.nextState = ChoiceState.BodyUpgrade;
+                gameSetup.ShopManager.NextState = ChoiceState.BodyUpgrade;
                 break;
             case 2:
                 // add small item
-                shopManager.nextState = ChoiceState.Small_Item;
+                gameSetup.ShopManager.NextState = ChoiceState.Small_Item;
                 break;
             case 3:
                 // add powerful item
-                shopManager.nextState = ChoiceState.Powerful_Item;
+                gameSetup.ShopManager.NextState = ChoiceState.Powerful_Item;
                 break;
         }
     }
@@ -36,19 +44,19 @@ public class SelectionManager : CanvasManager
     {
         base.HideButtons();
 
-        reorganiser.Active = false;
+        gameSetup.Reorganiser.Active = false;
 
         // resumes time
-        shopManager.ResumeTime();
+        gameSetup.ShopManager.ResumeTime();
     }
 
     public override void ShowButtons()
     {
         base.ShowButtons();
 
-        reorganiser.Active = true;
+        gameSetup.Reorganiser.Active = true;
 
         // pauses time
-        shopManager.PauseTime();
+        gameSetup.ShopManager.PauseTime();
     }
 }

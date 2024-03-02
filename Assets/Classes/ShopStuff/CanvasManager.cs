@@ -11,7 +11,6 @@ public class CanvasManager : MonoBehaviour
     protected bool active = false;
 
     public int optionsNum;
-    public HeadController headController;
 
     public void Awake()
     {
