@@ -404,8 +404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d09023c53cd91f4389931bcdefd4f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 883488777}
-  xpBarLength: 20
+  uICanvas: {fileID: 883488777}
+  xPBarLength: 15
 --- !u!4 &1406212757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3878227089450483933, guid: 530c6f8299881e34e82d331587efb148, type: 3}
