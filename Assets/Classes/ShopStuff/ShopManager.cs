@@ -46,7 +46,7 @@ public class ShopManager : MonoBehaviour, IShopManager
         items.Remove(item);
     }
 
-    private bool remove;
+    [SerializeField] private bool remove;
 
     public bool Remove
     {

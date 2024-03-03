@@ -5,7 +5,7 @@
     "turretPath": "GameObjects/Turret",
     "turretJson": "Assets/Resources/Jsons/Misc/EngineerTurret.json",
 
-    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/BombBody.json"
+    "bodyJson": "Assets/Resources/Jsons/Classes/Misc/EngineerBody.json"
   },
 
   {

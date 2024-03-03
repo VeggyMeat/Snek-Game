@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e058f627de6794ab928a15d6a683b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 0}
-  choiceManager: {fileID: 0}
-  selectionManager: {fileID: 0}
   bodies:
   - BowMan
   - Gambler
@@ -85,8 +82,7 @@ MonoBehaviour:
   - ArcaneFlower
   - Swashbuckler
   - Cannoneer
-  smallItems: []
-  powerfulItems:
+  items:
   - Quiver
   - SteeringWheel
   - BigBullet

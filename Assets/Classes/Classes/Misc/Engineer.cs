@@ -18,6 +18,8 @@ public class Engineer : Class
 
     private JsonVariable turretVariables;
 
+    private const int zValue = 3;
+
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Misc/Engineer.json";
@@ -42,7 +44,7 @@ public class Engineer : Class
     private void SummonTurret()
     {
         // create the turret
-        GameObject turretSpawned = Instantiate(turret, transform.position, Quaternion.identity);
+        GameObject turretSpawned = Instantiate(turret, new Vector3(transform.position.x, transform.position.y, zValue), Quaternion.identity);
 
         // grabs the turret controller
         TurretController controller = turretSpawned.GetComponent<TurretController>();

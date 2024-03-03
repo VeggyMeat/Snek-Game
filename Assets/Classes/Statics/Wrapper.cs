@@ -88,6 +88,20 @@ public static class Wrapper
         return ls[UnityEngine.Random.Range(0, ls.Count - 1)];
     }
 
+    public static void Shuffle<T>(this List<T> ls)
+    {
+        List<T> newList = new List<T>();
+
+        while (ls.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, ls.Count);
+            newList.Add(ls[index]);
+            ls.RemoveAt(index);
+        }
+
+        ls.AddRange(newList);
+    }
+
     /// <summary>
     /// Gets the angle from a Vector2 to another Vector2
     /// </summary>
