@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AOEEffectControllerRectangle : AOEEffectController
+// COMPLETE
+
+/// <summary>
+/// The script that is placed on the rectangle AOEEffect objects to control its behaviour
+/// </summary>
+internal class AOEEffectControllerRectangle : AOEEffectController
 {
     /// <summary>
     /// Sets up the AOEEffect
@@ -15,11 +18,13 @@ public class AOEEffectControllerRectangle : AOEEffectController
     /// <param name="width">The width of the AOEEffect</param>
     internal void Setup(float timeAlive, bool decay, Color colour, float angle, float height, float width)
     {
+        // sets the scale of the AOEEffect
         transform.localScale = new Vector3 (height, width, 1);
 
-        // sets the rotation
+        // sets the rotation of the AOEEffect
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
+        // calls the setup method from the parent class
         Setup(timeAlive, decay, colour);
     }
 }

@@ -1,7 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// Sets up the game as well as providing access to the game's main controllers on initial objects
+/// </summary>
 public class GameSetup : MonoBehaviour, IGameSetup
 {
     [SerializeField] private GameObject playerObject;
@@ -26,8 +29,10 @@ public class GameSetup : MonoBehaviour, IGameSetup
     public ISelectionManager SelectionManager { get; private set; }
     public IChoiceManager ChoiceManager { get; private set; }
 
+    // Called by unity as soon as the game is started (the Game scene is loaded)
     public void Awake()
     {
+        // grabs all the different controllers from the objects
         ShopManager = shopManagerObject.GetComponent<ShopManager>();
         HeadController = playerObject.GetComponent<HeadController>();
         DeathScreenController = deathScreenObject.GetComponent<DeathScreenController>();
@@ -39,6 +44,7 @@ public class GameSetup : MonoBehaviour, IGameSetup
         SelectionManager = selectOptionsObject.GetComponent<SelectionManager>();
         ChoiceManager = optionChoicesObject.GetComponent<ChoiceManager>();
 
+        // gives all the controllers reference to this object
         HeadController.SetGameSetup(this);
         UIController.SetGameSetup(this);
         Reorganiser.SetGameSetup(this);
@@ -49,5 +55,11 @@ public class GameSetup : MonoBehaviour, IGameSetup
         BackgroundManager.SetGameSetup(this);
         DeathScreenController.SetGameSetup(this);
         EnemySummonerController.SetGameSetup(this);
+
+        // sets up various static classes
+        ItemManager.Setup(this);
+        DatabaseHandler.Setup();
+        AOEEffect.Setup();
+        TimeManager.Setup();
     }
 }

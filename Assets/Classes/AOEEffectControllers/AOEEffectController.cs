@@ -1,18 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AOEEffectController : MonoBehaviour
+// COMPLETE
+
+/// <summary>
+/// Inherited by all AOEEffect controllers, that are placed on objects to control their behaviour
+/// </summary>
+internal abstract class AOEEffectController : MonoBehaviour
 {
+    /// <summary>
+    /// The length of time in seconds that the AOEEffect will stay for
+    /// </summary>
     protected float timeAlive;
 
+    /// <summary>
+    /// The sprite renderer of the AOEEffect
+    /// </summary>
     protected SpriteRenderer spriteRenderer;
 
+    /// <summary>
+    /// The amount of game time (non-paused time) elapsed since the AOEEffect was created
+    /// </summary>
     protected float elapedTime = 0;
 
+    /// <summary>
+    /// The starting colour of the AOEEffect
+    /// </summary>
     protected Color startColour;
 
+    /// <summary>
+    /// Whether the AOEEffect's colour should fade over time
+    /// </summary>
     protected bool decay;
 
     /// <summary>
@@ -28,26 +45,29 @@ public abstract class AOEEffectController : MonoBehaviour
         this.decay = decay;
         startColour = colour;
 
+        // grabs the sprite renderer and sets the colour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = colour;
     }
 
-    // Start is called before the first frame update
-    protected virtual void Start()
+    // Called by unity before the first frame
+    private void Start()
     {
         // sets a countdown clock to destory the object
-        Invoke(nameof(OnDestroy), timeAlive);
+        Invoke(nameof(Destroy), timeAlive);
     }
 
-    // Called when its destroyed
-    protected virtual void OnDestroy()
+    // Called to destroy the object
+    protected virtual void Destroy()
     {
         // destroys the object
         Destroy(gameObject);
     }
 
-    protected virtual void Update()
+    // Called by unity every frame
+    private void Update()
     {
+        // if the game is paused, do nothing
         if (Time.timeScale == 0)
         {
             return;
@@ -56,6 +76,7 @@ public abstract class AOEEffectController : MonoBehaviour
         // if the object is decaying
         if (decay)
         {   
+            // adds the time since the last frame to the elapsed time
             elapedTime += Time.deltaTime;
 
             // gets the percentage of life lived

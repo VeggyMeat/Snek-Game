@@ -1,18 +1,20 @@
-using Mono.Cecil;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+// COMPLETE
+
+/// <summary>
+/// The controller placed on an empty object that controls the snake
+/// It has an attatched link list of all the bodies in the snake
+/// Manages some general game flow, calling other scripts when necessary to handle the player input
+/// Stores general information about the players run
+/// </summary>
 public class HeadController: MonoBehaviour, IHeadController
 {
-    // movement related
-    [SerializeField] private double turningRate = 2;
-    [SerializeField] private int frameDelay = 4;
-
+    /// <summary>
+    /// The transform of the head controller, which follows the snake's Head every frame
+    /// </summary>
     public Transform Transform
     {
         get
@@ -21,6 +23,14 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The speed at which the snake turns
+    /// </summary>
+    private double turningRate = 2;
+
+    /// <summary>
+    /// The speed at which the snake turns
+    /// </summary>
     public double TurningRate
     {
         get
@@ -33,6 +43,14 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The number of frames behind each body part is from the previous one
+    /// </summary>
+    private const int frameDelay = 7;
+
+    /// <summary>
+    /// The number of frames behind each body part is from the previous one
+    /// </summary>
     public int FrameDelay
     {
         get
@@ -41,23 +59,51 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The prefab of the body object, that is used to instantiate new bodies
+    /// 
+    /// Does not change, set in the Inspector in Unity
+    /// </summary>
     [SerializeField] private GameObject bodyObject;
 
-    // xp related
-    [SerializeField] private int BaseXPLevelRequirement = 50;
-    [SerializeField] private int XPIncreaseLevel = 25;
+    /// <summary>
+    /// The amount of XP required to level up to the first level
+    /// </summary>
+    private const int BaseXPLevelRequirement = 60;
 
-    [SerializeField] internal float bodyHealthBarScaleX = 1;
-    [SerializeField] internal float bodyHealthBarScaleY = 1;
+    /// <summary>
+    /// The amount of XP added to the requirement for each level after each level
+    /// </summary>
+    private const int XPIncreaseLevel = 35;
+
+    /// <summary>
+    /// The X value scaling of the health bar for the bodies
+    /// </summary>
+    internal readonly float bodyHealthBarScaleX = 0.2f;
+
+    /// <summary>
+    /// The Y value scaling of the health bar for the bodies
+    /// </summary>
+    internal readonly float bodyHealthBarScaleY = 0.2f;
+
+    /// <summary>
+    /// The prefab of the health bar, that is used to instantiate new health bars
+    /// </summary>
     [SerializeField] internal GameObject healthBarPrefab;
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     private IGameSetup gameSetup;
 
     /// <summary>
-    /// The BodyController of the head of the snake
+    /// The head of the snake
     /// </summary>
     private BodyController head;
 
+    /// <summary>
+    /// The head of the snake
+    /// </summary>
     public BodyController Head
     {
         get
@@ -66,15 +112,28 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
-    public void SetHead(BodyController bodyController)
+    /// <summary>
+    /// Sets the head of the snake to a perticular body
+    /// </summary>
+    /// <param name="bodyController">The new body to become the head</param>
+    internal void SetHead(BodyController bodyController)
     {
         head = bodyController;
     }
 
+    /// <summary>
+    /// The angle that the snake is facing
+    /// </summary>
     private double angle = 0f;
 
+    /// <summary>
+    /// The current velocity scaled and added each frame to the snake
+    /// </summary>
     private Vector2 velocityVector;
 
+    /// <summary>
+    /// The current velocity scaled and added each frame to the snake
+    /// </summary>
     internal Vector2 VelocityVector
     {
         get
@@ -83,8 +142,14 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The total velocities of the snake's bodies
+    /// </summary>
     private float velocity = 0;
 
+    /// <summary>
+    /// The total velocities of the snake's bodies
+    /// </summary>
     internal float Velocity
     {
         get
@@ -97,14 +162,34 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The amount of XP the snake has
+    /// </summary>
     private int xP = 0;
+
+    /// <summary>
+    /// The current level of the snake
+    /// </summary>
     private int level = 0;
+
+    /// <summary>
+    /// The current amount of XP required to level up
+    /// </summary>
     private int xPLevelUp;
 
+    /// <summary>
+    /// Whether the snake is currently turning
+    /// </summary>
     private bool turning = false;
 
+    /// <summary>
+    /// The current score of the run
+    /// </summary>
     private int score = 0;
 
+    /// <summary>
+    /// Whether the snake is currently turning
+    /// </summary>
     public bool Turning
     {
         get
@@ -113,12 +198,18 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// The modifier applied to all the healing of the snake
+    /// </summary>
     internal float healingModifier = 1;
 
+    /// <summary>
+    /// The list of all the bodies in the snake
+    /// </summary>
     private List<string> currentBodies = new List<string>();
 
     /// <summary>
-    /// The current bodies inside the snake
+    /// The list of all the bodies in the snake
     /// </summary>
     public List<string> CurrentBodies
     {
@@ -129,34 +220,17 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// Whether the body is dead or not
-    /// </summary>
-    private bool DeathCheck
-    {
-        get
-        {
-            if (AliveBodies == 0 && Length > 0)
-            {
-                OnDeath();
-
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// The position of the head if it exists
+    /// The position of the head of the snake
     /// </summary>
     /// <exception cref="Exception">Throws an exception if the head is null</exception>
     public Vector2 HeadPos
     {
         get
         {
+            // if there is no head, throw an exception
             if (head is null)
             {
-                throw new Exception();
+                throw new Exception("HeadPos cannot be returned, there is no head");
             }
 
             return head.transform.position;
@@ -164,15 +238,16 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// The position of the tail
+    /// The position of the tail of the snake (the last object in the linked list)
     /// </summary>
+    /// <exception cref="Exception">Throws an exception if there are no bodies in the snake</exception>"
     public Vector2 TailPos
     {
         get
         {
-            if (head is null)
+            if (Length == 0)
             {
-                return transform.position;
+                throw new Exception("TailPos cannot be returned, there are no bodies in the snake");
             }
 
             return head.TailPos();
@@ -180,7 +255,7 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// Returns the length of the snake
+    /// The total number of bodies in the snake
     /// </summary>
     public int Length
     {
@@ -198,7 +273,7 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// Returns the number of alive bodies
+    /// The total number of bodies in the snake that are alive (not dead)
     /// </summary>
     public int AliveBodies
     {
@@ -216,7 +291,7 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// The percentage of the way to the next level
+    /// The percentage completion of the current level of the snake (0-1)
     /// </summary>
     public float XPPercentage
     {
@@ -226,66 +301,69 @@ public class HeadController: MonoBehaviour, IHeadController
         }
     }
 
+    /// <summary>
+    /// Sets the gameSetup of the snake
+    /// </summary>
+    /// <param name="gameSetup"></param>
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
     }
 
+    /// <summary>
+    /// Whether the body is dead or not
+    /// </summary>
+    private void DeathCheck()
+    {
+        // if there are no bodies alive, and at least one body has already been added, the snake is dead, so call OnDeath()
+        if (AliveBodies == 0 && Length > 0)
+        {
+            OnDeath();
+        }
+    }
+
+    // Called by unity before the first frame
     private void Start()
     {
-        // sets up the databse handler
-        DatabaseHandler.Setup();
-
-        // sets up the item manager
-        ItemManager.Setup(gameSetup);
-
-        // sets up the AOEEffect system
-        AOEEffect.Setup();
-
-        // sets up the time manager
-        TimeManager.Setup();
-
+        // sets the current amount of XP required to level up
         xPLevelUp = BaseXPLevelRequirement;
+
+        // sets the snake's initial velocity
         velocityVector = new Vector2(0, velocity);
         
-        // calls an initial body selection
+
+        // calls an initial body selection for the player
         gameSetup.ShopManager.OnLevelUp();
     }
 
+    // Called by unity every frame before doing any physics calculations
     private void FixedUpdate()
     {
-        if (DeathCheck)
-        {
-            return;
-        }
+        DeathCheck();
 
         UpdateTurning();
 
         if (head) 
         {
-            // moves the whole snake
             head.Move();
 
-            // updates the voids position
+            // updates the snake's position, to match the head's
             transform.position = HeadPos;
         }
     }
 
-    private void Update()
-    {
-        if (Time.timeScale == 0)
-        {
-            return;
-        }
-    }
-
+    /// <summary>
+    /// Updates the velocity vector of the snake and the snake's angle based on the player's keypresses
+    /// </summary>
     private void UpdateTurning()
     {
-        // gets information on the key presses
+        // gets information on the key presses, whether the left or right arrow keys are pressed down
         bool rightPress = Input.GetKey(KeyCode.RightArrow);
         bool leftPress = Input.GetKey(KeyCode.LeftArrow);
 
         // turning mechanism for the snake updating angle based on left or right arrow keys pressed
+        // calls the turning trigger if the snake starts turning this frame
+        // calls the stop turning trigger if the snake stops turning this frame
         if (rightPress && leftPress)
         {
             if (turning)
@@ -327,11 +405,18 @@ public class HeadController: MonoBehaviour, IHeadController
             turning = false;
         }
 
+        // sets the new velocity vector based on the new angle
         velocityVector = new Vector2((float)(velocity * Math.Sin(angle) / AliveBodies), (float)(velocity * Math.Cos(angle) / AliveBodies));
     }
 
+    /// <summary>
+    /// Adds the run to the database, with the information from the snake
+    /// </summary>
+    /// <param name="name">The player's name for this run</param>
+    /// <returns>The list of statistics stored in the database for this run (name, score, time, date)</returns>
     public List<string> FinishRun(string name)
     {
+        // creates a new run with all the relevant information
         Run run = new Run
         {
             PlayerName = name,
@@ -340,15 +425,22 @@ public class HeadController: MonoBehaviour, IHeadController
             Date = DateTime.Now
         };
 
+        // adds the run to the database
         DatabaseHandler.AddRun(run);
 
+        // returns the statistics of the run
         return new List<string> { name, score.ToString(), ((int)TimeManager.GetElapsedTimeSince(TimeManager.StartTime).TotalSeconds).ToString(), DateTime.Now.ToString() };
     }
 
+    /// <summary>
+    /// Ends the game after the player dies
+    /// </summary>
     private void OnDeath()
     {
+        // pauses the game time from passing
         gameSetup.ShopManager.PauseTime();
 
+        // puts the death screen up for the player
         gameSetup.DeathScreenController.OnDeath();
     }
 
@@ -361,7 +453,7 @@ public class HeadController: MonoBehaviour, IHeadController
         // increases the xp
         xP += amount;
 
-        // levels it up if it has enough
+        // levels it up if it has enough xp
         if (xP >= xPLevelUp)
         {
             LevelUp();
@@ -373,8 +465,8 @@ public class HeadController: MonoBehaviour, IHeadController
     /// </summary>
     private void LevelUp()
     {
-        // resets xp
-        xP = 0;
+        // removes the xp required to level up
+        xP -= xPLevelUp;
 
         // increases level, increases next xp requirement
         xPLevelUp += XPIncreaseLevel;
@@ -383,7 +475,7 @@ public class HeadController: MonoBehaviour, IHeadController
         // level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
 
-        // bring to the level up scene
+        // bring the player to the level up screen
         gameSetup.ShopManager.OnLevelUp();
     }
 
@@ -394,13 +486,23 @@ public class HeadController: MonoBehaviour, IHeadController
     public void AddBody(string bodyClass)
     {
         // creates the body and sets it up and places it as the head of the snake or at the end
-        GameObject body = Instantiate(bodyObject, (Vector3)TailPos + new Vector3 (0, 0, 2), Quaternion.identity);
+        GameObject body;
+        if (head is null)
+        {
+            body = Instantiate(bodyObject, Transform.position + new Vector3(0, 0, 2), Quaternion.identity);
+        }
+        else
+        {
+            body = Instantiate(bodyObject, (Vector3)TailPos + new Vector3(0, 0, 2), Quaternion.identity);
+        }
+
+        // adds the BodyController to the body
         BodyController bodyContr = body.AddComponent<BodyController>();
 
         // adds the new body to the list of bodies
         currentBodies.Add(bodyClass);
 
-        // adds the respective class to the body
+        // adds the respective class(es) to the body
         switch(bodyClass)
         {
             case "BowMan":
@@ -528,12 +630,12 @@ public class HeadController: MonoBehaviour, IHeadController
                 break;
         }
 
-        // removes that body from the list of available bodies
+        // removes that body from the list of available bodies if required
         if (gameSetup.ShopManager.Remove)
         {
             gameSetup.ShopManager.RemoveBody(bodyClass);
         }
-
+        
         if (head is null)
         {
             // gets the BodyController and sets it up as the head
@@ -542,17 +644,33 @@ public class HeadController: MonoBehaviour, IHeadController
         }
         else
         {
-            // makes the head add a new body behind it
+            // if the head already exists, makes the head try to create the body
             head.AddBody(body, this);
         }
     }
 
+    /// <summary>
+    /// Rearranges the bodies of the snake to the order given
+    /// </summary>
+    /// <param name="order">The new order of the bodies, the first item being the head, the last being the tail</param>
+    /// <exception cref="Exception">Throws an exception if the objects dont match </exception>
     public void Rearrange(List<BodyController> order)
     {
         // makes sure there is the right number of objects in the list
         if (order.Count != currentBodies.Count)
         {
             throw new Exception("list passed does not contain the right number of objects");
+        }
+
+        // makes sure the list has the same bodies as the snake
+        List<string> orderNames = new List<string>();
+        foreach (BodyController bodyController in order)
+        {
+            orderNames.Add(bodyController.name);
+        }
+        if (orderNames != currentBodies)
+        {
+            throw new Exception("list passed does not contain the same bodies as the snake");
         }
 
         // if the snake is empty, return
@@ -564,9 +682,11 @@ public class HeadController: MonoBehaviour, IHeadController
         // gets the current order of bodies
         List<(Vector2, Vector2, Vector2, Queue<Vector2>)> previousOrder = new List<(Vector2, Vector2, Vector2, Queue<Vector2>)>();
 
+        // goes through every body in the snake
         BodyController body = head;
         while (body is not null)
         {
+            // grabs all the relevant positional information from the body
             previousOrder.Add((new Vector2 (body.transform.position.x, body.transform.position.y),
                                new Vector2 (body.lastMoved.x, body.lastMoved.y),
                                new Vector2 (body.lastPosition.x, body.lastPosition.y),
@@ -575,19 +695,32 @@ public class HeadController: MonoBehaviour, IHeadController
             body = body.next;
         }
 
+
+        // goes through every body in the snake and sets the new order
+        // sets the new head as the first body
         head = order[0];
+
+        // resets the new head's previous and next bodies
         order[0].prev = null;
         order[0].next = null;
+
+        // goes through all the other bodies to do the same thing
         for (int i = 1; i < order.Count; i++)
         {
+            // sets the previous body's next body to this one
             order[i-1].next = order[i];
+
+            // sets this body's previous body to the previous one
             order[i].prev = order[i - 1];
+
+            // resets the next body of this body
             order[i].next = null;
         }
 
+        // goes through all the new bodies and gives them the positional information from the old body that was in that position
         for (int i = 0; i < order.Count; i++)
         {
-            var info = previousOrder[i];
+            (Vector2, Vector2, Vector2, Queue<Vector2>) info = previousOrder[i];
 
             order[i].transform.position = info.Item1;
             order[i].lastMoved = info.Item2;

@@ -37,15 +37,32 @@ public static class DatabaseHandler
         dbConnection.Insert(run);
     }
 
-    public static List<Run> GetPlayerRuns(string playerName, SortType sortType, bool ascending)
+    public static (List<Run>, int) GetPlayerRuns(string playerName, SortType sortType, bool ascending)
     {
-        // return all runs with the given player name
-        return dbConnection.Query<Run>(SortBy("SELECT * FROM Runs WHERE player_name = ?", sortType, ascending), playerName);
+        List<Run> runs = dbConnection.Query<Run>(SortBy("SELECT * FROM Runs WHERE player_name = ?", sortType, ascending), playerName);
+        List<int> result = dbConnection.Query<int>("SELECT count(*) FROM Runs WHERE player_name = ?", playerName);
+
+        Debug.Log(result[0]);
+
+        if (result.Count != 1)
+        {
+            throw new Exception("COUNT request did not return 1 result");
+        }
+
+        return (runs, result[0]);
     }
 
-    public static List<Run> GetSortedRuns(SortType sortType, bool ascending)
+    public static (List<Run>, int) GetSortedRuns(SortType sortType, bool ascending)
     {
-        return dbConnection.Query<Run>(SortBy("SELECT * FROM Runs", sortType, ascending));
+        List<Run> runs = dbConnection.Query<Run>(SortBy("SELECT * FROM Runs", sortType, ascending));
+        List<int> result = dbConnection.Query<int>("SELECT count(*) FROM Runs");
+
+        if (result.Count != 1)
+        {
+            throw new Exception("COUNT request did not return 1 result");
+        }
+
+        return (runs, result[0]);
     }
 
     private static string SortBy(string query, SortType sortType, bool ascending)
@@ -79,101 +96,5 @@ public static class DatabaseHandler
         }
 
         return query;
-    }
-
-    public static void CreateSampleData()
-    {
-        // create sample data
-        Run run1 = new Run
-        {
-            PlayerName = "Player 1",
-            Score = 100,
-            Time = 100,
-            Date = DateTime.Now
-        };
-
-        Run run2 = new Run
-        {
-            PlayerName = "Player 1",
-            Score = 200,
-            Time = 200,
-            Date = DateTime.Now
-        };
-
-        Run run3 = new Run
-        {
-            PlayerName = "Player 3",
-            Score = 300,
-            Time = 300,
-            Date = DateTime.Now
-        };
-
-        Run run4 = new Run
-        {
-            PlayerName = "Player 1",
-            Score = 400,
-            Time = 400,
-            Date = DateTime.Now
-        };
-
-        Run run5 = new Run
-        {
-            PlayerName = "Player 5",
-            Score = 500,
-            Time = 500,
-            Date = DateTime.Now
-        };
-
-        Run run6 = new Run
-        {
-            PlayerName = "Player 5",
-            Score = 600,
-            Time = 600,
-            Date = DateTime.Now
-        };
-
-        Run run7 = new Run
-        {
-            PlayerName = "Player 7",
-            Score = 700,
-            Time = 700,
-            Date = DateTime.Now
-        };
-
-        Run run8 = new Run
-        {
-            PlayerName = "Player 5",
-            Score = 800,
-            Time = 800,
-            Date = DateTime.Now
-        };
-
-        Run run9 = new Run
-        {
-            PlayerName = "Player 9",
-            Score = 900,
-            Time = 900,
-            Date = DateTime.Now
-        };
-
-        Run run10 = new Run
-        {
-            PlayerName = "Player 9",
-            Score = 1000,
-            Time = 1000,
-            Date = DateTime.Now
-        };
-
-        // add sample data to the database
-        AddRun(run1);
-        AddRun(run2);
-        AddRun(run3);
-        AddRun(run4);
-        AddRun(run5);
-        AddRun(run6);
-        AddRun(run7);
-        AddRun(run8);
-        AddRun(run9);
-        AddRun(run10);  
     }
 }

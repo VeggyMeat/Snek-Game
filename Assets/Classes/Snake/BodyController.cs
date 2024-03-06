@@ -227,7 +227,7 @@ public class BodyController : MonoBehaviour
     {
         get
         {
-            return (float)health / (float)maxHealth;
+            return health / (float)maxHealth;
         }
     }
 
@@ -506,6 +506,9 @@ public class BodyController : MonoBehaviour
             return false;
         }
 
+        // updates the health bar
+        healthBarController.SetBar(PercentageHealth);
+
         return true;
     }
 
@@ -547,9 +550,6 @@ public class BodyController : MonoBehaviour
             // reduces the health by the final damage
             health += quantity;
         }
-
-        // update the healthBar attatched to the body
-        healthBarController.SetBar(PercentageHealth);
 
         return HealthChangeCheck();
     }

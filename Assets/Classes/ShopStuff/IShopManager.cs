@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IShopManager
 {
     public List<string> Bodies { get; }
+    public List<string> PossibleInitialBodies { get; }
     public void RemoveBody(string body);
     public List<string> Items { get; }
     public void RemoveItem(string item);

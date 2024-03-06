@@ -1,21 +1,32 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class HealthBarController : MonoBehaviour
+// COMPLETE
+
+/// <summary>
+/// The script that is placed on the health bar object to control the health bar
+/// It is used to set the health bar to a certain percentage
+/// </summary>
+internal class HealthBarController : MonoBehaviour
 {
-    // created by an object that wants a healthBar, as a child of that object
+    /// <summary>
+    /// The gameObject of the green bar within the health bar
+    /// </summary>
     [SerializeField] private GameObject greenBarObject;
     private Vector3 initialScale;
 
+    // called by unity every frame
     private void Update()
     {
-        // resets rotation
+        // resets the rotation of the health bar, so that it is always horizontal regardless of the parent's rotation
         transform.rotation = Quaternion.identity;
     }
 
+    /// <summary>
+    /// Sets up the health bar with a certain scale
+    /// </summary>
+    /// <param name="scaleX">The horizontal scale of the healthbar</param>
+    /// <param name="scaleY">The vertical scale of the healthbar</param>
     internal void Setup(float scaleX, float scaleY)
     {
         // set the scale of the healthbar
@@ -25,16 +36,21 @@ public class HealthBarController : MonoBehaviour
         initialScale = greenBarObject.transform.localScale;
     }
 
+    /// <summary>
+    /// Sets the health bar's visual representation to a certain percentage of full health
+    /// </summary>
+    /// <param name="percentage">The percentage to set the healthbar to (0-1)</param>
+    /// <exception cref="Exception">Throws an exception when percentage is not within 0-1</exception>
     internal void SetBar(float percentage)
     {
-        // TEMP fixes out of bounds values
+        // throws an error if out of bounds
         if (percentage > 1)
         {
-            percentage = 1;
+            throw new Exception("Health bar percentage cannot be greater than 1");
         }
         else if (percentage < 0)
         {
-            percentage = 0;
+            throw new Exception("Health bar percentage cannot be less than 0");
         }
 
         // calculate the new position of the bar, so that it stays on the left

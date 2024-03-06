@@ -105,7 +105,17 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         switch (state)
         {
             case ChoiceState.NewBody:
-                options = PickAmount(gameSetup.ShopManager.Bodies, optionsNum);
+                // if there is no head on the snake, this is the first body so use the possible initial bodies
+                if (gameSetup.HeadController.Head is null)
+                {
+                    options = PickAmount(gameSetup.ShopManager.PossibleInitialBodies, optionsNum);
+                }
+                // if there is a head on the snake, use the normal list of bodies
+                else
+                {
+                    options = PickAmount(gameSetup.ShopManager.Bodies, optionsNum);
+                }
+                
                 break;
             case ChoiceState.BodyUpgrade:
                 options = PickAmount(gameSetup.ShopManager.LevelableBodies, optionsNum);
@@ -154,19 +164,6 @@ public class ChoiceManager : CanvasManager, IChoiceManager
 
         // pauses time
         gameSetup.ShopManager.PauseTime();
-    }
-
-    private void Update()
-    {
-        if (state != ChoiceState.None)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                // refresh shop options
-                GenerateOptions();
-                UpdateOptions();
-            }
-        }
     }
 
     /// <summary>

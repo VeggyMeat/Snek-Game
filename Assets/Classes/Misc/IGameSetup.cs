@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// COMPLETE
 
+/// <summary>
+/// The interface for the game setup
+/// </summary>
 public interface IGameSetup
 {
     public IShopManager ShopManager { get; }

@@ -207,7 +207,7 @@ public class EnemyController : MonoBehaviour
         // sets the healthBar up
         healthBar = Instantiate(healthBarPrefab, transform).GetComponent<HealthBarController>();
         healthBar.Setup(healthBarScaleX, healthBarScaleY);
-        healthBar.SetBar((float)health/maxHealth);
+        healthBar.SetBar((float) health / maxHealth);
 
         // calls the enemy spawn trigger
         TriggerManager.EnemySpawnTrigger.CallTrigger(gameObject);

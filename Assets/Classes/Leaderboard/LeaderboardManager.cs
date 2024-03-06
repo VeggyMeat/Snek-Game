@@ -7,34 +7,98 @@ using UnityEngine.SceneManagement;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> rows;
+    /// <summary>
+    /// Contains the rows of the leaderboard
+    /// Each row has a number of gameObjects which contain a piece of text
+    /// The row is made up of Name, Score, Time, and Date
+    /// </summary>
+    [SerializeField] private List<GameObject> rows;
 
-    [SerializeField]
-    private GameObject namePicker;
+    /// <summary>
+    /// The Text field in which the player can enter the name to search for
+    /// </summary>
+    [SerializeField] private GameObject namePicker;
 
+    /// <summary>
+    /// How many rows to be shown on the leaderboard
+    /// </summary>
     private int ROWS_PER_PAGE;
+
+    /// <summary>
+    /// How many collumns there are within each row
+    /// </summary>
     private const int COLUMNS = 4;
 
+    /// <summary>
+    /// The rows of the leaderboard split into their individual text objects
+    /// </summary>
     private List<List<TextMeshProUGUI>> splitRows;
 
+    /// <summary>
+    /// The current data to be shown on the leaderboard
+    /// </summary>
     private List<Run> currentData;
 
+    /// <summary>
+    /// The current data to be shown on the leaderboard
+    /// </summary>
+    private List<Run> CurrentData
+    {
+        get
+        {
+            return currentData;
+        }
+        set
+        {
+            currentData = value;
+
+            // when the data is changed, the result number is updated
+            UpdateResultNumber();
+        }
+    }
+
+    /// <summary>
+    /// Contains the current way the data is being sorted
+    /// </summary>
     private SortType sortType = SortType.Date;
+
+    /// <summary>
+    /// Whether the data is beign sorted in ascending or descending order
+    /// </summary>
     private bool asc = false;
 
+    /// <summary>
+    /// What page number the leaderboard is currently displaying
+    /// </summary>
     private int page = 0;
 
+    /// <summary>
+    /// The number of results recieved
+    /// </summary>
+    private int? results = null;
+
+    /// <summary>
+    /// 
+    /// </summary>
     private bool pickName = false;
 
     private string chosenName = "";
+
+    [SerializeField]
+    private GameObject ResultNumberObject;
+    private TextMeshProUGUI ResultNumber;
 
     private int MaxPage
     {
         get
         {
-            return Mathf.CeilToInt(currentData.Count / (float)ROWS_PER_PAGE) - 1;
+            return Mathf.CeilToInt(CurrentData.Count / (float)ROWS_PER_PAGE) - 1;
         }
+    }
+
+    private void UpdateResultNumber()
+    {
+        ResultNumber.text = $"{results} results found";
     }
 
     private void Awake()
@@ -57,7 +121,9 @@ public class LeaderboardManager : MonoBehaviour
             splitRows.Add(newRow);
         }
 
-        currentData = DatabaseHandler.GetSortedRuns(sortType, asc);
+        ResultNumber = ResultNumberObject.GetComponent<TextMeshProUGUI>();
+
+        (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
         Reorder();
     }
 
@@ -84,11 +150,11 @@ public class LeaderboardManager : MonoBehaviour
 
         if (chosenName == "")
         {
-            currentData = DatabaseHandler.GetSortedRuns(sortType, asc);
+            (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
         }
         else
         {
-            currentData = DatabaseHandler.GetPlayerRuns(chosenName, sortType, asc);
+            (CurrentData, results) = DatabaseHandler.GetPlayerRuns(chosenName, sortType, asc);
         }
         
         Reorder();
@@ -112,12 +178,12 @@ public class LeaderboardManager : MonoBehaviour
         // gets the start and end index of the current page
         int startNum = page * ROWS_PER_PAGE;
         int endNum = startNum + ROWS_PER_PAGE;
-        endNum = Mathf.Min(endNum, currentData.Count);
+        endNum = Mathf.Min(endNum, CurrentData.Count);
 
         // goes through each number on the page
         for (int i = startNum; i < endNum; i++)
         {
-            Run run = currentData[i];
+            Run run = CurrentData[i];
 
             // sets the text of the row to the data of the run
             splitRows[i - startNum][0].text = run.PlayerName;
