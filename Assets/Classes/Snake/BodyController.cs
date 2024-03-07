@@ -723,18 +723,18 @@ public class BodyController : MonoBehaviour
     /// <param name="multiplicative">Whether its a value added to max health (false) or a scaler (true)</param>
     private void HealthBuffUpdate(float amount, bool multiplicative)
     {
-        // if its a multiplying one, multiply the health by that much
+        // if its a multiplying one, multiply the health and maxHealth by that much
         if (multiplicative)
         {
+            maxHealth = (int)(maxHealth * amount);
             health = (int)(health * amount);
         }
-        // if its an additive one, increase (/decrease) the health by the amount
+        // if its an additive one, increase (/decrease) the health and maxHealth by the amount
         else
         {
+            maxHealth += (int)amount;
             health += (int)amount;
         }
-
-        healthBarController.SetBar(PercentageHealth);
 
         // call a health change check to see if body has died
         HealthChangeCheck();

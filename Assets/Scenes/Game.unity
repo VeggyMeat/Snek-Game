@@ -759,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.data[19]
-      value: Chamelion
+      value: Chameleon
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.data[20]

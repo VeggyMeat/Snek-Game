@@ -31,7 +31,7 @@ public class Chamelion : Enchanter
 
     internal override void ClassSetup()
     {
-        jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Chamelion.json";
+        jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Chameleon.json";
 
         base.ClassSetup();
     }

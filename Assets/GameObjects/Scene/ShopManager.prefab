@@ -64,7 +64,7 @@ MonoBehaviour:
   - FairyWithAGun
   - Shieldman
   - EnragedBerzerker
-  - Chamelion
+  - Chameleon
   - DiscusMan
   - RamHead
   - Vampire
@@ -82,6 +82,29 @@ MonoBehaviour:
   - ArcaneFlower
   - Swashbuckler
   - Cannoneer
+  possibleInitialBodies:
+  - BowMan
+  - Gambler
+  - Samurai
+  - Swordsman
+  - ClockworkMagician
+  - FireMage
+  - Spectre
+  - Engineer
+  - SorcererProdigy
+  - CeramicAutomaton
+  - Sniper
+  - Prince
+  - FairyWithAGun
+  - EnragedBerzerker
+  - DiscusMan
+  - Shotgunner
+  - Ninja
+  - MagicArcher
+  - Furnace
+  - SpikeLauncher
+  - ForceFieldMage
+  - Swashbuckler
   items:
   - Quiver
   - SteeringWheel
