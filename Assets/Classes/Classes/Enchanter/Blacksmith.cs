@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Blacksmith : Enchanter
+internal class Blacksmith : Enchanter
 {
     private int defenceIncrease;
 

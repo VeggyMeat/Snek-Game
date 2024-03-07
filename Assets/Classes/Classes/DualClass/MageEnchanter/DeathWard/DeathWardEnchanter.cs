@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathWardEnchanter : Enchanter
+internal class DeathWardEnchanter : Enchanter
 {
     private int maxHealthIncrease;
     private float reviveHealthPercentage;

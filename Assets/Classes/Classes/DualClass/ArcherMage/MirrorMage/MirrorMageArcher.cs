@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MirrorMageArcher : Archer
+internal class MirrorMageArcher : Archer
 {
     internal override void ClassSetup()
     {

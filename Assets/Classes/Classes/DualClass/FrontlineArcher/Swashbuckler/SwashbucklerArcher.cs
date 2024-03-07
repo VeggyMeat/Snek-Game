@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwashbucklerArcher : Archer
+internal class SwashbucklerArcher : Archer
 {
     private int perArcherDamageIncrease;
     private int perArcherSpeedIncrease;

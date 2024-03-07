@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RamHead : Class
+internal class RamHead : Class
 {
     private float contactForceMultiplier;
     private float contactDamageMultiplier;

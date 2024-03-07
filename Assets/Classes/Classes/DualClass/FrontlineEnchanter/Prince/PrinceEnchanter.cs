@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrinceEnchanter : Enchanter
+internal class PrinceEnchanter : Enchanter
 {
     private float damageIncrease;
 

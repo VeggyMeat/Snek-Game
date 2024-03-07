@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Bomb : Class
+internal class Bomb : Class
 {
     private float XPChance;
     private int timeDelay;

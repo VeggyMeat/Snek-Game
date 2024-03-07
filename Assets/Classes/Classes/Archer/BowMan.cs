@@ -1,16 +1,26 @@
-using Newtonsoft.Json;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class BowMan : Archer
+// COMPLETE
+
+/// <summary>
+/// The bowman class, a subclass of the archer class
+/// </summary>
+internal class BowMan : Archer
 {
+    /// <summary>
+    /// The number of projectiels launched in each attack
+    /// </summary>
     private int projectileCount;
+
+    /// <summary>
+    /// The number of attacks launched when an enemy is killed by this class
+    /// </summary>
     private int enemyDeathVolleyCount;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Archer/BowMan.json";
@@ -18,6 +28,9 @@ public class BowMan : Archer
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called regularly by the archer based on timeDelay
+    /// </summary>
     internal override void LaunchProjectile()
     {
         // if its dead, then dont launch a projectile
@@ -30,10 +43,14 @@ public class BowMan : Archer
         for (int i = 0; i < projectileCount; i++)
         {
             // creates and sets up a new projectile
-            Projectile.Shoot(projectile, transform.position, UnityEngine.Random.Range(0, 2 * Mathf.PI), projectileVariables.Variables, this, body.DamageMultiplier);
+            Projectile.Shoot(projectile, transform.position, Random.Range(0, 2 * Mathf.PI), projectileVariables.Variables, this, body.DamageMultiplier);
         }
     }
 
+    /// <summary>
+    /// Called when an enemy is killed
+    /// </summary>
+    /// <param name="enemy">The enemy's gameObject</param>
     internal override void EnemyKilled(GameObject enemy)
     {
         base.EnemyKilled(enemy);
@@ -45,6 +62,10 @@ public class BowMan : Archer
         }
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

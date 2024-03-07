@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
 
-public class Pyromaniac : Enchanter
+internal class Pyromaniac : Enchanter
 {
     private int burnDamage;
     private int burnStacks;

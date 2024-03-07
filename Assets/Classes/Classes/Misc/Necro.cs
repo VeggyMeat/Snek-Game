@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Necro : Class
+internal class Necro : Class
 {
     private int maxSummoned;
 

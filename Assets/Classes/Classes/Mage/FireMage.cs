@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class FireMage : Mage
+internal class FireMage : Mage
 {
     private int orbNumber;
     private float rotation;

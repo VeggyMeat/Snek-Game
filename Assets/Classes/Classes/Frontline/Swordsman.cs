@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Swordsman : Frontline
+internal class Swordsman : Frontline
 {
     private float attackRadius;
 

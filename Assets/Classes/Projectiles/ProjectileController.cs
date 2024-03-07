@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+internal class ProjectileController : MonoBehaviour
 {
     protected Class owner;
 
-    public Class Owner
+    internal Class Owner
     {
         get
         {

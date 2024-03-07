@@ -4,6 +4,9 @@ using UnityEditor;
 using UnityEngine;
 using NSubstitute;
 using System.Text;
+using System;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class BodyTests
 {
@@ -56,7 +59,14 @@ public class BodyTests
 
         foreach (string body in bodies)
         {
-            headController.AddBody(body);
+            try
+            {
+                headController.AddBody(body);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Failed to add body {body} to the snake", e);
+            }
         }
     }
 

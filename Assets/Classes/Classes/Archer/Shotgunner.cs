@@ -1,14 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Shotgunner : Archer
+// COMPLETE
+
+/// <summary>
+/// The shotgunner class, a subclass of the archer class
+/// </summary>
+internal class Shotgunner : Archer
 {
+    /// <summary>
+    /// The number of projectiles in each shot
+    /// </summary>
     private int projectileCount;
+
+    /// <summary>
+    /// The angle of spread for the projectiles when shot
+    /// </summary>
     private float spreadAngle;
+
+    /// <summary>
+    /// The range in which the shotgunner can shoot at enemies
+    /// </summary>
     private float range;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Archer/Shotgunner.json";
@@ -16,9 +33,12 @@ public class Shotgunner : Archer
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called regularly by the archer based on timeDelay
+    /// </summary>
     internal override void LaunchProjectile()
     {
-        // gets all the enemies in the range
+        // gets all the game objects in the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, range);
 
         // gets all of the enemies within the range
@@ -47,6 +67,10 @@ public class Shotgunner : Archer
         }
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

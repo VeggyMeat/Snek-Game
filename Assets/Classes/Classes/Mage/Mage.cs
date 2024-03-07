@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Mage : Class
+internal abstract class Mage : Class
 {
     protected float timeDelay;
     protected bool regularAttack;

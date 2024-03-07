@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TheRightHandMan : Class
+internal class TheRightHandMan : Class
 {
     private float headDamageMultiplier;
     private float headSpeedMultiplier;

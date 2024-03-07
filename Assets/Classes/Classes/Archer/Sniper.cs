@@ -1,24 +1,56 @@
 using System;
 using System.Collections.Generic;
-using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
 
-public class Sniper : Archer
+// COMPLETE
+
+/// <summary>
+/// The sniper class, a subclass of the archer class
+/// </summary>
+internal class Sniper : Archer
 {
+    /// <summary>
+    /// The radius in which the sniper scans for enemies to shoot
+    /// </summary>
     private float scanRadius;
+
+    /// <summary>
+    /// The damage the sniper does when hitting an enemy
+    /// </summary>
     private int damage;
 
+
+    /// <summary>
+    /// The time the AOEEffect should stay on screen for
+    /// </summary>
     private float AOEEffectTime;
+
+    /// <summary>
+    /// Whether the AOEEffect should decay in colour over time (true) or not (false)
+    /// </summary>
     private bool AOEEffectDecay;
+
+    /// <summary>
+    /// The initial colour of the AOEEffect
+    /// </summary>
     private Color AOEEffectColour;
+
+    /// <summary>
+    /// The width of the AOEEffect rectangle
+    /// </summary>
     private float AOEEffectWidth;
 
+    /// <summary>
+    /// The height of the AOEEffect rectangle
+    /// </summary>
     private const float AOEEffectHeight = 100;
 
+
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Archer/Sniper.json";
@@ -26,6 +58,9 @@ public class Sniper : Archer
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called regularly by the archer based on timeDelay
+    /// </summary>
     internal override void LaunchProjectile()
     {
         // gets all the objects within the range
@@ -39,11 +74,17 @@ public class Sniper : Archer
             // picks a random enemy
             GameObject enemyObj = enemiesInCircle[Random.Range(0, enemiesInCircle.Length)].gameObject;
 
+
             // draw a tracer line indicating the shot
+            // gets the angle the rectangle is facing
             float angle = Mathf.Rad2Deg * ((Vector2)transform.position).AngleTo((Vector2)enemyObj.transform.position) + 90;
+            
+            // gets the middle position of the AOEEffect rectangle
             Vector2 AOEPosition = new Vector2(transform.position.x + AOEEffectHeight / 2 * (float)Math.Cos(angle * Mathf.Deg2Rad), transform.position.y + AOEEffectHeight / 2 * (float)Math.Sin(angle * Mathf.Deg2Rad));
             
+            // creates the AOEEffect rectangle
             AOEEffect.CreateRectangle(AOEPosition, AOEEffectTime, AOEEffectDecay, AOEEffectColour, angle, AOEEffectHeight, AOEEffectWidth);
+
 
             // gets the vector between the enemy and the sniper
             Vector2 dif = enemyObj.transform.position - transform.position;

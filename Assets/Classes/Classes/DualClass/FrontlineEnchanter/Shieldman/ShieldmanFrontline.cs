@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldmanFrontline : Frontline
+internal class ShieldmanFrontline : Frontline
 {
     internal override void ClassSetup()
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class Furnace : Frontline
+internal class Furnace : Frontline
 {
     private float burnDelay;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcaneFlowerMage : Mage
+internal class ArcaneFlowerMage : Mage
 {
     internal override void ClassSetup()
     {

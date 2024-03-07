@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Engineer : Class
+internal class Engineer : Class
 {
     private float spawnDelay;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MirrorMageMage : Mage
+internal class MirrorMageMage : Mage
 {
     private float speedBuff;
 

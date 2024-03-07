@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiscusMan : Frontline
+internal class DiscusMan : Frontline
 {
     private int maxDiscuses;
     private string discusJson;

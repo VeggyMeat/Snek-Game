@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrinceFrontline : Frontline
+internal class PrinceFrontline : Frontline
 {
     private float attackRadius;
     private float AOEEffectTime;

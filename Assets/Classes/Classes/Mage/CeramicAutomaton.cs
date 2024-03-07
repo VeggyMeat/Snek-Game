@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class CeramicAutomaton : Mage
+internal class CeramicAutomaton : Mage
 {
     private int maxShield;
     private float shieldRegenDelay;

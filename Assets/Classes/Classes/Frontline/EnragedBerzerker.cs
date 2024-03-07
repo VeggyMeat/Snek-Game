@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnragedBerzerker : Frontline
+internal class EnragedBerzerker : Frontline
 {
     private float attackRadius;
 

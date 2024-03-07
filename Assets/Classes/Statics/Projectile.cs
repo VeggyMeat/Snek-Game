@@ -21,7 +21,7 @@ public static class Projectile
     /// <param name="addOwnerVelocity">Whether to add the velocity of the owner or not</param>
     /// <param name="callTrigger">Whether to call TriggerManager's ProjectileShotTrigger that a projectile has been shot or not</param>
     /// <returns>The ProjectileController of the created projectile</returns>
-    public static ProjectileController Shoot(GameObject projectile, Vector3 position, float angle, Dictionary<string, object> jsonVariables, Class controller, float damageMultiplier, bool addOwnerVelocity = true)
+    internal static ProjectileController Shoot(GameObject projectile, Vector3 position, float angle, Dictionary<string, object> jsonVariables, Class controller, float damageMultiplier, bool addOwnerVelocity = true)
     {
         // create the projectile
         GameObject proj = Object.Instantiate(projectile, new Vector3(position.x, position.y, zValue), Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg));

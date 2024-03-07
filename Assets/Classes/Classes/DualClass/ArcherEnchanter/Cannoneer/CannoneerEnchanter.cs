@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannoneerEnchanter : Enchanter
+internal class CannoneerEnchanter : Enchanter
 {
     private float scaleFactor;
     private float damageMultiplier;

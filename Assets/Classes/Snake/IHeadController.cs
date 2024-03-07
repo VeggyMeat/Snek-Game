@@ -1,6 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+// COMPLETE
 
 /// <summary>
 /// The interface for the head controller

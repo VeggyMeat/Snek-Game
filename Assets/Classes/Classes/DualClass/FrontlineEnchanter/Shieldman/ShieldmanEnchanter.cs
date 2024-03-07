@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldmanEnchanter : Enchanter
+internal class ShieldmanEnchanter : Enchanter
 {
     private int healthIncrease;
 

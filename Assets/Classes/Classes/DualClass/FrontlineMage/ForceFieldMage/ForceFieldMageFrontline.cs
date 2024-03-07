@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForceFieldMageFrontline : Frontline
+internal class ForceFieldMageFrontline : Frontline
 {
     private float attackRadius;
 

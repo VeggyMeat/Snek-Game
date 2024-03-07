@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForceFieldMageMage : Mage
+internal class ForceFieldMageMage : Mage
 {
     private float buffHealth;
     private float buffTime;

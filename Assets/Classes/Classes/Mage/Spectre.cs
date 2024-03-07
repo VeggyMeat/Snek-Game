@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class Spectre : Mage
+internal class Spectre : Mage
 {
     private int orbNumber;
 

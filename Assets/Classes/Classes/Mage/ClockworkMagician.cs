@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class ClockworkMagician : Mage
+internal class ClockworkMagician : Mage
 {
     // wont have levels
 

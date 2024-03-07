@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicArcherMage : Mage
+internal class MagicArcherMage : Mage
 {
     private float orbs;
 

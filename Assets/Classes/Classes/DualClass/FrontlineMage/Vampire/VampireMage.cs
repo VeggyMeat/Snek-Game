@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampireMage : Mage
+internal class VampireMage : Mage
 {
     private int healSnakeAmount;
 

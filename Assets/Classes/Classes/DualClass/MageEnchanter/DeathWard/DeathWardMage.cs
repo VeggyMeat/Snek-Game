@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathWardMage : Mage
+internal class DeathWardMage : Mage
 {
     internal override void ClassSetup()
     {

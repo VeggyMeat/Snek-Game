@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeLauncherFrontline : Frontline
+internal class SpikeLauncherFrontline : Frontline
 {
     internal override void ClassSetup()
     {

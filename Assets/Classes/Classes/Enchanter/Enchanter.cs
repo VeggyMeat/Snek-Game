@@ -5,7 +5,7 @@ using System.Xml;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public abstract class Enchanter : Class
+internal abstract class Enchanter : Class
 {
     protected bool buffsAllBodies = false;
 

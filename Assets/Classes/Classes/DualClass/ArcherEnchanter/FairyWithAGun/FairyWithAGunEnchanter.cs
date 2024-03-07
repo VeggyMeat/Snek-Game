@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class FairyWithAGunEnchanter : Enchanter
+internal class FairyWithAGunEnchanter : Enchanter
 {
     private string gunJson;
     private List<Dictionary<string, object>> gunData;

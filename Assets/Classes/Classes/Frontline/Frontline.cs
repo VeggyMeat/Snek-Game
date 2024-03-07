@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-public abstract class Frontline : Class
+internal abstract class Frontline : Class
 {
     protected float attackDelay;
     protected float scanRadius;

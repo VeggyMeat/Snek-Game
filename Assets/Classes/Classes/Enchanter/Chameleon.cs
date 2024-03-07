@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Chamelion : Enchanter
+internal class Chameleon : Enchanter
 {
     readonly List<string> Classes = new List<string>()
     {

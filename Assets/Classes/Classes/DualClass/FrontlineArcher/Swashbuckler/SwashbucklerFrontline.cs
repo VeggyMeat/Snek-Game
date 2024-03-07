@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwashbucklerFrontline : Frontline
+internal class SwashbucklerFrontline : Frontline
 {
     private int perFrontlineDamageIncrease;
     private int perFrontlineAreaIncrease;

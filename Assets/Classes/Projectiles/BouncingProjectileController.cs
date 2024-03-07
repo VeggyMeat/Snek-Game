@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BouncingProjectileController : ProjectileController
+internal class BouncingProjectileController : ProjectileController
 {
     private int bounces;
 

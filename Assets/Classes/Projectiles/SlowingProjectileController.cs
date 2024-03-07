@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowingProjectileController : ProjectileController
+internal class SlowingProjectileController : ProjectileController
 {
     // public so that they can be set manually, maybe update this
     private float enemySlowMultiplier;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampireFrontline : Frontline
+internal class VampireFrontline : Frontline
 {
     internal override void ClassSetup()
     {

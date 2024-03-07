@@ -4,7 +4,7 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Samurai : Frontline
+internal class Samurai : Frontline
 {
     // todo: make the samurai slash show on the screen with some visual effect
 

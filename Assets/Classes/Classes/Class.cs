@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
-public abstract class Class: MonoBehaviour
+// COMPLETE
+
+/// <summary>
+/// The base class for all body class types
+/// </summary>
+internal abstract class Class: MonoBehaviour
 {
     /// <summary>
     /// Whether this is the primary class on a body
@@ -119,9 +121,9 @@ public abstract class Class: MonoBehaviour
     }
 
     /// <summary>
-    /// Overwrites the variables in the json
+    /// Overwrites the class's variables based on the data from the json
     /// </summary>
-    /// <param name="jsonData"></param>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected virtual void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         if (jsonData.ContainsKey("bodyJson"))

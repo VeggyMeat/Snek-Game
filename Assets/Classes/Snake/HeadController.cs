@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 // COMPLETE
@@ -565,8 +567,8 @@ public class HeadController: MonoBehaviour, IHeadController
             case "EnragedBerzerker":
                 bodyContr.classes.Add(body.AddComponent<EnragedBerzerker>());
                 break;
-            case "Chamelion":
-                bodyContr.classes.Add(body.AddComponent<Chamelion>());
+            case "Chameleon":
+                bodyContr.classes.Add(body.AddComponent<Chameleon>());
                 break;
             case "DiscusMan":
                 bodyContr.classes.Add(body.AddComponent<DiscusMan>());
@@ -653,7 +655,7 @@ public class HeadController: MonoBehaviour, IHeadController
     /// Rearranges the bodies of the snake to the order given
     /// </summary>
     /// <param name="order">The new order of the bodies, the first item being the head, the last being the tail</param>
-    /// <exception cref="Exception">Throws an exception if the objects dont match </exception>
+    /// <exception cref="Exception">Throws an exception if the objects don't match</exception>
     public void Rearrange(List<BodyController> order)
     {
         // makes sure there is the right number of objects in the list
@@ -666,9 +668,11 @@ public class HeadController: MonoBehaviour, IHeadController
         List<string> orderNames = new List<string>();
         foreach (BodyController bodyController in order)
         {
-            orderNames.Add(bodyController.name);
+            orderNames.Add(bodyController.Name);
         }
-        if (orderNames != currentBodies)
+
+        // checks if the list of names has the same names as the list of body (but potentially in a different order)
+        if (!orderNames.All(currentBodies.Contains))
         {
             throw new Exception("list passed does not contain the same bodies as the snake");
         }

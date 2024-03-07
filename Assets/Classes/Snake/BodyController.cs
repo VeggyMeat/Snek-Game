@@ -814,6 +814,11 @@ public class BodyController : MonoBehaviour
         // sets the jsonData to the deserialized json in the appropriate format
         jsonData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(text);
 
+        if (jsonData is null)
+        {
+            throw new Exception("jsonData was null");
+        }
+
         // gets the max number of levels from the json
         maxLevel = jsonData.Count;
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Healer : Enchanter
+internal class Healer : Enchanter
 {
     private int timeDelay;
 

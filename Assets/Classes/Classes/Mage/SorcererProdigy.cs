@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SorcererProdigy : Mage
+internal class SorcererProdigy : Mage
 {
     // todo: make it so this cant be buffed (oh god why)
 

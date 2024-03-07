@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Herbologist : Enchanter, IGroundTriggerManager
+internal class Herbologist : Enchanter, IGroundTriggerManager
 {
     private int healingOrbHealAmount;
 
