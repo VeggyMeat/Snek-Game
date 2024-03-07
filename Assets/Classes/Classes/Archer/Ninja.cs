@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
 /// <summary>
 /// The ninja class, a subclass of the archer class
 /// </summary>

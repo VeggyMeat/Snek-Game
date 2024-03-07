@@ -1,24 +1,57 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The herbologist class, a subclass of the enchanter class
+/// </summary>
 internal class Herbologist : Enchanter, IGroundTriggerManager
 {
+    /// <summary>
+    /// The amount of health the healing orb heals
+    /// </summary>
     private int healingOrbHealAmount;
 
+    /// <summary>
+    /// The delay inbetween spawning healing orbs
+    /// </summary>
     private float healingOrbDelay;
+
+    /// <summary>
+    /// The path to the healing orb prefab
+    /// </summary>
     private string healingOrbPath;
 
+    /// <summary>
+    /// The radius in which the healing orb can spawn of the body
+    /// </summary>
     private float healingOrbRadius;
 
+    /// <summary>
+    /// The radius within the body that the healing orb will despawn
+    /// </summary>
     private float healingOrbDespawnRange;
+
+    /// <summary>
+    /// How long the healing orb will last before despawning
+    /// </summary>
     private float healingOrbLifeSpan;
 
 
+    /// <summary>
+    /// Whether the healing orbs are currently being spawned or not
+    /// </summary>
     private bool summoning;
 
+    /// <summary>
+    /// The prefab for the healing orb
+    /// </summary>
     private GameObject healingOrbPrefab;
 
+    /// <summary>
+    /// The position the item (healing orb) judges its distance from
+    /// </summary>
     public Vector2 DespawnPosition
     {
         get
@@ -27,6 +60,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         }
     }
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Herbologist.json";
@@ -34,9 +70,13 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called when the item (healing orb) collides with something
+    /// </summary>
+    /// <returns>Whether the item (healing orb) should destroy itself or not</returns>
     public bool OnCollision(Collider2D collision)
     {
-        // if its not the player ignore it
+        // if its not player tagged ignore it
         if (collision.gameObject.tag != "Player")
         {
             return false;
@@ -65,6 +105,7 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
             currentBody = currentBody.next;
         }
 
+        // if there are bodies to heal
         if (bodies.Count > 0)
         {
             // gets a random body from the list
@@ -77,6 +118,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         return true;
     }
 
+    /// <summary>
+    /// Called when the body is setup
+    /// </summary>
     internal override void Setup()
     {
         base.Setup();
@@ -88,6 +132,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         StartSummoning();
     }
 
+    /// <summary>
+    /// Summons a new healing orb
+    /// </summary>
     private void SummonHealingOrb()
     {
         // gets a random position within the healingOrbRadius of the player's transform
@@ -100,6 +147,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         newHealingOrb.GetComponent<GroundTrigger>().Setup(this, true, healingOrbDespawnRange, healingOrbLifeSpan);
     }
 
+    /// <summary>
+    /// Starts summoning healing orbs
+    /// </summary>
     private void StartSummoning()
     {
         // if already summoning, ignore
@@ -114,6 +164,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         summoning = true;
     }
 
+    /// <summary>
+    /// Stops summoning healing orbs
+    /// </summary>
     private void StopSummoning()
     {
         // if not summoning, ignore
@@ -128,6 +181,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         summoning = false;
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -136,6 +192,9 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         StartSummoning();
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         // stops summoning orbs
@@ -144,6 +203,10 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         base.OnDeath();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
@@ -156,14 +219,20 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         jsonData.Setup(ref healingOrbRadius, nameof(healingOrbRadius));
         jsonData.Setup(ref healingOrbHealAmount, nameof(healingOrbHealAmount));
 
+        // updates the healing orb delay value, reseting the summoning if it changes
         jsonData.SetupAction(ref healingOrbDelay, nameof(healingOrbDelay), StopSummoning, StartSummoning, jsonLoaded);
     }
 
+    /// <summary>
+    /// Called when the attack speed buff is changed
+    /// </summary>
+    /// <param name="amount">The amount changed (either multiplication or amount)</param>
+    /// <param name="multiplicative">Whether the 'amount' is added or multiplied</param>
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
-        // restarts the summoning of orbs
+        // restarts the summoning of the healing orbs
         StopSummoning();
         StartSummoning();
     }

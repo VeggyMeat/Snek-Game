@@ -1,14 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The base class for all enchanter classes
+/// </summary>
 internal abstract class Enchanter : Class
 {
+    /// <summary>
+    /// Whether the enchanter should buff all bodies
+    /// </summary>
     protected bool buffsAllBodies = false;
 
+    /// <summary>
+    /// Called when the body is setup
+    /// </summary>
     internal override void Setup()
     {
         // adds the enchanter class name to the body's classes for identification
@@ -30,12 +38,13 @@ internal abstract class Enchanter : Class
     /// <summary>
     /// Buffs all currently alive bodies
     /// </summary>
-    /// <param name="first">whether to buff itself or not</param>
+    /// <param name="first">Whether to buff itself or not</param>
     protected virtual void BuffAllBodies(bool first)
     {
         // gets the head
         BodyController bodyBuffed = body.snake.Head;
 
+        // goes through each buff and buffs it
         while (bodyBuffed is not null)
         {
             // makes sure the body doesn't get buffed twice initially
@@ -88,7 +97,7 @@ internal abstract class Enchanter : Class
     /// Adds the buff to a GameObject
     /// </summary>
     /// <param name="thing">The GameObject</param>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">Called when the child class does not override</exception>
     protected virtual void AddBuff(GameObject thing)
     {
         throw new NotImplementedException();
@@ -98,7 +107,7 @@ internal abstract class Enchanter : Class
     /// Removes the buff from a GameObject
     /// </summary>
     /// <param name="thing">The GameObject</param>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">Called when the child class does not override</exception>
     protected virtual void RemoveBuff(GameObject thing)
     {
         throw new NotImplementedException();
@@ -142,7 +151,7 @@ internal abstract class Enchanter : Class
     /// Called when a new body is added, if the buffAllBodies is true
     /// </summary>
     /// <param name="newBody">The new body</param>
-    /// <returns></returns>
+    /// <returns>The new body</returns>
     internal BodyController NewBodyTrigger(BodyController newBody)
     {
         // buffs the body
@@ -151,6 +160,10 @@ internal abstract class Enchanter : Class
         return newBody;
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

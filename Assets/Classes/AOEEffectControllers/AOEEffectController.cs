@@ -20,7 +20,7 @@ internal abstract class AOEEffectController : MonoBehaviour
     /// <summary>
     /// The amount of game time (non-paused time) elapsed since the AOEEffect was created
     /// </summary>
-    protected float elapedTime = 0;
+    protected float elapsedTime = 0;
 
     /// <summary>
     /// The starting colour of the AOEEffect
@@ -53,7 +53,7 @@ internal abstract class AOEEffectController : MonoBehaviour
     // Called by unity before the first frame
     private void Start()
     {
-        // sets a countdown clock to destory the object
+        // sets a countdown clock to destroy the object
         Invoke(nameof(Destroy), timeAlive);
     }
 
@@ -77,10 +77,10 @@ internal abstract class AOEEffectController : MonoBehaviour
         if (decay)
         {   
             // adds the time since the last frame to the elapsed time
-            elapedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
 
             // gets the percentage of life lived
-            float lifePercentage = (float)elapedTime / timeAlive;
+            float lifePercentage = (float)elapsedTime / timeAlive;
 
             // gets the new opacity of the AOEEffect
             float newOpacity = (1 - lifePercentage) * startColour.a;

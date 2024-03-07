@@ -118,6 +118,10 @@ internal class Sniper : Archer
         }
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

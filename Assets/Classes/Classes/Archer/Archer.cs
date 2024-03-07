@@ -110,7 +110,7 @@ internal abstract class Archer : Class
     /// <exception cref="Exception">Called when the child class does not override</exception>
     internal virtual void LaunchProjectile()
     {
-        throw new Exception("LaunchProjectile not overriden by child class, yet still called");
+        throw new Exception("LaunchProjectile not overridden by child class, yet still called");
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ internal abstract class Archer : Class
     /// <summary>
     /// Overwrites the class's variables based on the data from the json
     /// </summary>
-    /// <param name="jsonData"></param>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

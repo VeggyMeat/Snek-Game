@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 // COMPLETE
 
 /// <summary>
 /// The controller placed on an empty object that controls the snake
-/// It has an attatched link list of all the bodies in the snake
+/// It has an attached link list of all the bodies in the snake
 /// Manages some general game flow, calling other scripts when necessary to handle the player input
 /// Stores general information about the players run
 /// </summary>

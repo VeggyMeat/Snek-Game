@@ -105,6 +105,7 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         switch (state)
         {
             case ChoiceState.NewBody:
+                /*
                 // if there is no head on the snake, this is the first body so use the possible initial bodies
                 if (gameSetup.HeadController.Head is null)
                 {
@@ -114,7 +115,9 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                 else
                 {
                     options = PickAmount(gameSetup.ShopManager.Bodies, optionsNum);
-                }
+                }*/
+
+                options = new List<string>() { "Ninja", "Pyromaniac", "None" };
                 
                 break;
             case ChoiceState.BodyUpgrade:

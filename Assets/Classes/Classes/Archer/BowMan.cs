@@ -9,7 +9,7 @@ using UnityEngine;
 internal class BowMan : Archer
 {
     /// <summary>
-    /// The number of projectiels launched in each attack
+    /// The number of projectiles launched in each attack
     /// </summary>
     private int projectileCount;
 
@@ -33,7 +33,7 @@ internal class BowMan : Archer
     /// </summary>
     internal override void LaunchProjectile()
     {
-        // if its dead, then dont launch a projectile
+        // if its dead, then don't launch a projectile
         if (body.IsDead)
         {
             return;

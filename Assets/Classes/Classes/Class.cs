@@ -21,7 +21,7 @@ internal abstract class Class: MonoBehaviour
     protected int enemiesKilled = 0;
 
     /// <summary>
-    /// The body this class is attatched to
+    /// The body this class is attached to
     /// </summary>
     internal BodyController body;
 

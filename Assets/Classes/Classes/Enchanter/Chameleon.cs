@@ -1,34 +1,77 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// The chameleon class, a subclass of the enchanter class
+/// </summary>
 internal class Chameleon : Enchanter
 {
+    /// <summary>
+    /// The list of classes that the chameleon can change into
+    /// </summary>
     readonly List<string> Classes = new List<string>()
     {
         "Mage", "Frontline", "Enchanter", "Archer"
     };
 
+    /// <summary>
+    /// The list of different buffs that the chameleon can give
+    /// </summary>
     readonly List<string> Buffs = new List<string>()
     {
         "Attack Speed", "Health", "Defence", "Attack Damage"
     };
 
+    /// <summary>
+    /// The multiplier for the attack speed buff
+    /// </summary>
     private float attackSpeedMultiplier;
+
+    /// <summary>
+    /// The multiplier for the maxHealth of the bodies
+    /// </summary>
     private float healthMultiplier;
+
+    /// <summary>
+    /// The multiplier for the defence of the bodies
+    /// </summary>
     private float defenceMultiplier;
+
+    /// <summary>
+    /// The multiplier for the damage of the bodies
+    /// </summary>
     private float damageMultiplier;
 
+    
+    /// <summary>
+    /// The current buff the chameleon is applying
+    /// </summary>
     private string currentBuff;
+
+    /// <summary>
+    /// The current class the chameleon is applying the buff to
+    /// </summary>
     private string currentClass;
 
+
+    /// <summary>
+    /// The delay in time between buffing
+    /// </summary>
     private float timeDelay;
+
+    /// <summary>
+    /// The length of time the buff lasts
+    /// </summary>
     private float buffLength;
 
+    /// <summary>
+    /// Whether the chameleon keeps changing what it is buffing
+    /// </summary>
     private bool changingType = false;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Chameleon.json";
@@ -36,6 +79,9 @@ internal class Chameleon : Enchanter
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
         base.Setup();
@@ -44,6 +90,10 @@ internal class Chameleon : Enchanter
         StartChangingType();
     }
 
+    /// <summary>
+    /// Adds the buff to the body
+    /// </summary>
+    /// <param name="snakeObj">The GameObject of the body to buff</param>
     protected override void AddBuff(GameObject snakeObj)
     {
         BodyController snakeBody = snakeObj.GetComponent<BodyController>();
@@ -71,7 +121,9 @@ internal class Chameleon : Enchanter
         }
     }
 
-    // irrespective of attack speed buff
+    /// <summary>
+    /// Starts changing the type of the chameleon
+    /// </summary>
     private void StartChangingType()
     {
         // if already changing type, ignore
@@ -81,11 +133,14 @@ internal class Chameleon : Enchanter
         }
 
         // start changing type, and note that it is changing type
-        InvokeRepeating(nameof(ChangeChamelionType), timeDelay, timeDelay);
+        InvokeRepeating(nameof(ChangeChameleonType), timeDelay, timeDelay);
 
         changingType = true;
     }
 
+    /// <summary>
+    /// Stops changing the type of the chameleon
+    /// </summary>
     private void StopChangingType()
     {
         // if not changing type already, ignore
@@ -95,12 +150,15 @@ internal class Chameleon : Enchanter
         }
 
         // stop changing type, and note that it is not changing type
-        CancelInvoke(nameof(ChangeChamelionType));
+        CancelInvoke(nameof(ChangeChameleonType));
 
         changingType = false;
     }
 
-    private void ChangeChamelionType()
+    /// <summary>
+    /// Changes the chameleon's type to a random class and buff
+    /// </summary>
+    private void ChangeChameleonType()
     {
         // gets the next set of buffs
         currentBuff = Buffs.RandomItem();
@@ -110,6 +168,9 @@ internal class Chameleon : Enchanter
         BuffAllBodies();
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -118,6 +179,9 @@ internal class Chameleon : Enchanter
         StopChangingType();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -126,6 +190,10 @@ internal class Chameleon : Enchanter
         StartChangingType();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

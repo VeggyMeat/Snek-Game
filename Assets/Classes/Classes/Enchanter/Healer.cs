@@ -1,14 +1,30 @@
 using System.Collections.Generic;
-using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The healer class, a subclass of the enchanter class
+/// </summary>
 internal class Healer : Enchanter
 {
+    /// <summary>
+    /// Thedelay between each heal
+    /// </summary>
     private int timeDelay;
 
+    /// <summary>
+    /// The amount of health to heal each time
+    /// </summary>
     private int healthIncrease;
 
+    /// <summary>
+    /// Whether the class is currently healing or not
+    /// </summary>
     private bool healing = false;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Enchanter/Healer.json";
@@ -16,6 +32,9 @@ internal class Healer : Enchanter
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
         base.Setup();
@@ -24,6 +43,9 @@ internal class Healer : Enchanter
         StartHealing();
     }
 
+    /// <summary>
+    /// Heals a random ally that does not have maximum health
+    /// </summary>
     private void HealRandomAlly()
     {
         // creates a list of healable bodies
@@ -52,12 +74,19 @@ internal class Healer : Enchanter
         }
     }
 
+    /// <summary>
+    /// Heals a body
+    /// </summary>
+    /// <param name="healBody"></param>
     private void HealAlly(BodyController healBody)
     {
         // increase the body's health by healthIncrease
         healBody.ChangeHealth(healthIncrease);
     }
 
+    /// <summary>
+    /// Starts repeatedly calling the HealRandomAlly method
+    /// </summary>
     private void StartHealing()
     {
         // if already healing, ignore
@@ -72,6 +101,9 @@ internal class Healer : Enchanter
         healing = true;
     }
 
+    /// <summary>
+    /// Stops repeatedly calling the HealRandomAlly method
+    /// </summary>
     private void StopHealing()
     {
         // if not healing already, ignore
@@ -86,6 +118,10 @@ internal class Healer : Enchanter
         healing = false;
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
@@ -94,6 +130,9 @@ internal class Healer : Enchanter
         jsonData.Setup(ref healthIncrease, nameof(healthIncrease));
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -102,6 +141,9 @@ internal class Healer : Enchanter
         StopHealing();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -110,6 +152,11 @@ internal class Healer : Enchanter
         StartHealing();
     }
 
+    /// <summary>
+    /// Called when the attack speed buff is changed
+    /// </summary>
+    /// <param name="amount">The amount changed (either multiplication or amount)</param>
+    /// <param name="multiplicative">Whether the 'amount' is added or multiplied</param>
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
