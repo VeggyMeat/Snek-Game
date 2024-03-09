@@ -1,25 +1,51 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The engineer class, a miscellanious class
+/// </summary>
 internal class Engineer : Class
 {
+    /// <summary>
+    /// The delay between spawning turrets
+    /// </summary>
     private float spawnDelay;
 
+    /// <summary>
+    /// The path to the turret prefab
+    /// </summary>
     private string turretPath;
+
+    /// <summary>
+    /// The path to the turret json
+    /// </summary>
     private string turretJson;
 
+    /// <summary>
+    /// The list of turrets
+    /// </summary>
     internal List<GameObject> turrets;
 
+    /// <summary>
+    /// The prefab for the turret
+    /// </summary>
     private GameObject turret;
 
+    /// <summary>
+    /// The variables for the turret
+    /// </summary>
     private JsonVariable turretVariables;
 
+    /// <summary>
+    /// The z value for the turret to be spawned at
+    /// </summary>
     private const int zValue = 3;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Misc/Engineer.json";
@@ -27,8 +53,12 @@ internal class Engineer : Class
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
+        // indicates that this is a misc class
         body.classNames.Add("Misc");
 
         base.Setup();
@@ -36,6 +66,7 @@ internal class Engineer : Class
         // gets the turret asset ready
         turret = Resources.Load<GameObject>(turretPath);
 
+        // sets up the turret variables
         turretVariables = new JsonVariable(turretJson);
 
         StartTurretRepeating();
@@ -53,19 +84,25 @@ internal class Engineer : Class
         controller.Setup(turretVariables.Variables, this);
     }
 
-    // starts the invoke to spawn turrets
+    /// <summary>
+    /// Starts repeatedly spawning the turrets
+    /// </summary>
     internal void StartTurretRepeating()
     {
         InvokeRepeating(nameof(SummonTurret), spawnDelay / body.attackSpeedBuff.Value, spawnDelay / body.attackSpeedBuff.Value);
     }
 
-    // stops the invoke to spawn turrets
+    /// <summary>
+    /// Stops repeatedly spawning the turrets
+    /// </summary>
     internal void CancelTurretRepeating()
     {
         CancelInvoke(nameof(SummonTurret));
     }
 
-    // when it dies, stop it from spawning turrets
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -73,7 +110,9 @@ internal class Engineer : Class
         CancelTurretRepeating();
     }
 
-    // when its revived, start it spawning turrets again
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -81,7 +120,11 @@ internal class Engineer : Class
         StartTurretRepeating();
     }
 
-    // called when the attack speed buff changes
+    /// <summary>
+    /// Called when the attack speed buff is changed
+    /// </summary>
+    /// <param name="amount">The amount changed (either multiplication or amount)</param>
+    /// <param name="multiplicative">Whether the 'amount' is added or multiplied</param>
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function
@@ -92,33 +135,22 @@ internal class Engineer : Class
         StartTurretRepeating();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref turretJson, "turretJson");
-
-        if (jsonData.ContainsKey("spawnDelay"))
-        {
-            spawnDelay = float.Parse(jsonData["spawnDelay"].ToString());
-
-            if (jsonLoaded)
-            {
-                CancelTurretRepeating();
-                StartTurretRepeating();
-            }
-        }
-        if (jsonData.ContainsKey("turretPath"))
-        {
-            turretPath = jsonData["turretPath"].ToString();
-
-            if (jsonLoaded)
-            {
-                turret = Resources.Load<GameObject>(turretPath);
-            }
-        }
+        jsonData.Setup(ref turretJson, nameof(turretJson));
+        jsonData.SetupAction(ref spawnDelay, nameof(spawnDelay), CancelTurretRepeating, StartTurretRepeating, jsonLoaded);
+        jsonData.Setup(ref turretPath, nameof(turretPath));
     }
 
+    /// <summary>
+    /// Called by the body when it levels up
+    /// </summary>
     internal override void LevelUp()
     {
         base.LevelUp();

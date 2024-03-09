@@ -296,4 +296,102 @@ public class BodyTests
             currentBody = currentBody.next;
         }
     }
+
+    [Test]
+    public void TestAllLevelling()
+    {
+        // all bodies go to level 5, other than ClockworkMagician which does not level
+        GameObject shopManagerObject = Object.Instantiate(ShopManager);
+        IShopManager shopManager = shopManagerObject.GetComponent<ShopManager>();
+
+        List<string> bodyList = new List<string>(shopManager.Bodies);
+
+        foreach (string body in bodyList)
+        {
+            GameObject headObject = Object.Instantiate(HeadController);
+            IHeadController headController = headObject.GetComponent<HeadController>();
+
+            GameObject newShopManagerObject = Object.Instantiate(ShopManager);
+            IShopManager newShopManager = newShopManagerObject.GetComponent<ShopManager>();
+
+            IGameSetup gameSetup = Substitute.For<IGameSetup>();
+            gameSetup.ShopManager.Returns(newShopManager);
+
+            headController.SetGameSetup(gameSetup);
+
+            headController.AddBody(body);
+
+            if (headController.Head.Name == "ClockworkMagician")
+            {
+                try
+                {
+                    headController.Head.LevelUp();
+                    Assert.Fail("ClockworkMagician should not level up");
+                }
+                catch
+                {
+                    // pass
+                }
+            }
+            else
+            {
+                headController.AddBody(body);
+                try
+                {
+                    for (int i = 1; i < 5; i++)
+                    {
+                        Assert.AreEqual(i, headController.Head.Level);
+                        headController.Head.LevelUp();
+                    }
+                    Assert.AreEqual(5, headController.Head.Level);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail($"Failed to level up body {body} \n {e}");
+                }
+            }
+        }
+    }
+
+    [Test]
+    public void TestLargeSnakeLevelling()
+    {
+        GameObject headObject = Object.Instantiate(HeadController);
+        IHeadController headController = headObject.GetComponent<HeadController>();
+
+        GameObject shopManagerObject = Object.Instantiate(ShopManager);
+        IShopManager shopManager = shopManagerObject.GetComponent<ShopManager>();
+
+        IGameSetup gameSetup = Substitute.For<IGameSetup>();
+        gameSetup.ShopManager.Returns(shopManager);
+
+        headController.SetGameSetup(gameSetup);
+
+        List<string> bodies = new List<string>(shopManager.Bodies);
+
+        foreach (string body in bodies)
+        {
+            headController.AddBody(body);
+        }
+
+        for (int i = 1; i < 5; i++)
+        {
+            BodyController currentBody = headController.Head;
+            while (currentBody is not null)
+            {
+                try
+                {
+                    if (currentBody.Name != "ClockworkMagician")
+                    {
+                        currentBody.LevelUp();
+                    }
+                    currentBody = currentBody.next;
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail($"Failed to level up body {currentBody.Name} to level {i + 1} \n {e}");
+                }
+            }
+        }
+    }
 }

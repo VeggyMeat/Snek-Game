@@ -61,8 +61,6 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                     break;
 
                 case ChoiceState.BodyUpgrade:
-                    // levels up a body
-
                     // gets the body
                     BodyController body = gameSetup.HeadController.Head;
                     while (body.Name != options[button])
@@ -73,11 +71,6 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                     // levels up the body
                     body.LevelUp();
 
-                    // if the body is no longer levelable, remove it from the list
-                    if (!body.levelable)
-                    {
-                        gameSetup.ShopManager.RemoveLevelableBody(body.Name);
-                    }
                     break;
 
                 case ChoiceState.Small_Item:

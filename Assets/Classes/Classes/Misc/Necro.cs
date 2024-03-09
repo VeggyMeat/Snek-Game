@@ -1,23 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The necromancer class, a miscellanious class
+/// </summary>
 internal class Necro : Class
 {
+    /// <summary>
+    /// The maximum number of zombies that can be summoned
+    /// </summary>
     private int maxSummoned;
 
+    /// <summary>
+    /// The path for the zombie prefab
+    /// </summary>
     private string zombiePath;
+
+    /// <summary>
+    /// The json for the zombie
+    /// </summary>
     private string zombieJson;
 
-    // currently unused (mostly) should be replaced or utilised in the future
-    internal List<NecromancerZombieController> summonedZombies;
+    /// <summary>
+    /// The number of zombies currently summoned
+    /// </summary>
+    internal int zombieNumber = 0;
 
+    /// <summary>
+    /// The variables for the necro zombies
+    /// </summary>
     private JsonVariable necroZombieVariables;
 
+    /// <summary>
+    /// The zombie prefab
+    /// </summary>
     private GameObject zombie;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Misc/Necro.json";
@@ -25,12 +48,13 @@ internal class Necro : Class
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
+        // indicates that this is a misc class
         body.classNames.Add("Misc");
-
-        // sets up a list of the controlled zombies
-        summonedZombies = new List<NecromancerZombieController>();
 
         // adds this to the enemy death trigger list
         TriggerManager.EnemyDeadTrigger.AddTrigger(EnemyKilledTrigger);
@@ -38,20 +62,21 @@ internal class Necro : Class
         // gets the zombie asset ready
         zombie = Resources.Load<GameObject>(zombiePath);
 
+        // sets up the zombie variables
         necroZombieVariables = new JsonVariable(zombieJson);
 
         base.Setup();
     }
 
-    internal GameObject EnemyKilledTrigger(GameObject enemy)
+    /// <summary>
+    /// Called when an enemy is killed
+    /// </summary>
+    /// <param name="enemy">The enemy that is killed</param>
+    /// <returns>The enemy that is killed</returns>
+    private GameObject EnemyKilledTrigger(GameObject enemy)
     {
-        if (body.IsDead)
-        {
-            return enemy;
-        }
-
         // if there is capacity for another zombie spawn it
-        if (summonedZombies.Count < maxSummoned)
+        if (zombieNumber < maxSummoned)
         {
             SummonZombie(enemy.transform);
         }
@@ -59,7 +84,10 @@ internal class Necro : Class
         return enemy;
     }
 
-    // spawns a new friendly zombie at a certain position
+    /// <summary>
+    /// Spawns a new zombie at the given position
+    /// </summary>
+    /// <param name="position">The position to spawn the zombie</param>
     private void SummonZombie(Transform position)
     {
         // spawns a zombie at the position
@@ -70,15 +98,20 @@ internal class Necro : Class
         controller.Setup(necroZombieVariables.Variables, this, body.DamageMultiplier);
 
         // adds the zombie to the list of controlled zombies
-        summonedZombies.Add(controller);
+        zombieNumber++;
     }
 
-    internal void ZombieDeath(GameObject zombie)
+    /// <summary>
+    /// Called when a zombie dies
+    /// </summary>
+    internal void ZombieDeath()
     {
-        summonedZombies.Remove(zombie.GetComponent<NecromancerZombieController>());
+        zombieNumber--;
     }
 
-    // called when the body is revived from the dead
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -87,7 +120,9 @@ internal class Necro : Class
         TriggerManager.EnemyDeadTrigger.AddTrigger(EnemyKilledTrigger);
     }
 
-    // called when the body dies
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -96,23 +131,22 @@ internal class Necro : Class
         TriggerManager.EnemyDeadTrigger.RemoveTrigger(EnemyKilledTrigger);
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref maxSummoned, "maxSummoned");
-        jsonData.Setup(ref zombieJson, "zombieJson");
-        if (jsonData.ContainsKey("zombiePath"))
-        {
-            zombiePath = (string)jsonData["zombiePath"];
-
-            if (jsonLoaded)
-            {
-                zombie = Resources.Load<GameObject>(zombiePath);
-            }
-        }
+        jsonData.Setup(ref maxSummoned, nameof(maxSummoned));
+        jsonData.Setup(ref zombieJson, nameof(zombieJson));
+        jsonData.Setup(ref zombiePath, nameof(zombiePath));
     }
 
+    /// <summary>
+    /// Called by the body when it levels up
+    /// </summary>
     internal override void LevelUp()
     {        
         base.LevelUp();

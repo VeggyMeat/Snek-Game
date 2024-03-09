@@ -62,7 +62,7 @@ internal class SwashbucklerArcher : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         float archerDamageIncrease = 1 + archerNumber * perArcherDamageIncrease;
         float archerSpeedIncrease = 1 + archerNumber * perArcherSpeedIncrease;

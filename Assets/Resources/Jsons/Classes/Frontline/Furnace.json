@@ -7,6 +7,10 @@
     "regularAttack": true,
     "burnRange": 5,
 
+    "AOEEffectTime": 1.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 0.7, 0.2, 0.2, 0.5 ],
+
     "bodyJson": "Assets/Resources/Jsons/Classes/Frontline/FurnaceBody.json"
   },
 

@@ -37,7 +37,7 @@ internal class Gambler : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         // picks a random size
         float radius = Random.Range(minRadius, maxRadius);

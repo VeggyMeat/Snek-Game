@@ -2,7 +2,7 @@
   {
     "timeDelay": 2.5,
     "regularAttack": true,
-    "buffDelay": 120,
+    "buffDelay": 30,
     "attackSpeedBuff": 1.2,
     "localDamageBuff": 1.25,
     "orbNumber": 1,

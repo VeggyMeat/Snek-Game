@@ -14,7 +14,6 @@ public interface IShopManager
 
     public ChoiceState NextState { get; set; }
     public List<string> LevelableBodies { get; }
-    public void RemoveLevelableBody(string body);
 
     public void SetGameSetup(IGameSetup gameSetup);
     public void OnLevelUp();

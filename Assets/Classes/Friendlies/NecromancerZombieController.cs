@@ -150,7 +150,7 @@ public class NecromancerZombieController : MonoBehaviour
         Destroy(gameObject);
 
         // removes this object from the parent's list
-        parent.ZombieDeath(gameObject);
+        parent.ZombieDeath();
     }
 
 

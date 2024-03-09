@@ -26,7 +26,7 @@ internal class Ninja : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         // creates and sets up a number of projectiles equal to 'projectiles'
         for (int i = 0; i < projectiles; i++)

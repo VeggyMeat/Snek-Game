@@ -36,7 +36,7 @@ internal class Shotgunner : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         // gets all the game objects in the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, range);

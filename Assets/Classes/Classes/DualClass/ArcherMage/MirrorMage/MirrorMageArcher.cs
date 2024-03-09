@@ -34,7 +34,7 @@ internal class MirrorMageArcher : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         Projectile.Shoot(projectile, transform.position, Random.Range(0, Mathf.PI * 2), projectileVariables.Variables, this, body.DamageMultiplier);
     }

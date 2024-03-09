@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -43,7 +42,13 @@ public class BodyController : MonoBehaviour
 
     internal int maxLevel;
 
-    internal bool levelable = true;
+    internal bool Levelable
+    {
+        get
+        {
+            return (level != maxLevel) && !isDead;
+        }
+    }
 
     /// <summary>
     /// Defence value of the body, any incoming damage gets reduced by this
@@ -559,6 +564,10 @@ public class BodyController : MonoBehaviour
     /// </summary>
     private void OnDeath()
     {
+        // updates the health bar
+        health = 0;
+        healthBarController.SetBar(PercentageHealth);
+
         // sets the body to be dead
         isDead = true;
 
@@ -586,6 +595,14 @@ public class BodyController : MonoBehaviour
 
         // body died trigger called
         TriggerManager.BodyDeadTrigger.CallTrigger(this);
+    }
+
+    /// <summary>
+    /// Called to kill the body
+    /// </summary>
+    internal void KillBody()
+    {
+        OnDeath();
     }
 
     /// <summary>
@@ -925,8 +942,15 @@ public class BodyController : MonoBehaviour
     /// <summary>
     /// Called when the body levels up
     /// </summary>
+    /// <exception cref="Exception">Exception thrown when body not levelable</exception>
     internal virtual void LevelUp()
     {
+        // crashes if the body is not levelable and the level data has been loaded already
+        if (!Levelable && jsonLoaded)
+        {
+            throw new Exception("Body is not levelable, yet LevelUp was called");
+        }
+
         // increases the level
         level++;
 
@@ -938,12 +962,6 @@ public class BodyController : MonoBehaviour
 
         // reloads the body's values from the json
         LoadFromJson();
-
-        // if its at max level, indicates it cant level further
-        if (level == maxLevel)
-        {
-            levelable = false;
-        }
 
         // calls the level up trigger
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);

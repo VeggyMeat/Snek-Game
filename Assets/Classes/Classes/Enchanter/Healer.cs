@@ -126,7 +126,7 @@ internal class Healer : Enchanter
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.SetupAction(ref timeDelay, nameof(timeDelay), UnbuffAllBodies, BuffAllBodies, jsonLoaded);
+        jsonData.SetupAction(ref timeDelay, nameof(timeDelay), StopHealing, StartHealing, jsonLoaded);
         jsonData.Setup(ref healthIncrease, nameof(healthIncrease));
     }
 

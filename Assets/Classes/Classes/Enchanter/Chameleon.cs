@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
 /// <summary>
 /// The chameleon class, a subclass of the enchanter class
 /// </summary>

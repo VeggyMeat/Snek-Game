@@ -31,7 +31,7 @@ internal class BowMan : Archer
     /// <summary>
     /// Called regularly by the archer based on timeDelay
     /// </summary>
-    internal override void LaunchProjectile()
+    protected override void LaunchProjectile()
     {
         // if its dead, then don't launch a projectile
         if (body.IsDead)

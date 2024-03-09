@@ -72,19 +72,25 @@ public class ShopManager : MonoBehaviour, IShopManager
 
     private static bool timeActive = true;
 
-    private List<string> levelableBodies = new List<string>();
-
     public List<string> LevelableBodies
     {
         get
         {
-            return levelableBodies;
-        }
-    }
+            List<string> l = new List<string>();
 
-    public void RemoveLevelableBody(string body)
-    {
-        levelableBodies.Remove(body);
+            BodyController body = gameSetup.HeadController.Head;
+            while (body is not null) 
+            { 
+                if (body.Levelable)
+                {
+                    l.Add(body.Name);
+                }
+
+                body = body.next;
+            }
+
+            return l;
+        }
     }
 
     private IGameSetup gameSetup;
@@ -94,25 +100,9 @@ public class ShopManager : MonoBehaviour, IShopManager
         this.gameSetup = gameSetup;
     }
 
-    private void Start()
-    {
-        TriggerManager.BodySpawnTrigger.AddTrigger(OnAddedBody);
-    }
-
     public void OnLevelUp()
     {
         gameSetup.ChoiceManager.StartSet(nextState);
-    }
-
-    private BodyController OnAddedBody(BodyController body)
-    {
-        // if it can be leveled up, add it to the list
-        if (body.levelable)
-        {
-            levelableBodies.Add(body.Name);
-        }
-
-        return null;
     }
 
     public void AfterLevelUp()

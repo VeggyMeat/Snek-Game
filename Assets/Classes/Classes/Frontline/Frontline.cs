@@ -1,30 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The base class for all frontline classes
+/// </summary>
 internal abstract class Frontline : Class
 {
+    /// <summary>
+    /// The time delay between attacks
+    /// </summary>
     protected float attackDelay;
+
+    /// <summary>
+    /// The radius around the body to scan for enemies
+    /// </summary>
     protected float scanRadius;
 
+    /// <summary>
+    /// Whether the class should scan for enemies to attack
+    /// </summary>
     protected bool scanAttack = true;
 
+    /// <summary>
+    /// The damage the class does
+    /// </summary>
     protected int damage;
 
+    /// <summary>
+    /// Whether the class should automatically attack regularly
+    /// </summary>
     protected bool regularAttack;
 
+    /// <summary>
+    /// Whether the class is currently scanning for enemies to attack
+    /// </summary>
     private bool scanning = false;
 
+    /// <summary>
+    /// Called when the body is setup
+    /// </summary>
     internal override void Setup()
     {
+        // adds the frontline class name to the body's classes for identification
         body.classNames.Add(nameof(Frontline));
 
         base.Setup();
 
         if (regularAttack)
         {
-            // starts the repeating scan of enemies to attack
             StartRepeatingScan();
         }
     }
@@ -32,7 +57,7 @@ internal abstract class Frontline : Class
     /// <summary>
     /// Finds an enemy within range of the body then calls attack on it (or just calls attack if scanAttack is false)
     /// </summary>
-    internal void ScanRange()
+    protected void ScanRange()
     {
         // if its not a scan attack, just call the attack function
         if (!scanAttack)
@@ -94,13 +119,16 @@ internal abstract class Frontline : Class
     /// <summary>
     /// Called regularly by Frontline based on timeDelay
     /// </summary>
-    /// <param name="position"></param>
-    /// <exception cref="System.NotImplementedException"></exception>
+    /// <param name="position">The position which should be attacked</param>
+    /// <exception cref="System.NotImplementedException">Called when the child does not override</exception>
     internal virtual void Attack(Vector3 position)
     {
         throw new System.NotImplementedException();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -111,6 +139,9 @@ internal abstract class Frontline : Class
         }
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -121,17 +152,27 @@ internal abstract class Frontline : Class
         }
     }
 
+    /// <summary>
+    /// Called when the attack speed buff is changed
+    /// </summary>
+    /// <param name="amount">The amount changed (either multiplication or amount)</param>
+    /// <param name="multiplicative">Whether the 'amount' is added or multiplied</param>
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         base.OnAttackSpeedBuffUpdate(amount, multiplicative);
 
         if (regularAttack)
         {
+            // restsrts the repeating scan so that the attack delay is updated
             StopRepeatingScan();
             StartRepeatingScan();
         }
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
@@ -139,41 +180,8 @@ internal abstract class Frontline : Class
         jsonData.Setup(ref scanRadius, nameof(scanRadius));
         jsonData.Setup(ref damage, nameof(damage));
         jsonData.Setup(ref scanAttack, nameof(scanAttack));
+        jsonData.Setup(ref regularAttack, nameof(regularAttack));
 
-        if (jsonData.ContainsKey(nameof(attackDelay)))
-        {
-            // sets the attack delay
-            attackDelay = float.Parse(jsonData[nameof(attackDelay)].ToString());
-
-            // resets scanning if json already loaded
-            if (jsonLoaded)
-            {
-                StopRepeatingScan();
-                StartRepeatingScan();
-            }
-        }
-        if (jsonData.ContainsKey(nameof(regularAttack)))
-        {
-            // sets the regular attack variable
-            regularAttack = bool.Parse(jsonData[nameof(regularAttack)].ToString());
-
-            // if the json is already loaded, either stop or start scanning
-            if (jsonLoaded)
-            {
-                if (regularAttack)
-                {
-                    StartRepeatingScan();
-                }
-                else
-                {
-                    StopRepeatingScan();
-                }
-            }
-        }
-    }
-
-    protected void Knockback(GameObject enemy, Vector2 origin)
-    {
-
+        jsonData.SetupAction(ref attackDelay, nameof(attackDelay), StopRepeatingScan, StartRepeatingScan, jsonLoaded);
     }
 }

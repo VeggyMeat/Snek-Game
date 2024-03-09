@@ -1,14 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// COMPLETE
+
+/// <summary>
+/// The bomb class, a miscellanious class
+/// </summary>
 internal class Bomb : Class
 {
+    /// <summary>
+    /// The chance of an enemy dropping XP
+    /// </summary>
     private float XPChance;
+
+    /// <summary>
+    /// The delay between attacks
+    /// </summary>
     private int timeDelay;
+    
+    /// <summary>
+    /// The radius at which the bomb deals damage to enemies
+    /// </summary>
     private int radius;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Misc/Bomb.json";
@@ -16,8 +33,12 @@ internal class Bomb : Class
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
+        // indicates that this is a misc class
         body.classNames.Add("Misc");
 
         base.Setup();
@@ -26,18 +47,25 @@ internal class Bomb : Class
         StartAttacking();
     }
 
-    // starts repeatedly calling the attack function
+    /// <summary>
+    /// Starts repeatedly calling the attack function
+    /// </summary>
     internal void StartAttacking()
     {
         InvokeRepeating(nameof(Attack), timeDelay / body.attackSpeedBuff.Value, timeDelay / body.attackSpeedBuff.Value);
     }
 
-    // stops repeatedly calling the attack function
+    /// <summary>
+    /// Stops repeatedly calling the attack function
+    /// </summary>
     internal void StopAttacking()
     {
         CancelInvoke(nameof(Attack));
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -45,6 +73,9 @@ internal class Bomb : Class
         StopAttacking();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -52,6 +83,10 @@ internal class Bomb : Class
         StartAttacking();
     }
 
+    /// <summary>
+    /// Called when an enemy is killed
+    /// </summary>
+    /// <param name="enemy">The enemy's GameObject</param>
     internal override void EnemyKilled(GameObject enemy)
     {
         // increases the enemy killed count, and the xp count
@@ -64,7 +99,10 @@ internal class Bomb : Class
         }
     }
 
-    internal void Attack()
+    /// <summary>
+    /// Kills all the enemies within the radius
+    /// </summary>
+    private void Attack()
     {
         // gets all the objects within the range of the body
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(transform.position, radius);
@@ -88,7 +126,11 @@ internal class Bomb : Class
         }
     }
 
-    // called when the attack speed buff changes
+    /// <summary>
+    /// Called when the attack speed buff is changed
+    /// </summary>
+    /// <param name="amount">The amount changed (either multiplication or amount)</param>
+    /// <param name="multiplicative">Whether the 'amount' is added or multiplied</param>
     internal override void OnAttackSpeedBuffUpdate(float amount, bool multiplicative)
     {
         // calls the base function
@@ -99,12 +141,16 @@ internal class Bomb : Class
         StartAttacking();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref XPChance, "XPChance");
-        jsonData.Setup(ref timeDelay, "timeDelay");
-        jsonData.Setup(ref radius, "radius");
+        jsonData.Setup(ref XPChance, nameof(XPChance));
+        jsonData.Setup(ref timeDelay, nameof(timeDelay));
+        jsonData.Setup(ref radius, nameof(radius));
     }
 }

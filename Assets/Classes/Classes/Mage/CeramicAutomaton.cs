@@ -1,18 +1,36 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The ceramic automaton class, a subclass of the mage class
+/// </summary>
 internal class CeramicAutomaton : Mage
 {
+    /// <summary>
+    /// The maximum number of shield layers it can have
+    /// </summary>
     private int maxShield;
+
+    /// <summary>
+    /// The time delay between shields regenerating
+    /// </summary>
     private float shieldRegenDelay;
 
+    /// <summary>
+    /// How many shield layers it currently has
+    /// </summary>
     private int shield;
+
+    /// <summary>
+    /// Whether the shield is currently regenerating
+    /// </summary>
     private bool shieldRegenActive = false;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Mage/CeramicAutomaton.json";
@@ -20,6 +38,9 @@ internal class CeramicAutomaton : Mage
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
         // sets the shield number to the maxShield number
@@ -28,6 +49,11 @@ internal class CeramicAutomaton : Mage
         base.Setup();
     }
 
+    /// <summary>
+    /// Called when the body takes damage, before the damage is applied
+    /// </summary>
+    /// <param name="amount">The damage taken</param>
+    /// <returns>Returns the new damage value</returns>
     internal override int OnDamageTaken(int amount)
     {
         // if there is a shield left, it ignores damage
@@ -54,7 +80,9 @@ internal class CeramicAutomaton : Mage
         return base.OnDamageTaken(amount);
     }
 
-    // regens one layer of shield
+    /// <summary>
+    /// Regenerates one layer of shield
+    /// </summary>
     internal void RegenShield()
     {
         // if the shield is not full
@@ -76,7 +104,10 @@ internal class CeramicAutomaton : Mage
         }
     }
 
-    internal override void Attack()
+    /// <summary>
+    /// Called regularly by the mage based on timeDelay
+    /// </summary>
+    protected override void Attack()
     {
         // gets a random angle
         float angle = Random.Range(0, Mathf.PI * 2);
@@ -85,6 +116,9 @@ internal class CeramicAutomaton : Mage
         Projectile.Shoot(orbTemplate, transform.position, angle, orbVariables.Variables, this, body.DamageMultiplier);
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -92,6 +126,9 @@ internal class CeramicAutomaton : Mage
         CancelInvoke(nameof(RegenShield));
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -100,6 +137,10 @@ internal class CeramicAutomaton : Mage
         shield = maxShield;
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

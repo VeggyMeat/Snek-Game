@@ -73,7 +73,7 @@ internal abstract class Archer : Class
     /// <summary>
     /// Runs the LaunchProjectile function every timeDelay seconds
     /// </summary>
-    internal void StartRepeatingProjectile()
+    private void StartRepeatingProjectile()
     {
         // if firing projectiles, ignore, as it is already firing
         if (firingProjectiles)
@@ -90,9 +90,9 @@ internal abstract class Archer : Class
     /// <summary>
     /// Stops the repeating projectile from firing
     /// </summary>
-    internal void StopRepeatingProjectile()
+    private void StopRepeatingProjectile()
     {
-        // if its already not firing projectiles, ignore
+        // if it's already not firing projectiles, ignore
         if (!firingProjectiles)
         {
             return;
@@ -108,7 +108,7 @@ internal abstract class Archer : Class
     /// Called regularly by the archer based on timeDelay
     /// </summary>
     /// <exception cref="Exception">Called when the child class does not override</exception>
-    internal virtual void LaunchProjectile()
+    protected virtual void LaunchProjectile()
     {
         throw new Exception("LaunchProjectile not overridden by child class, yet still called");
     }

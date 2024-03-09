@@ -1,22 +1,62 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The DiscusMan class, a subclass of the frontline class
+/// </summary>
 internal class DiscusMan : Frontline
 {
+    /// <summary>
+    /// The max number of discuses that can be spawned
+    /// </summary>
     private int maxDiscuses;
+
+    /// <summary>
+    /// The json for the discuses
+    /// </summary>
     private string discusJson;
+
+    /// <summary>
+    /// The prefab for the discus gameObject
+    /// </summary>
     private GameObject discusPrefab;
+
+    /// <summary>
+    /// The path to the discus prefab
+    /// </summary>
     private string discusPath;
+
+    /// <summary>
+    /// The variables stored in the discusJson
+    /// </summary>
     private JsonVariable discusVariable;
 
+
+    /// <summary>
+    /// The radius of the orbit of the discuses around the discus man
+    /// </summary>
     private float orbitRadius;
+
+    /// <summary>
+    /// The angular speed at which the discuses orbit
+    /// </summary>
     private float orbitSpeed;
 
+    /// <summary>
+    /// The time delay between discus spawns
+    /// </summary>
     private float discusDelay;
 
+    /// <summary>
+    /// The current list of the discuses
+    /// </summary>
     internal List<Discus> discuses = new List<Discus>();
 
+    /// <summary>
+    /// Called by the body when it levels up
+    /// </summary>
     internal override void LevelUp()
     {
         base.LevelUp();
@@ -34,6 +74,9 @@ internal class DiscusMan : Frontline
         }
     }
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Frontline/DiscusMan.json";
@@ -41,6 +84,9 @@ internal class DiscusMan : Frontline
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
         // sets up discusVariable
@@ -52,11 +98,16 @@ internal class DiscusMan : Frontline
         base.Setup();
     }
 
-    void FixedUpdate()
+    // Called by unity every frame before doing any physics calculations 
+    private void FixedUpdate()
     {
+        // rotates the body
         transform.Rotate(Vector3.forward * orbitSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -65,6 +116,9 @@ internal class DiscusMan : Frontline
         KillAllDiscuses();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -73,6 +127,10 @@ internal class DiscusMan : Frontline
         SpawnDiscus();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
@@ -81,6 +139,8 @@ internal class DiscusMan : Frontline
         jsonData.Setup(ref discusJson, nameof(discusJson));
         jsonData.Setup(ref discusDelay, nameof(discusDelay));
         jsonData.Setup(ref discusPath, nameof(discusPath));
+
+        jsonData.Setup(ref orbitSpeed, nameof(orbitSpeed));
 
         if (jsonData.ContainsKey(nameof(maxDiscuses)))
         {
@@ -100,15 +160,12 @@ internal class DiscusMan : Frontline
             }
         }
 
-        jsonData.SetupAction(ref orbitSpeed, nameof(orbitSpeed), null, SetAngularVelocity, true);
         jsonData.SetupAction(ref orbitRadius, nameof(orbitRadius), null, SetDiscusesPositions, true);
     }
 
-    private void SetAngularVelocity()
-    {
-        gameObject.GetComponent<Rigidbody2D>().angularVelocity = orbitSpeed;
-    }
-
+    /// <summary>
+    /// Kills all the discuses in the list
+    /// </summary>
     private void KillAllDiscuses()
     {
         // goes through each discus and kills it
@@ -120,6 +177,9 @@ internal class DiscusMan : Frontline
         }
     }
 
+    /// <summary>
+    /// Sets the position of all the discuses
+    /// </summary>
     private void SetDiscusesPositions()
     {
         // sets all the discuses to their correct angle
@@ -135,6 +195,9 @@ internal class DiscusMan : Frontline
         }
     }
 
+    /// <summary>
+    /// Spawns a new discus
+    /// </summary>
     private void SpawnDiscus()
     {
         // spawns a new discus
@@ -142,16 +205,18 @@ internal class DiscusMan : Frontline
         Discus discusScript = discus.GetComponent<Discus>();
         discusScript.Setup(ref discusVariable, this);
 
-        // sets the position of all discuses
         SetDiscusesPositions();
 
-        // if more discuses can be spawned
+        // if more discuses can be spawned, then call this function again after the delay
         if (discuses.Count < maxDiscuses)
         {
             Invoke(nameof(SpawnDiscus), discusDelay);
         }
     }
 
+    /// <summary>
+    /// Removes a discus from the list
+    /// </summary>
     private void RemoveDiscus()
     {
         // kills the first discus in the list

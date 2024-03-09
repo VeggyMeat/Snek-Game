@@ -37,7 +37,7 @@ internal class Blacksmith : Enchanter
     }
 
     /// <summary>
-    /// Removes thje buff from the body
+    /// Removes the buff from the body
     /// </summary>
     /// <param name="player">The body to remove the buff from</param>
     protected override void RemoveBuff(GameObject player)

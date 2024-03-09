@@ -39,7 +39,7 @@ internal abstract class Enchanter : Class
     /// Buffs all currently alive bodies
     /// </summary>
     /// <param name="first">Whether to buff itself or not</param>
-    protected virtual void BuffAllBodies(bool first)
+    private void BuffAllBodies(bool first)
     {
         // gets the head
         BodyController bodyBuffed = body.snake.Head;
@@ -70,7 +70,7 @@ internal abstract class Enchanter : Class
     /// <summary>
     /// Buffs all currently alive bodies
     /// </summary>
-    protected virtual void BuffAllBodies()
+    protected void BuffAllBodies()
     {
         BuffAllBodies(false);
     }
@@ -152,7 +152,7 @@ internal abstract class Enchanter : Class
     /// </summary>
     /// <param name="newBody">The new body</param>
     /// <returns>The new body</returns>
-    internal BodyController NewBodyTrigger(BodyController newBody)
+    private BodyController NewBodyTrigger(BodyController newBody)
     {
         // buffs the body
         AddBuff(newBody.gameObject);
@@ -168,7 +168,7 @@ internal abstract class Enchanter : Class
     {
         base.InternalJsonSetup(jsonData);
 
-        // cant be changed after initialisation
+        // cannot be changed after initialisation
         jsonData.Setup(ref buffsAllBodies, nameof(buffsAllBodies));
     }
 }

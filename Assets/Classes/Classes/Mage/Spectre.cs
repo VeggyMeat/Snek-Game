@@ -1,16 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The spectre class, a subclass of the mage class
+/// </summary>
 internal class Spectre : Mage
 {
+    /// <summary>
+    /// The number of orbs to fire each attack
+    /// </summary>
     private int orbNumber;
 
+    /// <summary>
+    /// The multiplier to increase the damage by when dead
+    /// </summary>
     private float damageMult;
+
+    /// <summary>
+    /// The multiplier to increase the attack speed by when dead
+    /// </summary>
     private float speedMult;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Mage/Spectre.json";
@@ -18,7 +33,10 @@ internal class Spectre : Mage
         base.ClassSetup();
     }
 
-    internal override void Attack()
+    /// <summary>
+    /// Called regularly by the mage based on timeDelay
+    /// </summary>
+    protected override void Attack()
     {
         for (int i = 0; i < orbNumber; i++)
         {
@@ -34,6 +52,9 @@ internal class Spectre : Mage
         }
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
@@ -45,6 +66,9 @@ internal class Spectre : Mage
         StartRepeatingAttack();
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         // stops the increased attack speed attack
@@ -56,6 +80,10 @@ internal class Spectre : Mage
         timeDelay *= speedMult;
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

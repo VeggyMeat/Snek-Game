@@ -1,16 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
+/// <summary>
+/// The vampire mage class, a subclass of the mage class
+/// </summary>
 internal class VampireMage : Mage
 {
+    /// <summary>
+    /// The amount of health to heal the snake by
+    /// </summary>
     private int healSnakeAmount;
 
+    /// <summary>
+    /// The amount to heal the vampire by when it sucks life
+    /// </summary>
     private int healVampireAmount;
+
+    /// <summary>
+    /// The amount of damage to do to adjacent bodies when sucking life
+    /// </summary>
     private int damageBodiesAmount;
 
-    private int suckHealthDelay;
+    /// <summary>
+    /// The delay between sucking health when below the limit
+    /// </summary>
+    private float suckHealthDelay;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/DualClass/FrontlineMage/Vampire/VampireMage.json";
@@ -18,6 +35,9 @@ internal class VampireMage : Mage
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
         base.Setup();
@@ -25,26 +45,25 @@ internal class VampireMage : Mage
         StartSuckingLife();
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
 
-        jsonData.Setup(ref healSnakeAmount, "healSnakeAmount");
-        jsonData.Setup(ref healVampireAmount, "healVampireAmount");
-        jsonData.Setup(ref damageBodiesAmount, "damageBodiesAmount");
-
-        if (jsonData.ContainsKey("suckHealthDelay")) 
-        {
-            suckHealthDelay = int.Parse(jsonData["suckHealthDelay"].ToString());
-
-            if (body.Level != 1)
-            {
-                StopSuckingLife();
-                StartSuckingLife();
-            }
-        }
+        jsonData.Setup(ref healSnakeAmount, nameof(healSnakeAmount));
+        jsonData.Setup(ref healVampireAmount, nameof(healVampireAmount));
+        jsonData.Setup(ref damageBodiesAmount, nameof(damageBodiesAmount));
+        jsonData.SetupAction(ref suckHealthDelay, nameof(suckHealthDelay), StopSuckingLife, StartSuckingLife, jsonLoaded);
     }
 
+    /// <summary>
+    /// Called when the body takes damage, before the damage is applied
+    /// </summary>
+    /// <param name="amount">The damage taken</param>
+    /// <returns>Returns the new damage value</returns>
     internal override int OnDamageTaken(int amount)
     {
         // heal the entire body a certain amount of hp
@@ -69,8 +88,12 @@ internal class VampireMage : Mage
         return base.OnDamageTaken(amount);
     }
 
+    /// <summary>
+    /// Called regularly to try suck life from adjacent bodies in the snake
+    /// </summary>
     private void SuckLife()
     {
+        // if the body is less than half health, such health from adjacent bodies
         if (body.health < body.MaxHealth / 2)
         {
             // if there is a snake after
@@ -101,16 +124,25 @@ internal class VampireMage : Mage
         }
     }
 
+    /// <summary>
+    /// Starts regularly calling the suck life method
+    /// </summary>
     private void StartSuckingLife()
     {
         InvokeRepeating(nameof(SuckLife), suckHealthDelay, suckHealthDelay);
     }
 
+    /// <summary>
+    /// Stops regularly calling the suck life method
+    /// </summary>
     private void StopSuckingLife()
     {
         CancelInvoke(nameof(SuckLife));
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
@@ -118,6 +150,9 @@ internal class VampireMage : Mage
         StartSuckingLife();
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();

@@ -1,20 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using System.IO;
 using UnityEngine;
-using static UnityEditor.Progress;
 
+// COMPLETE
+
+/// <summary>
+/// The Swordsman class, a subclass of the frontline class
+/// </summary>
 internal class Swordsman : Frontline
 {
+    /// <summary>
+    /// The radius around the attacked spot to deal damage to enemies
+    /// </summary>
     private float attackRadius;
 
+    /// <summary>
+    /// The time the AOEEffect should stay on screen for
+    /// </summary>
     private float AOEEffectTime;
+
+    /// <summary>
+    /// Whether the AOEEffect should decay in colour over time (true) or not (false)
+    /// </summary>
     private bool AOEEffectDecay;
+
+    /// <summary>
+    /// The initial colour of the AOEEffect
+    /// </summary>
     private Color AOEEffectColour;
 
+
+    /// <summary>
+    /// The force applied to enemies when hit, away from the body
+    /// </summary>
     private float attackForce;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Frontline/Swordsman.json";
@@ -22,6 +44,10 @@ internal class Swordsman : Frontline
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called regularly by Frontline based on timeDelay
+    /// </summary>
+    /// <param name="position">The position which should be attacked</param>
     internal override void Attack(Vector3 position)
     {
         // spawns in the AOEEffect
@@ -50,12 +76,17 @@ internal class Swordsman : Frontline
                 }
                 else
                 {
+                    // adds knockback to the enemy
                     enemyController.selfRigid.AddForce((enemyObj.transform.position - transform.position).normalized * attackForce);
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);

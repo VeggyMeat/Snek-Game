@@ -1,13 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The right hand man class, a miscellanious class
+/// </summary>
 internal class TheRightHandMan : Class
 {
+    /// <summary>
+    /// The damage multiplier for the head
+    /// </summary>
     private float headDamageMultiplier;
+
+    /// <summary>
+    /// The speed multiplier for the head
+    /// </summary>
     private float headSpeedMultiplier;
+
+    /// <summary>
+    /// The attack speed multiplier for the head
+    /// </summary>
     private float headAttackSpeedMultiplier;
 
+    /// <summary>
+    /// Called before the body is set up, to set up the jsons
+    /// </summary>
     internal override void ClassSetup()
     {
         jsonPath = "Assets/Resources/Jsons/Classes/Misc/TheRightHandMan.json";
@@ -15,14 +32,20 @@ internal class TheRightHandMan : Class
         base.ClassSetup();
     }
 
+    /// <summary>
+    /// Called by the body after it has been set up
+    /// </summary>
     internal override void Setup()
     {
+        // indicates that this is a misc class
         body.classNames.Add("Misc");
 
         base.Setup();
 
+        // buffs the head
         BuffHead(0);
 
+        // adds the triggers to buff and debuff the head before and after reorganising the body
         TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
         TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
@@ -53,26 +76,38 @@ internal class TheRightHandMan : Class
         return _;
     }
 
+    /// <summary>
+    /// Called when the body dies
+    /// </summary>
     internal override void OnDeath()
     {
         base.OnDeath();
 
         UnBuffHead(0);
 
+        // removes the triggers
         TriggerManager.PostBodyMoveTrigger.RemoveTrigger(BuffHead);
         TriggerManager.PreBodyMoveTrigger.RemoveTrigger(UnBuffHead);
     }
 
+    /// <summary>
+    /// Called when the body is revived
+    /// </summary>
     internal override void Revived()
     {
         base.Revived();
 
         BuffHead(0);
 
+        // adds the triggers back
         TriggerManager.PostBodyMoveTrigger.AddTrigger(BuffHead);
         TriggerManager.PreBodyMoveTrigger.AddTrigger(UnBuffHead);
     }
 
+    /// <summary>
+    /// Overwrites the class's variables based on the data from the json
+    /// </summary>
+    /// <param name="jsonData">The jsonData to load data off of</param>
     protected override void InternalJsonSetup(Dictionary<string, object> jsonData)
     {
         base.InternalJsonSetup(jsonData);
