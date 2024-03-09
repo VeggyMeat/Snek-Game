@@ -340,7 +340,7 @@ public class BodyController : MonoBehaviour
             c.Setup();
         }
 
-        healthBarController.SetBar(PercentageHealth);
+        HealthChangeCheck();
 
         // makes the body start regenerating
         StartRegenerating();

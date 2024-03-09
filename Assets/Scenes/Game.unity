@@ -639,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 1594572202}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.size
-      value: 36
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: items.Array.data[0]
@@ -824,6 +824,10 @@ PrefabInstance:
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: bodies.Array.data[35]
       value: Cannoneer
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
+      propertyPath: bodies.Array.data[36]
+      value: ArcaneFlower
       objectReference: {fileID: 0}
     - target: {fileID: 2303247332138290822, guid: ae215321f2b456147aadbac68688fc0e, type: 3}
       propertyPath: smallItems.Array.size
