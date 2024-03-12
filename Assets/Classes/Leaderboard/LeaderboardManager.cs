@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +16,8 @@ public class LeaderboardManager : MonoBehaviour
     /// The Text field in which the player can enter the name to search for
     /// </summary>
     [SerializeField] private GameObject namePicker;
+
+    [SerializeField] private DataCanvasController dataCanvas;
 
     /// <summary>
     /// How many rows to be shown on the leaderboard
@@ -242,5 +242,25 @@ public class LeaderboardManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ShowData(int row)
+    {
+        // if the row is out of range, ignore it
+        if (row > CurrentData.Count - 1)
+        {
+            return;
+        }
+
+        dataCanvas.ShowCanvas();
+
+        dataCanvas.LoadData(CurrentData[page * ROWS_PER_PAGE + row].ID);
+
+        gameObject.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        gameObject.SetActive(true);
     }
 }

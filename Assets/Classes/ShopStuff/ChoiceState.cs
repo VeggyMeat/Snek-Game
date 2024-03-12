@@ -5,8 +5,7 @@ using UnityEngine;
 public enum ChoiceState
 {
     NewBody,
-    Small_Item,
-    Powerful_Item,
+    Item,
     BodyUpgrade,
     None
 }

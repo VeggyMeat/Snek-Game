@@ -442,10 +442,28 @@ public class HeadController: MonoBehaviour, IHeadController
             Date = DateTime.Now
         };
 
-        // adds the run to the database
-        DatabaseHandler.AddRun(run);
+        List<BodyInfo> bodyInfos = new List<BodyInfo>();
+        List<ItemInfo> itemInfos = new List<ItemInfo>();
+        
+        // goes through all the bodies and items in the snake and adds them to the list of body information
+        BodyController bodyController = head;
+        while (bodyController != null)
+        {
+            bodyInfos.Add(new BodyInfo { Name = bodyController.Name, Level = bodyController.Level });
 
-        // returns the statistics of the run
+            bodyController = bodyController.next;
+        }
+
+        // goes through all the items added and adds them to the list of item information
+        foreach (Item item in ItemManager.items)
+        {
+            itemInfos.Add(new ItemInfo { Name = item.ItemName, Level = item.Level });
+        }
+
+        // adds the run to the database
+        DatabaseHandler.AddRun(run, itemInfos, bodyInfos);
+
+        // returns the statistics of the run to be displayed
         return new List<string> { name, score.ToString(), ((int)TimeManager.GetElapsedTimeSince(TimeManager.StartTime).TotalSeconds).ToString(), DateTime.Now.ToString() };
     }
 

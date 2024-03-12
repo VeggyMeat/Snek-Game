@@ -23,6 +23,13 @@ public class SelectionManager : CanvasManager, ISelectionManager
         {
             case 0:
                 // new body
+
+                // if no more bodies can be added, ignore the button click
+                if (gameSetup.HeadController.Bodies == 8)
+                {
+                    break;
+                }
+
                 gameSetup.ShopManager.NextState = ChoiceState.NewBody;
                 break;
             case 1:
@@ -30,12 +37,15 @@ public class SelectionManager : CanvasManager, ISelectionManager
                 gameSetup.ShopManager.NextState = ChoiceState.BodyUpgrade;
                 break;
             case 2:
-                // add small item
-                gameSetup.ShopManager.NextState = ChoiceState.Small_Item;
-                break;
-            case 3:
-                // add powerful item
-                gameSetup.ShopManager.NextState = ChoiceState.Powerful_Item;
+                // add item
+
+                // if no more items can be added, ignore the button click
+                if (ItemManager.items.Count == 8)
+                {
+                    break;
+                }
+
+                gameSetup.ShopManager.NextState = ChoiceState.Item;
                 break;
         }
     }

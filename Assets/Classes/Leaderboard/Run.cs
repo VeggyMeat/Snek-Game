@@ -1,14 +1,12 @@
 using SQLite;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 [Table("Runs")]
 public class Run
 {
-    [PrimaryKey, AutoIncrement, Column("id")]
-    public int Id { get; set; }
+    [PrimaryKey, Column("id")]
+    public int ID { get; set; }
 
     [Column("player_name")]
     public string PlayerName { get; set; }

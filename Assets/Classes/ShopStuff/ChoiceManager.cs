@@ -73,13 +73,7 @@ public class ChoiceManager : CanvasManager, IChoiceManager
 
                     break;
 
-                case ChoiceState.Small_Item:
-                    // adds an item
-                    ItemManager.AddItem(options[button]);
-                    break;
-
-                case ChoiceState.Powerful_Item:
-                    // adds a powerful item
+                case ChoiceState.Item:
                     ItemManager.AddItem(options[button]);
                     break;
 
@@ -112,7 +106,7 @@ public class ChoiceManager : CanvasManager, IChoiceManager
             case ChoiceState.BodyUpgrade:
                 options = PickAmount(gameSetup.ShopManager.LevelableBodies, optionsNum);
                 break;
-            case ChoiceState.Powerful_Item:
+            case ChoiceState.Item:
                 options = PickAmount(gameSetup.ShopManager.Items, optionsNum);
                 break;
             case ChoiceState.None:
