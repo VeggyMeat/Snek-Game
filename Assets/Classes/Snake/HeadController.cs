@@ -146,20 +146,18 @@ public class HeadController: MonoBehaviour, IHeadController
     /// <summary>
     /// The total velocities of the snake's bodies
     /// </summary>
-    private float velocity = 0;
-
-    /// <summary>
-    /// The total velocities of the snake's bodies
-    /// </summary>
     internal float Velocity
     {
         get
         {
-            return velocity;
-        }
-        set
-        {
-            velocity = value;
+            if (head)
+            {
+                return head.Velocity / Bodies;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 
@@ -292,6 +290,24 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
+    /// The total number of bodies in the snake
+    /// </summary>
+    public int Bodies
+    {
+        get
+        {
+            if (head is null)
+            {
+                return 0;
+            }
+            else
+            {
+                return head.Bodies();
+            }
+        }
+    }
+
+    /// <summary>
     /// The percentage completion of the current level of the snake (0-1)
     /// </summary>
     public float XPPercentage
@@ -330,7 +346,7 @@ public class HeadController: MonoBehaviour, IHeadController
         xPLevelUp = BaseXPLevelRequirement;
 
         // sets the snake's initial velocity
-        velocityVector = new Vector2(0, velocity);
+        velocityVector = new Vector2(0, Velocity);
         
 
         // calls an initial body selection for the player
@@ -344,7 +360,7 @@ public class HeadController: MonoBehaviour, IHeadController
 
         UpdateTurning();
 
-        if (head) 
+        if (head && AliveBodies > 0) 
         {
             head.Move();
 
@@ -407,7 +423,7 @@ public class HeadController: MonoBehaviour, IHeadController
         }
 
         // sets the new velocity vector based on the new angle
-        velocityVector = new Vector2((float)(velocity * Math.Sin(angle) / AliveBodies), (float)(velocity * Math.Cos(angle) / AliveBodies));
+        velocityVector = new Vector2((float)(Velocity * Math.Sin(angle)), (float)(Velocity * Math.Cos(angle)));
     }
 
     /// <summary>

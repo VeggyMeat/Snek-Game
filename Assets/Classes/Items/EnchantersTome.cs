@@ -1,16 +1,35 @@
-using Newtonsoft.Json.Bson;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnchantersTome : Item
+// COMPLETE
+
+/// <summary>
+/// The enchanter's tome item
+/// </summary>
+internal class EnchantersTome : Item
 {
+    /// <summary>
+    /// The HP multiplier for the snakes' bodies, per enchanter
+    /// </summary>
     private float enchanterHPMultiplier;
+
+    /// <summary>
+    /// The damage multiplier for the snakes' bodies, per enchanter
+    /// </summary>
     private float enchanterDamageMultiplier;
 
+    /// <summary>
+    /// The number of enemies killed
+    /// </summary>
     private float enemiesKilled = 0;
+
+    /// <summary>
+    /// The number of enemies killed needed to level up
+    /// </summary>
     private float enemiesKilledLevelUp;
 
+    /// <summary>
+    /// The multiplicative HP buff for the bodies
+    /// </summary>
     private float HPBuff
     {
         get
@@ -19,6 +38,9 @@ public class EnchantersTome : Item
         }
     }
 
+    /// <summary>
+    /// The multiplicative damage buff for the bodies
+    /// </summary>
     private float DamageBuff
     {
         get
@@ -27,8 +49,15 @@ public class EnchantersTome : Item
         }
     }
 
+    /// <summary>
+    /// The number of enchanters in the body
+    /// </summary>
     private int enchanters = 0;
 
+    /// <summary>
+    /// Sets up the item initially
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/EnchantersTome.json";
@@ -37,7 +66,7 @@ public class EnchantersTome : Item
 
         // counts the number of enchanters
         BodyController bodyController = gameSetup.HeadController.Head;
-        while (bodyController is not null)
+        while (bodyController != null)
         {
             IncreaseEnchanters(bodyController);
 
@@ -52,26 +81,37 @@ public class EnchantersTome : Item
         TriggerManager.BodySpawnTrigger.AddTrigger(IncreaseEnchanters);
         TriggerManager.BodyRevivedTrigger.AddTrigger(IncreaseEnchanters);
         TriggerManager.BodyDeadTrigger.AddTrigger(DecreaseEnchanters);
-
         TriggerManager.BodyKilledTrigger.AddTrigger(OnEnemyKilled);
     }
 
+    /// <summary>
+    /// Buffs a body
+    /// </summary>
+    /// <param name="bodyController">The body to be buffed</param>
+    /// <returns>The body to be buffed</returns>
     private BodyController BuffBody(BodyController bodyController)
     {
-        // adds the buffs to the body
         bodyController.healthBuff.AddBuff(HPBuff, true, null);
         bodyController.damageBuff.AddBuff(DamageBuff, true, null);
 
         return bodyController;
     }
 
+    /// <summary>
+    /// Removes the buff from a body
+    /// </summary>
+    /// <param name="bodyController">The body that the buff should be removed from</param>
     private void UnBuffBody(BodyController bodyController)
     {
-        // removes the buffs from the body
         bodyController.healthBuff.AddBuff(1/HPBuff, true, null);
         bodyController.damageBuff.AddBuff(1/DamageBuff, true, null);
     }
 
+    /// <summary>
+    /// Checks if a body is an enchanter, and if so, increases the number of enchanters in the body
+    /// </summary>
+    /// <param name="bodyController">The body to check</param>
+    /// <returns>The body to check</returns>
     private BodyController IncreaseEnchanters(BodyController bodyController)
     {
         // checks if the body is an enchanter
@@ -88,6 +128,11 @@ public class EnchantersTome : Item
         return bodyController;
     }
 
+    /// <summary>
+    /// Checks if a body is an enchanter, and if so, decreases the number of enchanters in the body
+    /// </summary>
+    /// <param name="bodyController">The body to check</param>
+    /// <returns>The body to check</returns>
     private BodyController DecreaseEnchanters(BodyController bodyController)
     {
         // checks if the body is an enchanter
@@ -104,13 +149,16 @@ public class EnchantersTome : Item
         return bodyController;
     }
 
+    /// <summary>
+    /// Buffs all the bodies in the snake
+    /// </summary>
     private void BuffAllBodies()
     {
         // gets the head of the snake
         BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake buffing it
-        while (bodyController is not null)
+        while (bodyController != null)
         {
             BuffBody(bodyController);
 
@@ -118,13 +166,16 @@ public class EnchantersTome : Item
         }
     }
 
+    /// <summary>
+    /// Removes the buffs from all the bodies in the snake
+    /// </summary>
     private void UnBuffAllBodies()
     {
         // gets the head of the snake
         BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake, removing the buff from it
-        while (bodyController is not null)
+        while (bodyController != null)
         {
             UnBuffBody(bodyController);
 
@@ -132,49 +183,19 @@ public class EnchantersTome : Item
         }
     }
 
-    protected override void JsonSetup()
-    {
-        base.JsonSetup();
-
-        if (jsonVariables.ContainsKey(nameof(enchanterHPMultiplier)))
-        {
-            if (jsonLoaded)
-            {
-                UnBuffAllBodies();
-            }
-
-            enchanterHPMultiplier = float.Parse(jsonVariables[nameof(enchanterHPMultiplier)].ToString());
-
-            if (jsonLoaded)
-            {
-                BuffAllBodies();
-            }
-        }
-
-        if (jsonVariables.ContainsKey(nameof(enchanterDamageMultiplier)))
-        {
-            if (jsonLoaded)
-            {
-                UnBuffAllBodies();
-            }
-
-            enchanterDamageMultiplier = float.Parse(jsonVariables[nameof(enchanterDamageMultiplier)].ToString());
-
-            if (jsonLoaded)
-            {
-                BuffAllBodies();
-            }
-        }
-
-        jsonVariables.Setup(ref enemiesKilledLevelUp, nameof(enemiesKilledLevelUp));
-    }
-
+    /// <summary>
+    /// Called when an enemy is killed, to count the number of enemies killed
+    /// </summary>
+    /// <param name="body">The body that killed an enemy</param>
+    /// <returns>The body that killed an enemy</returns>
     private GameObject OnEnemyKilled(GameObject body)
     {
+        // if the item is buffing
         if (enchanters > 0)
         {
             enemiesKilled++;
-
+            
+            // if the number of enemies killed is enough to level up
             if (enemiesKilled >= enemiesKilledLevelUp)
             {
                 LevelUp();
@@ -184,8 +205,24 @@ public class EnchantersTome : Item
         return body;
     }
 
+    /// <summary>
+    /// Sets up the variables from the jsonVariables data
+    /// </summary>
+    protected override void JsonSetup()
+    {
+        base.JsonSetup();
+
+        jsonVariables.SetupAction(ref enchanterHPMultiplier, nameof(enchanterHPMultiplier), UnBuffAllBodies, BuffAllBodies, jsonLoaded);
+        jsonVariables.SetupAction(ref enchanterDamageMultiplier, nameof(enchanterDamageMultiplier), UnBuffAllBodies, BuffAllBodies, jsonLoaded);
+        jsonVariables.Setup(ref enemiesKilledLevelUp, nameof(enemiesKilledLevelUp));
+    }
+
+    /// <summary>
+    /// Levels up the item
+    /// </summary>
     protected override void LevelUp()
     {
+        // resets the old count of enemies killed
         if (jsonLoaded)
         {
             enemiesKilled -= enemiesKilledLevelUp;

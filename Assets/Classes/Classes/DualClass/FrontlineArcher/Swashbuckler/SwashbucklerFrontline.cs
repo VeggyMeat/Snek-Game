@@ -94,7 +94,7 @@ internal class SwashbucklerFrontline : Frontline
         // initial count for the number of frontlines
         // goes through each body and increases the frontline number if the body has a frontline class
         BodyController bodyController = body.snake.Head;
-        while (bodyController is not null)
+        while (bodyController != null)
         {
             if (bodyController.classNames.Contains(nameof(Frontline)))
             {

@@ -1,22 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The class that manages all the items
+/// </summary>
 public static class ItemManager
 {
+    /// <summary>
+    /// The list of current items
+    /// </summary>
     internal static List<Item> items = new List<Item>();
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     internal static IGameSetup gameSetup;
 
+    /// <summary>
+    /// Sets up the item manager
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     internal static void Setup(IGameSetup gameSetup)
     {
         ItemManager.gameSetup = gameSetup;
     }
 
+    /// <summary>
+    /// Adds a new item
+    /// </summary>
+    /// <param name="itemName">The name of the item to add</param>
+    /// <exception cref="System.Exception">An exception is called if the item name is not one of the items</exception>
     internal static void AddItem(string itemName)
     {
         Item item;
 
+        // grabs the item that matches the name
         switch (itemName)
         {
             case nameof(Quiver):
@@ -60,6 +79,7 @@ public static class ItemManager
             gameSetup.ShopManager.RemoveItem(itemName);
         }
 
+        // sets p the item and adds it to the list
         item.Setup(gameSetup);
         items.Add(item);
     }

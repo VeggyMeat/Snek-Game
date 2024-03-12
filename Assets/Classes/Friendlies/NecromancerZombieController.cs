@@ -1,36 +1,82 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The controller for the necromancer class's zombies
+/// </summary>
 public class NecromancerZombieController : MonoBehaviour
 {
+    /// <summary>
+    /// The speed of the zombie body
+    /// </summary>
     private float speed;
+
+    /// <summary>
+    /// The maximum health of the zombie body
+    /// </summary>
     private float maxHealth;
+
+    /// <summary>
+    /// The damage the zombie body does on contact
+    /// </summary>
     private int contactDamage;
+
+    /// <summary>
+    /// The radius at which the zombie body despawns away from the player
+    /// </summary>
     private int despawnRadius;
-    private float angularVelocity;
+
+    /// <summary>
+    /// The time the zombie body is alive for
+    /// </summary>
     private int timeAlive;
+
+    /// <summary>
+    /// The force at which the zombie body is pushed away from the enemy after contact
+    /// </summary>
     private float contactForce;
 
+    /// <summary>
+    /// The current health of the zombie body
+    /// </summary>
     private float health;
 
-    internal Rigidbody2D selfRigid;
-    internal Necro parent;
+    /// <summary>
+    /// The rigid body of the zombie body
+    /// </summary>
+    private Rigidbody2D selfRigid;
 
+    /// <summary>
+    /// The parent necromancer that created this zombie
+    /// </summary>
+    private Necro parent;
+
+    /// <summary>
+    /// The variables from the json file
+    /// </summary>
     private Dictionary<string, object> jsonVariables;
 
+    /// <summary>
+    /// The target that the zombie is currently locked onto
+    /// </summary>
     private GameObject target = null;
-    private EnemyController targetScript = null;
-    private Transform targetPos = null;
 
-    // Called just after creation, by whatever created the object
+    /// <summary>
+    /// The enemy controller of the target
+    /// </summary>
+    private EnemyController targetScript = null;
+
+    /// <summary>
+    /// Called just after creation, by whatever created the object
+    /// </summary>
+    /// <param name="jsonData">The jsonData for the zombie</param>
+    /// <param name="necro">The necromancer object that spawned this</param>
+    /// <param name="damageMultiplier">The damageMultiplier for the zombie's contact damage</param>
     internal void Setup(Dictionary<string, object> jsonData, Necro necro, float damageMultiplier)
     {
         parent = necro;
-
         jsonVariables = jsonData;
 
         JsonSetup();
@@ -38,6 +84,7 @@ public class NecromancerZombieController : MonoBehaviour
         contactDamage = (int)(damageMultiplier * contactDamage);
     }
 
+    // Called by unity before the first frame
     void Start()
     {
         // sets up the rigid body
@@ -45,13 +92,11 @@ public class NecromancerZombieController : MonoBehaviour
 
         health = maxHealth;
 
-        // sets the body mildly rotating
-        selfRigid.angularVelocity = angularVelocity;
-
         // kills the projectile in timeAlive seconds
         Invoke(nameof(Die), timeAlive);
     }
 
+    // Called by unity every frame before doing any physics calculations
     void FixedUpdate()
     {
         if (target is null)
@@ -71,9 +116,6 @@ public class NecromancerZombieController : MonoBehaviour
                 // if it hits an enemy, targets it
                 if (target.tag == "Enemy")
                 {
-                    // grabs the enemy's transform
-                    targetPos = target.transform;
-
                     // grabs the enemy's script
                     targetScript = target.GetComponent<EnemyController>();
 
@@ -82,6 +124,7 @@ public class NecromancerZombieController : MonoBehaviour
                 }
                 else
                 {
+                    // if it hits anything else, forgets about it
                     target = null;
                 }
             }
@@ -92,15 +135,13 @@ public class NecromancerZombieController : MonoBehaviour
             {
                 // if the target is dead, forget about it
                 target = null;
-                targetPos = null;
                 targetScript = null;
-                selfRigid.angularVelocity = angularVelocity;
                 selfRigid.velocity = Vector3.zero;
                 return;
             }
 
             // gets the Vector of the difference between the player and the enemy
-            Vector2 difference = (Vector2) targetPos.position - selfRigid.position;
+            Vector2 difference = (Vector2) targetScript.transform.position - selfRigid.position;
 
             // if its too far away, despawns
             if (difference.magnitude > despawnRadius)
@@ -113,7 +154,11 @@ public class NecromancerZombieController : MonoBehaviour
         }
     }
 
-    // returns whether the body survives or not
+    /// <summary>
+    /// Called to change the health of the zombie
+    /// </summary>
+    /// <param name="quantity">The quantity to change the health by</param>
+    /// <returns>Whether the body is still alive (true) or is dead (false)</returns>
     internal bool ChangeHealth(int quantity)
     {
         health += quantity;
@@ -143,7 +188,9 @@ public class NecromancerZombieController : MonoBehaviour
         return true;
     }
 
-    // gets called when the enemy is due to die
+    /// <summary>
+    /// Gets called when the enemy is due to die
+    /// </summary>
     internal void Die()
     {
         // deletes this object
@@ -154,9 +201,10 @@ public class NecromancerZombieController : MonoBehaviour
     }
 
 
-    // checks for collision against enemies
+    // Called by unity when the object collides with another object
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // only does something if it hits an enemy
         if (collision.gameObject.tag == "Enemy")
         {
             // get the enemy controller
@@ -180,6 +228,9 @@ public class NecromancerZombieController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets up the values from the json data
+    /// </summary>
     private void JsonSetup()
     {
         // sets up the varibales
@@ -188,7 +239,6 @@ public class NecromancerZombieController : MonoBehaviour
         jsonVariables.Setup(ref contactDamage, nameof(contactDamage));
         jsonVariables.Setup(ref despawnRadius, nameof(despawnRadius));
         jsonVariables.Setup(ref timeAlive, nameof(timeAlive));
-        jsonVariables.Setup(ref angularVelocity, nameof(angularVelocity));
         jsonVariables.Setup(ref contactForce, nameof(contactForce));
     }
 }

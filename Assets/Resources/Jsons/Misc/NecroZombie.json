@@ -5,7 +5,6 @@
     "contactDamage": 20,
     "contactForce": 2000,
     "despawnRadius": 50,
-    "angularVelocity": 360,
     "timeAlive": 15
   },
 

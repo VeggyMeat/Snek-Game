@@ -112,8 +112,8 @@ public static class TriggerManager
     public readonly static BodyTrigger<int> ResumeTimeTrigger = new BodyTrigger<int>();
 
     /// <summary>
-    /// The trigger for when a body is killed,
-    /// The GameObject refers to the body that was killed
+    /// The trigger for when a body kills an enemy
+    /// The GameObject refers to the body that killed the enemy
     /// </summary>
     public readonly static BodyTrigger<GameObject> BodyKilledTrigger = new BodyTrigger<GameObject>();
 }

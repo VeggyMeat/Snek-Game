@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 using Newtonsoft.Json;
 
+// COMPLETE
+
+/// <summary>
+/// The enemy summoner controller, placed on a void game object
+/// Spawns enemies in waves
+/// </summary>
 public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
 {
     /// <summary>
@@ -11,27 +16,40 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
     /// </summary>
     [SerializeField] private List<GameObject> unsortedEnemyPrefabs;
 
+    /// <summary>
+    /// The dictionary of enemy prefabs, sorted by type
+    /// </summary>
     private Dictionary<string, List<GameObject>> enemyPrefabs;
 
     /// <summary>
     /// The delay in seconds between the rounds of enemies spawning
     /// </summary>
-    [SerializeField] private float spawnDelay;
+    private const float spawnDelay = 15f;
 
     /// <summary>
     /// The delay in seconds before the first round of enemies spawn
     /// </summary>
-    [SerializeField] private float firstDelay;
+    private const float firstDelay = 5f;
 
     /// <summary>
     /// The radius of the circle around the player that enemies spawn on
     /// </summary>
-    [SerializeField] private float radius;
+    private const float radius = 20f;
 
+    /// <summary>
+    /// The path to the json file with the enemy waves
+    /// </summary>
     private string jsonPath = "Assets/Resources/Jsons/Enemies/EnemyWaves.json";
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     private IGameSetup gameSetup;
 
+    /// <summary>
+    /// Sets the gameSetup of the snake
+    /// </summary>
+    /// <param name="gameSetup"></param>
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
@@ -42,13 +60,22 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
     /// </summary>
     private int enemiesDead = 0;
 
+    /// <summary>
+    /// The number of enemies that have died
+    /// </summary>
     public int EnemiesDead => enemiesDead;
 
+    /// <summary>
+    /// Called when an enemy dies, to increase the number of enemies dead
+    /// </summary>
     public void EnemyDied()
     {
         enemiesDead++;
     }
 
+    /// <summary>
+    /// The data for the enemies to spawn
+    /// </summary>
     private List<Dictionary<string, int>> enemyData = new List<Dictionary<string, int>>();
 
     /// <summary>
@@ -57,12 +84,38 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
     private int round = 0;
 
     /// <summary>
-    /// TEMPORARY makes the game loop and adds a multiplier to the number of enemies spawned
+    /// The extra multiplier for the number of enemies spawned
     /// </summary>
     private int extra = 1;
 
+    /// <summary>
+    /// The total number of enemies spawned
+    /// </summary>
     private int enemiesSpawned = 0;
 
+    /// <summary>
+    /// The health multiplier for the enemies
+    /// </summary>
+    private int HealthMultiplier
+    {
+        get
+        {
+            return (int)Mathf.Pow(2f, extra - 1);
+        }
+    }
+
+    /// <summary>
+    /// The damage multiplier for the enemies
+    /// </summary>
+    private int DamageMultiplier
+    {
+        get
+        {
+            return (int)Mathf.Pow(2f, extra - 1);
+        }
+    }
+
+    // Called by unity before the first frame
     private void Start()
     {
         // gets enemyData from the json file
@@ -96,6 +149,9 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
         }
     }
 
+    /// <summary>
+    /// Spawns the next round of enemies
+    /// </summary>
     private void RoundSpawn()
     {
         // if the round is greater than the number of rounds, add one to the multiplier and reset the round
@@ -119,7 +175,11 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
         round++;
     }
     
-    // spawns a number of enemies in random locations
+    /// <summary>
+    /// Spawns a number of enemies in random locations
+    /// </summary>
+    /// <param name="enemyPrefab">The enemy prefab to spawn</param>
+    /// <param name="number">The number of enemies to spawn</param>
     private void SpawnEnemies(GameObject enemyPrefab, int number)
     {
         for (int i = 0; i < number; i++)
@@ -135,7 +195,11 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
 
             // sets up the enemy
             EnemyController newEnemy = enemy.GetComponent<EnemyController>();
-            newEnemy.Setup(this, enemiesSpawned);
+            newEnemy.Setup(this);
+
+            // adds the damage and health buffs to the enemy
+            newEnemy.damageBuff.AddBuff(DamageMultiplier, true, null);
+            newEnemy.healthBuff.AddBuff(HealthMultiplier, true, null);
 
             // increases the number of enmies spawned
             enemiesSpawned++;
@@ -145,7 +209,7 @@ public class EnemySummonerController : MonoBehaviour, IEnemySummonerController
     /// <summary>
     /// Called by enemies when the enemy despawns
     /// </summary>
-    /// <param name="enemy">The enemy that despawned</param>
+    /// <param name="enemyController">The enemy that despawned</param>
     public void EnemyDespawned(EnemyController enemyController)
     {
         // spawns an enemy to replace it

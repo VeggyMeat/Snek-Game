@@ -1,14 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The controller for the enemy gameObject
+/// </summary>
 public class EnemyController : MonoBehaviour
 {   
+    /// <summary>
+    /// The speed of the enemy before buffs
+    /// </summary>
     [SerializeField] private float speed;
 
+    /// <summary>
+    /// The speed of the enemy after buffs
+    /// </summary>
     public float Speed
     {
         get
@@ -17,12 +25,34 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The rate at which the enemy spins
+    /// </summary>
     [SerializeField] private float angularVelocity;
+
+    /// <summary>
+    ///  The maxHealth of the enemy before buffs
+    /// </summary>
     [SerializeField] private int maxHealth;
 
-    [SerializeField] private float healthBarScaleX = 1;
-    [SerializeField] private float healthBarScaleY = 1;
+    /// <summary>
+    /// The X value scaling of the health bar for the enemies
+    /// </summary>
+    private const float healthBarScaleX = 0.2f;
+
+    /// <summary>
+    /// The Y value scaling of the health bar for the enemies
+    /// </summary>
+    private const float healthBarScaleY = 0.2f;
+
+    /// <summary>
+    /// The prefab for the health bar game object
+    /// </summary>
     [SerializeField] private GameObject healthBarPrefab;
+
+    /// <summary>
+    /// The health bar of the enemy
+    /// </summary>
     private HealthBarController healthBar;
 
     /// <summary>
@@ -36,6 +66,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The damage dealt to a body when it touches the enemy
+    /// </summary>
     [SerializeField] private int contactDamage;
 
     /// <summary>
@@ -49,6 +82,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The amount of XP given to the player when killed
+    /// </summary>
     [SerializeField] private int xPDrop;
 
     /// <summary>
@@ -62,13 +98,23 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The radius at which the enemy despawns
+    /// </summary>
     [SerializeField] private int despawnRadius;
-    [SerializeField] private int contactForce;
+
+    /// <summary>
+    /// Whether the enemy walks directly towards the player or not
+    /// </summary>
     [SerializeField] private bool walkTowards;
+
+    /// <summary>
+    /// The type of enemy (small, medium, large, special) that this enemy is
+    /// </summary>
     [SerializeField] private string enemyType;
 
     /// <summary>
-    /// The type of enemy (small, medium, large, special) that this enemy is (should be changed)
+    /// The type of enemy (small, medium, large, special) that this enemy is
     /// </summary>
     public string EnemyType
     {
@@ -78,6 +124,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The remaining health of the enemy
+    /// </summary>
     private int health;
 
     /// <summary>
@@ -91,6 +140,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Whether the enemy is dead or not
+    /// </summary>
     private bool dead = false;
 
     /// <summary>
@@ -118,19 +170,6 @@ public class EnemyController : MonoBehaviour
     /// The body the enemy is targetting
     /// </summary>
     private Transform player;
-
-    private int id;
-
-    /// <summary>
-    /// The unique ID of the enemy
-    /// </summary>
-    public int ID
-    {
-        get
-        {
-            return id;
-        }
-    }
 
     private int extraLives = 0;
 
@@ -186,13 +225,10 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     /// <param name="summoner">The summoner that spawned this enemy</param>
     /// <param name="id">The unique id for this enemy</param>
-    internal virtual void Setup(EnemySummonerController summoner, int id)
+    internal virtual void Setup(EnemySummonerController summoner)
     {
         // sets up the summoner
         this.summoner = summoner;
-
-        // sets up the id of the enemy
-        this.id = id;
 
         // sets up the rigid body and the player location
         selfRigid = GetComponent<Rigidbody2D>();
@@ -226,6 +262,7 @@ public class EnemyController : MonoBehaviour
         invulnerabilityBuff.Setup(null, 1f);
     }
 
+    // Called by unity every frame before doing any physics calculations
     void FixedUpdate()
     {
         if (walkTowards)
@@ -270,6 +307,7 @@ public class EnemyController : MonoBehaviour
 
         if (!ignoreTrigger)
         {
+            // if its alive and its lost health
             if (alive && quantity < 0)
             {
                 // call the enemy lost health trigger
@@ -313,6 +351,7 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject, 0.1f);
     }
 
+    // Called by unity when the object collides with another object
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // checks for collision against player

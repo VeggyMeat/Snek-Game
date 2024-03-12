@@ -1,5 +1,10 @@
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The interface for any object that spawns and manages ground triggers
+/// </summary>
 public interface IGroundTriggerManager
 {
     /// <summary>
@@ -16,6 +21,9 @@ public interface IGroundTriggerManager
         return false;
     }
 
+    /// <summary>
+    /// Called when the item is despawned
+    /// </summary>
     public void OnDespawn()
     {
 

@@ -59,6 +59,11 @@ public interface IHeadController
     public int AliveBodies { get; }
 
     /// <summary>
+    /// The total number of bodies in the snake
+    /// </summary>
+    public int Bodies { get; }
+
+    /// <summary>
     /// The percentage completion of the current level of the snake (0-1)
     /// </summary>
     public float XPPercentage { get; }

@@ -1,24 +1,58 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 
-public abstract class Item
+// COMPLETE
+
+/// <summary>
+/// The base class for all items
+/// </summary>
+internal abstract class Item
 {
+    /// <summary>
+    /// The name of the item
+    /// </summary>
     protected string itemName;
+
+    /// <summary>
+    /// The description of the item
+    /// </summary>
     protected string itemDescription;
 
+    /// <summary>
+    /// The path to the json file for the item
+    /// </summary>
     protected string jsonPath;
+
+    /// <summary>
+    /// The json data for the item
+    /// </summary>
     protected List<Dictionary<string, object>> jsonData;
+
+    /// <summary>
+    /// The current variables for this level of the item
+    /// </summary>
     protected Dictionary<string, object> jsonVariables;
 
+    /// <summary>
+    /// Whether the json has been loaded or not
+    /// </summary>
     protected bool jsonLoaded = false;
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     protected IGameSetup gameSetup;
 
+    /// <summary>
+    /// The current level of the item
+    /// </summary>
     protected int level = 0;
+
+    /// <summary>
+    /// The maximum level of the item
+    /// </summary>
     protected int maxLevel;
 
     /// <summary>
@@ -44,6 +78,7 @@ public abstract class Item
     /// <summary>
     /// Sets up the item initially
     /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     internal virtual void Setup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
@@ -82,6 +117,11 @@ public abstract class Item
     {
         // increases the level
         level++;
+
+        if (level > maxLevel)
+        {
+            throw new Exception("Item tried to level up when it was already max level");
+        }
 
         // loads in the jsonVariables from the jsonData
         jsonVariables = jsonData[level - 1];

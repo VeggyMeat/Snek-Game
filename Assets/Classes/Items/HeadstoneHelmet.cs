@@ -1,101 +1,128 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// COMPLETE
 
-public class HeadstoneHelmet : Item
+/// <summary>
+/// The headstone helmet item
+/// </summary>
+internal class HeadstoneHelmet : Item
 {
+    /// <summary>
+    /// The health buff to give the head, per dead body
+    /// </summary>
     private float healthPercentagePerBody;
 
-    private int deadBodies = 0;
+    /// <summary>
+    /// The multiplicative health buff for the head
+    /// </summary>
+    private float HealthBuff
+    {
+        get
+        {
+            return 1 + healthPercentagePerBody * DeadBodies;
+        }
+    }
 
-    protected int bodiesDeadCount = 0;
+    /// <summary>
+    /// The number of dead bodies
+    /// </summary>
+    private int DeadBodies
+    {
+        get
+        {
+            return gameSetup.HeadController.Bodies - gameSetup.HeadController.AliveBodies;
+        }
+    }
+
+    /// <summary>
+    /// The number of bodies that have died or been revived
+    /// </summary>
+    protected int bodiesDiedOrRevivedCount = 0;
+
+    /// <summary>
+    /// The number of bodies that have died or been revived needed to level up
+    /// </summary>
     protected int bodiesDeadLevelUp;
 
+    /// <summary>
+    /// The previous buffed multiplier used
+    /// </summary>
+    private float previousBuff = 1;
+
+    /// <summary>
+    /// Sets up the item initially
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     internal override void Setup(IGameSetup gameSetup)
     {
         jsonPath = "Assets/Resources/Jsons/Items/HeadstoneHelmet.json";
 
         base.Setup(gameSetup);
 
-        // counts the number of dead bodies
-        BodyController currentBody = gameSetup.HeadController.Head;
-        while (currentBody is not null)
-        {
-            if (currentBody.IsDead)
-            {
-                deadBodies++;
-            }
-
-            currentBody = currentBody.next;
-        }
-
         AddBuff();
 
-        TriggerManager.BodyDeadTrigger.AddTrigger(Increase);
-        TriggerManager.BodyRevivedTrigger.AddTrigger(Decrease);
+        TriggerManager.BodyDeadTrigger.AddTrigger(Reset);
+        TriggerManager.BodyRevivedTrigger.AddTrigger(Reset);
     }
 
-    private BodyController Increase(BodyController bodyController)
+    /// <summary>
+    /// Called when a body dies or revives, resets the buff with the new number of bodies
+    /// </summary>
+    /// <param name="body">The body that died or revived</param>
+    /// <returns>The body that died or revived</returns>
+    private BodyController Reset(BodyController body)
     {
         RemoveBuff();
-
-        deadBodies++;
-        bodiesDeadCount++;
-
         AddBuff();
 
-        if (bodiesDeadCount >= bodiesDeadLevelUp && Levelable)
+        return body;
+    }
+
+    /// <summary>
+    /// Buffs the head
+    /// </summary>
+    private void AddBuff()
+    {
+        gameSetup.HeadController.Head.healthBuff.AddBuff(HealthBuff, true, null);
+        previousBuff = HealthBuff;
+
+        bodiesDiedOrRevivedCount++;
+
+        // levels up the item if necessary
+        if (bodiesDiedOrRevivedCount >= bodiesDeadLevelUp && Levelable)
         {
             LevelUp();
         }
-
-        return bodyController;
     }
 
-    private BodyController Decrease(BodyController bodyController)
-    {
-        RemoveBuff();
-
-        deadBodies--;
-
-        AddBuff();
-
-        return bodyController;
-    }
-
-    private void AddBuff()
-    {
-        gameSetup.HeadController.Head.healthBuff.AddBuff(1 + healthPercentagePerBody * deadBodies, true, null);
-    }
-
+    /// <summary>
+    /// Removes the buff from the head
+    /// </summary>
     private void RemoveBuff()
     {
-        gameSetup.HeadController.Head.healthBuff.AddBuff(1 / (1 + healthPercentagePerBody * deadBodies), true, null);
+        gameSetup.HeadController.Head.healthBuff.AddBuff(1 / previousBuff, true, null);
     }
 
+    /// <summary>
+    /// Sets up the variables from the jsonVariables data
+    /// </summary>
     protected override void JsonSetup()
     {
         base.JsonSetup();
 
-        if (jsonVariables.ContainsKey(nameof(healthPercentagePerBody)))
-        {
-            RemoveBuff();
-
-            healthPercentagePerBody = float.Parse(jsonVariables[nameof(healthPercentagePerBody)].ToString());
-
-            AddBuff();
-        }
-
+        jsonVariables.SetupAction(ref healthPercentagePerBody, nameof(healthPercentagePerBody), RemoveBuff, AddBuff, true);
         jsonVariables.Setup(ref bodiesDeadLevelUp, nameof(bodiesDeadLevelUp));
     }
 
+    /// <summary>
+    /// Levels up the item
+    /// </summary>
     protected override void LevelUp()
     {
+        // resets the old count of bodies died or revived
+        bodiesDiedOrRevivedCount -= bodiesDeadLevelUp;
+
         if (jsonLoaded)
         {
             base.LevelUp();
         }
-
-        bodiesDeadCount = 0;
     }
 }

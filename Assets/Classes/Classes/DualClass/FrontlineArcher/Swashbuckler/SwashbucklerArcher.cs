@@ -43,7 +43,7 @@ internal class SwashbucklerArcher : Archer
         // initial count for the number of archers
         // goes through each body and counts the number of archers
         BodyController bodyController = body.snake.Head;
-        while (bodyController is not null) 
+        while (bodyController != null) 
         {
             if (bodyController.classNames.Contains(nameof(Archer)))
             {

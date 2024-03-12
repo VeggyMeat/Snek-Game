@@ -72,7 +72,7 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         BodyController bodyController = gameSetup.HeadController.Head;
 
         // goes through each body in the snake
-        while (bodyController is not null)
+        while (bodyController != null)
         {
             // creates a new body object
             GameObject bodyObject = Instantiate(body);

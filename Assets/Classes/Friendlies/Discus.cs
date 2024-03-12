@@ -1,16 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The discus controller that is on the discus game objects
+/// </summary>
 public class Discus : MonoBehaviour
 {
+    /// <summary>
+    /// The JsonVariable that holds the variables for the discus
+    /// </summary>
     private JsonVariable jsonVariables;
 
+    /// <summary>
+    /// The damage the discus does on contact
+    /// </summary>
     private int contactDamage;
+
+    /// <summary>
+    /// The force the discus applies on contact
+    /// </summary>
     private float contactForce;
 
+    /// <summary>
+    /// The parent DiscusMan that manages the discus
+    /// </summary>
     private DiscusMan parent;
 
+    /// <summary>
+    /// Called when the discus is created by discusMan
+    /// </summary>
+    /// <param name="variables">The variables for the discus</param>
+    /// <param name="parent">The discus man that threw this discus</param>
     internal void Setup(ref JsonVariable variables, DiscusMan parent)
     {
         // sets the variables up
@@ -29,6 +50,7 @@ public class Discus : MonoBehaviour
     /// </summary>
     internal void OnLevelUp()
     {
+        jsonVariables.IncreaseIndex();
         LoadVariables();
     }
 
@@ -44,6 +66,7 @@ public class Discus : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Called by Unity when the discus collides with something
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // checks if the collision is an enemy
@@ -63,6 +86,9 @@ public class Discus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads the variables from the JsonVariable
+    /// </summary>
     private void LoadVariables()
     {
         jsonVariables.Variables.Setup(ref contactDamage, "contactDamage");

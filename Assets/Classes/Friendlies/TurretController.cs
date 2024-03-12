@@ -1,34 +1,66 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The controller for the turret game objects
+/// </summary>
 public class TurretController : MonoBehaviour
 {
+    /// <summary>
+    /// The parent engineer that created this turret
+    /// </summary>
     private Engineer parent;
 
+    /// <summary>
+    /// The lifespan of the turret
+    /// </summary>
     private float lifeSpan;
 
+    /// <summary>
+    /// The path to the bullet json file
+    /// </summary>
     private string bulletJson;
+
+    /// <summary>
+    /// The path to the bullet prefab
+    /// </summary>
     private string bulletPath;
 
+    /// <summary>
+    /// The angular velocity of the turret
+    /// </summary>
     private float angularVelocity;
 
+    /// <summary>
+    /// The time delay between the turret attacking
+    /// </summary>
     private float timeDelay;
 
+    /// <summary>
+    /// The prefab of the bullet game object
+    /// </summary>
     private GameObject bulletTemplate;
 
+    /// <summary>
+    /// The data for the turret
+    /// </summary>
     private Dictionary<string, object> variables;
 
+    /// <summary>
+    /// The variables for the bullet
+    /// </summary>
     private JsonVariable bulletVariables;
 
+    /// <summary>
+    /// Called by the parent engineer to set up the turret
+    /// </summary>
+    /// <param name="variables">The data for the turret</param>
+    /// <param name="parent">The engineer that created it</param>
     internal void Setup(Dictionary<string, object> variables, Engineer parent)
     {
-        // sets the engineer as the owner
         this.parent = parent;
-
-        // loads in all the variables from the json
         this.variables = variables;
         LoadVariables();
 
@@ -48,7 +80,10 @@ public class TurretController : MonoBehaviour
         Invoke(nameof(Die), lifeSpan);
     }
 
-    internal void FireBullet()
+    /// <summary>
+    /// Fires a bullet in a random direction
+    /// </summary>
+    private void FireBullet()
     {
         // gets a random angle
         float angle = Random.value * 360;
@@ -64,20 +99,27 @@ public class TurretController : MonoBehaviour
         controller.Setup(bulletVariables.Variables, this, parent.body.DamageMultiplier);
     }
 
-    // called when a bullet kills an enemy
+    /// <summary>
+    /// Called when a bullet kills an enemy
+    /// </summary>
+    /// <param name="enemy"></param>
     internal void EnemyKilled(GameObject enemy)
     {
         parent.EnemyKilled(enemy);
     }
 
-    // kills the gameObject
-    internal void Die()
+    /// <summary>
+    /// Destroys the turret
+    /// </summary>
+    private void Die()
     {
         Destroy(gameObject);
     }
 
-    // loads in the variables from those given by the parent object
-    internal void LoadVariables()
+    /// <summary>
+    /// Loads in the variables from those given by the parent object
+    /// </summary>
+    private void LoadVariables()
     {
         variables.Setup(ref lifeSpan, "lifeSpan");
         variables.Setup(ref bulletJson, "bulletJson");

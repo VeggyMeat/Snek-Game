@@ -94,10 +94,8 @@ public class BodyController : MonoBehaviour
         }
         set
         {
-            float oldValue = VelocityContribution;
             velocityContribution = value;
             speedBuff.UpdateOriginalValue(value);
-            UpdateVelocityContribution(oldValue);
         }
     }
 
@@ -296,6 +294,35 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    public float Velocity
+    {
+        get
+        {
+            if (IsDead)
+            {
+                if (next is null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return next.Velocity;
+                }
+            }
+            else
+            {
+                if (next is null)
+                {
+                    return VelocityContribution;
+                }
+                else
+                {
+                    return VelocityContribution + next.Velocity;
+                }
+            }
+        }
+    }
+
     private HealthBarController healthBarController;
 
     // sets up variables
@@ -311,8 +338,6 @@ public class BodyController : MonoBehaviour
         // loads in the data from json
         LevelUp();
 
-        // updates the total mass of the snake
-        snake.Velocity += velocityContribution;
         health = maxHealth;
 
         // sets the color of the object
@@ -323,7 +348,7 @@ public class BodyController : MonoBehaviour
         healthBuff.Setup(HealthBuffUpdate, maxHealth);
 
         speedBuff = gameObject.AddComponent<Buff>();
-        speedBuff.Setup(SpeedBuffUpdate, velocityContribution);
+        speedBuff.Setup(null, velocityContribution);
 
         damageBuff = gameObject.AddComponent<Buff>();
         damageBuff.Setup(null, 1f);
@@ -476,6 +501,18 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    internal int Bodies()
+    {
+        if (next is null)
+        {
+            return 1;
+        }
+        else
+        {
+            return 1 + next.Bodies();
+        }
+    }
+
     /// <summary>
     /// Gives the position of the tail of the snake
     /// </summary>
@@ -571,9 +608,6 @@ public class BodyController : MonoBehaviour
         // sets the body to be dead
         isDead = true;
 
-        // reverts the original additions from the body
-        snake.Velocity -= VelocityContribution;
-
         // changes the tag so enemies wont interact with it
         gameObject.tag = "Dead";
 
@@ -612,9 +646,6 @@ public class BodyController : MonoBehaviour
     {
         // sets the body to be alive again
         isDead = false;
-
-        // updates the total mass of the snake
-        snake.Velocity += VelocityContribution;
 
         health = MaxHealth;
         healthBarController.SetBar(PercentageHealth);
@@ -662,9 +693,6 @@ public class BodyController : MonoBehaviour
             // if it is the head, makes sure the snake's head is updated on the snake script
             snake.SetHead(next);
         }
-
-        // reverts the original additions from the body
-        snake.Velocity -= VelocityContribution;
 
         // destroys this body
         Destroy(gameObject);
@@ -723,17 +751,6 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the snake's velocity when a speed buff is added or removed
-    /// </summary>
-    /// <param name="prev"></param>
-    private void UpdateVelocityContribution(float prev)
-    {
-        // removes the previous velocity amount, and adds the new amount
-        snake.Velocity -= prev;
-        snake.Velocity += VelocityContribution;
-    }
-
-    /// <summary>
     /// Called by Buff Manager when healthBuff is changed
     /// </summary>
     /// <param name="amount">the value of the change by the health buff</param>
@@ -760,36 +777,6 @@ public class BodyController : MonoBehaviour
         foreach(Class c in classes)
         {
             c.OnHealthBuffUpdate(amount, multiplicative);
-        }
-    }
-
-    /// <summary>
-    /// Called by Buff Manager when speedBuff is changed
-    /// </summary>
-    /// <param name="amount">the value of the change by the speed buff</param>
-    /// <param name="multiplicative">Whether its a value added to speed (false) or a scaler (true)</param>
-    private void SpeedBuffUpdate(float amount, bool multiplicative)
-    {
-        float prev;
-
-        // if its multiplicative, the previous value was the divided amount
-        if (multiplicative)
-        {
-            prev = speedBuff.Value / amount;
-        }
-        // if additive then it is minus the amount
-        else
-        {
-            prev = speedBuff.Value - amount;
-        }
-
-        // call an update to the velocity contribution
-        UpdateVelocityContribution(prev);
-
-        // passes on the update to the classes
-        foreach (Class c in classes)
-        {
-            c.OnSpeedBuffUpdate(amount, multiplicative);
         }
     }
 
