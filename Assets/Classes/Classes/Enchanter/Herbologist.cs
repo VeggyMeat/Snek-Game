@@ -211,7 +211,7 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
     {
         base.InternalJsonSetup(jsonData);
 
-        // not allowed to change after intial setting
+        // not allowed to change after initial setting
         jsonData.Setup(ref healingOrbPath, nameof(healingOrbPath));
 
         jsonData.Setup(ref healingOrbDespawnRange, nameof(healingOrbDespawnRange));
@@ -219,7 +219,7 @@ internal class Herbologist : Enchanter, IGroundTriggerManager
         jsonData.Setup(ref healingOrbRadius, nameof(healingOrbRadius));
         jsonData.Setup(ref healingOrbHealAmount, nameof(healingOrbHealAmount));
 
-        // updates the healing orb delay value, reseting the summoning if it changes
+        // updates the healing orb delay value, resetting the summoning if it changes
         jsonData.SetupAction(ref healingOrbDelay, nameof(healingOrbDelay), StopSummoning, StartSummoning, jsonLoaded);
     }
 
