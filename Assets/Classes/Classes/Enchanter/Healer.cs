@@ -8,7 +8,7 @@ using System.Collections.Generic;
 internal class Healer : Enchanter
 {
     /// <summary>
-    /// Thedelay between each heal
+    /// The delay between each heal
     /// </summary>
     private int timeDelay;
 
