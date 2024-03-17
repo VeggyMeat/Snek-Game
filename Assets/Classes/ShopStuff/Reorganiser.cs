@@ -1,21 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// Handles the user interface to allow the player to reorganise the snake's body
+/// </summary>
 public class Reorganiser : MonoBehaviour, IReorganiser
 {
+    /// <summary>
+    /// The list of bodies being displayed
+    /// </summary>
     private List<GameObject> bodies = new List<GameObject>();
+
+    /// <summary>
+    /// The list of hashes of the bodies being displayed
+    /// </summary>
     private List<int> bodiesHashes = new List<int>();
 
+    /// <summary>
+    /// The prefab for the body
+    /// </summary>
     [SerializeField] private GameObject body;
 
+    /// <summary>
+    /// The x value seperation between each body and the next
+    /// </summary>
     [SerializeField] private float serparationValue;
+
+    /// <summary>
+    /// The starting spot to draw the first body on the screen, relative to the camera
+    /// </summary>
     [SerializeField] private Vector3 startingSpot;
 
+    /// <summary>
+    /// The z value to draw the bodies at
+    /// </summary>
     [SerializeField] private float zValue;
 
+    /// <summary>
+    /// The starting spot to draw the first body on the screen
+    /// </summary>
     private Vector3 StartingSpot
     {
         get
@@ -24,24 +49,54 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     private IGameSetup gameSetup;
 
+    /// <summary>
+    /// Sets the game setup
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
     }
 
+    /// <summary>
+    /// The distance the mouse has to be from the body to be considered hovering over it
+    /// </summary>
     [SerializeField] private float mouseDistanceValue;
 
+    /// <summary>
+    /// Whether the reorganiser is active
+    /// </summary>
     private bool active = false;
 
+    /// <summary>
+    /// Whether the reorganiser is in a different position than the current snake setup or not
+    /// </summary>
     private bool bodyChanged = false;
 
+    /// <summary>
+    /// The currently selected body, or null if none
+    /// </summary>
     private GameObject selectedBody = null;
+
+    /// <summary>
+    /// The hash of the currently selected body, or 0 if none
+    /// </summary>
     private int selectedBodyHash = 0;
 
+    /// <summary>
+    /// The previous spot of the selected body, or -1 if none
+    /// </summary>
     private int selectedBodyPreviousSpot = -1;
 
+    /// <summary>
+    /// Whether the reorganiser is active,
+    /// Activates or deactivates the reorganiser
+    /// </summary>
     public bool Active
     {
         get
@@ -63,9 +118,15 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
-    // -1 indicates none, 0 before body 0, 1 inbetween bodies 0 and 1, 2 inbetween bodies 1 and 2 etc
+    /// <summary>
+    /// The position of the gap in the bodies,
+    /// -1 indicates none, 0 before body 0, 1 inbetween bodies 0 and 1, 2 inbetween bodies 1 and 2 etc
+    /// </summary>
     private int bodyGapPosition;
 
+    /// <summary>
+    /// Sets up the reorganiser when activated
+    /// </summary>
     private void Setup()
     {
         // grabs the head
@@ -88,6 +149,7 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
+    // Called once per frame
     private void Update()
     {
         if (active)
@@ -97,6 +159,9 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
+    /// <summary>
+    /// Handles the player's mouse interacting with the displayed bodies
+    /// </summary>
     private void CheckMousePos()
     {
         // no gap is currently selected
@@ -209,6 +274,9 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
+    /// <summary>
+    /// Sets the positions of the bodies
+    /// </summary>
     private void SetBodiesPositions()
     {
         Vector3 position = StartingSpot;
@@ -219,7 +287,8 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         {
             i++;
 
-            if (i == bodyGapPosition && selectedBody is not null)
+            // adds a gap if the gap position is the current position
+            if (i == bodyGapPosition && selectedBody != null)
             {
                 position.x += serparationValue;
             }
@@ -236,6 +305,11 @@ public class Reorganiser : MonoBehaviour, IReorganiser
         }
     }
 
+    /// <summary>
+    /// Called when the reorganiser is deactivated,
+    /// Reorganises the snake to match the reorganiser's current position
+    /// </summary>
+    /// <exception cref="System.Exception"></exception>
     private void Hide()
     {
         // if a body is still selected, put it back
@@ -283,7 +357,7 @@ public class Reorganiser : MonoBehaviour, IReorganiser
             TriggerManager.PostBodyMoveTrigger.CallTrigger(0);
         }
 
-        // kills all the bodies
+        // kills all the reorganiser's bodies
         foreach (GameObject bodyObj in bodies)
         {
             Destroy(bodyObj);
@@ -294,6 +368,7 @@ public class Reorganiser : MonoBehaviour, IReorganiser
             Destroy(selectedBody);
         }
 
+        // clears the lists and variables
         bodies.Clear();
         bodiesHashes.Clear();
         selectedBody = null;

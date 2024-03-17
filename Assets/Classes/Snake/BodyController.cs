@@ -4,20 +4,50 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The class that goes on the snake bodies game objects
+/// </summary>
 public class BodyController : MonoBehaviour
 {
+    /// <summary>
+    /// The defence of the body, any incoming damage gets reduced by this value
+    /// </summary>
     private int defence = 0;
+
+    /// <summary>
+    /// The maximum health of the body, any healing will not go above this value
+    /// </summary>
     private int maxHealth;
+
+    /// <summary>
+    /// The contribution to the snake's velocity given by the body
+    /// </summary>
     private float velocityContribution;
 
+    /// <summary>
+    /// The amount to heal on regeneration
+    /// </summary>
     private int naturalRegen = 5;
+
+    /// <summary>
+    /// The delay between each regeneration
+    /// </summary>
     private float regenDelay = 5;
+
+    /// <summary>
+    /// Whether the body is regenerating or not
+    /// </summary>
     private bool regenerating = false;
 
+    /// <summary>
+    /// The name of the class on this game object
+    /// </summary>
     protected new string name;
 
     /// <summary>
-    /// The name of the class
+    /// The name of the class on this game object
     /// </summary>
     public string Name
     {
@@ -27,6 +57,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The body's current level (starts from 1)
+    /// </summary>
     private int level = 0;
 
     /// <summary>
@@ -40,8 +73,14 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The maximum level the body can reach
+    /// </summary>
     internal int maxLevel;
 
+    /// <summary>
+    /// Whether the body is levelable or not
+    /// </summary>
     internal bool Levelable
     {
         get
@@ -51,7 +90,7 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Defence value of the body, any incoming damage gets reduced by this
+    /// The defence of the body, any incoming damage gets reduced by this value
     /// </summary>
     public int Defence
     { 
@@ -67,7 +106,7 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// The maximum and starting health value of the body
+    /// The maximum health of the body, any healing will not go above this value
     /// </summary>
     public int MaxHealth
     {
@@ -84,7 +123,7 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// The contribution to the snake's velocity given by the body (bigger = faster)
+    /// The contribution to the snake's velocity given by the body
     /// </summary>
     public float VelocityContribution
     {
@@ -110,12 +149,21 @@ public class BodyController : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// The list of all the names of the classes that are attatched to this body
     /// </summary>
     internal List<string> classNames = new List<string>();
 
+
+    /// <summary>
+    /// The damage dealt on contact with an enemy
+    /// </summary>
     private int contactDamage;
+
+    /// <summary>
+    /// The force applied to the enemy on contact
+    /// </summary>
     private int contactForce;
 
     /// <summary>
@@ -148,6 +196,7 @@ public class BodyController : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Buff dealing with maxHealth and health
     /// </summary>
@@ -173,7 +222,10 @@ public class BodyController : MonoBehaviour
     /// </summary>
     internal Buff attackSpeedBuff;
 
-    // rgb colours of the body
+
+    /// <summary>
+    /// The color of the body
+    /// </summary>
     private Color colour;
 
     /// <summary>
@@ -282,6 +334,9 @@ public class BodyController : MonoBehaviour
     /// </summary>
     private Queue<Vector2> positionFollow = new Queue<Vector2>();
 
+    /// <summary>
+    /// A queue of positions that the previous body was in frames ago
+    /// </summary>
     public Queue<Vector2> PositionFollow
     {
         get
@@ -294,6 +349,9 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the velocity of the body and all the bodies behind it in the linked list
+    /// </summary>
     public float Velocity
     {
         get
@@ -323,9 +381,14 @@ public class BodyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The health bar controller for the body
+    /// </summary>
     private HealthBarController healthBarController;
 
-    // sets up variables
+    /// <summary>
+    /// Called to setup the body after being instantiated
+    /// </summary>
     private void Setup()
     {
         // sets up the classes bit on the body
@@ -335,12 +398,10 @@ public class BodyController : MonoBehaviour
             c.ClassSetup();
         }
 
-        // loads in the data from json
         LevelUp();
 
         health = maxHealth;
 
-        // sets the color of the object
         ResetColour();
 
         // sets up the buffs
@@ -372,14 +433,10 @@ public class BodyController : MonoBehaviour
 
         HealthChangeCheck();
 
-        // makes the body start regenerating
         StartRegenerating();
 
-        // calls the trigger saying a new body was added
         TriggerManager.BodySpawnTrigger.CallTrigger(this);
     }
-
-    // function called when a new body is created
 
     /// <summary>
     /// Sets up the body and its classes
@@ -388,20 +445,18 @@ public class BodyController : MonoBehaviour
     /// <param name="prev">The previous body in the snake (or null if none)</param>
     internal void BodySetup(HeadController snake, BodyController prev)
     {
-        // sets up the starting variables for the body
         this.snake = snake;
         this.prev = prev;
 
-        // sets the position and grabs the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
 
-        // grabs the spriteRenderer
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
         Setup();
     }
 
-    void FixedUpdate()
+    // Called after each physics update by unity
+    private void FixedUpdate()
     {
         // updates the last moved vector for projectiles shot
         lastMoved = (selfRigid.position - lastPosition) / Time.deltaTime;
@@ -409,12 +464,14 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns whether the body is the head of the snake
+    /// Whether the body is the head of the snake
     /// </summary>
-    /// <returns>If its the head or not</returns>
-    internal bool IsHead()
+    internal bool Head
     {
-        return prev is null;
+        get
+        {
+            return prev == null;
+        }
     }
 
     /// <summary>
@@ -438,95 +495,109 @@ public class BodyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns the position of the body in the snake
+    /// The position of the body in the snake
     /// </summary>
-    /// <returns></returns>
-    internal int Position()
+    internal int Position
     {
-        // if its the head, return 0
-        if (prev is null)
+        get
         {
-            return 0;
-        }
-
-        // else return one plus the position of the previous body
-        return prev.Position() + 1;
-    }
-
-    /// <summary>
-    /// Returns the length of body parts from it
-    /// </summary>
-    /// <returns></returns>
-    internal int Length()
-    {
-        // if its the tail returns one
-        if (next is null)
-        {
-            return 1;
-        }
-        // otherwise return one plus the length from the next body
-        else
-        {
-            return 1 + next.Length();
-        }
-    }
-
-    /// <summary>
-    /// Returns the number of alive bodies from it
-    /// </summary>
-    /// <returns></returns>
-    internal int AliveBodies()
-    {
-        if (next is null)
-        {
-            if (isDead)
+            // if its the head, return 0
+            if (prev is null)
             {
                 return 0;
             }
-            else
-            {
-                return 1;
-            }
-        }
-        else
-        {
-            if (isDead)
-            {
-                return next.AliveBodies();
-            }
-            else
-            {
-                return 1 + next.AliveBodies();
-            }
-        }
-    }
 
-    internal int Bodies()
-    {
-        if (next is null)
-        {
-            return 1;
-        }
-        else
-        {
-            return 1 + next.Bodies();
+            // else return one plus the position of the previous body
+            return prev.Position + 1;
         }
     }
 
     /// <summary>
-    /// Gives the position of the tail of the snake
+    /// The length of body parts from this body onwards
     /// </summary>
-    /// <returns></returns>
-    internal Vector2 TailPos()
+    internal int Length
     {
-        // if its the tail, return its position
-        if (next is null)
+        get
         {
-            return transform.position;
+            // if its the tail returns one
+            if (next is null)
+            {
+                return 1;
+            }
+            // otherwise return one plus the length from the next body
+            else
+            {
+                return 1 + next.Length;
+            }
         }
+    }
 
-        // otherwise passes it down the chain
-        return next.TailPos();
+    /// <summary>
+    /// The number of alive bodies from this body
+    /// </summary>
+    internal int AliveBodies
+    {
+        get
+        {
+            if (next is null)
+            {
+                if (isDead)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                if (isDead)
+                {
+                    return next.AliveBodies;
+                }
+                else
+                {
+                    return 1 + next.AliveBodies;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// The number of bodies in the snake after this one
+    /// </summary>
+    internal int Bodies
+    {
+        get
+        {
+            if (next is null)
+            {
+                return 1;
+            }
+            else
+            {
+                return 1 + next.Bodies;
+            }
+        }
+    }
+
+    /// <summary>
+    /// The position of the tail of the snake
+    /// </summary>
+    internal Vector2 TailPos
+    {
+        get
+        {
+            // if its the tail, return its position
+            if (next is null)
+            {
+                return transform.position;
+            }
+
+            // otherwise passes it down the chain
+            return next.TailPos;
+        }
     }
 
     /// <summary>
@@ -605,7 +676,6 @@ public class BodyController : MonoBehaviour
         health = 0;
         healthBarController.SetBar(PercentageHealth);
 
-        // sets the body to be dead
         isDead = true;
 
         // changes the tag so enemies wont interact with it
@@ -618,7 +688,6 @@ public class BodyController : MonoBehaviour
         // makes the body revive in timeDead seconds
         Invoke(nameof(Revived), timeDead);
 
-        // stops regenerating
         StopRegenerating();
 
         // calls the OnDeath for all classes attatched
@@ -627,7 +696,6 @@ public class BodyController : MonoBehaviour
             c.OnDeath();
         }
 
-        // body died trigger called
         TriggerManager.BodyDeadTrigger.CallTrigger(this);
     }
 
@@ -644,7 +712,6 @@ public class BodyController : MonoBehaviour
     /// </summary>
     public void Revived()
     {
-        // sets the body to be alive again
         isDead = false;
 
         health = MaxHealth;
@@ -663,13 +730,11 @@ public class BodyController : MonoBehaviour
             c.Revived();
         }
 
-        // restarts regenerating
         StartRegenerating();
 
         // stops it from being revived again if its a premature revive
         CancelInvoke(nameof(Revived));
 
-        // body revived trigger
         TriggerManager.BodyRevivedTrigger.CallTrigger(this);
     }
 
@@ -694,18 +759,16 @@ public class BodyController : MonoBehaviour
             snake.SetHead(next);
         }
 
-        // destroys this body
         Destroy(gameObject);
     }
 
     /// <summary>
     /// Moves the body of this body, passes along to the next
     /// </summary>
-    /// <param name="place"></param>
+    /// <param name="place">The place to move the body to</param>
     internal void Move(Vector2 place = new Vector2())
     {
-        // if head
-        if (IsHead())
+        if (Head)
         {
             // get the vector its moved in the last frame
             Vector2 movement = snake.VelocityVector * Time.deltaTime;
@@ -753,7 +816,7 @@ public class BodyController : MonoBehaviour
     /// <summary>
     /// Called by Buff Manager when healthBuff is changed
     /// </summary>
-    /// <param name="amount">the value of the change by the health buff</param>
+    /// <param name="amount">The value of the change by the health buff</param>
     /// <param name="multiplicative">Whether its a value added to max health (false) or a scaler (true)</param>
     private void HealthBuffUpdate(float amount, bool multiplicative)
     {
@@ -886,6 +949,9 @@ public class BodyController : MonoBehaviour
         ResetColour();
     }
 
+    /// <summary>
+    /// Stops the body from regenerating
+    /// </summary>
     private void StartRegenerating()
     {
         if (regenDelay == 0 || naturalRegen == 0)
@@ -903,6 +969,9 @@ public class BodyController : MonoBehaviour
         regenerating = true;
     }
 
+    /// <summary>
+    /// Stops the body from regenerating
+    /// </summary>
     private void StopRegenerating()
     {
         if (regenDelay == 0 || naturalRegen == 0)
@@ -920,6 +989,9 @@ public class BodyController : MonoBehaviour
         regenerating = false;
     }
 
+    /// <summary>
+    /// Called to regenerate the body
+    /// </summary>
     private void Regenerate()
     {
         // heals the body by the natural regen
@@ -954,8 +1026,12 @@ public class BodyController : MonoBehaviour
         TriggerManager.BodyLevelUpTrigger.CallTrigger(level);
     }
 
+    /// <summary>
+    /// Prints out the body's information as a string
+    /// </summary>
+    /// <returns>The information as a string</returns>
     public override string ToString()
     {
-        return $"BodyController; Position: {Position()}, Name: {name}, Health: {health}";
+        return $"BodyController; Position: {Position}, Name: {name}, Health: {health}";
     }
 }

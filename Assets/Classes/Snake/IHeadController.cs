@@ -69,6 +69,13 @@ public interface IHeadController
     public float XPPercentage { get; }
 
     /// <summary>
+    /// Increases the score of the snake by an amount
+    /// </summary>
+    /// <param name="amount">The amount to increase the score by</param>
+    /// <returns></returns>
+    public void IncreaseScore(int amount);
+
+    /// <summary>
     /// Sets the gameSetup of the snake
     /// </summary>
     /// <param name="gameSetup">the gameSetup</param>

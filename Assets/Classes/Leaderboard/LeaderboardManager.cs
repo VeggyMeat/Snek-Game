@@ -3,6 +3,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// COMPLETE
+
+/// <summary>
+/// The leaderboard manager is responsible for displaying the leaderboard to the player
+/// It is a script placed on the leaderboard canvas' game object
+/// </summary>
 public class LeaderboardManager : MonoBehaviour
 {
     /// <summary>
@@ -78,16 +84,29 @@ public class LeaderboardManager : MonoBehaviour
     private int? results = null;
 
     /// <summary>
-    /// 
+    /// Whether the player currently has the text field to pick a new name to search by open
     /// </summary>
     private bool pickName = false;
 
+    /// <summary>
+    /// The current name the player has chosen to search for
+    /// </summary>
     private string chosenName = "";
 
+    /// <summary>
+    /// The game object object that displays the number of results found
+    /// </summary>
     [SerializeField]
     private GameObject ResultNumberObject;
+
+    /// <summary>
+    /// The text object to display the number of results found
+    /// </summary>
     private TextMeshProUGUI ResultNumber;
 
+    /// <summary>
+    /// The max number of pages that can be displayed
+    /// </summary>
     private int MaxPage
     {
         get
@@ -96,23 +115,45 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the result number text object
+    /// </summary>
     private void UpdateResultNumber()
     {
         ResultNumber.text = $"{results} results found";
     }
 
+    // Called by unity as soon as the scene is loaded
     private void Awake()
     {   
         ROWS_PER_PAGE = rows.Count;
 
         DatabaseHandler.Setup();
 
+        // hides the name picker
         namePicker.SetActive(false);
 
+        GetTextRows();
+
+        ResultNumber = ResultNumberObject.GetComponent<TextMeshProUGUI>();
+        
+        // grabs the current data from the database
+        (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
+
+        Reorder();
+    }
+
+    /// <summary>
+    /// Grabs the text objects from the rows
+    /// </summary>
+    private void GetTextRows()
+    {
+        // goes through each row and grabs the text objects from them
         splitRows = new List<List<TextMeshProUGUI>>();
         for (int i = 0; i < ROWS_PER_PAGE; i += 1)
         {
             List<TextMeshProUGUI> newRow = new List<TextMeshProUGUI>();
+
             for (int j = 0; j < COLUMNS; j++)
             {
                 newRow.Add(rows[i].transform.GetChild(j).GetComponent<TextMeshProUGUI>());
@@ -120,13 +161,12 @@ public class LeaderboardManager : MonoBehaviour
 
             splitRows.Add(newRow);
         }
-
-        ResultNumber = ResultNumberObject.GetComponent<TextMeshProUGUI>();
-
-        (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
-        Reorder();
     }
 
+    /// <summary>
+    /// Sorts by a number representing the sort type (called by unity buttons)
+    /// </summary>
+    /// <param name="sortNum"></param>
     public void SortBy(int sortNum)
     {
         SortType sortType = (SortType)sortNum;
@@ -134,8 +174,13 @@ public class LeaderboardManager : MonoBehaviour
         SortBy(sortType);
     }
 
+    /// <summary>
+    /// Changes the way the data is sorted
+    /// </summary>
+    /// <param name="sortType">The new way to sort by</param>
     public void SortBy(SortType sortType)
     {
+        // if it is already being sorted by this type, reverse the order
         if (this.sortType == sortType)
         {
             asc = !asc;
@@ -146,8 +191,10 @@ public class LeaderboardManager : MonoBehaviour
             asc = false;
         }
 
+        // resets the page number
         page = 0;
 
+        // gets the current data from the database
         if (chosenName == "")
         {
             (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
@@ -160,6 +207,9 @@ public class LeaderboardManager : MonoBehaviour
         Reorder();
     }
 
+    /// <summary>
+    /// Clears the text of the leaderboard
+    /// </summary>
     public void Clear()
     {
         foreach (List<TextMeshProUGUI> row in splitRows)
@@ -171,6 +221,9 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reorders the leaderboard
+    /// </summary>
     private void Reorder()
     {
         Clear();
@@ -193,6 +246,9 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows the next page of data (if there is one) (called by the unity button)
+    /// </summary>
     public void NextPage()
     {
         page++;
@@ -207,6 +263,9 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows the previous page of data (if there is one) (called by the unity button)
+    /// </summary>
     public void PrevPage()
     {
         page--;
@@ -221,13 +280,20 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by the unity button when the player wants to pick a name to search by
+    /// </summary>
     public void PickName()
     {
         pickName = true;
         
+        // shows the name picker
         namePicker.SetActive(pickName);
     }
 
+    /// <summary>
+    /// Called by the unity text field after the player has submitted their picked name
+    /// </summary>
     public void SubmitName()
     {
         chosenName = namePicker.GetComponent<TMP_InputField>().text;
@@ -239,11 +305,18 @@ public class LeaderboardManager : MonoBehaviour
         SortBy((int)sortType);
     }
 
+    /// <summary>
+    /// Called by the unity button to set the scene back to the main menu scene
+    /// </summary>
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Shows the data of a particular run (Called by the unity button when the player presses a field)
+    /// </summary>
+    /// <param name="row">The row that was pressed</param>
     public void ShowData(int row)
     {
         // if the row is out of range, ignore it
@@ -259,6 +332,9 @@ public class LeaderboardManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Resumes the leaderboard being shown
+    /// </summary>
     public void Resume()
     {
         gameObject.SetActive(true);

@@ -1,5 +1,7 @@
 using SQLite;
 
+// COMPLETE
+
 [Table("Bodies")]
 public class BodyInfo
 {

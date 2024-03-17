@@ -7,9 +7,7 @@
     "enemySlowMultiplier": 0.75,
     "enemySlowDuration": 2.5,
 
-    "r": 1,
-    "g": 1,
-    "b": 1,
+    "colour": [ 1, 1, 1 ],
 
     "scaleX": 0.35,
     "scaleY": 0.35

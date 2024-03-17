@@ -4,9 +4,7 @@
     "lifeSpan": 3,
     "damage": 25,
 
-    "r": 0.2,
-    "g": 0.2,
-    "b": 0.5,
+    "colour": [ 0.2, 0.2, 0.5 ],
 
     "scaleX": 0.25,
     "scaleY": 0.25

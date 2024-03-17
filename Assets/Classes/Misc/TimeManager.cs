@@ -1,27 +1,53 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The time manager is used to keep track of the time in the game
+/// </summary>
 public static class TimeManager
 {
+    /// <summary>
+    /// The pairs of time between which the game was paused
+    /// </summary>
     private static List<(DateTime, DateTime)> pausedPairs = new List<(DateTime, DateTime)>();
+    
+    /// <summary>
+    /// The list of times that the game was paused, matching the paused pairs
+    /// </summary>
     private static List<TimeSpan> pausedTimes = new List<TimeSpan>();
 
+    /// <summary>
+    /// The last time the game was paused
+    /// </summary>
     private static DateTime? lastPausedTime = DateTime.Now;
 
+    /// <summary>
+    /// The time the game started
+    /// </summary>
     private readonly static DateTime startTime = DateTime.Now;
 
+    /// <summary>
+    /// The time the game started
+    /// </summary>
     public static DateTime StartTime => startTime;
 
+    /// <summary>
+    /// Called to setup the time manager
+    /// </summary>
     public static void Setup()
     {
         TriggerManager.PauseTimeTrigger.AddTrigger(OnPausedTime);
         TriggerManager.ResumeTimeTrigger.AddTrigger(OnResumedTime);
     }
 
+    /// <summary>
+    /// Called when time is paused
+    /// </summary>
+    /// <param name="_">Redundant value</param>
+    /// <returns>Redundant value</returns>
     internal static int OnPausedTime(int _)
     {
         lastPausedTime = DateTime.Now;
@@ -29,16 +55,26 @@ public static class TimeManager
         return _;
     }
 
+    /// <summary>
+    /// Called when time is resumed
+    /// </summary>
+    /// <param name="_">Redundant value</param>
+    /// <returns>Redundant value</returns>
     internal static int OnResumedTime(int _)
     {
+        // adds the time the game was paused to the list
         pausedPairs.Add(((DateTime)lastPausedTime, DateTime.Now));
-        pausedTimes.Add((DateTime.Now - (DateTime)lastPausedTime));
+        pausedTimes.Add(DateTime.Now - (DateTime)lastPausedTime);
 
         lastPausedTime = null;
 
         return _;
     }
 
+    /// <summary>
+    /// Gets the elapsed (game) time since the game started
+    /// </summary>
+    /// <returns>The elapsed (game) time since the game started</returns>
     public static TimeSpan GetElapsedTime()
     {
         TimeSpan elapsedTime = GetElapsedTimeSince(startTime);
@@ -52,6 +88,12 @@ public static class TimeManager
         return elapsedTime;
     }
 
+    /// <summary>
+    /// Gets the elapsed (game) time since a given time
+    /// </summary>
+    /// <param name="time">The given time since</param>
+    /// <returns>The elapsed time</returns>
+    /// <exception cref="Exception">Thrown if the 'time' is a paused time</exception>
     public static TimeSpan GetElapsedTimeSince(DateTime time)
     {
         // time should not be inbetween any of the pairs

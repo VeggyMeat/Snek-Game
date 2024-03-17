@@ -1,13 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// The controller that is placed on projectile game objects
+/// </summary>
 internal class ProjectileController : MonoBehaviour
 {
+    /// <summary>
+    /// The parent of the projectile
+    /// </summary>
     protected Class owner;
 
+    /// <summary>
+    /// The parent of the projectile
+    /// </summary>
     internal Class Owner
     {
         get
@@ -16,10 +24,19 @@ internal class ProjectileController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The rigid body of the projectile
+    /// </summary>
     protected Rigidbody2D selfRigid;
 
+    /// <summary>
+    /// The velocity of the projectile
+    /// </summary>
     protected float velocity;
 
+    /// <summary>
+    /// The velocity of the projectile
+    /// </summary>
     internal float Velocity
     {
         get
@@ -32,9 +49,19 @@ internal class ProjectileController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The life span of the projectile
+    /// </summary>
     protected float lifeSpan;
+
+    /// <summary>
+    /// The damage the projectile does on contact
+    /// </summary>
     protected int damage;
 
+    /// <summary>
+    /// The damage the projectile does on contact
+    /// </summary>
     internal int Damage
     {
         get
@@ -47,20 +74,40 @@ internal class ProjectileController : MonoBehaviour
         }
     }
 
-    protected float r;
-    protected float g;
-    protected float b;
+    /// <summary>
+    /// The colour of the projectile
+    /// </summary>
+    protected Color colour;
 
+    /// <summary>
+    /// The x scale of the projectile's body
+    /// </summary>
     protected float scaleX;
+
+    /// <summary>
+    /// The y scale of the projectile's body
+    /// </summary>
     protected float scaleY;
 
+    /// <summary>
+    /// Whether the projectile is dead or not
+    /// </summary>
     protected bool isDead = false;
 
+    /// <summary>
+    /// The variables for the projectile
+    /// </summary>
     protected Dictionary<string, object> variables;
 
+    /// <summary>
+    /// The id of the projectile
+    /// </summary>
     protected int id;
 
-    public int ID
+    /// <summary>
+    /// The id of the projectile
+    /// </summary>
+    internal int ID
     {
         get
         {
@@ -77,30 +124,24 @@ internal class ProjectileController : MonoBehaviour
     /// <param name="addOwnerVelocity">Whether to add the owner's velocity or not</param>
     internal virtual void Setup(Dictionary<string, object> variables, Class owner, float damageMultiplier, bool addOwnerVelocity = true)
     {
-        // loads in all the variables from the json
         this.variables = variables;
         LoadVariables();
 
         // sets the scale
         transform.localScale = new Vector3(scaleX, scaleY, 1);
 
-        // sets the owner
         this.owner = owner;
 
-        // scales the damage based on the multiplier
         damage = (int)(damage * damageMultiplier);
 
-        // gets the rigid body
         selfRigid = gameObject.GetComponent<Rigidbody2D>();
 
-        // sets the movement of the projectile
         SetMovement(addOwnerVelocity);
 
         // kills the projectile in lifeSpan seconds
         Invoke(nameof(Die), lifeSpan);
 
-        // sets the color of the object
-        GetComponent<SpriteRenderer>().color = new Color(r, g, b);
+        GetComponent<SpriteRenderer>().color = colour;
     }
 
     /// <summary>
@@ -122,10 +163,8 @@ internal class ProjectileController : MonoBehaviour
             return;
         }
 
-        // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
-            // get the enemy controller
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             // if the enemy is dead, ignore it
@@ -137,13 +176,12 @@ internal class ProjectileController : MonoBehaviour
             // apply damage to the enemy
             if (!body.ChangeHealth(-damage))
             {
-                // enemy has been killed
                 owner.EnemyKilled(collision.gameObject);
             }
 
             TriggerManager.ProjectileHitTrigger.CallTrigger(gameObject);
 
-            // destroy the projectile
+            // projectile dies after hitting an enemy
             Die();
 
             isDead = true;
@@ -179,14 +217,16 @@ internal class ProjectileController : MonoBehaviour
         variables.Setup(ref velocity, nameof(velocity));
         variables.Setup(ref lifeSpan, nameof(lifeSpan));
         variables.Setup(ref damage, nameof(damage));
-        variables.Setup(ref r, nameof(r));
-        variables.Setup(ref g, nameof(g));
-        variables.Setup(ref b, nameof(b));
+        variables.Setup(ref colour, nameof(colour));
         variables.Setup(ref scaleX, nameof(scaleX));
         variables.Setup(ref scaleY, nameof(scaleY));
         variables.Setup(ref id, nameof(id));
     }
 
+    /// <summary>
+    /// Scale the projectile by a factor
+    /// </summary>
+    /// <param name="factor">The factor to scale by</param>
     internal void Scale(float factor)
     {
         scaleX *= factor;

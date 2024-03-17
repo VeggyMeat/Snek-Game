@@ -17,5 +17,4 @@ public interface ICameraController
     /// The transform (position) of the camera
     /// </summary>
     public Transform Transform { get; }
-
 }

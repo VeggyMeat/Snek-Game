@@ -1,5 +1,7 @@
 using SQLite;
 
+// COMPLETE
+
 [Table("Items")]
 public class ItemInfo
 {

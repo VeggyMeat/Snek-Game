@@ -1,32 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+// COMPLETE
+
+/// <summary>
+/// Controls the bullets that are shot by the turrets of the engineer body class
+/// </summary>
 public class BulletController : MonoBehaviour
 {
+    /// <summary>
+    /// The parent of the bullet
+    /// </summary>
     private TurretController parent;
 
+    /// <summary>
+    /// The variables for the bullet
+    /// </summary>
     private Dictionary<string, object> variables;
 
+    /// <summary>
+    /// The bullet's velocity
+    /// </summary>
     private float velocity;
+
+    /// <summary>
+    /// The bullet's life span
+    /// </summary>
     private float lifeSpan;
+
+    /// <summary>
+    /// The bullet's damage
+    /// </summary>
     private int damage;
 
+    /// <summary>
+    /// Sets up the bullet
+    /// </summary>
+    /// <param name="variables">The bullet's variables</param>
+    /// <param name="parent">The parent that created this</param>
+    /// <param name="DamageMultiplier">The damage multiplier for the bullet</param>
     internal void Setup(Dictionary<string, object> variables, TurretController parent, float DamageMultiplier)
     {
-        // sets the engineer as the owner
         this.parent = parent;
 
-        // loads in all the variables from the json
         this.variables = variables;
         LoadVariables();
 
         // kills the projectile when it should die
         Invoke(nameof(Die), lifeSpan);
 
+        // sets the velocity of the bullet
         float angle = transform.rotation.eulerAngles.z;
         GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(angle) * velocity, Mathf.Sin(angle) * velocity);
 
@@ -34,38 +57,38 @@ public class BulletController : MonoBehaviour
         damage = (int)(damage * DamageMultiplier);
     }
 
-    // triggers when the projectile collides with something
+    // Called by unity when the projectile collides with something
     internal virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
-            // get the enemy controller
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
-            // apply damage to the enemy
+            // if the dealt damage kills the enemy
             if (!body.ChangeHealth(-damage))
             {
-                // enemy has been killed
                 parent.EnemyKilled(collision.gameObject);
             }
 
-            // kills the projectile
             Die();
-            return;
         }
     }
 
-    // called when the bullet dies
+    /// <summary>
+    /// Called when the bullet dies
+    /// </summary>
     internal void Die()
     {
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Loads the variables from the json
+    /// </summary>
     internal void LoadVariables()
     {
-        variables.Setup(ref velocity, "velocity");
-        variables.Setup(ref lifeSpan, "lifeSpan");
-        variables.Setup(ref damage, "damage");
+        variables.Setup(ref velocity, nameof(velocity));
+        variables.Setup(ref lifeSpan, nameof(lifeSpan));
+        variables.Setup(ref damage, nameof(damage));
     }
 }

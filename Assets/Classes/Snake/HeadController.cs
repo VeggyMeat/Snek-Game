@@ -187,6 +187,15 @@ public class HeadController: MonoBehaviour, IHeadController
     private int score = 0;
 
     /// <summary>
+    /// Increases the score of the snake by an amount
+    /// </summary>
+    /// <param name="value">The amount to increase the score by</param>
+    public void IncreaseScore(int value)
+    {
+        score += value;
+    }
+
+    /// <summary>
     /// Whether the snake is currently turning
     /// </summary>
     public bool Turning
@@ -249,7 +258,7 @@ public class HeadController: MonoBehaviour, IHeadController
                 throw new Exception("TailPos cannot be returned, there are no bodies in the snake");
             }
 
-            return head.TailPos();
+            return head.TailPos;
         }
     }
 
@@ -266,7 +275,7 @@ public class HeadController: MonoBehaviour, IHeadController
             }
             else
             {
-                return head.Length();
+                return head.Length;
             }
         }
     }
@@ -284,7 +293,7 @@ public class HeadController: MonoBehaviour, IHeadController
             }
             else
             {
-                return head.AliveBodies();
+                return head.AliveBodies;
             }
         }
     }
@@ -302,7 +311,7 @@ public class HeadController: MonoBehaviour, IHeadController
             }
             else
             {
-                return head.Bodies();
+                return head.Bodies;
             }
         }
     }
@@ -328,7 +337,7 @@ public class HeadController: MonoBehaviour, IHeadController
     }
 
     /// <summary>
-    /// Whether the body is dead or not
+    /// Checks if the snake is dead, and if so, calls OnDeath()
     /// </summary>
     private void DeathCheck()
     {
@@ -342,14 +351,10 @@ public class HeadController: MonoBehaviour, IHeadController
     // Called by unity before the first frame
     private void Start()
     {
-        // sets the current amount of XP required to level up
         xPLevelUp = BaseXPLevelRequirement;
 
-        // sets the snake's initial velocity
         velocityVector = new Vector2(0, Velocity);
         
-
-        // calls an initial body selection for the player
         gameSetup.ShopManager.OnLevelUp();
     }
 

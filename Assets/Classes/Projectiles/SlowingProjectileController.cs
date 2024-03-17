@@ -1,14 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// An alternate version of the projectile controller that slows enemies after they are hit
+/// </summary>
 internal class SlowingProjectileController : ProjectileController
 {
-    // public so that they can be set manually, maybe update this
+    /// <summary>
+    /// Speed multiplier for the enemy
+    /// </summary>
     private float enemySlowMultiplier;
+
+    /// <summary>
+    /// How long the speed multiplier lasts for
+    /// </summary>
     private float enemySlowDuration;
 
-    // triggers when the projectile collides with something
+    // Called by unity when the projectile collides with something
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead)
@@ -16,10 +25,8 @@ internal class SlowingProjectileController : ProjectileController
             return;
         }
 
-        // if the projectile collides with a body
         if (collision.gameObject.tag == "Enemy")
         {
-            // get the enemy controller
             EnemyController body = collision.gameObject.GetComponent<EnemyController>();
 
             if (!body.Dead)
@@ -27,7 +34,6 @@ internal class SlowingProjectileController : ProjectileController
                 // apply damage to the enemy
                 if (!body.ChangeHealth(-damage))
                 {
-                    // enemy has been killed
                     owner.EnemyKilled(collision.gameObject);
                 }
                 else
@@ -38,7 +44,6 @@ internal class SlowingProjectileController : ProjectileController
 
                 TriggerManager.ProjectileHitTrigger.CallTrigger(gameObject);
 
-                // kill the projectile
                 Die();
 
                 isDead = true;
@@ -46,6 +51,9 @@ internal class SlowingProjectileController : ProjectileController
         }
     }
 
+    /// <summary>
+    /// Loads in all the variables
+    /// </summary>
     internal override void LoadVariables()
     {
         base.LoadVariables();

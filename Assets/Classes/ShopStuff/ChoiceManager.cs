@@ -1,20 +1,32 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
 
+// COMPLETE
+
+/// <summary>
+/// Placed on the game object to manage the choices menu for the player
+/// /summary>
 public class ChoiceManager : CanvasManager, IChoiceManager
 {
-    // this is attatched to the OptionChoices canvas
-    // this is the canvas that shows the options for the player to choose from
-
+    /// <summary>
+    /// The current state of the choice manager
+    /// </summary>
     private ChoiceState state = ChoiceState.None;
+
+    /// <summary>
+    /// The options that the player can choose from (that are shown as buttons on screen)
+    /// </summary>
     private List<string> options;
 
+    /// <summary>
+    /// The game setup
+    /// </summary>
     private IGameSetup gameSetup;
 
+    /// <summary>
+    /// Sets the game setup
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
@@ -38,17 +50,23 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         }
     }
 
+    /// <summary>
+    /// Called when a button is clicked
+    /// </summary>
+    /// <param name="button">The number to indicate which button</param>
+    /// <exception cref="Exception">Called if this is called when there is no ChoiceState selected</exception>
     public override void ButtonClicked(int button)
     {
+        // skip button is -1
         if (button != -1)
         {
+            // if the None button is clicked, do nothing
             if (options[button] == "None")
             {
                 return;
             }
         }
 
-        // hides the canvas and clears the state
         HideButtons();
 
         // -1 is the skip button and so ignores the adding stuff
@@ -61,20 +79,25 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                     break;
 
                 case ChoiceState.BodyUpgrade:
-                    // gets the body
                     BodyController body = gameSetup.HeadController.Head;
+                    // finds the body that matches the name of the button
                     while (body.Name != options[button])
                     {
                         body = body.next;
                     }
 
-                    // levels up the body
+                    if (body != null)
+                    {
+                        throw new Exception("No body matched the one to be leveled up");
+                    }
+
                     body.LevelUp();
 
                     break;
 
                 case ChoiceState.Item:
                     ItemManager.AddItem(options[button]);
+
                     break;
 
                 case ChoiceState.None:
@@ -87,6 +110,10 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         gameSetup.ShopManager.AfterLevelUp();
     }
 
+    /// <summary>
+    /// Generates the options for the player to choose from
+    /// </summary>
+    /// <exception cref="Exception">Called if this is called when ChoiceState is None</exception>
     private void GenerateOptions()
     {
         switch (state)
@@ -97,6 +124,7 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                 {
                     options = PickAmount(gameSetup.ShopManager.PossibleInitialBodies, optionsNum);
                 }
+
                 // if there is a head on the snake, use the normal list of bodies
                 else
                 {
@@ -114,18 +142,25 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         }
     }
 
+    /// <summary>
+    /// Picks a number of items from a list
+    /// </summary>
+    /// <param name="from">The list to pick from</param>
+    /// <param name="number">The number of items to pick</param>
+    /// <returns></returns>
     private List<string> PickAmount(List<string> from, int number)
     {
-        List<string> things = new List<string>(from);
+        List<string> fromCopy = new List<string>(from);
         options = new List<string>();
 
+        // picks a random item from the list and adds it to the options list, then removes it from the fromCopy list
         for (int i = 0; i < number; i++)
         {
-            int index = UnityEngine.Random.Range(0, things.Count);
-            if (things.Count != 0)
+            int index = UnityEngine.Random.Range(0, fromCopy.Count);
+            if (fromCopy.Count != 0)
             {
-                options.Add(things[index]);
-                things.RemoveAt(index);
+                options.Add(fromCopy[index]);
+                fromCopy.RemoveAt(index);
             }
             else
             {
@@ -136,6 +171,9 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         return options;
     }
 
+    /// <summary>
+    /// Called to hide the canvas
+    /// </summary>
     public override void HideButtons()
     {
         base.HideButtons();
@@ -144,6 +182,9 @@ public class ChoiceManager : CanvasManager, IChoiceManager
         gameSetup.ShopManager.ResumeTime();
     }
 
+    /// <summary>
+    /// Called to show the canvas
+    /// </summary>
     public override void ShowButtons()
     {
         base.ShowButtons();

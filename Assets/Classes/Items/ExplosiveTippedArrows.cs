@@ -28,6 +28,21 @@ internal class ExplosiveTippedArrows : Item
     private int archerKills = 0;
 
     /// <summary>
+    /// The time the AOEEffect should stay on screen for
+    /// </summary>
+    private float AOEEffectTime;
+
+    /// <summary>
+    /// Whether the AOEEffect should decay in colour over time (true) or not (false)
+    /// </summary>
+    private bool AOEEffectDecay;
+
+    /// <summary>
+    /// The initial colour of the AOEEffect
+    /// </summary>
+    private Color AOEEffectColour;
+
+    /// <summary>
     /// Sets up the item initially
     /// </summary>
     /// <param name="gameSetup">The game setup</param>
@@ -49,6 +64,9 @@ internal class ExplosiveTippedArrows : Item
     /// <returns>The projectile that hit the enemy</returns>
     private GameObject OnHit(GameObject projectileObject)
     {
+        // creates an AOE effect
+        AOEEffect.CreateCircle(projectileObject.transform.position, AOEEffectTime, AOEEffectDecay, AOEEffectColour, radius);
+
         // gets all the objects within the range
         Collider2D[] objectsInCircle = Physics2D.OverlapCircleAll(projectileObject.transform.position, radius);
 
@@ -108,6 +126,9 @@ internal class ExplosiveTippedArrows : Item
         jsonVariables.Setup(ref radius, nameof(radius));
         jsonVariables.Setup(ref damage, nameof(damage));
         jsonVariables.Setup(ref archerKillsLevelUp, nameof(archerKillsLevelUp));
+        jsonVariables.Setup(ref AOEEffectTime, nameof(AOEEffectTime));
+        jsonVariables.Setup(ref AOEEffectDecay, nameof(AOEEffectDecay));
+        jsonVariables.Setup(ref AOEEffectColour, nameof(AOEEffectColour));
     }
 
     /// <summary>

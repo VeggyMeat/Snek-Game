@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -85,6 +86,8 @@ internal abstract class Class: MonoBehaviour
         enemiesKilled++;
 
         body.snake.IncreaseXP(enemy.GetComponent<EnemyController>().XPDrop);
+
+        body.snake.IncreaseScore(enemy.GetComponent<EnemyController>().MaxHealth);
 
         TriggerManager.BodyKilledTrigger.CallTrigger(body.gameObject);
     }

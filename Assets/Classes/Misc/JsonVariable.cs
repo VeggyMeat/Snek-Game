@@ -1,9 +1,12 @@
 using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// Handles the variables from a json file
+/// </summary>
 public class JsonVariable
 {
     /// <summary>
@@ -11,10 +14,19 @@ public class JsonVariable
     /// </summary>
     private List<Dictionary<string, object>> variablesList;
 
+    /// <summary>
+    /// The current index of the variables list (normally refers to the current level)
+    /// </summary>
     private int index;
 
+    /// <summary>
+    /// The current set of variables
+    /// </summary>
     private Dictionary<string, object> variables;
 
+    /// <summary>
+    /// The current set of variables
+    /// </summary>
     public Dictionary<string, object> Variables { get => variables; }
 
     /// <summary>
@@ -22,6 +34,10 @@ public class JsonVariable
     /// </summary>
     private string path;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JsonVariable"/> class.
+    /// </summary>
+    /// <param name="path">The path to the json file</param>
     public JsonVariable(string path)
     {
         this.path = path;
@@ -29,6 +45,11 @@ public class JsonVariable
         LoadJson();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="JsonVariable"/> class.
+    /// </summary>
+    /// <param name="path">The path to the json file</param>
+    /// <param name="index">The initial index value the JsonVariable should have</param>
     public JsonVariable(string path, int index) : this(path)
     {
         for (int i = 0; i < index; i++)
@@ -37,6 +58,9 @@ public class JsonVariable
         }
     }
 
+    /// <summary>
+    /// Loads in the json file into the variables list
+    /// </summary>
     private void LoadJson()
     {
         // loads in the text from the json file
@@ -50,6 +74,9 @@ public class JsonVariable
         variables = variablesList[0];
     }
 
+    /// <summary>
+    /// Increases the index of the variables list, and updates the variables
+    /// </summary>
     public void IncreaseIndex()
     {
         index++;

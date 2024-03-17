@@ -3,6 +3,10 @@
     "itemName": "ExplosiveTippedArrows",
     "itemDescription": "Archers projectiles do ~% AOE damage ~radius when they hit an enemy",
 
+    "AOEEffectTime": 0.5,
+    "AOEEffectDecay": true,
+    "AOEEffectColour": [ 0.8, 0.3, 0.5 ],
+
     "radius": 3,
     "damage": 10,
     "archerKillsLevelUp": 20

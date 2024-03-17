@@ -1,11 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// COMPLETE
 
+/// <summary>
+/// Handles the player's selection of what they want next level
+/// </summary>
 public class SelectionManager : CanvasManager, ISelectionManager
 {
+    /// <summary>
+    /// The game setup
+    /// </summary>
     private IGameSetup gameSetup;
 
+    /// <summary>
+    /// Sets the game setup
+    /// </summary>
+    /// <param name="gameSetup">The game setup</param>
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
@@ -50,6 +58,9 @@ public class SelectionManager : CanvasManager, ISelectionManager
         }
     }
 
+    /// <summary>
+    /// Called to hide the canvas
+    /// </summary>
     public override void HideButtons()
     {
         base.HideButtons();
@@ -60,6 +71,9 @@ public class SelectionManager : CanvasManager, ISelectionManager
         gameSetup.ShopManager.ResumeTime();
     }
 
+    /// <summary>
+    /// Called to show the canvas
+    /// </summary>
     public override void ShowButtons()
     {
         base.ShowButtons();

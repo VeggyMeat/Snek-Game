@@ -1,12 +1,16 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using UnityEngine;
 
+// COMPLETE
+
+/// <summary>
+/// Static class that controls the creation of projectiles
+/// </summary>
 public static class Projectile 
 {
+    /// <summary>
+    /// The z value of the projectile
+    /// </summary>
     private const int zValue = 4;
 
     /// <summary>
@@ -26,10 +30,8 @@ public static class Projectile
         // create the projectile
         GameObject proj = Object.Instantiate(projectile, new Vector3(position.x, position.y, zValue), Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg));
 
-        // grabs the projectile controller
         ProjectileController projController = proj.GetComponent<ProjectileController>();
 
-        // sets up the projectile controller
         projController.Setup(jsonVariables, controller, damageMultiplier, addOwnerVelocity);
 
         // tells the Trigger Manager a projectile has been shot
