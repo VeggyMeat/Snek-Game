@@ -107,7 +107,7 @@ internal class DeathWardEnchanter : Enchanter
         TriggerManager.EnemyDeadTrigger.RemoveTrigger(OnEnemyDeath);
         TriggerManager.BodyDeadTrigger.RemoveTrigger(OnBodyDeath);
 
-        // destroys the body permananetly
+        // destroys the body permanently
         body.DestroySelf();
     }
 
