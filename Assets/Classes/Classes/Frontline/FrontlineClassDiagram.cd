@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Class">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBAgAQCgCgAAAAAgQAAACIABAQQAAAABAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Frontline">
+    <Position X="18.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAICgAAgAAAAAAhAKEAAIBAAAABAAAAAAAAAMA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\Frontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiscusMan">
+    <Position X="20" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAQAACgIgAACAAIAAAZgBAAAAAACBgAAEAAEAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\DiscusMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnragedBerzerker">
+    <Position X="23" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAAAACAABAAAAAAAAAECAAIEQIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\EnragedBerzerker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Furnace">
+    <Position X="17" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAQAACAABAAAAAQAAAICIAJCBYAABAQAAgAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\Furnace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Samurai">
+    <Position X="14" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAQAAAAABAAAoAAAAAACACIAAIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\Samurai.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Swordsman">
+    <Position X="23" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAABAAAAAAAAAACAAIEQIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Frontline\Swordsman.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForceFieldMageFrontline">
+    <Position X="20" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAABAAAgAAAAAACAAIEQIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineMage\ForceFieldMage\ForceFieldMageFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrinceFrontline">
+    <Position X="17" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAACAABAAAAAAAAAACAAIEQIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineEnchanter\Prince\PrinceFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpikeLauncherFrontline">
+    <Position X="23" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineArcher\SpikeLauncher\SpikeLauncherFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldmanFrontline">
+    <Position X="14" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineEnchanter\Shieldman\ShieldmanFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SwashbucklerFrontline">
+    <Position X="20" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>0AAAAACACAABAAAAAAABAACAAIUQIAADAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineArcher\Swashbuckler\SwashbucklerFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VampireFrontline">
+    <Position X="17" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineMage\Vampire\VampireFrontline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

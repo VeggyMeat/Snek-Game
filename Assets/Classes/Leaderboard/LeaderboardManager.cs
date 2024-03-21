@@ -136,9 +136,12 @@ public class LeaderboardManager : MonoBehaviour
         GetTextRows();
 
         ResultNumber = ResultNumberObject.GetComponent<TextMeshProUGUI>();
-        
+
         // grabs the current data from the database
-        (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
+        (List<Run>, int) response;
+        response = DatabaseHandler.GetSortedRuns(sortType, asc);
+        results = response.Item2;
+        CurrentData = response.Item1;
 
         Reorder();
     }
@@ -195,14 +198,18 @@ public class LeaderboardManager : MonoBehaviour
         page = 0;
 
         // gets the current data from the database
+        (List<Run>, int) response;
+
         if (chosenName == "")
         {
-            (CurrentData, results) = DatabaseHandler.GetSortedRuns(sortType, asc);
+            response = DatabaseHandler.GetSortedRuns(sortType, asc);
         }
         else
         {
-            (CurrentData, results) = DatabaseHandler.GetPlayerRuns(chosenName, sortType, asc);
+            response = DatabaseHandler.GetPlayerRuns(chosenName, sortType, asc);
         }
+        results = response.Item2;
+        CurrentData = response.Item1;
         
         Reorder();
     }

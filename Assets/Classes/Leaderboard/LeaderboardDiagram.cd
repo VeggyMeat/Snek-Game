@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BodyInfo">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAABAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\BodyInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DatabaseHandler">
+    <Position X="19.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAEDAAAAAIAAAAAIEAAAAQAABCAAgAAAAAAAAQ=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\DatabaseHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataCanvasController">
+    <Position X="25.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAQAEAAAEQAEAIBAAAAAAAAgAAAAAASAEA=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\DataCanvasController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemInfo">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAABAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\ItemInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LeaderboardManager">
+    <Position X="22.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJEEAAEYAAAAAAgFABAAAAQAABIQAgAAEgAgkhIBFE=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\LeaderboardManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Run">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAgAgAAAAAAAAAAAAAAAABAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\Run.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="SortType">
+    <Position X="28.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\Classes\Leaderboard\SortType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

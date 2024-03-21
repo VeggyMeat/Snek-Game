@@ -33,7 +33,17 @@ public static class DatabaseHandler
     /// <summary>
     /// The current highest run id number
     /// </summary>
-    private static int id_num = 0;
+    private static int idNum = 0;
+
+    /// <summary>
+    /// The current highest body id number
+    /// </summary>
+    private static int bodyIdNum = 0;
+
+    /// <summary>
+    /// The current highest item id number
+    /// </summary>
+    private static int itemIdNum = 0;
 
     /// <summary>
     /// Called to setup the database connection and create the tables if they do not exist
@@ -59,7 +69,9 @@ public static class DatabaseHandler
         dbConnection.CreateTable<BodyInfo>();
 
         // gets the current highest id number
-        id_num = dbConnection.ExecuteScalar<int>("SELECT MAX(id) FROM Runs") + 1;
+        idNum = dbConnection.ExecuteScalar<int>("SELECT MAX(id) FROM Runs") + 1;
+        bodyIdNum = dbConnection.ExecuteScalar<int>("SELECT MAX(id) FROM Bodies") + 1;
+        itemIdNum = dbConnection.ExecuteScalar<int>("SELECT MAX(id) FROM Items") + 1;
     }
 
     /// <summary>
@@ -71,24 +83,24 @@ public static class DatabaseHandler
     public static void AddRun(Run run, List<ItemInfo> items, List<BodyInfo> bodies)
     {
         // set the id of the run and insert it into the database
-        run.ID = id_num;
-        dbConnection.Insert(run);
+        run.ID = idNum;
+        dbConnection.Execute($"INSERT INTO Runs (id, player_name, score, time, date) VALUES ({run.ID}, '{run.PlayerName}', {run.Score}, {run.Time}, {run.Date.Ticks})");
 
         // set the run id of the items and adds them to the database
         foreach (ItemInfo item in items)
         {
-            item.RunID = id_num;
-            dbConnection.Insert(item);
+            dbConnection.Execute($"INSERT INTO Items (id, item_name, run_id, item_level) VALUES ({itemIdNum}, '{item.Name}', {idNum}, {item.Level})");
+            itemIdNum++;
         }
 
         // set the run id of the bodies and adds them to the database
         foreach (BodyInfo body in bodies)
         {
-            body.RunID = id_num;
-            dbConnection.Insert(body);
+            dbConnection.Execute($"INSERT INTO Bodies (id, body_name, run_id, body_level) VALUES ({bodyIdNum}, '{body.Name}', {idNum}, {body.Level})");
+            bodyIdNum++;
         }
 
-        id_num++;
+        idNum++;
     }
 
     /// <summary>

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
 // COMPLETE
 
@@ -67,8 +69,6 @@ public class ChoiceManager : CanvasManager, IChoiceManager
             }
         }
 
-        HideButtons();
-
         // -1 is the skip button and so ignores the adding stuff
         if (button != -1)
         {
@@ -86,11 +86,6 @@ public class ChoiceManager : CanvasManager, IChoiceManager
                         body = body.next;
                     }
 
-                    if (body != null)
-                    {
-                        throw new Exception("No body matched the one to be leveled up");
-                    }
-
                     body.LevelUp();
 
                     break;
@@ -105,9 +100,15 @@ public class ChoiceManager : CanvasManager, IChoiceManager
             }
         }
 
-        state = ChoiceState.None;
+        // if the button is skip but the player  has no bodies yet, then the player must choose a body
+        if (button != -1 || gameSetup.HeadController.Head != null)
+        {
+            HideButtons();
 
-        gameSetup.ShopManager.AfterLevelUp();
+            state = ChoiceState.None;
+
+            gameSetup.ShopManager.AfterLevelUp();
+        }
     }
 
     /// <summary>

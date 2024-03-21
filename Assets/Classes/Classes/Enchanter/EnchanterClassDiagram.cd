@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Class">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBAgAQCgCgAAAAAgQAAACIABAQQAAAABAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enchanter">
+    <Position X="18" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEQAACAQAAAAAAAAgAIAAAAAAAACBAAAAABQAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Enchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blacksmith">
+    <Position X="21.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAggAAAAAAAAAABAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Blacksmith.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chameleon">
+    <Position X="18.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAACwAACAEACAAAAAAAAMBAAAgCAAABAAQBABAAIQE=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Chameleon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Healer">
+    <Position X="15.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAACQAACgAAAAAIAAAAAIAYACAAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Healer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Herbologist">
+    <Position X="12.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQAAAQAAChCAAIAAAAAABIAJAAAEAAAhICAAAAABAAQ=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Herbologist.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Pyromaniac">
+    <Position X="18.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAAAQAACAAAICAAAABAAKAIAAAAQAABEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Enchanter\Pyromaniac.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArcaneFlowerEnchanter">
+    <Position X="21.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAARAACAAAAQAAAAAgAIAAAAAAAAABAAAIABAAAAI=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\MageEnchanter\ArcaneFlower\ArcaneFlowerEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CannoneerEnchanter">
+    <Position X="15.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAQAACAAAAAAAEAAAAIAAAAAAAAABAAAEAAAAIAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherEnchanter\Cannoneer\CannoneerEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeathWardEnchanter">
+    <Position X="12.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABAAAIAKAAAAAAAAAAEAIAAAAAAAAABAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\MageEnchanter\DeathWard\DeathWardEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FairyWithAGunEnchanter">
+    <Position X="21.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAABAAAAAAAAAgAAABAAAAAAABAAAAABAAAIA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherEnchanter\FairyWithAGun\FairyWithAGunEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrinceEnchanter">
+    <Position X="15.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAACAAAAAAAAAAAgAAAAAAAAAAABAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineEnchanter\Prince\PrinceEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldmanEnchanter">
+    <Position X="18.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAgAAAIAAAAAAABAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineEnchanter\Shieldman\ShieldmanEnchanter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

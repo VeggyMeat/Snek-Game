@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CanvasManager">
+    <Position X="22" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACAAAAAAAAAAAAAAAAICAAAIAAAAAgAAIAAAAkA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\CanvasManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChoiceManager">
+    <Position X="24.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAIAAAASAAAAAoACAAIAAAEAAAAAAAEAgA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\ChoiceManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Reorganiser">
+    <Position X="22" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAACAAAgAAAGAAACAgAgQsIQAAoIAACIAAIAAQ=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\Reorganiser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SelectionManager">
+    <Position X="19.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAoAAAAIAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\SelectionManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ShopManager">
+    <Position X="17" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAIAACACGCAgABkgIAAIAAIAGAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\ShopManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="IChoiceManager">
+    <Position X="24.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAIAAAAIAAAAAAAAAAAEAgA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\IChoiceManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IReorganiser">
+    <Position X="22" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\IReorganiser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ISelectionManager">
+    <Position X="19.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAIAAAAIAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\ISelectionManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IShopManager">
+    <Position X="17" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAIAIAACAAECAAABgAIAAAAAIAGAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\IShopManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ChoiceState">
+    <Position X="27" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAEAAAg=</HashCode>
+      <FileName>Assets\Classes\ShopStuff\ChoiceState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

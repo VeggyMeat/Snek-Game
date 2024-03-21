@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BerserkerBlood">
+    <Position X="27" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAACAQAAERgAQAAAAABAAAqAAAAAAAAABAAIgw=</HashCode>
+      <FileName>Assets\Classes\Items\BerserkerBlood.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BigBullet">
+    <Position X="24" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAAAoACAAACAAABAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\BigBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CactusHelmet">
+    <Position X="21" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACAAAAACAAAAAAAIAAAAAABAAAAAABEAAhAQFAAAgA=</HashCode>
+      <FileName>Assets\Classes\Items\CactusHelmet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExplosiveTippedArrows">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAABgAAiAAAAAACBAAAAIABAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Classes\Items\ExplosiveTippedArrows.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeadstoneHelmet">
+    <Position X="15" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAAACAAABAAAAAQgAAABoABAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\HeadstoneHelmet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAEACAADAAAAAAAQAAACQgBAAECAAABAkAAQAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnchantersTome">
+    <Position X="27" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEEACACAQAAAAAAAQAAEAJAIACAABAAACAADAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\EnchantersTome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemManager">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAgAAAgAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KineticLauncher">
+    <Position X="24" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAACCAAAAAAAAAAAAgRAAAAAAAAAAAACJAAAAI=</HashCode>
+      <FileName>Assets\Classes\Items\KineticLauncher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MagicCap">
+    <Position X="21" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAACQQABAAAAAAgAAABAAAAAAAAAAAAABCAIAA=</HashCode>
+      <FileName>Assets\Classes\Items\MagicCap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Quiver">
+    <Position X="18" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAAgAACIAAAAADAAAAgAABAAAAAAAAAAAAAACACAA=</HashCode>
+      <FileName>Assets\Classes\Items\Quiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SteeringWheel">
+    <Position X="15" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACCgAAAAAABAAAAARAAAAAAAgAAAACAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Items\SteeringWheel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

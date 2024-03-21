@@ -552,6 +552,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2220766367218110636, guid: 8e3ec2ac04dd6584ab620d09629842a5, type: 3}
+      propertyPath: tileSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2220766367218110636, guid: 8e3ec2ac04dd6584ab620d09629842a5, type: 3}
       propertyPath: headController
       value: 
       objectReference: {fileID: 346601359}
@@ -1373,6 +1377,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6348488676775013328, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1059
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348488676775013328, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0099487
+      objectReference: {fileID: 0}
     - target: {fileID: 6348488677233639241, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
       propertyPath: headController
       value: 
@@ -1469,6 +1481,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6348488677233639247, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348488677233639247, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ccd471827a34684dbbedeb50cbb8b86, type: 3}
 --- !u!1 &6348488676818739004 stripped

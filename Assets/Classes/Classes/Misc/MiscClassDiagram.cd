@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Class">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBAgAQCgCgAAAAAgQAAACIABAQQAAAABAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bomb">
+    <Position X="18.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABACQAACgAAAAAgAAAAAIAAAIAACAABAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Misc\Bomb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engineer">
+    <Position X="15.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wgAQAQEACkAAAAAAAAEAAIABAAAgAAEBAAACAAAAABA=</HashCode>
+      <FileName>Assets\Classes\Classes\Misc\Engineer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Necro">
+    <Position X="21.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAiQAQAgCAABAAAAAAADAIABBAAAAABBAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Misc\Necro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RamHead">
+    <Position X="12.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAQAACAAAAgAQAACAAIAAAABAAAABAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Misc\RamHead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheRightHandMan">
+    <Position X="24.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACIQAACAAAAABAAAAAAIAAAAAAAAAFAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Misc\TheRightHandMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Archer">
+    <Position X="17.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgCQAACgIAAAAAAAAAAIABAAAAABABAAgAABBAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\Archer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Class">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBAgAQCgCgAAAAAgQAAACIABAQQAAAABAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BowMan">
+    <Position X="21.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAAAAAAAgAgAAAAAAAAAAAAAAABAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\BowMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gambler">
+    <Position X="18.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAgAABAACAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\Gambler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ninja">
+    <Position X="15" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAABAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\Ninja.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shotgunner">
+    <Position X="11.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAIAAAAAgAAAAAAAAAAAAAAAAADAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\Shotgunner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sniper">
+    <Position X="21.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACgAAAAAAABgAAAAAAAAAGACAAAIAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Archer\Sniper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CannoneerArcher">
+    <Position X="18.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherEnchanter\Cannoneer\CannoneerArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FairyWithAGunArcher">
+    <Position X="15" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherEnchanter\FairyWithAGun\FairyWithAGunArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MagicArcherArcher">
+    <Position X="21.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherMage\MagicArcher\MagicArcherArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MirrorMageArcher">
+    <Position X="11.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RACAAQAACAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherMage\MirrorMage\MirrorMageArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpikeLauncherArcher">
+    <Position X="18.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAIAAAAAAAAAAAAAAAAAADAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineArcher\SpikeLauncher\SpikeLauncherArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SwashbucklerArcher">
+    <Position X="15.25" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBCAAAAAiAAAAEAAAAAAEAAAAAAAAAABAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineArcher\Swashbuckler\SwashbucklerArcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

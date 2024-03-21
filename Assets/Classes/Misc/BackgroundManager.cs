@@ -30,6 +30,8 @@ public class BackgroundManager : MonoBehaviour, IBackgroundManager
     public void SetGameSetup(IGameSetup gameSetup)
     {
         this.gameSetup = gameSetup;
+
+        follow = gameSetup.HeadController.Transform;
     }
 
     /// <summary>
@@ -51,12 +53,6 @@ public class BackgroundManager : MonoBehaviour, IBackgroundManager
     /// The size of each tile (in unity units)
     /// </summary>
     [SerializeField] private float tileSize = 1;
-
-    // Called as soon as the game starts
-    private void Awake()
-    {
-        follow = gameSetup.HeadController.Transform;
-    }
 
     /// <summary>
     /// Gets the tuples of the tiles around the player that should be shown

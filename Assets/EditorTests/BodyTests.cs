@@ -3,13 +3,15 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using NSubstitute;
-using System.Text;
 using System;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public class BodyTests
 {
+    /// <summary>
+    /// The head controller prefab used in the game
+    /// </summary>
     private GameObject HeadController
     {
         get
@@ -18,6 +20,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// The shop manager prefab used in the game
+    /// </summary>
     private GameObject ShopManager
     {
         get
@@ -26,6 +31,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that creating a head controller works and does not crash
+    /// </summary>
     [Test]
     public void TestHeadCreation()
     {
@@ -41,6 +49,10 @@ public class BodyTests
         Assert.IsTrue(headController is not null);
     }
 
+    /// <summary>
+    /// Tests that telling the head to add every body in the snake works, making sure all body classes do not crash
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     [Test]
     public void TestBodyCreations()
     {
@@ -70,6 +82,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that the head position property is correct
+    /// </summary>
     [Test]
     public void TestHeadPosition()
     {
@@ -97,6 +112,9 @@ public class BodyTests
         Assert.AreEqual(randomLocation, headController.HeadPos);
     }
 
+    /// <summary>
+    /// Tests that the tail position property is correct
+    /// </summary>
     [Test]
     public void TestTailPosition()
     {
@@ -111,31 +129,26 @@ public class BodyTests
 
         headController.SetGameSetup(gameSetup);
 
-        // creates a body attatched to the snake
         headController.AddBody(shopManager.Bodies.RandomItem());
 
-        // creates a random location
         Vector2 randomLocation1 = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
-        // sets the head to that position
         headController.Head.transform.position = randomLocation1;
 
-        // checks if the tail is at the position
         Assert.AreEqual(randomLocation1, headController.TailPos);
 
-        // adds another body to the snake
         headController.AddBody(shopManager.Bodies.RandomItem());
 
-        // creates a random location
         Vector2 randomLocation2 = new Vector2(Random.Range(-100, 100), Random.Range(-100, 100));
 
-        // sets the new body to that position
         headController.Head.next.transform.position = randomLocation2;
 
-        // checks if the tail is at the position
         Assert.AreEqual(randomLocation2, headController.TailPos);
     }
 
+    /// <summary>
+    /// Tests that the length property is correct
+    /// </summary>
     [Test]
     public void TestSnakeLength()
     {
@@ -158,6 +171,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that the current bodies property is correct
+    /// </summary>
     [Test]
     public void TestCurrentBodies()
     {
@@ -184,6 +200,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that the alive bodies property is correct
+    /// </summary>
     [Test]
     public void TestAliveBodies()
     {
@@ -213,6 +232,9 @@ public class BodyTests
         Assert.AreEqual(bodyCount - 1, headController.AliveBodies);
     }
 
+    /// <summary>
+    /// Tests that every body class's name property is correct in their json files
+    /// </summary>
     [Test]
     public void TestBodiesNames()
     {
@@ -240,6 +262,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that the rearranging method for the snake works
+    /// </summary>
     [Test]
     public void TestRearrange()
     {
@@ -263,7 +288,6 @@ public class BodyTests
             bodies.Add(body);
         }
 
-        // shuffle bodies
         bodies.Shuffle();
 
         List<BodyController> bodyControllers = new List<BodyController>();
@@ -297,6 +321,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that leveling every body class up to max level does not crash anything
+    /// </summary>
     [Test]
     public void TestAllLevelling()
     {
@@ -325,12 +352,13 @@ public class BodyTests
             {
                 try
                 {
+                    // should throw an exception
                     headController.Head.LevelUp();
-                    Assert.Fail("ClockworkMagician should not level up");
+                    Assert.Fail("ClockworkMagician should not level up and should throw an exception");
                 }
                 catch
                 {
-                    // pass
+                    // expected
                 }
             }
             else
@@ -353,6 +381,9 @@ public class BodyTests
         }
     }
 
+    /// <summary>
+    /// Tests that adding every body to the same snake, and levelling all of them up to max level does not crash anything
+    /// </summary>
     [Test]
     public void TestLargeSnakeLevelling()
     {

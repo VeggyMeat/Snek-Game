@@ -1,5 +1,7 @@
 // COMPLETE
 
+using UnityEngine;
+
 /// <summary>
 /// Handles the player's selection of what they want next level
 /// </summary>
@@ -25,8 +27,6 @@ public class SelectionManager : CanvasManager, ISelectionManager
     /// <param name="button">The number corresponding to which button was clicked</param>
     public override void ButtonClicked(int button)
     {
-        HideButtons();
-
         switch (button)
         {
             case 0:
@@ -56,6 +56,8 @@ public class SelectionManager : CanvasManager, ISelectionManager
                 gameSetup.ShopManager.NextState = ChoiceState.Item;
                 break;
         }
+
+        HideButtons();
     }
 
     /// <summary>

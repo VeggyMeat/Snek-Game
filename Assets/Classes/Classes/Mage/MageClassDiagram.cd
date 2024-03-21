@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Class">
+    <Position X="13.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBAgAQCgCgAAAAAgQAAACIABAQQAAAABAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mage">
+    <Position X="17" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACSABCgAAAAAAAQAgQIAhAIAAAACBAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\Mage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CeramicAutomaton">
+    <Position X="21.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAQAACAAAAAABAAAAAIAAQIgEAAABAAEAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\CeramicAutomaton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClockworkMagician">
+    <Position X="18.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAQAACAAAgAAAAAABAKgBAIAAAMABAAAAAIgAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\ClockworkMagician.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireMage">
+    <Position X="15.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAIAQAAAAAAAAAACAAAAAAIAAAIABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\FireMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SorcererProdigy">
+    <Position X="12.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAAAAAAAABgAAAAAAAAACAAIAAIAABCAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\SorcererProdigy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spectre">
+    <Position X="12.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAYAAAAAAAAAAAAAAAIAAAIAAAIABAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\Mage\Spectre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArcaneFlowerMage">
+    <Position X="15" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\MageEnchanter\ArcaneFlower\ArcaneFlowerMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeathWardMage">
+    <Position X="18.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\MageEnchanter\DeathWard\DeathWardMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForceFieldMageMage">
+    <Position X="21.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAQAAAAAAAAAAAAAAAAAAAAAAABAAACABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineMage\ForceFieldMage\ForceFieldMageMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MagicArcherMage">
+    <Position X="21.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAEAAQAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherMage\MagicArcher\MagicArcherMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MirrorMageMage">
+    <Position X="18.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEQAACAQAAAAAAAAAAoABAAAAAAABAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\ArcherMage\MirrorMage\MirrorMageMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VampireMage">
+    <Position X="15.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQgAQAACAAAAAAAAAAAAIAIAAAgBAABAAACAQAgAAA=</HashCode>
+      <FileName>Assets\Classes\Classes\DualClass\FrontlineMage\Vampire\VampireMage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
